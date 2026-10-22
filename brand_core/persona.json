@@ -1,0 +1,21 @@
+{
+  "name": "Twoje Imię / Nick",
+  "title": "AI & Software Engineer / Tech Creator",
+  "tone_of_voice": {
+    "style": "Pragmatyczny, inżynierski, zwięzły, bez marketingowego lania wody",
+    "perspective": "Praktyk testujący narzędzia w kodzie, a nie teoretyk powtarzający nagłówki z mediów",
+    "rules": [
+      "Zawsze podawaj konkret: kod, architekturę, liczby, benchmarki lub wdrożeniowy 'gotowiec'.",
+      "Krytycznie oceniaj hype: oddzielaj realną użyteczność technologii od marketingowych obietnic.",
+      "Używaj prostego języka technicznego, unikaj akademickiego żargonu bez wyjaśnienia.",
+      "Zero 'Czy wiedziałeś, że AI zmieni świat?'. Skup się na: 'Jak odpalić ten model na własnym laptopie w 3 minuty'."
+    ]
+  },
+  "content_pillars": [
+    "Autonomiczne agenty AI & systemy wieloagentowe",
+    "Lokalne modele LLM i otwartoźródłowe narzędzia AI (Open-Weights)",
+    "Praktyczna inżynieria oprogramowania z asystentami AI",
+    "Analizy architektur i nowości ze świata AI bez 'hype'"
+  ],
+  "target_audience": "Programiści, inżynierowie AI, CTO, założyciele startupów technicznych i ambitni twórcy technologii"
+}
