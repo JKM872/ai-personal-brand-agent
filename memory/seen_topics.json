@@ -3,7 +3,8 @@
     "https://github.com/NVIDIA/OpenShell",
     "https://www.modelcompare.ai/blog/ai-models-controversial-take-on-humans",
     "http://arxiv.org/abs/2610.31667v1",
-    "https://arxiv.org/abs/2610.27251"
+    "https://arxiv.org/abs/2610.27251",
+    "https://simedw.com/2026/10/21/world-model-terminal/"
   ],
   "runs": [
     {
@@ -37,6 +38,14 @@
       "url": "https://arxiv.org/abs/2610.27251",
       "score": 44.0,
       "folder": "2026-10-23_0342_ai-and-the-enclosure-of-the-scientific-c"
+    },
+    {
+      "timestamp": "2026-10-23 11:12:13",
+      "title": "WorldTUI: I trained a 360M model to pretend to be a terminal",
+      "source": "Hacker News",
+      "url": "https://simedw.com/2026/10/21/world-model-terminal/",
+      "score": 60,
+      "folder": "2026-10-23_1112_worldtui-i-trained-a-360m-model-to-prete"
     }
   ]
 }
