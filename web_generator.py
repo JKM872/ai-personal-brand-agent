@@ -91,6 +91,11 @@ def build_web_dashboard():
     runs_list = memory.get("runs", [])
     sync_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+    projects_json_str = json.dumps(active_projects, ensure_ascii=False).replace("</script>", r"<\/script>")
+    bundles_json_str = json.dumps(bundles_by_project, ensure_ascii=False).replace("</script>", r"<\/script>")
+    personas_json_str = json.dumps(personas, ensure_ascii=False).replace("</script>", r"<\/script>")
+    pipeline_json_str = json.dumps(scheduled_pipeline, ensure_ascii=False).replace("</script>", r"<\/script>")
+
     html_content = f"""<!DOCTYPE html>
 <html lang="pl" class="dark">
 <head>
@@ -100,7 +105,7 @@ def build_web_dashboard():
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"><\/script>
   <script>
     tailwind.config = {{
       darkMode: 'class',
@@ -113,7 +118,7 @@ def build_web_dashboard():
         }}
       }}
     }}
-  </script>
+  <\/script>
   <style>
     :root {{
       --bg-canvas: #05060A;
@@ -560,10 +565,10 @@ def build_web_dashboard():
   </div>
 
   <script>
-    let projectsList = {json.dumps(active_projects, ensure_ascii=False)};
-    let bundlesByProject = {json.dumps(bundles_by_project, ensure_ascii=False)};
-    const personasList = {json.dumps(personas, ensure_ascii=False)};
-    const pipelineList = {json.dumps(scheduled_pipeline, ensure_ascii=False)};
+    let projectsList = {projects_json_str};
+    let bundlesByProject = {bundles_json_str};
+    const personasList = {personas_json_str};
+    const pipelineList = {pipeline_json_str};
 
     // Restore custom projects & bundles from localStorage if user created/edited in UI
     const savedProjs = localStorage.getItem('polsia_projects_v2');
@@ -765,7 +770,7 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
         "url": purl,
         "applicationCategory": pcat,
         "description": pprob
-      }}, null, 2)}}\n</script>`;
+      }}, null, 2)}}\n<\/script>`;
 
       return {{
         folder_name: `live_${{proj.id}}_${{dateStr}}`,
