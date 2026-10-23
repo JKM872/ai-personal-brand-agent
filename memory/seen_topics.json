@@ -2,7 +2,8 @@
   "processed_urls": [
     "https://github.com/NVIDIA/OpenShell",
     "https://www.modelcompare.ai/blog/ai-models-controversial-take-on-humans",
-    "http://arxiv.org/abs/2610.31667v1"
+    "http://arxiv.org/abs/2610.31667v1",
+    "https://arxiv.org/abs/2610.27251"
   ],
   "runs": [
     {
@@ -28,6 +29,14 @@
       "url": "http://arxiv.org/abs/2610.31667v1",
       "score": 45,
       "folder": "2026-10-23_0528_direct-pass-k-optimization-for-thought-p"
+    },
+    {
+      "timestamp": "2026-10-23 03:42:46",
+      "title": "AI and the Enclosure of the Scientific Commons",
+      "source": "Hacker News",
+      "url": "https://arxiv.org/abs/2610.27251",
+      "score": 44.0,
+      "folder": "2026-10-23_0342_ai-and-the-enclosure-of-the-scientific-c"
     }
   ]
 }
