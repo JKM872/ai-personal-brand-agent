@@ -29,6 +29,7 @@ from agents.writers.newsletter_writer import generate_newsletter_content
 from agents.writers.video_writer import generate_video_content
 from agents.writers.github_writer import generate_github_content
 from publishers.social_publisher import dispatch_content_bundle
+from web_generator import build_web_dashboard
 
 def slugify(text):
     text = text.lower()
@@ -116,8 +117,12 @@ def run_brand_engine():
     pub_status = dispatch_content_bundle(primary_topic, bundle, queue_dir)
     print(f"   Status publikacji: {pub_status['status_summary']}")
     
-    # 7. Update DASHBOARD.md & Log
-    print("📊 [5/5] Aktualizacja DASHBOARD.md i historii uruchomień...")
+    # 7. Update DASHBOARD.md & Web Dashboard & Log
+    print("📊 [5/5] Aktualizacja DASHBOARD.md i public/index.html (Cloudflare)...")
+    try:
+        build_web_dashboard()
+    except Exception as e:
+        print(f"[WARN] Błąd generatora web: {e}")
     mem_data = load_memory()
     recent_runs = list(reversed(mem_data.get("runs", [])))[:10]
     
