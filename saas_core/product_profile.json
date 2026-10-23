@@ -1,0 +1,23 @@
+{
+  "product_name": "Nazwa Twojego SaaS",
+  "tagline": "Jedno zwięzłe zdanie wyjaśniające, co robi produkt",
+  "website_url": "https://twoja-domena.pl",
+  "pricing_model": "Darmowy okres próbny / Freemium / Subskrypcja od XX zł/mc",
+  "category": "Narzędzie AI / Automatyzacja / Produktywność",
+  "target_audience": "Przedsiębiorcy, inżynierowie, twórcy cyfrowi, agencje",
+  "primary_problem_solved": "Opisz w 1-2 zdaniach ból klienta (np. ręczne tracenie 4 godzin dziennie na pisanie postów lub research)",
+  "key_features": [
+    "Kluczowa funkcja 1 (np. Pełna automatyzacja procesu w 1 kliknięcie)",
+    "Kluczowa funkcja 2 (np. Integracja z wieloma platformami)",
+    "Kluczowa funkcja 3 (np. Bezpieczeństwo i brak ryzyka blokad)"
+  ],
+  "competitors_for_comparison": [
+    "Tradycyjne drogie narzędzia korporacyjne",
+    "Ręczna praca ludzka",
+    "Podstawowy czat bez automatyzacji"
+  ],
+  "call_to_action": {
+    "text": "Wypróbuj za darmo przez 14 dni",
+    "url": "https://twoja-domena.pl/register"
+  }
+}

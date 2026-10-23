@@ -37,6 +37,7 @@ def build_web_dashboard():
     
     if latest_folder:
         files = {
+            "seo_article": "0_WEBSITE_SEO_ARTICLE.md",
             "linkedin_post": "1_LINKEDIN_POST.md",
             "linkedin_carousel": "2_LINKEDIN_CAROUSEL.md",
             "twitter_thread": "3_TWITTER_THREAD.md",
@@ -141,7 +142,8 @@ def build_web_dashboard():
 
       <!-- Navigation Tabs -->
       <div class="mt-6 flex flex-wrap gap-2 border-b border-slate-800 pb-3" id="tab-nav">
-        <button onclick="switchTab('linkedin')" id="tab-btn-linkedin" class="px-3.5 py-1.5 rounded-lg text-sm font-medium bg-indigo-600 text-white transition">💼 LinkedIn Post</button>
+        <button onclick="switchTab('article')" id="tab-btn-article" class="px-3.5 py-1.5 rounded-lg text-sm font-medium bg-emerald-600 text-white transition">🌐 Artykuł SEO / GEO</button>
+        <button onclick="switchTab('linkedin')" id="tab-btn-linkedin" class="px-3.5 py-1.5 rounded-lg text-sm font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition">💼 LinkedIn Post</button>
         <button onclick="switchTab('carousel')" id="tab-btn-carousel" class="px-3.5 py-1.5 rounded-lg text-sm font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition">📑 Karuzela PDF</button>
         <button onclick="switchTab('twitter')" id="tab-btn-twitter" class="px-3.5 py-1.5 rounded-lg text-sm font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition">🐦 X / Twitter Thread</button>
         <button onclick="switchTab('newsletter')" id="tab-btn-newsletter" class="px-3.5 py-1.5 rounded-lg text-sm font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition">📰 Newsletter</button>
@@ -197,9 +199,10 @@ def build_web_dashboard():
     const dataStore = {json.dumps(latest_data, ensure_ascii=False)};
     const historyStore = {json.dumps(memory.get("runs", []), ensure_ascii=False)};
 
-    let currentTab = 'linkedin';
+    let currentTab = 'article';
 
     const tabMap = {{
+      'article': {{ key: 'seo_article', label: 'Artykuł SEO / GEO (Pod blog i wyszukiwarki AI)' }},
       'linkedin': {{ key: 'linkedin_post', label: 'LinkedIn Post' }},
       'carousel': {{ key: 'linkedin_carousel', label: 'Konspekt Karuzeli PDF' }},
       'twitter': {{ key: 'twitter_thread', label: 'X / Twitter Thread' }},
@@ -259,7 +262,7 @@ def build_web_dashboard():
     }}
 
     // Initial load
-    switchTab('linkedin');
+    switchTab('article');
   </script>
 </body>
 </html>

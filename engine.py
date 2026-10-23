@@ -28,6 +28,7 @@ from agents.writers.twitter_writer import generate_twitter_content
 from agents.writers.newsletter_writer import generate_newsletter_content
 from agents.writers.video_writer import generate_video_content
 from agents.writers.github_writer import generate_github_content
+from agents.geo_seo_engine import generate_geo_article, load_product_profile
 from publishers.social_publisher import dispatch_content_bundle
 from web_generator import build_web_dashboard
 
@@ -81,12 +82,21 @@ def run_brand_engine():
     print(f"   🏆 WYBRANO: {primary_topic['title']} ({primary_topic['source']} | Score: {primary_topic.get('curator_score', 0)})")
     
     # 4. Generate Content via Multi-Agent Swarm
-    print("✍️  [3/5] Ghostwriterzy tworzą paczkę na 5 platform...")
+    print("✍️  [3/5] Ghostwriterzy tworzą paczkę na 5 platform + Artykuł SEO/GEO...")
     li_data = generate_linkedin_content(primary_topic, persona)
     tw_data = generate_twitter_content(primary_topic, persona)
     nl_data = generate_newsletter_content(primary_topic, persona, secondaries)
     vid_data = generate_video_content(primary_topic, persona)
     gh_data = generate_github_content(primary_topic, persona)
+    
+    # Generate SEO & GEO article for the SaaS
+    try:
+        saas_profile = load_product_profile()
+        geo_res = generate_geo_article(primary_topic['title'], saas_profile)
+        print(f"   🌐 Wygenerowano artykuł SEO/GEO: {geo_res['title']}")
+    except Exception as e:
+        print(f"[WARN] Błąd generatora GEO/SEO: {e}")
+        geo_res = None
     
     bundle = {
         "linkedin": li_data,
@@ -102,6 +112,9 @@ def run_brand_engine():
     queue_dir = base_dir / "queue" / f"{stamp_str}_{topic_slug}"
     queue_dir.mkdir(parents=True, exist_ok=True)
     
+    if geo_res and geo_res.get("markdown"):
+        (queue_dir / "0_WEBSITE_SEO_ARTICLE.md").write_text(geo_res["markdown"], encoding="utf-8")
+
     (queue_dir / "1_LINKEDIN_POST.md").write_text(li_data["post"], encoding="utf-8")
     (queue_dir / "2_LINKEDIN_CAROUSEL.md").write_text(li_data["carousel"], encoding="utf-8")
     (queue_dir / "3_TWITTER_THREAD.md").write_text(tw_data["thread"] + "\n\n### Standalone Hooks:\n" + "\n\n".join(tw_data["standalone_hooks"]), encoding="utf-8")
@@ -152,6 +165,7 @@ def run_brand_engine():
 
 | Kanał | Zawartość | Plik Gotowy | Status Konta |
 |---|---|---|---|
+| **Artykuł SEO / GEO** | Długi artykuł na blog + optymalizacja pod ChatGPT/Perplexity | [0_WEBSITE_SEO_ARTICLE.md](file:///{queue_dir.as_posix()}/0_WEBSITE_SEO_ARTICLE.md) | `GOTOWY DO CMS` |
 | **LinkedIn Post** | Post ekspercki + pytanie do dyskusji | [1_LINKEDIN_POST.md](file:///{queue_dir.as_posix()}/1_LINKEDIN_POST.md) | `{pub_status['dispatches'].get('linkedin', 'QUEUED')}` |
 | **LinkedIn Karuzela** | Konspekt 5 slajdów PDF | [2_LINKEDIN_CAROUSEL.md](file:///{queue_dir.as_posix()}/2_LINKEDIN_CAROUSEL.md) | `GOTOWE` |
 | **X / Twitter** | Wątek 5 tweetów + 2 hooki | [3_TWITTER_THREAD.md](file:///{queue_dir.as_posix()}/3_TWITTER_THREAD.md) | `{pub_status['dispatches'].get('twitter_x', 'QUEUED')}` |

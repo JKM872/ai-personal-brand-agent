@@ -4,8 +4,7 @@
     "https://www.modelcompare.ai/blog/ai-models-controversial-take-on-humans",
     "http://arxiv.org/abs/2610.31667v1",
     "https://arxiv.org/abs/2610.27251",
-    "https://simedw.com/2026/10/21/world-model-terminal/",
-    "http://arxiv.org/abs/2610.31657v1"
+    "https://github.com/Leonxlnx/earshot"
   ],
   "runs": [
     {
@@ -41,20 +40,12 @@
       "folder": "2026-10-23_0342_ai-and-the-enclosure-of-the-scientific-c"
     },
     {
-      "timestamp": "2026-10-23 11:12:13",
-      "title": "WorldTUI: I trained a 360M model to pretend to be a terminal",
-      "source": "Hacker News",
-      "url": "https://simedw.com/2026/10/21/world-model-terminal/",
-      "score": 60,
-      "folder": "2026-10-23_1112_worldtui-i-trained-a-360m-model-to-prete"
-    },
-    {
-      "timestamp": "2026-10-23 16:40:26",
-      "title": "Cost-Aware Abstention for LLM-Based IT Ticket Classification",
-      "source": "ArXiv",
-      "url": "http://arxiv.org/abs/2610.31657v1",
-      "score": 30,
-      "folder": "2026-10-23_1640_cost-aware-abstention-for-llm-based-it-t"
+      "timestamp": "2026-10-23 20:47:34",
+      "title": "Leonxlnx/earshot",
+      "source": "GitHub",
+      "url": "https://github.com/Leonxlnx/earshot",
+      "score": 39.1,
+      "folder": "2026-10-23_2047_leonxlnx-earshot"
     }
   ]
 }

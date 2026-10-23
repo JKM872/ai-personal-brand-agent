@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-10-23 20:47:34",
+  "mode": "dry_run",
+  "topic": "Leonxlnx/earshot",
+  "dispatches": {
+    "linkedin": "QUEUED_FOR_AUTO_PUBLISH",
+    "twitter_x": "QUEUED_FOR_AUTO_PUBLISH",
+    "github": "QUEUED_FOR_AUTO_PUBLISH",
+    "webhook_automation": "QUEUED_FOR_AUTO_PUBLISH",
+    "telegram_notifier": "QUEUED_FOR_AUTO_PUBLISH"
+  },
+  "status_summary": "GOTOWE W KOLEJCE (Tryb Dry-Run — konta jeszcze niepodpięte)"
+}
