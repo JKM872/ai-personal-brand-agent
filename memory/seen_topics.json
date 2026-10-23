@@ -1,0 +1,33 @@
+{
+  "processed_urls": [
+    "https://github.com/NVIDIA/OpenShell",
+    "https://www.modelcompare.ai/blog/ai-models-controversial-take-on-humans",
+    "http://arxiv.org/abs/2610.31667v1"
+  ],
+  "runs": [
+    {
+      "timestamp": "2026-10-23 05:26:59",
+      "title": "OpenShell – A safe, private runtime for fleets of autonomous AI agents",
+      "source": "Hacker News",
+      "url": "https://github.com/NVIDIA/OpenShell",
+      "score": 90,
+      "folder": "2026-10-23_0526_openshell-a-safe-private-runtime-for-fle"
+    },
+    {
+      "timestamp": "2026-10-23 05:27:12",
+      "title": "Every AI model has the same \"controversial\" take on humans",
+      "source": "Hacker News",
+      "url": "https://www.modelcompare.ai/blog/ai-models-controversial-take-on-humans",
+      "score": 60,
+      "folder": "2026-10-23_0527_every-ai-model-has-the-same-controversia"
+    },
+    {
+      "timestamp": "2026-10-23 05:28:23",
+      "title": "Direct Pass@$k$ Optimization for Thought Pruning: Balancing Quality and Diversity in Test-Time Reasoning",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2610.31667v1",
+      "score": 45,
+      "folder": "2026-10-23_0528_direct-pass-k-optimization-for-thought-p"
+    }
+  ]
+}

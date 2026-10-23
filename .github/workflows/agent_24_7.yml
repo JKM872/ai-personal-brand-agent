@@ -1,0 +1,40 @@
+name: 🚀 AI Brand Agent 24/7 (Cloud Server)
+
+on:
+  # Uruchamia się automatycznie co 6 godzin na serwerach GitHuba (nawet gdy Twój laptop jest wyłączony)
+  schedule:
+    - cron: '0 */6 * * *'
+  # Pozwala też uruchomić ręcznie jednym kliknięciem w zakładce "Actions" na GitHubie lub z telefonu
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run-brand-agent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Pobranie kodu repozytorium
+        uses: actions/checkout@v4
+
+      - name: 🐍 Konfiguracja Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 🚀 Uruchomienie cyklu Agenta 24/7
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python engine.py
+
+      - name: 💾 Zapisanie nowych postów, pamięci i DASHBOARD.md na serwerze
+        run: |
+          git config --global user.name "AI Brand Agent 24/7"
+          git config --global user.email "agent@noreply.github.com"
+          git add queue/ memory/ DASHBOARD.md logs/
+          git diff --staged --quiet || git commit -m "🤖 Auto-run: nowa paczka postów AI [skip ci]"
+          git push

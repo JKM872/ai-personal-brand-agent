@@ -1,0 +1,36 @@
+{
+  "mode": "dry_run",
+  "comment": "Zmień 'mode' na 'live', gdy podepniesz klucze API lub Webhook poniżej.",
+  "schedule_interval_hours": 6,
+  "channels": {
+    "linkedin": {
+      "enabled": false,
+      "access_token": "TWÓJ_LINKEDIN_ACCESS_TOKEN",
+      "author_urn": "urn:li:person:TWOJE_ID"
+    },
+    "twitter_x": {
+      "enabled": false,
+      "api_key": "TWÓJ_X_API_KEY",
+      "api_secret": "TWÓJ_X_API_SECRET",
+      "access_token": "TWÓJ_X_ACCESS_TOKEN",
+      "access_token_secret": "TWÓJ_X_ACCESS_SECRET",
+      "bearer_token": "TWÓJ_X_BEARER_TOKEN"
+    },
+    "github": {
+      "enabled": false,
+      "personal_access_token": "ghp_TWÓJ_GITHUB_TOKEN",
+      "target_repo": "twoj-nick/ai-daily-demos"
+    },
+    "webhook_automation": {
+      "enabled": false,
+      "comment": "Najprostszy sposób: podepnij jeden adres Webhook z Make.com, n8n lub Zapier, który rozsyła posty na wszystkie konta naraz.",
+      "webhook_url": "https://hook.eu1.make.com/TWOJ_WEBHOOK"
+    },
+    "telegram_notifier": {
+      "enabled": false,
+      "comment": "Powiadomienia na telefon z gotowym postem do akceptacji 1 kliknięciem",
+      "bot_token": "TWÓJ_TELEGRAM_BOT_TOKEN",
+      "chat_id": "TWÓJ_CHAT_ID"
+    }
+  }
+}
