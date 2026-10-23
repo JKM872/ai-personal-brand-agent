@@ -9,7 +9,9 @@
     "https://github.com/cranebeaker/coop-anything",
     "http://arxiv.org/abs/2610.31657v1",
     "http://arxiv.org/abs/2610.31656v1",
-    "http://arxiv.org/abs/2610.31650v1"
+    "http://arxiv.org/abs/2610.31650v1",
+    "http://arxiv.org/abs/2610.31646v1",
+    "https://github.com/rociiu/talorys"
   ],
   "runs": [
     {
@@ -91,6 +93,22 @@
       "url": "http://arxiv.org/abs/2610.31650v1",
       "score": 30,
       "folder": "2026-10-23_2126_proj_demo_client_episem-bench-evaluating-safety-and-evide"
+    },
+    {
+      "timestamp": "2026-10-23 21:42:20",
+      "title": "Low-Bit N-Gram Embeddings for Language Models",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2610.31646v1",
+      "score": 30,
+      "folder": "2026-10-23_2141_proj_polsia_zero_low-bit-n-gram-embeddings-for-language-m"
+    },
+    {
+      "timestamp": "2026-10-23 21:42:20",
+      "title": "rociiu/talorys",
+      "source": "GitHub",
+      "url": "https://github.com/rociiu/talorys",
+      "score": 28.8,
+      "folder": "2026-10-23_2141_proj_demo_client_rociiu-talorys"
     }
   ]
 }

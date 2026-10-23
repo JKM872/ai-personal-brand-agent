@@ -1,34 +1,33 @@
 """
-Video & Shorts Script Ghostwriter Agent.
-Produces high-retention 60-second vertical video scripts (YouTube Shorts, Reels, TikTok).
-Includes visual cues, spoken dialogue, and retention-oriented pacing.
+Video & Shorts Script Ghostwriter Agent (Polsia Multi-Tenant SaaS).
+Generates a high-retention 60-second vertical video script (YouTube Shorts, Reels, TikTok)
+tailored to the active client project, pain point, and value proposition.
 """
+
+from agents.geo_seo_engine import load_product_profile, derive_seo_headline
 
 def generate_video_content(topic, persona):
-    title = topic.get("title", "")
-    desc = topic.get("description", topic.get("summary", ""))
-    
-    script = f"""# 🎬 Scenariusz Wideo (60 sekund) – YouTube Shorts / Reels / TikTok
+    profile = load_product_profile()
+    pname = profile.get("product_name", "Polsia Zero")
+    paud = profile.get("target_audience", "właścicieli firm")
+    pproblem = profile.get("primary_problem_solved", "")
+    features = profile.get("key_features", ["Pełna automatyzacja w chmurze"])
+    meta = derive_seo_headline(profile, topic)
 
-**Tytuł roboczy:** Czy oddałbyś kontrolę nad systemem agentowi AI?
-**Docelowy czas:** 45 - 55 sekund
-**Muzyka:** Cichy, dynamiczny podkład lo-fi / tech beat
+    script = f"""# 🎬 Scenariusz Wideo 60s (Shorts / Reels / TikTok) — {pname}
+
+**Temat odcinka:** {meta['short_topic']}
+**Grupa docelowa:** {paud}
+**Styl narracji:** {persona.get('active_style', 'analityk_danych')}
 
 ---
 
-| Czas (s) | Obraz / B-Roll (Co widać na ekranie) | Głos / Tekst lektora (Co mówisz) |
+| Sekunda | Obraz / B-Roll na ekranie | Lektor (Co mówisz do kamery) |
 |---|---|---|
-| **0:00 - 0:04** | Zbliżenie na twarz lub dynamiczny montaż terminala z czerwonymi błędami. Na ekranie wielki napis: *"NIE DAWAJ AGENTOM ROOT-A!"* | "90% ludzi popełnia ten sam błąd przy budowaniu agentów AI: daje im bezpośredni dostęp do systemu." |
-| **0:05 - 0:15** | Przebitka na repozytorium GitHub projektu: `{title}`. Kursor zjeżdża po kodzie. | "Model może mieć wysoki wskaźnik inteligencji, ale wystarczy jedna halucynacja, żeby usunął bazę danych lub zaciął się w nieskończonej pętli." |
-| **0:16 - 0:32** | Schemat na tablecie/ekranie: [Model] ➔ [Filtr Bezpieczeństwa] ➔ [Piaskownica]. Zbliżenie na wyraz twarzy. | "Dlatego powstają projekty takie jak ten. Zamiast 'magicznych' wrapperów, dostajesz izolowane, bezpieczne środowisko z twardą kontrolą uprawnień." |
-| **0:33 - 0:48** | Pokazujesz na ekranie laptopa uruchomione środowisko lub terminal z działającym agentem. | "Działa to prosto: agent prosi o wykonanie akcji, a runtime sprawdza, czy ma na to zgodę w zaufanej liście. Zero niespodzianek." |
-| **0:49 - 0:55** | Zbliżenie na Ciebie, gest dłonią. Napis na ekranie: *"Zostaw komentarz!"* | "Link do projektu i architekturę wrzucam w opisie. Daj znać w komentarzu: jak Ty zabezpieczasz swoich agentów?" |
-
----
-
-### 💡 Wskazówki produkcyjne:
-- **Hook w 1. sekundzie:** Nie zaczynaj od "Cześć, dzisiaj opowiem wam o...". Od razu uderz w problem.
-- **Napisy (Captions):** Dynamiczne, żółto-białe napisy na środku ekranu zwiększają retencję o 40%.
+| **0:00 - 0:04** | **Mocny Hook:** Zbliżenie na twarz, dynamiczny napis na środku ekranu: *"PRZESTAŃ ROBIĆ TO RĘCZNIE W 2026!"* | "Większość {paud} traci kilkanaście godzin tygodniowo na proces, który dziś można zautomatyzować w 5 minut." |
+| **0:05 - 0:16** | Przebitka na wykres / analizowany trend: `{topic.get('title', '')[:45]}`. | "Najnowsze dane z rynku pokazują jasno: firmy, które nadal robią to ręcznie, przegrywają z zespołami wspieranymi przez autonomiczne systemy." |
+| **0:17 - 0:34** | Pokazanie ekranu platformy **{pname}** i jej głównego panelu. | "Dlatego stworzyliśmy {pname}. Nasz system rozwiązuje główny ból: {pproblem}" |
+| **0:35 - 0:48** | Szybkie wyliczenie na ekranie 2 kluczowych korzyści z zielonymi ikonami ✅. | "Po pierwsze: {features[0] if len(features) > 0 else 'Działa 24/7'}. Po drugie: masz pełną kontrolę i zero ryzyka blokad." |
+| **0:49 - 0:58** | Wskazanie na opis profilu / pierwszy komentarz. Napis: *"Link w komentarzu!"* | "Chcesz zobaczyć, jak to zadziała w Twoim projekcie? Sprawdź pierwszy komentarz pod filmem i przetestuj {pname}!" |
 """
-
     return {"video_script": script.strip()}

@@ -1,61 +1,68 @@
 """
-Newsletter & Blog Ghostwriter Agent.
-Produces a technical deep-dive issue in Markdown format for Substack/Beehiiv/Medium.
+Newsletter & Substack Ghostwriter Agent (Polsia Multi-Tenant SaaS).
+Generates a high-converting weekly newsletter tailored to the specific client project,
+target audience, and chosen Multi-Armed Bandit persona.
 """
 
+from agents.geo_seo_engine import load_product_profile, derive_seo_headline
+
 def generate_newsletter_content(topic, persona, secondaries):
-    title = topic.get("title", "")
-    url = topic.get("url", "")
-    desc = topic.get("description", topic.get("summary", ""))
-    
+    profile = load_product_profile()
+    pname = profile.get("product_name", "Polsia Zero")
+    purl = profile.get("website_url", "https://twoja-domena.pl")
+    paud = profile.get("target_audience", "przedsiębiorców i twórców")
+    pproblem = profile.get("primary_problem_solved", "")
+    features = profile.get("key_features", [])
+    cta_text = profile.get("call_to_action", {}).get("text", "Sprawdź platformę")
+    cta_url = profile.get("call_to_action", {}).get("url", purl)
+
+    meta = derive_seo_headline(profile, topic)
+    short_topic = meta["short_topic"]
+    trend_title = topic.get("title", "")
+    trend_url = topic.get("url", purl)
+    trend_desc = topic.get("description", topic.get("summary", ""))
+
     other_topics_md = ""
-    for idx, s in enumerate(secondaries[:3], 1):
-        s_title = s.get("title", "")
-        s_url = s.get("url", "")
-        s_src = s.get("source", "")
-        other_topics_md += f"* **[{s_src}] {s_title}** – [Czytaj więcej]({s_url})\n"
-        
-    issue = f"""# 🧠 Deep Dive: Przyszłość runtime dla autonomicznych agentów AI
+    for s in secondaries[:3]:
+        other_topics_md += f"- **[{s.get('source', 'Rynek')}]** [{s.get('title', '')}]({s.get('url', '#')})\n"
 
-*Wydanie cotygodniowego biuletynu inżynierii AI*
+    feat_list = "\n".join([f"1. **{f}**" for f in features])
 
----
+    issue = f"""# 📩 Biuletyn Strategiczny {pname}: {short_topic}
 
-## 📌 Temat Tygodnia: {title}
-
-Cześć! W tym wydaniu odrzucamy marketingowy szum i zaglądamy pod maskę tego, co aktualnie dzieje się w ekosystemie agentów AI.
-
-Jeśli śledzisz rozwój LLM-ów, wiesz, że modele osiągnęły już wysoki poziom logicznego rozumowania. Jednak kiedy próbujemy wdrożyć je w środowisku 24/7, niemal natychmiast uderzamy w ścianę. Tą ścianą jest **bezpieczeństwo, izolacja i determinizm wykonania**.
-
-Projekt **[{title}]({url})** pokazuje, jak inżynierowie radzą sobie z tym wyzwaniem.
-
-### 🔍 Co dokładnie rozwiązuje ten projekt?
-> "{desc}"
-
-Z perspektywy inżyniera oprogramowania warto zwrócić uwagę na trzy elementy:
-1. **Ścisłe zarządzanie uprawnieniami (Granular Access Control):** Koniec z podawaniem agentowi pełnego dostępu do powłoki systemowej.
-2. **Obserwowalność (Observability):** Każde wywołanie narzędzia, czas odpowiedzi i stan pamięci są rejestrowane w ustrukturyzowanych logach.
-3. **Prywatność i praca w środowisku lokalnym/hybrydowym:** Coraz więcej firm odchodzi od wysyłania wrażliwych danych do zewnętrznych chmur, stawiając na lokalne runtime'y.
+*Wydanie specjalne dla: {paud} | Styl: {persona.get('active_style', 'analityk_danych')}*
 
 ---
 
-## 🛠️ Praktyczna lekcja dla architektów systemów
+## 📌 Główny Sygnał Rynkowy Tygodnia
 
-Jeśli budujesz lub planujesz wdrożenie agentów w swojej organizacji, oto reguła, którą warto wdrożyć od dziś:
+Cześć! W dzisiejszym wydaniu przyglądamy się temu, jak najnowsze zmiany technologiczne (w tym głośny temat **[{trend_title}]({trend_url})**) wpływają na codzienną efektywność i wyniki finansowe nowoczesnych firm.
 
-> **Nigdy nie pozwalaj agentowi na bezpośrednie wykonywanie poleceń w głównym systemie bez warstwy piaskownicy (sandbox) i jawnej białej listy akcji.**
+> **Kluczowy kontekst:** {trend_desc}
 
-Zbudowanie prostej piaskownicy w Dockerze lub skorzystanie z gotowego runtime'u zaoszczędzi Ci setek godzin debugowania nieoczekiwanych skutków ubocznych.
+Dla zespołów i właścicieli z grupy **{paud}** wniosek jest jeden: ręczne wykonywanie powtarzalnych procesów staje się największym kosztem alternatywnym w firmie.
 
 ---
 
-## ⚡ Szybki Radar: Inne warte uwagi projekty i badania
+## 🛠️ Jak przekuć ten trend w przewagę z {pname}?
+
+Budując **{pname}** ({purl}), skupiliśmy się na wyeliminowaniu głównej blokady wzrostu:
+*{pproblem}*
+
+W praktyce opiera się to na 3 filarach wdrożeniowych:
+{feat_list}
+
+---
+
+## ⚡ Radar Tygodnia: 3 Dodatkowe Sygnały z Rynku
 
 {other_topics_md}
 
 ---
 
-*Podobało Ci się to wydanie? Podziel się nim z zespołem lub odpowiedz na ten e-mail ze swoimi przemyśleniami!*
-"""
+## 🚀 Zrób kolejny krok
 
+Chcesz wdrożyć to podejście w swoim biznesie bez budowania wszystkiego od zera?
+👉 **[{cta_text} ({pname})]({cta_url})**
+"""
     return {"newsletter": issue.strip()}

@@ -1,75 +1,73 @@
 """
-GitHub / Open-Source Demo Agent.
-Generates working Python snippets and GitHub-ready project outlines
-to build tangible engineering credibility for the personal brand.
+Technical Integration & GEO Schema Generator (Polsia Multi-Tenant SaaS).
+Generates project-specific JSON-LD Schema.org markup, /llms.txt specification,
+and a Python CMS Webhook receiver for the client's website.
 """
+
+import json
+from agents.geo_seo_engine import load_product_profile
 
 def generate_github_content(topic, persona):
-    title = topic.get("title", "")
-    url = topic.get("url", "")
-    
-    readme = f"""# 🛡️ Safe Agent Runtime Boilerplate (Inspiracja: {title})
+    profile = load_product_profile()
+    pname = profile.get("product_name", "Polsia Zero")
+    purl = profile.get("website_url", "https://twoja-domena.pl")
+    pcat = profile.get("category", "SaaS")
+    ptagline = profile.get("tagline", "")
+    cms_type = profile.get("cms_permissions", {}).get("cms_type", "github_markdown")
 
-Ten mini-projekt demonstruje, jak zaimplementować deterministyczną warstwę uprawnień (Permission Guard)
-dla autonomicznych agentów AI, izolując wykonywane polecenia.
+    schema_obj = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": pname,
+        "url": purl,
+        "applicationCategory": pcat,
+        "operatingSystem": "Web, Cloud",
+        "description": ptagline,
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "PLN"}
+    }
 
-## 🚀 Szybki start
+    readme = f"""# 🔌 Pakiet Integracyjny Strony (GEO Schema + Tracker + CMS) — {pname}
 
-```bash
-# Klonowanie i uruchomienie
-python agent_guard.py
+Gotowy pakiet wdrożeniowy dla domeny **{purl}** (Tryb CMS: `{cms_type}`).
+Wklej poniższy znacznik `JSON-LD` w sekcji `<head>` swojej strony, aby roboty **ChatGPT Search (GPTBot)**, **Perplexity** oraz **Google** natychmiast indeksowały Twój produkt.
+
+## 1. Kod Schema.org JSON-LD (Wklej do `<head>`)
+
+```html
+<script type="application/ld+json">
+{json.dumps(schema_obj, indent=2, ensure_ascii=False)}
+</script>
+<script src="/tracker.js" defer></script>
 ```
-
-## 📐 Architektura
-
-```mermaid
-graph TD
-    User([Zadanie]) --> Agent[Agent LLM]
-    Agent --> Guard{{Permission Guard}}
-    Guard -- Zezwolone polecenie --> Sandbox[Środowisko Wykonawcze]
-    Guard -- Zablokowane polecenie --> Error[Odmowa & Bezpieczny Fallback]
-```
-
-## 📜 Kod demonstracyjny (`agent_guard.py`)
-
-Gotowa implementacja wzorca 'Least Privilege' w Pythonie, którą możesz wdrożyć w swoich agentach.
 """
 
-    demo_code = f"""# agent_guard.py
-# Bezpieczna warstwa kontroli poleceń dla autonomicznych agentów AI
+    demo_code = f"""# cms_receiver_example.py
+# Przykładowy odbiornik Webhooka CMS dla projektu: {pname} ({purl})
+# Pozwala agentowi Polsia Zero publikować artykuły SEO/GEO po autoryzacji właściciela.
 
-import re
-import shlex
+import os
+import json
+from pathlib import Path
 
-class AgentPermissionGuard:
-    def __init__(self, allowed_command_prefixes):
-        self.allowed_prefixes = allowed_command_prefixes
-        self.audit_log = []
+EXPECTED_OWNER_TOKEN = os.environ.get("CMS_API_KEY", "twoj_sekretny_klucz_wlasciciela")
 
-    def can_execute(self, command: str) -> bool:
-        cmd_clean = command.strip()
-        is_safe = any(cmd_clean.startswith(prefix) for prefix in self.allowed_prefixes)
-        
-        self.audit_log.append({{"command": cmd_clean, "allowed": is_safe}})
-        return is_safe
+def handle_incoming_article_webhook(headers: dict, payload: dict) -> dict:
+    auth_header = headers.get("Authorization", "")
+    if auth_header != f"Bearer {{EXPECTED_OWNER_TOKEN}}":
+        return {{"status": 403, "error": "Brak autoryzacji właściciela strony (Owner Permission Denied)"}}
 
-    def execute_safely(self, command: str):
-        if not self.can_execute(command):
-            raise PermissionError(f"[BLOKADA BEZPIECZEŃSTWA] Polecenie niedozwolone: '{{command}}'")
-        print(f"[OK] Wykonywanie autoryzowanego polecenia: '{{command}}'")
-        # Tutaj następuje faktyczne wykonanie w piaskownicy
+    slug = payload.get("slug", "nowy-artykul")
+    markdown_body = payload.get("markdown", "")
 
-if __name__ == "__main__":
-    guard = AgentPermissionGuard(allowed_command_prefixes=["git status", "pytest", "python -m unittest"])
-    
-    print("Test 1 - Bezpieczne polecenie:")
-    guard.execute_safely("git status")
-    
-    print("\\nTest 2 - Próba wykonania niedozwolonego polecenia:")
-    try:
-        guard.execute_safely("rm -rf /")
-    except PermissionError as e:
-        print(e)
+    output_path = Path("content/blog") / f"{{slug}}.md"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(markdown_body, encoding="utf-8")
+
+    return {{
+        "status": 200,
+        "project": "{pname}",
+        "published_path": str(output_path)
+    }}
 """
 
     return {
