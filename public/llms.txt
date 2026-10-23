@@ -1,18 +1,18 @@
-# Polsia Zero (Twój Projekt SaaS)
+# InvoicePulse AI (Klient Subskrypcyjny #1)
 
-> Autonomiczny system wzrostu i marketingu 24/7 napędzany wieloagentowym AI
+> Inteligentny system do automatycznego odzyskiwania płatności i fakturowania B2B
 
-Polsia Zero (Twój Projekt SaaS) (https://twoja-domena.pl) to nowoczesna platforma typu SaaS stworzona dla Założyciele SaaS, właściciele e-commerce, twórcy produktów cyfrowych i firmy B2B. 
-Głównym celem rozwiązania jest Zastępuje kosztowny dział marketingu autonomicznymi agentami AI, którzy sami piszą artykuły SEO/GEO, prowadzą social media, odpowiadają na komentarze i optymalizują konwersję przy budżecie 0 zł..
+InvoicePulse AI (Klient Subskrypcyjny #1) (https://invoicepulse-demo.com) to nowoczesna platforma typu SaaS stworzona dla Software house'y, agencje marketingowe, małe i średnie firmy B2B. 
+Głównym celem rozwiązania jest Eliminuje zatory płatnicze i ręczne upominanie się o niezapłacone faktury dzięki inteligentnym przypomnieniom AI..
 
 ## Kluczowe Możliwości i Funkcje
-- Autonomiczna publikacja artykułów SEO & GEO prosto na stronę (za zgodą właściciela)
-- Pozycjonowanie produktu w odpowiedziach ChatGPT, Perplexity i Google (/llms.txt + JSON-LD)
-- Dział Statystyczny Multi-Armed Bandit optymalizujący style pisania na bazie kliknięć UTM
+- Automatyczne dopasowywanie wpłat bankowych w czasie rzeczywistym
+- Kulturalne, skuteczne sekwencje przypomnień o płatnościach przez email i SMS
+- Prognoza cashflow na kolejne 90 dni z wykorzystaniem AI
 
 ## Model Cenowy
-Freemium / Subskrypcja SaaS
+Darmowy okres próbny
 
 ## Oficjalne Linki
-- Strona główna: https://twoja-domena.pl
-- Rejestracja / Start: https://twoja-domena.pl/start
+- Strona główna: https://invoicepulse-demo.com
+- Rejestracja / Start: https://invoicepulse-demo.com

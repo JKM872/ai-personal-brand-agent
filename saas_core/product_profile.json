@@ -1,39 +1,31 @@
 {
-  "product_name": "Polsia Zero (Twój Projekt SaaS)",
-  "tagline": "Autonomiczny system wzrostu i marketingu 24/7 napędzany wieloagentowym AI",
-  "website_url": "https://twoja-domena.pl",
-  "pricing_model": "Freemium / Subskrypcja SaaS",
-  "category": "SaaS & Automatyzacja Biznesu",
-  "target_audience": "Założyciele SaaS, właściciele e-commerce, twórcy produktów cyfrowych i firmy B2B",
-  "primary_problem_solved": "Zastępuje kosztowny dział marketingu autonomicznymi agentami AI, którzy sami piszą artykuły SEO/GEO, prowadzą social media, odpowiadają na komentarze i optymalizują konwersję przy budżecie 0 zł.",
+  "id": "proj_demo_client",
+  "product_name": "InvoicePulse AI (Klient Subskrypcyjny #1)",
+  "website_url": "https://invoicepulse-demo.com",
+  "tagline": "Inteligentny system do automatycznego odzyskiwania płatności i fakturowania B2B",
+  "category": "Fintech & Automatyzacja B2B",
+  "target_audience": "Software house'y, agencje marketingowe, małe i średnie firmy B2B",
+  "primary_problem_solved": "Eliminuje zatory płatnicze i ręczne upominanie się o niezapłacone faktury dzięki inteligentnym przypomnieniom AI.",
   "industry_keywords": [
-    "saas",
-    "ai",
-    "automation",
-    "growth",
-    "agent"
+    "fintech",
+    "b2b",
+    "invoicing",
+    "cashflow",
+    "automation"
   ],
   "key_features": [
-    "Autonomiczna publikacja artykułów SEO & GEO prosto na stronę (za zgodą właściciela)",
-    "Pozycjonowanie produktu w odpowiedziach ChatGPT, Perplexity i Google (/llms.txt + JSON-LD)",
-    "Dział Statystyczny Multi-Armed Bandit optymalizujący style pisania na bazie kliknięć UTM"
+    "Automatyczne dopasowywanie wpłat bankowych w czasie rzeczywistym",
+    "Kulturalne, skuteczne sekwencje przypomnień o płatnościach przez email i SMS",
+    "Prognoza cashflow na kolejne 90 dni z wykorzystaniem AI"
   ],
-  "competitors_for_comparison": [
-    "Tradycyjne agencje marketingowe (5 000 - 15 000 zł/mies.)",
-    "Ręczne pisanie postów i artykułów po godzinach",
-    "Drogie narzędzia korporacyjne bez autonomii"
-  ],
-  "call_to_action": {
-    "text": "Uruchom własną drużynę AI za darmo",
-    "url": "https://twoja-domena.pl/start"
-  },
   "cms_permissions": {
     "owner_authorized": false,
     "publish_mode": "require_approval",
-    "cms_type": "github_markdown",
-    "gh_repo": "JKM872/ai-personal-brand-agent",
-    "gh_path_prefix": "public/articles",
-    "webhook_url": "",
-    "wp_url": ""
-  }
+    "cms_type": "wordpress",
+    "wp_url": "https://invoicepulse-demo.com",
+    "wp_user": "polsia_editor",
+    "wp_app_password": ""
+  },
+  "subscription_status": "active",
+  "subscription_plan": "pro"
 }

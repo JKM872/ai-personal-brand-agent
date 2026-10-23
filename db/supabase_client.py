@@ -197,4 +197,67 @@ class SupabaseClient:
             rows = conn.execute("SELECT * FROM subscribers WHERE is_active = 1 LIMIT ?", (limit,)).fetchall()
             return [dict(r) for r in rows]
 
+    # --- Multi-Tenant Projects Registry ---
+    def get_active_projects(self):
+        """Returns all active subscribed client projects."""
+        if self.is_connected:
+            try:
+                res = self._api_request("projects", method="GET", params={"subscription_status": "eq.active"})
+                if res and len(res) > 0:
+                    return res
+            except Exception as e:
+                print(f"[WARN] Supabase get_active_projects error: {e}")
+
+        projects_file = BASE_DIR / "saas_core" / "projects.json"
+        if projects_file.exists():
+            try:
+                all_projs = json.loads(projects_file.read_text(encoding="utf-8"))
+                return [p for p in all_projs if p.get("subscription_status") == "active"]
+            except Exception:
+                pass
+
+        # Fallback to single project
+        profile_file = BASE_DIR / "saas_core" / "product_profile.json"
+        if profile_file.exists():
+            try:
+                single = json.loads(profile_file.read_text(encoding="utf-8"))
+                single["id"] = "proj_default"
+                return [single]
+            except Exception:
+                pass
+        return []
+
+    def save_project(self, project_dict):
+        """Saves or updates a client project."""
+        p_id = project_dict.get("id") or f"proj_{int(datetime.now().timestamp())}"
+        project_dict["id"] = p_id
+        project_dict["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        if self.is_connected:
+            try:
+                self._api_request("projects", method="POST", data=project_dict)
+            except Exception as e:
+                print(f"[WARN] Supabase save_project error: {e}")
+
+        projects_file = BASE_DIR / "saas_core" / "projects.json"
+        projects_file.parent.mkdir(parents=True, exist_ok=True)
+        all_projs = []
+        if projects_file.exists():
+            try:
+                all_projs = json.loads(projects_file.read_text(encoding="utf-8"))
+            except Exception:
+                all_projs = []
+
+        found = False
+        for idx, p in enumerate(all_projs):
+            if p.get("id") == p_id:
+                all_projs[idx] = project_dict
+                found = True
+                break
+        if not found:
+            all_projs.append(project_dict)
+
+        projects_file.write_text(json.dumps(all_projs, indent=2, ensure_ascii=False), encoding="utf-8")
+        return project_dict
+
 db = SupabaseClient()

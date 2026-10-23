@@ -7,7 +7,9 @@
     "https://github.com/Leonxlnx/earshot",
     "https://github.com/onehumanbeing/esp32-iphone-agent",
     "https://github.com/cranebeaker/coop-anything",
-    "http://arxiv.org/abs/2610.31657v1"
+    "http://arxiv.org/abs/2610.31657v1",
+    "http://arxiv.org/abs/2610.31656v1",
+    "http://arxiv.org/abs/2610.31650v1"
   ],
   "runs": [
     {
@@ -73,6 +75,22 @@
       "url": "http://arxiv.org/abs/2610.31657v1",
       "score": 30,
       "folder": "2026-10-23_2113_cost-aware-abstention-for-llm-based-it-t"
+    },
+    {
+      "timestamp": "2026-10-23 21:26:24",
+      "title": "METTA: Memory-Enhanced Test-Time Adaptation for Meta-Reinforcement Learning",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2610.31656v1",
+      "score": 30,
+      "folder": "2026-10-23_2126_proj_polsia_zero_metta-memory-enhanced-test-time-adaptati"
+    },
+    {
+      "timestamp": "2026-10-23 21:26:25",
+      "title": "EpiSEM-Bench: Evaluating Safety and Evidence Recovery in LLM Agents under Missing Evidence",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2610.31650v1",
+      "score": 30,
+      "folder": "2026-10-23_2126_proj_demo_client_episem-bench-evaluating-safety-and-evide"
     }
   ]
 }

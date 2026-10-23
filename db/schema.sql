@@ -66,3 +66,28 @@ CREATE TABLE IF NOT EXISTS subscribers (
 CREATE INDEX IF NOT EXISTS idx_content_pipeline_status ON content_pipeline(status, scheduled_for);
 CREATE INDEX IF NOT EXISTS idx_comments_queue_status ON comments_queue(status, reply_at);
 CREATE INDEX IF NOT EXISTS idx_subscribers_active ON subscribers(is_active);
+-- 5. Tabela Projektów / Klientów Platformy (Wielodostępność - Multi-Tenancy)
+CREATE TABLE IF NOT EXISTS projects (
+    id TEXT PRIMARY KEY, -- unikalny identyfikator, np. 'proj_client_1', 'proj_fitness_app'
+    user_id TEXT, -- ID klienta z Twojego systemu płatności / autoryzacji
+    product_name TEXT NOT NULL,
+    website_url TEXT NOT NULL,
+    tagline TEXT,
+    category TEXT,
+    target_audience TEXT,
+    primary_problem_solved TEXT,
+    industry_keywords JSONB DEFAULT '[]'::jsonb,
+    key_features JSONB DEFAULT '[]'::jsonb,
+    cms_config JSONB DEFAULT '{
+        "owner_authorized": false,
+        "publish_mode": "require_approval",
+        "cms_type": "github_markdown"
+    }'::jsonb,
+    subscription_status TEXT DEFAULT 'active', -- 'active', 'trial', 'paused', 'cancelled'
+    subscription_plan TEXT DEFAULT 'pro', -- 'starter', 'pro', 'enterprise'
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    last_run_at TIMESTAMP WITH TIME ZONE
+);
+
+CREATE INDEX IF NOT EXISTS idx_projects_status ON projects(subscription_status);

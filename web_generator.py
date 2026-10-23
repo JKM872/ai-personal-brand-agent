@@ -73,12 +73,14 @@ def build_web_dashboard():
 
     personas = db.get_personas()
     scheduled_pipeline = db.get_scheduled_pipeline(limit=8)
+    active_projects = db.get_active_projects()
 
     # Save structured JSON API file
     (PUBLIC_DIR / "data.json").write_text(
         json.dumps({
             "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "project_profile": profile,
+            "projects": active_projects,
             "personas": personas,
             "latest_folder": latest_folder.name if latest_folder else "",
             "latest": latest_data,
@@ -178,16 +180,18 @@ def build_web_dashboard():
         </div>
       </div>
 
-      <!-- Active Project Badge -->
-      <div class="px-4 py-3.5 mx-3 mt-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-        <div class="flex items-center justify-between text-[11px] text-slate-400 mb-1">
-          <span>AKTYWNY PROJEKT</span>
+      <!-- Multi-Tenant Project Switcher -->
+      <div class="px-4 py-3.5 mx-3 mt-4 rounded-xl bg-white/[0.03] border border-white/[0.06] space-y-2">
+        <div class="flex items-center justify-between text-[10px] text-slate-400">
+          <span>WYBIERZ PROJEKT / KLIENTA</span>
           <span class="flex items-center gap-1 text-emerald-400 font-medium">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Live
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Multi-Tenant
           </span>
         </div>
-        <div class="font-semibold text-xs text-white truncate" id="sidebar-project-name"></div>
-        <div class="text-[11px] text-indigo-400 font-mono truncate mt-0.5" id="sidebar-project-url"></div>
+        <select id="project-selector" onchange="switchProject(this.value)" class="w-full px-2.5 py-1.5 rounded-lg bg-black/60 border border-white/10 text-white font-medium text-xs focus:border-indigo-500 focus:outline-none cursor-pointer">
+          <!-- Populated by JS -->
+        </select>
+        <div class="text-[11px] text-indigo-400 font-mono truncate" id="sidebar-project-url"></div>
       </div>
 
       <!-- Navigation Links -->
@@ -577,9 +581,41 @@ def build_web_dashboard():
   <script>
     const dataStore = {json.dumps(latest_data, ensure_ascii=False)};
     const historyStore = {json.dumps(runs_list, ensure_ascii=False)};
+    const projectsList = {json.dumps(active_projects, ensure_ascii=False)};
     let projectProfile = {json.dumps(profile, ensure_ascii=False)};
     const personasList = {json.dumps(personas, ensure_ascii=False)};
     const pipelineList = {json.dumps(scheduled_pipeline, ensure_ascii=False)};
+
+    // Render Multi-Tenant Project Selector
+    function renderProjectSelector() {{
+      const sel = document.getElementById('project-selector');
+      if (!sel) return;
+      sel.innerHTML = projectsList.map(p => `
+        <option value="${{p.id}}" ${{p.id === (projectProfile.id || 'proj_polsia_zero') ? 'selected' : ''}}>
+          📁 ${{p.product_name}}
+        </option>
+      `).join('') + '<option value="NEW_PROJECT">+ Dodaj Nowego Klienta / Projekt</option>';
+    }}
+
+    function switchProject(selectedId) {{
+      if (selectedId === 'NEW_PROJECT') {{
+        switchMainView('scanner');
+        document.getElementById('inp-name').value = '';
+        document.getElementById('inp-url').value = '';
+        document.getElementById('inp-problem').value = '';
+        document.getElementById('inp-audience').value = '';
+        showToast('Wypełnij formularz poniżej, aby dodać nowego klienta/projekt.');
+        return;
+      }}
+      const found = projectsList.find(p => p.id === selectedId);
+      if (found) {{
+        projectProfile = found;
+        localStorage.setItem('polsia_project_profile', JSON.stringify(projectProfile));
+        initProjectScannerForm();
+        renderPermissionUI();
+        showToast(`Przełączono na projekt: ${{found.product_name}}`);
+      }}
+    }}
 
     // Load saved overrides from localStorage if owner edited in browser
     const savedProfile = localStorage.getItem('polsia_project_profile');
@@ -844,6 +880,7 @@ def build_web_dashboard():
     }}
 
     // Initialize
+    renderProjectSelector();
     initProjectScannerForm();
     renderPermissionUI();
     switchTab('article');
