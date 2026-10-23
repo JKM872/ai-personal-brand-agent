@@ -1,6 +1,16 @@
 name = "ai-personal-brand-agent"
+main = "src/index.js"
 compatibility_date = "2026-10-01"
-pages_build_output_dir = "public"
 
-[site]
-bucket = "./public"
+# Obsługa statycznego panelu WWW (public/index.html)
+[assets]
+directory = "public"
+binding = "ASSETS"
+
+# Natywne Cloudflare Workers AI (LLaMA 3.3 70B, DeepSeek R1, itp.)
+[ai]
+binding = "AI"
+
+# Automatyczny harmonogram w chmurze Cloudflare (co 6 godzin)
+[triggers]
+crons = ["0 */6 * * *"]
