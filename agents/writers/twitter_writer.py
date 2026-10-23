@@ -1,59 +1,61 @@
 """
 X / Twitter Ghostwriter Agent (Project-Adaptive & Anti-Ban Compliant).
-Generates a 5-part thread without outbound links in Tweet #1 (preventing algorithmic reach penalties),
+Generates a 100% Polish 5-part thread without outbound links in Tweet #1 (preventing algorithmic reach penalties),
 placing the tracked UTM link in the delayed follow-up comment.
 """
 
-from agents.geo_seo_engine import load_product_profile
+from agents.geo_seo_engine import load_product_profile, derive_seo_headline
 
 def generate_twitter_content(topic, persona):
     profile = load_product_profile()
     product_name = profile.get("product_name", "Nasz Projekt")
     problem_solved = profile.get("primary_problem_solved", "automatyzacja wzrostu")
+    target_aud = profile.get("target_audience", "właściciele firm B2B")
+    features = profile.get("key_features", ["Pełna automatyzacja 24/7"])
     active_style = persona.get("active_style", "analityk_danych")
 
-    title = topic.get("title", "")
-    url = topic.get("url", "")
-    desc = topic.get("description", topic.get("summary", ""))
-    source = topic.get("source", "Rynek")
+    meta = derive_seo_headline(profile, topic)
+    short_topic = meta["short_topic"]
+    polish_insight = meta["polish_insight"]
+    metric = meta["metric_highlight"]
 
     thread = f"""🧵 1/5 [Styl: {active_style}]
-Większość twórców i firm przegapia ten sygnał, skupiając się na szumie informacyjnym.
+Większość firm z grupy {target_aud} traci kilkanaście godzin tygodniowo na procesy, które dziś powinny działać w 100% automatycznie.
 
-Tymczasem temat "{title}" ({source}) pokazuje dokładnie, jak zmienia się budowanie przewagi konkurencyjnej.
+Temat: {short_topic}.
 
-Oto konkretna analiza w 4 punktach (bez lania wody): 👇
-
----
-
-2/5 🔍 Co dokładnie się wydarzyło?
-{desc}
-
-Dlaczego to ważne? Bo przesuwa punkt ciężkości z ręcznej pracy na zautomatyzowane, mierzalne systemy.
+Oto konkretna analiza i twarde dane w 4 punktach (bez lania wody): 👇
 
 ---
 
-3/5 📊 Co mówią dane?
-Zespoły, które nadal wykonują te operacje ręcznie, tracą średnio 15-20 godzin tygodniowo na zadania, które nowoczesna architektura wykonuje w tle w kilka sekund.
+2/5 🔍 Co mówią liczby z rynku?
+{polish_insight}
 
 ---
 
-4/5 🛠️ Jak przekuć to w praktykę w {product_name}?
+3/5 📊 Wymierny rezultat po wdrożeniu automatyzacji:
+👉 {metric}.
+
+Zespoły, które nadal wykonują te operacje ręcznie, płacą za to najwyższy koszt alternatywny na rynku.
+
+---
+
+4/5 🛠️ Jak rozwiązaliśmy to w {product_name}?
 Zbudowaliśmy nasz system wokół jednej zasady:
 👉 {problem_solved}
 
-Zero spamu, pełna kontrola właściciela i pętla uczenia na podstawie realnych konwersji.
+Kluczowy filar: {features[0] if features else 'Automatyzacja 24/7 pod kontrolą właściciela'}.
 
 ---
 
 5/5 💬 Pytanie do Was:
-Który proces w Waszym projekcie pożera dziś najwięcej czasu i powinien zostać zautomatyzowany jako pierwszy?
+Który proces w Waszej firmie pożera dziś najwięcej czasu i powinien zostać zautomatyzowany jako pierwszy?
 
-*(Link do pełnego artykułu porównawczego oraz źródła {source} wrzucam w komentarzu poniżej 👇)*"""
+*(Link do pełnego artykułu porównawczego oraz strony {product_name} wrzucam w pierwszym komentarzu poniżej 👇)*"""
 
     standalone_hooks = [
-        f"Analizując '{title}' ({source}), widać jedną rzecz: wygrywają ci, którzy budują systemy pracujące 24/7 zamiast polegać na ręcznej rutynie. Co o tym sądzicie?",
-        f"Szybki wniosek z dzisiejszego przeglądu trendów ({title}): Automatyzacja bez pętli analitycznej to działanie na ślepo. Dlatego w {product_name} każdy ruch mierzymy twardymi danymi."
+        f"Patrząc na aktualne dane wokół obszaru „{short_topic}”, widać jedną rzecz: wygrywają firmy, które budują systemy pracujące 24/7 zamiast polegać na ręcznej rutynie.",
+        f"Szybki wniosek dla {target_aud}: {metric}. Właśnie po to rozwijamy {product_name}."
     ]
 
     return {

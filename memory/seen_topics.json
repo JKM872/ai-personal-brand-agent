@@ -11,7 +11,9 @@
     "http://arxiv.org/abs/2610.31656v1",
     "http://arxiv.org/abs/2610.31650v1",
     "http://arxiv.org/abs/2610.31646v1",
-    "https://github.com/rociiu/talorys"
+    "https://github.com/rociiu/talorys",
+    "https://github.com/jwuthri-cloud/Tracely-ai",
+    "https://github.com/feder-cr/git-ai"
   ],
   "runs": [
     {
@@ -109,6 +111,22 @@
       "url": "https://github.com/rociiu/talorys",
       "score": 28.8,
       "folder": "2026-10-23_2141_proj_demo_client_rociiu-talorys"
+    },
+    {
+      "timestamp": "2026-10-23 22:19:39",
+      "title": "jwuthri-cloud/Tracely-ai",
+      "source": "GitHub",
+      "url": "https://github.com/jwuthri-cloud/Tracely-ai",
+      "score": 26.6,
+      "folder": "2026-10-23_2219_proj_polsia_zero_jwuthri-cloud-tracely-ai"
+    },
+    {
+      "timestamp": "2026-10-23 22:19:39",
+      "title": "feder-cr/git-ai",
+      "source": "GitHub",
+      "url": "https://github.com/feder-cr/git-ai",
+      "score": 24.8,
+      "folder": "2026-10-23_2219_proj_demo_client_feder-cr-git-ai"
     }
   ]
 }

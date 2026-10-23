@@ -91,10 +91,10 @@ def build_web_dashboard():
     runs_list = memory.get("runs", [])
     sync_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    projects_json_str = json.dumps(active_projects, ensure_ascii=False).replace("</script>", r"<\/script>")
-    bundles_json_str = json.dumps(bundles_by_project, ensure_ascii=False).replace("</script>", r"<\/script>")
-    personas_json_str = json.dumps(personas, ensure_ascii=False).replace("</script>", r"<\/script>")
-    pipeline_json_str = json.dumps(scheduled_pipeline, ensure_ascii=False).replace("</script>", r"<\/script>")
+    projects_json_str = json.dumps(active_projects, ensure_ascii=False).replace(chr(60) + chr(47), chr(60) + chr(92) + chr(47))
+    bundles_json_str = json.dumps(bundles_by_project, ensure_ascii=False).replace(chr(60) + chr(47), chr(60) + chr(92) + chr(47))
+    personas_json_str = json.dumps(personas, ensure_ascii=False).replace(chr(60) + chr(47), chr(60) + chr(92) + chr(47))
+    pipeline_json_str = json.dumps(scheduled_pipeline, ensure_ascii=False).replace(chr(60) + chr(47), chr(60) + chr(92) + chr(47))
 
     html_content = f"""<!DOCTYPE html>
 <html lang="pl" class="dark">
@@ -105,7 +105,7 @@ def build_web_dashboard():
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"><\/script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {{
       darkMode: 'class',
@@ -118,7 +118,7 @@ def build_web_dashboard():
         }}
       }}
     }}
-  <\/script>
+  </script>
   <style>
     :root {{
       --bg-canvas: #05060A;
@@ -571,8 +571,8 @@ def build_web_dashboard():
     const pipelineList = {pipeline_json_str};
 
     // Restore custom projects & bundles from localStorage if user created/edited in UI
-    const savedProjs = localStorage.getItem('polsia_projects_v2');
-    const savedBundles = localStorage.getItem('polsia_bundles_v2');
+    const savedProjs = localStorage.getItem('polsia_projects_v3');
+    const savedBundles = localStorage.getItem('polsia_bundles_v3');
     if (savedProjs) {{ try {{ projectsList = JSON.parse(savedProjs); }} catch(e) {{}} }}
     if (savedBundles) {{ try {{ Object.assign(bundlesByProject, JSON.parse(savedBundles)); }} catch(e) {{}} }}
 
@@ -995,7 +995,7 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
       const proj = getCurrentProject();
       if (!proj.cms_permissions) proj.cms_permissions = {{}};
       proj.cms_permissions.owner_authorized = !proj.cms_permissions.owner_authorized;
-      localStorage.setItem('polsia_projects_v2', JSON.stringify(projectsList));
+      localStorage.setItem('polsia_projects_v3', JSON.stringify(projectsList));
       renderPermissionUI();
       renderProjectsTable();
       showToast(proj.cms_permissions.owner_authorized
@@ -1008,7 +1008,7 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
       const proj = getCurrentProject();
       if (!proj.cms_permissions) proj.cms_permissions = {{}};
       proj.cms_permissions.owner_authorized = true;
-      localStorage.setItem('polsia_projects_v2', JSON.stringify(projectsList));
+      localStorage.setItem('polsia_projects_v3', JSON.stringify(projectsList));
       renderPermissionUI();
       renderProjectsTable();
       showToast(`Artykuł SEO/GEO dla "${{proj.product_name}}" został zatwierdzony i opublikowany na stronie (${{proj.website_url}})!`);
@@ -1059,8 +1059,8 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
         bundlesByProject[currentProjectId] = synthesizeBundleForProject(proj);
       }}
 
-      localStorage.setItem('polsia_projects_v2', JSON.stringify(projectsList));
-      localStorage.setItem('polsia_bundles_v2', JSON.stringify(bundlesByProject));
+      localStorage.setItem('polsia_projects_v3', JSON.stringify(projectsList));
+      localStorage.setItem('polsia_bundles_v3', JSON.stringify(bundlesByProject));
       updateWorkspaceHeaderAndForms();
       switchTab('article');
       switchMainView('studio');
@@ -1070,7 +1070,7 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
     function regenerateForCurrentProject() {{
       const proj = getCurrentProject();
       bundlesByProject[currentProjectId] = synthesizeBundleForProject(proj);
-      localStorage.setItem('polsia_bundles_v2', JSON.stringify(bundlesByProject));
+      localStorage.setItem('polsia_bundles_v3', JSON.stringify(bundlesByProject));
       switchTab(currentTab);
       showToast(`Odświeżono pakiet treści dla projektu: ${{proj.product_name}}!`);
     }}

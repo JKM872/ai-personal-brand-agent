@@ -1,12 +1,12 @@
 """
 Newsletter & Substack Ghostwriter Agent (Polsia Multi-Tenant SaaS).
-Generates a high-converting weekly newsletter tailored to the specific client project,
+Generates a 100% Polish, high-converting weekly newsletter tailored to the specific client project,
 target audience, and chosen Multi-Armed Bandit persona.
 """
 
 from agents.geo_seo_engine import load_product_profile, derive_seo_headline
 
-def generate_newsletter_content(topic, persona, secondaries):
+def generate_newsletter_content(topic, persona, secondaries=None):
     profile = load_product_profile()
     pname = profile.get("product_name", "Polsia Zero")
     purl = profile.get("website_url", "https://twoja-domena.pl")
@@ -18,45 +18,44 @@ def generate_newsletter_content(topic, persona, secondaries):
 
     meta = derive_seo_headline(profile, topic)
     short_topic = meta["short_topic"]
-    trend_title = topic.get("title", "")
-    trend_url = topic.get("url", purl)
-    trend_desc = topic.get("description", topic.get("summary", ""))
+    polish_insight = meta["polish_insight"]
+    metric = meta["metric_highlight"]
 
-    other_topics_md = ""
-    for s in secondaries[:3]:
-        other_topics_md += f"- **[{s.get('source', 'Rynek')}]** [{s.get('title', '')}]({s.get('url', '#')})\n"
-
-    feat_list = "\n".join([f"1. **{f}**" for f in features])
+    feat_list = "\n".join([f"- **{f}**" for f in features])
 
     issue = f"""# 📩 Biuletyn Strategiczny {pname}: {short_topic}
 
-*Wydanie specjalne dla: {paud} | Styl: {persona.get('active_style', 'analityk_danych')}*
+*Wydanie dedykowane dla: {paud} | Styl: {persona.get('active_style', 'analityk_danych')}*
 
 ---
 
-## 📌 Główny Sygnał Rynkowy Tygodnia
+## 📌 Główny Wniosek Tygodnia
 
-Cześć! W dzisiejszym wydaniu przyglądamy się temu, jak najnowsze zmiany technologiczne (w tym głośny temat **[{trend_title}]({trend_url})**) wpływają na codzienną efektywność i wyniki finansowe nowoczesnych firm.
+Cześć! W dzisiejszym wydaniu przyglądamy się temu, jak firmy z sektora **{profile.get('category', 'B2B')}** eliminują wąskie gardła operacyjne i zwiększają rentowność.
 
-> **Kluczowy kontekst:** {trend_desc}
+> **Dane z rynku:** {polish_insight}
 
-Dla zespołów i właścicieli z grupy **{paud}** wniosek jest jeden: ręczne wykonywanie powtarzalnych procesów staje się największym kosztem alternatywnym w firmie.
+* **Najważniejszy wskaźnik:** {metric}.
+
+Dla zespołów i właścicieli z grupy **{paud}** wniosek jest prosty: ręczne wykonywanie powtarzalnych procesów staje się największym kosztem alternatywnym w firmie.
 
 ---
 
-## 🛠️ Jak przekuć ten trend w przewagę z {pname}?
+## 🛠️ Jak przekuć to w przewagę z {pname}?
 
 Budując **{pname}** ({purl}), skupiliśmy się na wyeliminowaniu głównej blokady wzrostu:
 *{pproblem}*
 
-W praktyce opiera się to na 3 filarach wdrożeniowych:
+W praktyce opiera się to na kluczowych filarach wdrożeniowych:
 {feat_list}
 
 ---
 
-## ⚡ Radar Tygodnia: 3 Dodatkowe Sygnały z Rynku
+## 📋 Szybka Checklista Wdrożeniowa na Ten Tydzień
 
-{other_topics_md}
+- **Krok 1:** Zidentyfikuj proces, który zajmuje Twojemu zespołowi ponad 5 godzin tygodniowo.
+- **Krok 2:** Zastąp ręczną obsługę zautomatyzowanym przepływem w **{pname}**.
+- **Krok 3:** Monitoruj konwersję i zwrot z czasu w panelu analitycznym.
 
 ---
 
