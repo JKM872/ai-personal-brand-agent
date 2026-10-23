@@ -1,16 +1,16 @@
 # ⚡ Centrum Dowodzenia Marką Osobistą & SaaS 24/7
 
-> **Ostatni cykl:** `2026-10-23 21:02:38`  
-> **Wybrany styl (Dział Statystyczny):** `analityk_danych` (Waga ROI: `0.0` pkt)  
+> **Ostatni cykl:** `2026-10-23 21:13:44`  
+> **Wybrany styl (Dział Statystyczny):** `kontrowersyjny_ekspert` (Waga ROI: `14.7` pkt)  
 > **Status bazy danych:** `🟡 Pamięć lokalna SQLite (Wklej klucze w Supabase)`  
 > **Tryb publikacji:** `GOTOWE W KOLEJCE (Tryb Dry-Run — konta jeszcze niepodpięte)`  
 
 ---
 
-## 🏆 Najnowszy Temat w Kolejce: `cranebeaker/coop-anything`
-* **Źródło:** GitHub | [Oryginalny link](https://github.com/cranebeaker/coop-anything)
-* **Kampania UTM:** `social_20261023_2103_cranebeaker-coo`
-* **Folder paczki:** [`queue/2026-10-23_2102_cranebeaker-coop-anything/`](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2102_cranebeaker-coop-anything)
+## 🏆 Najnowszy Temat w Kolejce: `Cost-Aware Abstention for LLM-Based IT Ticket Classification`
+* **Źródło:** ArXiv | [Oryginalny link](http://arxiv.org/abs/2610.31657v1)
+* **Kampania UTM:** `social_20261023_2114_cost-aware-abst`
+* **Folder paczki:** [`queue/2026-10-23_2113_cost-aware-abstention-for-llm-based-it-t/`](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2113_cost-aware-abstention-for-llm-based-it-t)
 
 ---
 
@@ -18,14 +18,14 @@
 
 | Kanał | Zawartość | Plik Gotowy | Status Konta |
 |---|---|---|---|
-| **Artykuł SEO / GEO** | Długi artykuł na blog + optymalizacja pod ChatGPT/Perplexity | [0_WEBSITE_SEO_ARTICLE.md](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2102_cranebeaker-coop-anything/0_WEBSITE_SEO_ARTICLE.md) | `GOTOWY DO CMS` |
-| **LinkedIn Post** | Post ekspercki + pytanie do dyskusji | [1_LINKEDIN_POST.md](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2102_cranebeaker-coop-anything/1_LINKEDIN_POST.md) | `QUEUED_FOR_AUTO_PUBLISH` |
-| **LinkedIn Karuzela** | Konspekt 5 slajdów PDF | [2_LINKEDIN_CAROUSEL.md](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2102_cranebeaker-coop-anything/2_LINKEDIN_CAROUSEL.md) | `GOTOWE` |
-| **X / Twitter** | Wątek 5 tweetów + link w 1. komentarzu (Anti-Ban!) | [3_TWITTER_THREAD.md](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2102_cranebeaker-coop-anything/3_TWITTER_THREAD.md) | `QUEUED_FOR_AUTO_PUBLISH` |
-| **Newsletter / Blog** | Pełny artykuł Deep-Dive | [4_NEWSLETTER_EDITION.md](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2102_cranebeaker-coop-anything/4_NEWSLETTER_EDITION.md) | `GOTOWE (Brevo/Resend)` |
-| **YouTube / TikTok** | Scenariusz 60s Shorts (Audio+Wideo) | [5_VIDEO_SHORTS_SCRIPT.md](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2102_cranebeaker-coop-anything/5_VIDEO_SHORTS_SCRIPT.md) | `GOTOWE` |
-| **GitHub Code** | Kod Python + README z diagramem | [6_GITHUB_SNIPPET.py](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2102_cranebeaker-coop-anything/6_GITHUB_SNIPPET.py) | `QUEUED_FOR_AUTO_PUBLISH` |
-| **Payload API / Webhook** | Gotowy JSON pod Make/n8n/Zapier | [7_API_PAYLOAD_READY.json](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2102_cranebeaker-coop-anything/7_API_PAYLOAD_READY.json) | `QUEUED_FOR_AUTO_PUBLISH` |
+| **Artykuł SEO / GEO** | Długi artykuł na blog + optymalizacja pod ChatGPT/Perplexity | [0_WEBSITE_SEO_ARTICLE.md](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2113_cost-aware-abstention-for-llm-based-it-t/0_WEBSITE_SEO_ARTICLE.md) | `GOTOWY DO CMS` |
+| **LinkedIn Post** | Post ekspercki + pytanie do dyskusji | [1_LINKEDIN_POST.md](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2113_cost-aware-abstention-for-llm-based-it-t/1_LINKEDIN_POST.md) | `QUEUED_FOR_AUTO_PUBLISH` |
+| **LinkedIn Karuzela** | Konspekt 5 slajdów PDF | [2_LINKEDIN_CAROUSEL.md](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2113_cost-aware-abstention-for-llm-based-it-t/2_LINKEDIN_CAROUSEL.md) | `GOTOWE` |
+| **X / Twitter** | Wątek 5 tweetów + link w 1. komentarzu (Anti-Ban!) | [3_TWITTER_THREAD.md](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2113_cost-aware-abstention-for-llm-based-it-t/3_TWITTER_THREAD.md) | `QUEUED_FOR_AUTO_PUBLISH` |
+| **Newsletter / Blog** | Pełny artykuł Deep-Dive | [4_NEWSLETTER_EDITION.md](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2113_cost-aware-abstention-for-llm-based-it-t/4_NEWSLETTER_EDITION.md) | `GOTOWE (Brevo/Resend)` |
+| **YouTube / TikTok** | Scenariusz 60s Shorts (Audio+Wideo) | [5_VIDEO_SHORTS_SCRIPT.md](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2113_cost-aware-abstention-for-llm-based-it-t/5_VIDEO_SHORTS_SCRIPT.md) | `GOTOWE` |
+| **GitHub Code** | Kod Python + README z diagramem | [6_GITHUB_SNIPPET.py](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2113_cost-aware-abstention-for-llm-based-it-t/6_GITHUB_SNIPPET.py) | `QUEUED_FOR_AUTO_PUBLISH` |
+| **Payload API / Webhook** | Gotowy JSON pod Make/n8n/Zapier | [7_API_PAYLOAD_READY.json](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2113_cost-aware-abstention-for-llm-based-it-t/7_API_PAYLOAD_READY.json) | `QUEUED_FOR_AUTO_PUBLISH` |
 
 ---
 
@@ -33,6 +33,7 @@
 
 | Data i Godzina | Źródło | Przetworzony Temat | Ocena | Paczka Plików |
 |---|---|---|---|---|
+| `2026-10-23 21:14:02` | **ArXiv** | [Cost-Aware Abstention for LLM-Based IT Ticket Clas](http://arxiv.org/abs/2610.31657v1) | 30 pkt | [Otwórz paczkę](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2113_cost-aware-abstention-for-llm-based-it-t) |
 | `2026-10-23 21:03:21` | **GitHub** | [cranebeaker/coop-anything](https://github.com/cranebeaker/coop-anything) | 35.1 pkt | [Otwórz paczkę](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2102_cranebeaker-coop-anything) |
 | `2026-10-23 20:49:30` | **GitHub** | [onehumanbeing/esp32-iphone-agent](https://github.com/onehumanbeing/esp32-iphone-agent) | 36.2 pkt | [Otwórz paczkę](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2049_onehumanbeing-esp32-iphone-agent) |
 | `2026-10-23 20:47:34` | **GitHub** | [Leonxlnx/earshot](https://github.com/Leonxlnx/earshot) | 39.1 pkt | [Otwórz paczkę](file:///C:/Users/hp/Documents/antigravity/mysterious-darwin/queue/2026-10-23_2047_leonxlnx-earshot) |

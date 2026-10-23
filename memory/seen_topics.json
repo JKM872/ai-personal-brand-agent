@@ -6,7 +6,8 @@
     "https://arxiv.org/abs/2610.27251",
     "https://github.com/Leonxlnx/earshot",
     "https://github.com/onehumanbeing/esp32-iphone-agent",
-    "https://github.com/cranebeaker/coop-anything"
+    "https://github.com/cranebeaker/coop-anything",
+    "http://arxiv.org/abs/2610.31657v1"
   ],
   "runs": [
     {
@@ -64,6 +65,14 @@
       "url": "https://github.com/cranebeaker/coop-anything",
       "score": 35.1,
       "folder": "2026-10-23_2102_cranebeaker-coop-anything"
+    },
+    {
+      "timestamp": "2026-10-23 21:14:02",
+      "title": "Cost-Aware Abstention for LLM-Based IT Ticket Classification",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2610.31657v1",
+      "score": 30,
+      "folder": "2026-10-23_2113_cost-aware-abstention-for-llm-based-it-t"
     }
   ]
 }

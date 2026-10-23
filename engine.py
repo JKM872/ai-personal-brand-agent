@@ -40,6 +40,7 @@ from agents.analyst_agent import pick_best_persona
 from tracking.utm_builder import build_tracked_url
 from db.supabase_client import db
 from publishers.social_publisher import dispatch_content_bundle
+from publishers.cms_connector import publish_article_to_website
 from publishers.indexnow import submit_to_indexnow
 from web_generator import build_web_dashboard
 
@@ -104,14 +105,18 @@ def run_brand_engine():
     vid_data = generate_video_content(primary_topic, persona)
     gh_data = generate_github_content(primary_topic, persona)
     
-    # Generate SEO & GEO article for the SaaS
+    # Generate SEO & GEO article for the SaaS & Run CMS Permission Gate
     saas_profile = load_product_profile()
+    cms_result = {"status": "AWAITING_OWNER_PERMISSION", "message": "Brak artykułu"}
     try:
         geo_res = generate_geo_article(primary_topic['title'], saas_profile)
         print(f"   🌐 Wygenerowano artykuł SEO/GEO: {geo_res['title']}")
-        # Instant Ping to IndexNow for Bing & ChatGPT Web Search
-        host = saas_profile.get("website_url", "twoja-domena.pl").replace("https://", "").replace("http://", "").split("/")[0]
-        submit_to_indexnow(host, [f"{saas_profile.get('website_url')}/articles/{geo_res['slug']}"])
+        cms_result = publish_article_to_website(geo_res, saas_profile)
+        print(f"   🔐 [CMS PERMISSION GATE] Status: {cms_result['status']} ({cms_result.get('message', '')})")
+        # Instant Ping to IndexNow for Bing & ChatGPT Web Search if published
+        if "PUBLISHED" in cms_result.get("status", ""):
+            host = saas_profile.get("website_url", "twoja-domena.pl").replace("https://", "").replace("http://", "").split("/")[0]
+            submit_to_indexnow(host, [f"{saas_profile.get('website_url')}/articles/{geo_res['slug']}"])
     except Exception as e:
         print(f"[WARN] Błąd generatora GEO/SEO: {e}")
         geo_res = None

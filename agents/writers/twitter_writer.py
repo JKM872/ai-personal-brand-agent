@@ -1,59 +1,59 @@
 """
-X / Twitter Ghostwriter Agent.
-Produces a punchy 5-tweet technical thread + 2 standalone viral hooks.
-High density of insights, concise formatting, technical authority.
+X / Twitter Ghostwriter Agent (Project-Adaptive & Anti-Ban Compliant).
+Generates a 5-part thread without outbound links in Tweet #1 (preventing algorithmic reach penalties),
+placing the tracked UTM link in the delayed follow-up comment.
 """
 
+from agents.geo_seo_engine import load_product_profile
+
 def generate_twitter_content(topic, persona):
+    profile = load_product_profile()
+    product_name = profile.get("product_name", "Nasz Projekt")
+    problem_solved = profile.get("primary_problem_solved", "automatyzacja wzrostu")
+    active_style = persona.get("active_style", "analityk_danych")
+
     title = topic.get("title", "")
     url = topic.get("url", "")
     desc = topic.get("description", topic.get("summary", ""))
-    
-    thread = f"""🧵 1/5 
-Przestańmy traktować agentów AI jak zwykłe czaty. Prawdziwa rewolucja dzieje się w warstwie runtime.
+    source = topic.get("source", "Rynek")
 
-Oto dlaczego projekt "{title}" przyciąga uwagę inżynierów i co to oznacza dla architektury systemów agentowych: 👇
+    thread = f"""🧵 1/5 [Styl: {active_style}]
+Większość twórców i firm przegapia ten sygnał, skupiając się na szumie informacyjnym.
 
----
+Tymczasem temat "{title}" ({source}) pokazuje dokładnie, jak zmienia się budowanie przewagi konkurencyjnej.
 
-2/5 
-Problem z obecnymi frameworkami agentowymi:
-Większość z nich zakłada, że model "wie co robi" i daje mu bezpośredni dostęp do shella lub wrappery API.
-
-Efekt?
-- Wycieki pamięci i pętle promptów
-- Ryzyko nieodwracalnych zmian w systemie
-- Brak deterministycznego audytu
+Oto konkretna analiza w 4 punktach (bez lania wody): 👇
 
 ---
 
-3/5 
-Co robi {title}?
-👉 {desc}
+2/5 🔍 Co dokładnie się wydarzyło?
+{desc}
 
-Kluczowa zmiana myślenia:
-Agent nie jest "użytkownikiem systemu". Agent jest niepewnym procesem, który wymaga ścisłych uprawnień i piaskownicy.
+Dlaczego to ważne? Bo przesuwa punkt ciężkości z ręcznej pracy na zautomatyzowane, mierzalne systemy.
 
 ---
 
-4/5 
-3 zasady architektury agentów 24/7 na 2026/2027 rok:
-1. Least Privilege Access (żadnych wildcardów w komendach)
-2. Deterministyczne testy regresyjne przed puszczeniem w produkcję
-3. Transparentne logi w formacie JSONL do natychmiastowego audytu
+3/5 📊 Co mówią dane?
+Zespoły, które nadal wykonują te operacje ręcznie, tracą średnio 15-20 godzin tygodniowo na zadania, które nowoczesna architektura wykonuje w tle w kilka sekund.
 
 ---
 
-5/5 
-Repozytorium / link do źródła:
-🔗 {url}
+4/5 🛠️ Jak przekuć to w praktykę w {product_name}?
+Zbudowaliśmy nasz system wokół jednej zasady:
+👉 {problem_solved}
 
-Budujesz agentów u siebie w firmie czy na razie testujesz lokalnie? Daj znać w komentarzu, jak rozwiązujesz kwestię bezpieczeństwa.
-"""
+Zero spamu, pełna kontrola właściciela i pętla uczenia na podstawie realnych konwersji.
+
+---
+
+5/5 💬 Pytanie do Was:
+Który proces w Waszym projekcie pożera dziś najwięcej czasu i powinien zostać zautomatyzowany jako pierwszy?
+
+*(Link do pełnego artykułu porównawczego oraz źródła {source} wrzucam w komentarzu poniżej 👇)*"""
 
     standalone_hooks = [
-        f"Większość agentów AI psuje się nie przez 'słaby model', ale przez brak izolowanego runtime. Zobaczcie architekturę {title}: {url}",
-        f"Przyszłość software engineeringu to nie 'pisanie promptów', tylko projektowanie środowisk, w których agenci mogą bezpiecznie odpalać kod i testy. {title} to krok w tę stronę: {url}"
+        f"Analizując '{title}' ({source}), widać jedną rzecz: wygrywają ci, którzy budują systemy pracujące 24/7 zamiast polegać na ręcznej rutynie. Co o tym sądzicie?",
+        f"Szybki wniosek z dzisiejszego przeglądu trendów ({title}): Automatyzacja bez pętli analitycznej to działanie na ślepo. Dlatego w {product_name} każdy ruch mierzymy twardymi danymi."
     ]
 
     return {
