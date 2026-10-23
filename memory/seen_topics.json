@@ -4,7 +4,9 @@
     "https://www.modelcompare.ai/blog/ai-models-controversial-take-on-humans",
     "http://arxiv.org/abs/2610.31667v1",
     "https://arxiv.org/abs/2610.27251",
-    "https://github.com/Leonxlnx/earshot"
+    "https://github.com/Leonxlnx/earshot",
+    "https://github.com/onehumanbeing/esp32-iphone-agent",
+    "https://github.com/cranebeaker/coop-anything"
   ],
   "runs": [
     {
@@ -46,6 +48,22 @@
       "url": "https://github.com/Leonxlnx/earshot",
       "score": 39.1,
       "folder": "2026-10-23_2047_leonxlnx-earshot"
+    },
+    {
+      "timestamp": "2026-10-23 20:49:30",
+      "title": "onehumanbeing/esp32-iphone-agent",
+      "source": "GitHub",
+      "url": "https://github.com/onehumanbeing/esp32-iphone-agent",
+      "score": 36.2,
+      "folder": "2026-10-23_2049_onehumanbeing-esp32-iphone-agent"
+    },
+    {
+      "timestamp": "2026-10-23 21:03:21",
+      "title": "cranebeaker/coop-anything",
+      "source": "GitHub",
+      "url": "https://github.com/cranebeaker/coop-anything",
+      "score": 35.1,
+      "folder": "2026-10-23_2102_cranebeaker-coop-anything"
     }
   ]
 }

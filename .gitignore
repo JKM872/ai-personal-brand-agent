@@ -12,6 +12,12 @@ config/accounts.local.json
 *.key
 *.pem
 
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+db/local_storage.db
+
 # OS and IDE files
 .DS_Store
 Thumbs.db
