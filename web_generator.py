@@ -665,14 +665,19 @@ def build_web_dashboard():
       <!-- ========================================================= -->
       <section id="view-analytics" class="hidden space-y-6">
         <div class="bento-card rounded-2xl p-6 space-y-5">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
             <div>
               <span class="text-[11px] font-mono uppercase text-emerald-400">Pracownik #11 — Optymalizacja Konwersji (80% Eksploatacja / 20% Eksploracja)</span>
-              <h2 class="text-xl font-bold text-white mt-0.5">Dział Statystyczny — Ranking Stylów Pisania</h2>
+              <h2 class="text-xl font-bold text-white mt-0.5">Dział Statystyczny — Ranking Stylów Pisania (Multi-Armed Bandit)</h2>
             </div>
-            <span class="text-xs font-mono bg-white/[0.05] px-3 py-1.5 rounded-lg border border-white/10 text-slate-300">
-              Score = (Kliknięcia + Konwersje × 5) / Posty
-            </span>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-mono bg-white/[0.05] px-3 py-1.5 rounded-lg border border-white/10 text-slate-300">
+                Score = (Kliknięcia + Konwersje × 5) / Posty
+              </span>
+              <button onclick="simulateTrafficAndOptimize()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-lg shadow-emerald-600/20">
+                📈 Symuluj Kliknięcia UTM & Przelicz ROI
+              </button>
+            </div>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="bandit-cards-container"></div>
         </div>
@@ -1362,8 +1367,29 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
       const geminiKey = cfg.gemini || '';
       const conf = tabMap[currentTab];
 
+      // 1. Try Cloudflare Pages Edge Function (/api/ai-generate) if deployed on Cloudflare
+      try {{
+        const cfResp = await fetch('/api/ai-generate', {{
+          method: 'POST',
+          headers: {{ 'Content-Type': 'application/json' }},
+          body: JSON.stringify({{ project: proj, channel_label: conf.label }})
+        }});
+        if (cfResp.ok) {{
+          const cfData = await cfResp.json();
+          if (cfData.success && cfData.result) {{
+            if (!bundlesByProject[currentProjectId]) bundlesByProject[currentProjectId] = synthesizeBundleForProject(proj);
+            bundlesByProject[currentProjectId][conf.key] = cfData.result.trim();
+            localStorage.setItem('autonoma_bundles_v4', JSON.stringify(bundlesByProject));
+            switchTab(currentTab);
+            showToast('Wygenerowano treść na żywo przez Cloudflare Workers AI (LLaMA 3.3 70B)!');
+            return;
+          }}
+        }}
+      }} catch (e) {{}}
+
+      // 2. Try Google Gemini 2.5 Flash if GEMINI_API_KEY is configured in UI
       if (!geminiKey) {{
-        showToast('Brak klucza GEMINI_API_KEY w zakładce Połączenia API — używam wbudowanego silnika syntezy.');
+        showToast('Wygenerowano nową paczkę przez wbudowany silnik syntezy (dodaj GEMINI_API_KEY w zakładce Połączenia API dla trybu LLM Live).');
         regenerateForCurrentProject();
         return;
       }}
@@ -1479,11 +1505,13 @@ Użyj czystego formatowania Markdown, konkretnych wyliczeń i języka korzyści 
     }}
 
     // Populate Multi-Armed Bandit Cards
-    if (personasList && personasList.length > 0) {{
+    function renderBanditCards() {{
+      if (!personasList || personasList.length === 0) return;
+      personasList.sort((a, b) => (b.effectiveness_score || 0) - (a.effectiveness_score || 0));
       const topP = personasList[0];
       document.getElementById('kpi-top-persona').textContent = topP.persona_name;
       document.getElementById('kpi-top-score').textContent = `Wynik ROI: ${{topP.effectiveness_score}} pkt (${{topP.total_clicks}} kliknięć)`;
-      const maxScore = Math.max(...personasList.map(p => p.effectiveness_score || 1), 30);
+      const maxScore = Math.max(...personasList.map(p => p.effectiveness_score || 1), 35);
 
       document.getElementById('bandit-cards-container').innerHTML = personasList.map((p, idx) => {{
         const pct = Math.min(Math.round(((p.effectiveness_score || 1) / maxScore) * 100), 100);
@@ -1496,17 +1524,33 @@ Użyj czystego formatowania Markdown, konkretnych wyliczeń i języka korzyści 
             </div>
             <p class="text-xs text-slate-400">${{p.system_prompt}}</p>
             <div class="w-full bg-white/[0.06] h-2 rounded-full overflow-hidden">
-              <div class="bg-gradient-to-r from-indigo-500 to-emerald-400 h-full rounded-full" style="width: ${{pct}}%"></div>
+              <div class="bg-gradient-to-r from-indigo-500 to-emerald-400 h-full rounded-full transition-all duration-500" style="width: ${{pct}}%"></div>
             </div>
             <div class="flex justify-between text-[11px] font-mono text-slate-400 pt-1">
               <span>Posty: <strong class="text-white">${{p.posts_count}}</strong></span>
               <span>Kliknięcia: <strong class="text-white">${{p.total_clicks}}</strong></span>
+              <span>Konwersje: <strong class="text-indigo-300">${{p.conversions || 1}}</strong></span>
               <span>Score: <strong class="text-emerald-400">${{p.effectiveness_score}}</strong></span>
             </div>
           </div>
         `;
       }}).join('');
     }}
+
+    function simulateTrafficAndOptimize() {{
+      personasList.forEach(p => {{
+        const addClicks = Math.floor(Math.random() * 14) + 3;
+        const addConv = Math.random() > 0.45 ? 1 : 0;
+        p.total_clicks = (p.total_clicks || 10) + addClicks;
+        p.conversions = (p.conversions || 1) + addConv;
+        const posts = Math.max(p.posts_count || 1, 1);
+        p.effectiveness_score = Number(((p.total_clicks + p.conversions * 5) / posts).toFixed(1));
+      }});
+      renderBanditCards();
+      showToast(`Pracownik #11 przeliczył nowe kliknięcia UTM! Nowy lider: ${{personasList[0].persona_name}} (ROI: ${{personasList[0].effectiveness_score}} pkt)`);
+    }}
+
+    renderBanditCards();
 
     // Populate Anti-Ban Pipeline
     if (pipelineList && pipelineList.length > 0) {{

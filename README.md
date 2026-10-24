@@ -1,63 +1,41 @@
-# 🚀 24/7 Personal Brand Multi-Agent Engine (AI & Tech)
+# ⚡ Autonoma AI — 12-Agent Autonomous Growth OS (0,00 PLN Budget)
 
-W pełni autonomiczny, wieloagentowy system działający 24/7, który buduje Twoją markę osobistą w branży AI i inżynierii oprogramowania.
-
-## 🏗️ Architektura Systemu
-
-```mermaid
-graph TD
-    subgraph 1. Źródła 24/7
-        GH[GitHub Trending AI]
-        HN[Hacker News Top Stories]
-        AX[ArXiv Research Papers]
-    end
-
-    subgraph 2. Selekcja & Strategia
-        GH --> Curator[Agent Kurator]
-        HN --> Curator
-        AX --> Curator
-        Curator --> Topic[Temat Dnia + 3 Radary]
-    end
-
-    subgraph 3. Fabryka Formatów (Ghostwriterzy)
-        Topic --> LI[LinkedIn: Post & Karuzela PDF]
-        Topic --> TW[X / Twitter: Thread 5 tweetów + Hooki]
-        Topic --> NL[Newsletter: Deep-Dive Issue]
-        Topic --> YT[Wideo: 60s Shorts / Reel Script]
-        Topic --> GH_W[GitHub: Kod Demo + README]
-    end
-
-    subgraph 4. Centrum Dowodzenia
-        LI --> Dash[DASHBOARD.md & Folder Queue]
-        TW --> Dash
-        NL --> Dash
-        YT --> Dash
-        GH_W --> Dash
-    end
-```
+Kompletna, wieloprojektowa (**Multi-Tenant**) platforma autonomicznego wzrostu, SEO/GEO, social media i sprzedaży B2B napędzana przez **12 Wirtualnych Pracowników AI**. Zaprojektowana tak, aby rozwijać Twój biznes i strony Twoich klientów 24/7 przy zerowych kosztach infrastruktury (`0,00 PLN`).
 
 ---
 
-## ⚡ Jak z tego korzystać?
+## 🤖 Drużyna 12 Wirtualnych Pracowników AI
 
-### 1. Sprawdź dzisiejszy wygenerowany materiał
-Otwórz plik [DASHBOARD.md](file:///c:/Users/hp/Documents/antigravity/mysterious-darwin/DASHBOARD.md). Znajdziesz tam gotowe teksty na wszystkie platformy przygotowane przez agentów z ostatniej rundy.
+| # | Stanowisko Pracownika AI | Moduł w Kodzie | Zadanie Operacyjne 24/7 |
+|---|---|---|---|
+| **1** | **Radar Rynkowy & Trend Scout** | `sources/*` + `agents/curator.py` | Przeszukuje sygnały rynkowe, problemy klientów i trendy branżowe. |
+| **2** | **Architekt SEO & GEO (AI Search)** | `agents/geo_seo_engine.py` | Pisze artykuły porównawcze, tabele ROI, sekcje FAQ i aktualizuje `/llms.txt` pod ChatGPT i Perplexity. |
+| **3** | **Ghostwriter LinkedIn B2B** | `agents/writers/linkedin_writer.py` | Tworzy eksperckie posty B2B i konspekty 5-slajdowych karuzel PDF. |
+| **4** | **Strateg Wątków X / Twitter** | `agents/writers/twitter_writer.py` | Buduje wiralowe nitki (5 tweetów) z twardymi wyliczeniami. |
+| **5** | **Manager Własnej Grupy (FB / Discord)** | `agents/writers/community_writer.py` | Generuje posty przypięte z Lead Magnetem („Skomentuj START”), ankiety i szablony odpowiedzi. |
+| **6** | **Inżynier Reklam Micro-Budget Ads** | `agents/writers/ads_writer.py` | Tworzy kreacje retargetingowe (0–20 zł/dzień) na Meta Ads i frazy Exact-Match w Google. |
+| **7** | **Specjalista B2B Outreach & SDR** | `agents/writers/outreach_writer.py` | Pisze sekwencje LinkedIn DM, Cold Emaile i zbija obiekcje sprzedażowe. |
+| **8** | **Redaktor Newslettera (Brevo / Resend)** | `agents/writers/newsletter_writer.py` | Komponuje cotygodniowe wydania biuletynu dla własnej bazy subskrybentów. |
+| **9** | **Reżyser Wideo Shorts / Reels / TikTok** | `agents/writers/video_writer.py` | Rozpisuje 60-sekundowe scenariusze wideo (Hook w 1. sekundzie, B-Roll i lektor). |
+| **10** | **Strażnik Komentarzy Anti-Ban** | `agents/anti_ban_commenter.py` | Wrzuca linki UTM w 1. komentarzu i odpowiada z ludzkim opóźnieniem (*Human Jitter* 18–95 min). |
+| **11** | **Analityk Multi-Armed Bandit (ROI)** | `agents/analyst_agent.py` | Liczy skuteczność stylów pisania z kliknięć UTM i kieruje 80% ruchu na najlepszy styl. |
+| **12** | **Inżynier Integracji CMS & JSON-LD** | `publishers/cms_connector.py` | Publikuje artykuły prosto na stronę klienta (GitHub / WordPress / Webhook) za zgodą właściciela. |
 
-### 2. Dostosuj swoją tożsamość i styl (Persona)
-W pliku [brand_core/persona.json](file:///c:/Users/hp/Documents/antigravity/mysterious-darwin/brand_core/persona.json) możesz zmienić:
-* Swoje imię, nazwisko i biogram.
-* Swój unikalny *Tone of Voice* (np. bardziej techniczny, startupowy, krytyczny wobec hype'u).
-* Filary tematyczne (tematy, na których chcesz budować pozycję lidera opinii).
+---
 
-### 3. Uruchomienie na żądanie
-Aby natychmiast odpalić nową rundę skanowania i wygenerować świeżą paczkę:
+## 🚀 Szybki Start (Lokalnie i w Chmurze)
+
+### 1. Uruchomienie cyklu 12 Pracowników AI dla wszystkich projektów:
 ```bash
 python engine.py
 ```
 
-### 4. Działanie ciągłe 24/7
-Aby system działał nieprzerwanie w tle na Twoim komputerze i sprawdzał trendy np. co 12 godzin:
+### 2. Uruchomienie Panelu SaaS Studio w przeglądarce:
 ```bash
-python run_daemon.py
+python -m http.server 3000 --directory public
 ```
-Możesz także skonfigurować go jako harmonogram w Antigravity za pomocą komendy `/automation`.
+Następnie otwórz **[http://localhost:3000](http://localhost:3000)**.
+
+### 3. Praca 24/7 (Cloudflare Pages + GitHub Actions za 0 zł):
+* **GitHub Actions (`.github/workflows/agent_24_7.yml`):** Uruchamia `python engine.py` automatycznie co 6 godzin i wypycha świeże paczki do repozytorium.
+* **Cloudflare Pages:** Automatycznie publikuje zawartość katalogu `public` oraz funkcję Edge AI `/api/ai-generate`.
