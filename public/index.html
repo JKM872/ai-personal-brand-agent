@@ -28,6 +28,12 @@
       --bg-elevated: #111520;
       --border-hairline: rgba(255, 255, 255, 0.07);
     }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html {
+      scrollbar-gutter: stable;
+    }
     body {
       background-color: var(--bg-canvas);
       background-image:
@@ -37,7 +43,7 @@
       overflow-x: hidden;
     }
     .surface-panel {
-      background: rgba(11, 13, 20, 0.88);
+      background: rgba(11, 13, 20, 0.92);
       backdrop-filter: blur(20px);
       border: 1px solid var(--border-hairline);
     }
@@ -45,15 +51,69 @@
       background: linear-gradient(180deg, rgba(20, 24, 36, 0.72) 0%, rgba(11, 13, 20, 0.92) 100%);
       border: 1px solid var(--border-hairline);
       box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.5);
-      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: border-color 0.2s ease, background-color 0.2s ease;
     }
     .bento-card:hover {
       border-color: rgba(99, 102, 241, 0.32);
     }
-    .channel-btn-active {
-      background: linear-gradient(90deg, rgba(99, 102, 241, 0.22) 0%, rgba(99, 102, 241, 0.05) 100%);
-      border-color: rgba(99, 102, 241, 0.55);
+    .nav-tab-btn {
+      width: 100%;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 0.875rem;
+      border-radius: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #94A3B8;
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .nav-tab-btn:hover {
       color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+    .nav-tab-btn-active {
+      color: #FFFFFF !important;
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.24) 0%, rgba(99, 102, 241, 0.08) 100%) !important;
+      border-color: rgba(99, 102, 241, 0.55) !important;
+      box-shadow: 0 2px 12px -2px rgba(99, 102, 241, 0.25);
+    }
+    .channel-card-btn {
+      width: 100%;
+      min-height: 66px;
+      text-align: left;
+      padding: 0.75rem 0.9rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: rgba(255, 255, 255, 0.02);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      transition: background-color 0.18s ease, border-color 0.18s ease;
+      cursor: pointer;
+    }
+    .channel-card-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    .channel-btn-active {
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.22) 0%, rgba(99, 102, 241, 0.06) 100%) !important;
+      border-color: rgba(99, 102, 241, 0.6) !important;
+      color: #FFFFFF;
+    }
+    .view-panel {
+      width: 100%;
+      max-width: 80rem;
+      margin-left: auto;
+      margin-right: auto;
+      min-height: calc(100vh - 6.5rem);
     }
     .prose-doc h1 { font-size: 1.4rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.85rem; letter-spacing: -0.02em; line-height: 1.3; }
     .prose-doc h2 { font-size: 1.1rem; font-weight: 700; color: #F1F5F9; margin-top: 1.5rem; margin-bottom: 0.6rem; padding-bottom: 0.4rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
@@ -70,17 +130,17 @@
     ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 3px; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col lg:flex-row antialiased selection:bg-indigo-500 selection:text-white">
+<body class="min-h-screen lg:h-screen lg:overflow-hidden flex flex-col lg:flex-row antialiased selection:bg-indigo-500 selection:text-white">
 
   <!-- ================================================================= -->
   <!-- SIDEBAR: AUTONOMA AI MULTI-TENANT NAVIGATION                      -->
   <!-- ================================================================= -->
-  <aside class="w-full lg:w-72 surface-panel border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col justify-between shrink-0 lg:h-screen lg:sticky lg:top-0 z-40">
+  <aside class="w-full lg:w-72 surface-panel border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col justify-between shrink-0 lg:h-screen z-40">
     <div>
       <!-- Brand Header -->
-      <div class="px-6 py-5 flex items-center justify-between border-b border-white/10">
+      <div class="px-5 py-4 flex items-center justify-between border-b border-white/10">
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-emerald-400 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-emerald-400 flex items-center justify-center shadow-lg shadow-indigo-500/30 shrink-0">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
           <div>
@@ -93,258 +153,261 @@
       </div>
 
       <!-- MULTI-TENANT WORKSPACE SWITCHER -->
-      <div class="p-4 mx-3 mt-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] space-y-2.5">
+      <div class="p-3.5 mx-3 mt-3 rounded-2xl bg-white/[0.03] border border-white/[0.08] space-y-2">
         <div class="flex items-center justify-between">
-          <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400">Klient / Projekt Subskrybenta</span>
+          <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400">Klient / Projekt</span>
           <span id="sidebar-plan-badge" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">ENTERPRISE</span>
         </div>
         <select id="project-selector" onchange="switchProject(this.value)" class="w-full px-3 py-2 rounded-xl bg-[#06080F] border border-white/15 text-white font-semibold text-xs focus:border-indigo-500 focus:outline-none cursor-pointer transition">
         </select>
         <div class="flex items-center justify-between text-[11px] pt-0.5">
-          <span class="text-indigo-400 font-mono truncate max-w-[165px]" id="sidebar-project-url"></span>
-          <button onclick="switchProject('NEW_PROJECT')" class="text-slate-300 hover:text-white font-medium underline text-[11px]">+ Dodaj Projekt</button>
+          <span class="text-indigo-400 font-mono truncate max-w-[155px]" id="sidebar-project-url"></span>
+          <button onclick="switchProject('NEW_PROJECT')" class="text-slate-300 hover:text-white font-semibold underline text-[11px] shrink-0">+ Dodaj Projekt</button>
         </div>
       </div>
 
-      <!-- Main Navigation -->
-      <nav class="px-3 mt-4 space-y-1">
-        <div class="px-3 pb-1 text-[10px] font-mono uppercase tracking-wider text-slate-500">Moduły Operacyjne</div>
+      <!-- Main Navigation (Responsive Grid on Mobile/Tablet, Stack on Desktop) -->
+      <div class="px-3 mt-3">
+        <div class="px-2 pb-1.5 text-[10px] font-mono uppercase tracking-wider text-slate-500 hidden lg:block">Moduły Operacyjne</div>
+        <nav class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-1.5">
+          <button type="button" onclick="switchMainView('studio')" id="nav-studio" class="nav-tab-btn nav-tab-btn-active">
+            <span class="flex items-center gap-2.5 truncate">
+              <span>📝</span> <span class="truncate">Studio 10 Kanałów</span>
+            </span>
+            <span class="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded shrink-0">10/10</span>
+          </button>
 
-        <button onclick="switchMainView('studio')" id="nav-studio" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition bg-indigo-600/15 text-indigo-300 border border-indigo-500/30">
-          <span class="flex items-center gap-3">
-            <span>📝</span> Studio 10 Kanałów & CMS
-          </span>
-          <span class="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded">10/10</span>
-        </button>
+          <button type="button" onclick="switchMainView('workforce')" id="nav-workforce" class="nav-tab-btn">
+            <span class="flex items-center gap-2.5 truncate">
+              <span>🤖</span> <span class="truncate">12 Pracowników AI</span>
+            </span>
+            <span class="text-[10px] font-mono bg-emerald-500/15 text-emerald-400 px-1.5 py-0.5 rounded shrink-0">12 AI</span>
+          </button>
 
-        <button onclick="switchMainView('workforce')" id="nav-workforce" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition border border-transparent">
-          <span class="flex items-center gap-3">
-            <span>🤖</span> Drużyna 12 Pracowników AI
-          </span>
-          <span class="text-[10px] font-mono text-emerald-400">12 ACTIVE</span>
-        </button>
+          <button type="button" onclick="switchMainView('scanner')" id="nav-scanner" class="nav-tab-btn">
+            <span class="flex items-center gap-2.5 truncate">
+              <span>🌐</span> <span class="truncate">DNA Projektu & CMS</span>
+            </span>
+            <span class="text-[10px] font-mono bg-white/10 text-slate-300 px-1.5 py-0.5 rounded shrink-0">DNA</span>
+          </button>
 
-        <button onclick="switchMainView('scanner')" id="nav-scanner" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition border border-transparent">
-          <span class="flex items-center gap-3">
-            <span>🌐</span> Konfiguracja Projektu & CMS
-          </span>
-        </button>
+          <button type="button" onclick="switchMainView('integrations')" id="nav-integrations" class="nav-tab-btn">
+            <span class="flex items-center gap-2.5 truncate">
+              <span>🔌</span> <span class="truncate">Połączenia API</span>
+            </span>
+            <span class="text-[10px] font-mono bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded shrink-0">HUB</span>
+          </button>
 
-        <button onclick="switchMainView('integrations')" id="nav-integrations" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition border border-transparent">
-          <span class="flex items-center gap-3">
-            <span>🔌</span> Połączenia API & Konta
-          </span>
-          <span class="text-[10px] font-mono text-indigo-400">HUB</span>
-        </button>
+          <button type="button" onclick="switchMainView('analytics')" id="nav-analytics" class="nav-tab-btn">
+            <span class="flex items-center gap-2.5 truncate">
+              <span>📊</span> <span class="truncate">Statystyka (Bandit)</span>
+            </span>
+            <span class="text-[10px] font-mono bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded shrink-0">ROI</span>
+          </button>
 
-        <button onclick="switchMainView('analytics')" id="nav-analytics" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition border border-transparent">
-          <span class="flex items-center gap-3">
-            <span>📊</span> Dział Statystyczny (Bandit)
-          </span>
-          <span class="text-[10px] font-mono text-indigo-400">ROI</span>
-        </button>
-
-        <button onclick="switchMainView('antiban')" id="nav-antiban" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition border border-transparent">
-          <span class="flex items-center gap-3">
-            <span>🛡️</span> Kolejka Anti-Ban & UTM
-          </span>
-        </button>
-      </nav>
+          <button type="button" onclick="switchMainView('antiban')" id="nav-antiban" class="nav-tab-btn">
+            <span class="flex items-center gap-2.5 truncate">
+              <span>🛡️</span> <span class="truncate">Kolejka Anti-Ban</span>
+            </span>
+            <span class="text-[10px] font-mono bg-emerald-500/15 text-emerald-300 px-1.5 py-0.5 rounded shrink-0">SAFE</span>
+          </button>
+        </nav>
+      </div>
     </div>
 
     <!-- Bottom Cloud Status -->
-    <div class="p-4 border-t border-white/10 space-y-2.5 text-[11px]">
-      <div class="p-3 rounded-xl bg-emerald-500/[0.07] border border-emerald-500/20 space-y-1">
+    <div class="p-3.5 border-t border-white/10 space-y-2 text-[11px]">
+      <div class="p-2.5 rounded-xl bg-emerald-500/[0.07] border border-emerald-500/20 hidden lg:block">
         <div class="flex items-center justify-between">
           <span class="text-slate-300 font-semibold">Koszt Infrastruktury</span>
           <span class="font-mono font-bold text-emerald-400">0,00 PLN</span>
         </div>
-        <div class="text-[10px] text-slate-400">12 Agentów 24/7 • Zero Blokad</div>
+        <div class="text-[10px] text-slate-400 mt-0.5">12 Agentów 24/7 • Zero Blokad</div>
       </div>
-      <button onclick="regenerateForCurrentProject()" class="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold text-xs shadow-lg shadow-indigo-600/25 transition flex items-center justify-center gap-2">
-        ⚡ Wygeneruj Świeżą Paczkę (10 Formatów)
+      <button type="button" onclick="regenerateForCurrentProject()" class="w-full h-10 px-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold text-xs shadow-lg shadow-indigo-600/25 transition flex items-center justify-center gap-2">
+        ⚡ Odśwież Wszystkie 10 Kanałów
       </button>
     </div>
   </aside>
 
   <!-- ================================================================= -->
-  <!-- MAIN WORKSPACE                                                    -->
+  <!-- MAIN WORKSPACE (FIXED VIEWPORT SHELL — ZERO PAGE RESIZE SHIFT)    -->
   <!-- ================================================================= -->
-  <div class="flex-1 flex flex-col min-w-0">
+  <div class="flex-1 flex flex-col min-w-0 lg:h-screen lg:overflow-hidden">
 
     <!-- Top Global Bar -->
-    <header class="surface-panel border-b border-white/10 px-6 py-3.5 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-30">
-      <div class="flex items-center gap-3">
-        <span class="flex h-2.5 w-2.5 relative">
+    <header class="surface-panel border-b border-white/10 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3 shrink-0 z-30">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <span class="flex h-2.5 w-2.5 relative shrink-0">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
         </span>
-        <span class="text-xs font-bold text-white" id="header-project-title"></span>
-        <span class="text-xs text-slate-500">|</span>
-        <span class="text-xs text-slate-400 hidden md:inline" id="header-project-category"></span>
-        <a id="header-live-article-link" href="#" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 ml-2 px-2.5 py-1 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/30 text-[11px] font-mono transition">
-          🌐 Podgląd Bloga SEO Klienta &nearr;
+        <span class="text-xs font-bold text-white truncate" id="header-project-title"></span>
+        <span class="text-xs text-slate-500 hidden md:inline">|</span>
+        <span class="text-xs text-slate-400 hidden md:inline truncate" id="header-project-category"></span>
+        <a id="header-live-article-link" href="#" target="_blank" class="inline-flex items-center gap-1.5 ml-1 px-2.5 py-1 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/30 text-[11px] font-mono transition shrink-0">
+          🌐 Blog SEO &nearr;
         </a>
       </div>
 
       <!-- Owner CMS Permission Switch -->
-      <div class="flex items-center gap-3">
-        <div class="flex items-center gap-2.5 bg-white/[0.03] border border-white/10 px-3.5 py-1.5 rounded-xl">
-          <span class="text-xs text-slate-300 font-medium">Bramka CMS Strony Właściciela:</span>
-          <button onclick="toggleOwnerPermission()" id="perm-toggle-btn" class="px-2.5 py-1 rounded-lg text-[11px] font-mono font-semibold transition"></button>
+      <div class="flex items-center gap-2.5 shrink-0">
+        <div class="flex items-center gap-2 bg-white/[0.03] border border-white/10 px-3 py-1.5 rounded-xl">
+          <span class="text-xs text-slate-300 font-medium hidden sm:inline">Bramka CMS:</span>
+          <button type="button" onclick="toggleOwnerPermission()" id="perm-toggle-btn" class="px-2.5 py-1 rounded-lg text-[11px] font-mono font-semibold transition"></button>
         </div>
       </div>
     </header>
 
     <!-- CONTENT CONTAINER -->
-    <main class="p-6 max-w-7xl w-full mx-auto space-y-6">
+    <main id="main-scroll-area" class="flex-1 overflow-y-auto p-4 sm:p-6">
 
       <!-- ========================================================= -->
       <!-- VIEW 1: 10-CHANNEL CONTENT STUDIO & CMS PUBLISHER         -->
       <!-- ========================================================= -->
-      <section id="view-studio" class="space-y-6">
+      <section id="view-studio" class="view-panel space-y-5">
 
         <!-- Project Context & Owner CMS Approval Banner -->
-        <div class="bento-card rounded-2xl p-5 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 border-l-4 border-l-indigo-500">
-          <div class="space-y-1">
+        <div class="bento-card rounded-2xl p-4 sm:p-5 flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4 border-l-4 border-l-indigo-500">
+          <div class="space-y-1 min-w-0">
             <div class="flex flex-wrap items-center gap-2">
               <span class="text-[11px] font-mono uppercase px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30" id="studio-project-badge"></span>
               <span id="studio-perm-badge" class="text-[10px] font-mono px-2 py-0.5 rounded"></span>
               <span class="text-xs text-slate-400 font-mono" id="studio-cms-type"></span>
             </div>
-            <h2 class="text-lg font-bold text-white pt-1" id="studio-headline"></h2>
-            <p class="text-xs text-slate-400" id="studio-subtext"></p>
+            <h2 class="text-base sm:text-lg font-bold text-white pt-0.5 truncate" id="studio-headline"></h2>
+            <p class="text-xs text-slate-400 line-clamp-1" id="studio-subtext"></p>
           </div>
 
-          <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-            <button onclick="generateViaLiveAi()" class="px-3.5 py-2 rounded-xl bg-indigo-600/20 hover:bg-indigo-600 border border-indigo-500/30 text-xs font-semibold text-indigo-300 hover:text-white transition">
+          <div class="flex flex-wrap items-center gap-2 shrink-0 w-full xl:w-auto">
+            <button type="button" onclick="generateViaLiveAi()" class="h-9 px-3.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600 border border-indigo-500/30 text-xs font-semibold text-indigo-300 hover:text-white transition flex items-center justify-center">
               🧠 Generuj przez Gemini AI (Live)
             </button>
-            <button onclick="switchMainView('scanner')" class="px-3.5 py-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-xs font-medium text-slate-200 transition">
+            <button type="button" onclick="switchMainView('scanner')" class="h-9 px-3.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-xs font-semibold text-slate-200 transition flex items-center justify-center">
               ✏️ Edytuj DNA Projektu
             </button>
-            <button onclick="approveAndPublishArticle()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-lg shadow-emerald-600/25 flex items-center gap-1.5">
-              🚀 Zatwierdź i Opublikuj na Stronie Klienta
+            <button type="button" onclick="approveAndPublishArticle()" class="h-9 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-1.5">
+              🚀 Zatwierdź i Opublikuj w CMS
             </button>
           </div>
         </div>
 
-        <!-- Split-Pane Content Studio -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Split-Pane Content Studio (Fixed Height on Desktop — Zero Jumping) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
 
           <!-- Left 4 Cols: 10 Channel Selector Cards -->
-          <div class="lg:col-span-4 space-y-2" id="channel-cards-nav">
-            <button onclick="switchTab('article')" id="tab-btn-article" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
-              <div>
-                <div class="text-xs font-bold text-white">🌐 1. Artykuł Blogowy SEO & GEO</div>
-                <div class="text-[11px] text-slate-400 mt-0.5">Tabela porównawcza + FAQ pod cytowania w ChatGPT i Google</div>
+          <div class="lg:col-span-4 flex flex-col justify-between gap-2 lg:h-[680px] lg:overflow-y-auto lg:pr-1" id="channel-cards-nav">
+            <button type="button" onclick="switchTab('article')" id="tab-btn-article" class="channel-card-btn channel-btn-active">
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white truncate">🌐 1. Artykuł Blogowy SEO & GEO</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 truncate">Tabela porównawcza + FAQ pod ChatGPT i Google</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 shrink-0">CMS</span>
             </button>
 
-            <button onclick="switchTab('linkedin')" id="tab-btn-linkedin" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
-              <div>
-                <div class="text-xs font-bold text-white">💼 2. Post Ekspercki LinkedIn</div>
-                <div class="text-[11px] text-slate-400 mt-0.5">Dopasowany do grupy docelowej (bez linku w treści głównej)</div>
+            <button type="button" onclick="switchTab('linkedin')" id="tab-btn-linkedin" class="channel-card-btn">
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white truncate">💼 2. Post Ekspercki LinkedIn</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 truncate">Dopasowany do grupy docelowej (bez linku w treści)</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 shrink-0">B2B</span>
             </button>
 
-            <button onclick="switchTab('carousel')" id="tab-btn-carousel" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
-              <div>
-                <div class="text-xs font-bold text-white">📑 3. Karuzela LinkedIn / IG (5 Slajdów)</div>
-                <div class="text-[11px] text-slate-400 mt-0.5">Gotowy rozkład slajdów PDF z Call-To-Action</div>
+            <button type="button" onclick="switchTab('carousel')" id="tab-btn-carousel" class="channel-card-btn">
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white truncate">📑 3. Karuzela LinkedIn / IG (5 Slajdów)</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 truncate">Gotowy rozkład slajdów PDF z Call-To-Action</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300 shrink-0">PDF</span>
             </button>
 
-            <button onclick="switchTab('twitter')" id="tab-btn-twitter" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
-              <div>
-                <div class="text-xs font-bold text-white">🐦 4. Wątek X / Twitter + 1. Komentarz</div>
-                <div class="text-[11px] text-slate-400 mt-0.5">5 tweetów merytorycznych + link z tagiem UTM w komentarzu</div>
+            <button type="button" onclick="switchTab('twitter')" id="tab-btn-twitter" class="channel-card-btn">
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white truncate">🐦 4. Wątek X / Twitter + 1. Komentarz</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 truncate">5 tweetów + link z tagiem UTM w komentarzu</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 shrink-0">ANTI-BAN</span>
             </button>
 
-            <button onclick="switchTab('community')" id="tab-btn-community" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
-              <div>
-                <div class="text-xs font-bold text-white">👥 5. Własna Grupa (FB / Discord / Skool)</div>
-                <div class="text-[11px] text-slate-400 mt-0.5">Post przypięty z Lead Magnetem + ankieta + szablony odpowiedzi</div>
+            <button type="button" onclick="switchTab('community')" id="tab-btn-community" class="channel-card-btn">
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white truncate">👥 5. Własna Grupa (FB / Discord / Skool)</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 truncate">Post przypięty z Lead Magnetem + ankieta</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 shrink-0">GRUPA</span>
             </button>
 
-            <button onclick="switchTab('ads')" id="tab-btn-ads" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
-              <div>
-                <div class="text-xs font-bold text-white">🎯 6. Kampania Micro-Budget Ads (0-20 zł)</div>
-                <div class="text-[11px] text-slate-400 mt-0.5">Kreacje Meta Retargeting + Google Exact-Match + GEO Ads</div>
+            <button type="button" onclick="switchTab('ads')" id="tab-btn-ads" class="channel-card-btn">
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white truncate">🎯 6. Kampania Micro-Budget Ads (0-20 zł)</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 truncate">Kreacje Meta Retargeting + Google Exact-Match</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 shrink-0">ROAS</span>
             </button>
 
-            <button onclick="switchTab('outreach')" id="tab-btn-outreach" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
-              <div>
-                <div class="text-xs font-bold text-white">🤝 7. Pozyskiwanie Klientów B2B (SDR DM)</div>
-                <div class="text-[11px] text-slate-400 mt-0.5">Sekwencje LinkedIn DM + Cold Email + zbijanie obiekcji</div>
+            <button type="button" onclick="switchTab('outreach')" id="tab-btn-outreach" class="channel-card-btn">
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white truncate">🤝 7. Pozyskiwanie Klientów B2B (SDR DM)</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 truncate">Sekwencje LinkedIn DM + Cold Email + obiekcje</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 shrink-0">SALES</span>
             </button>
 
-            <button onclick="switchTab('newsletter')" id="tab-btn-newsletter" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
-              <div>
-                <div class="text-xs font-bold text-white">📩 8. Newsletter (Brevo / Resend)</div>
-                <div class="text-[11px] text-slate-400 mt-0.5">Cotygodniowe podsumowanie dla własnej bazy subskrybentów</div>
+            <button type="button" onclick="switchTab('newsletter')" id="tab-btn-newsletter" class="channel-card-btn">
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white truncate">📩 8. Newsletter (Brevo / Resend)</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 truncate">Cotygodniowe podsumowanie dla bazy leadów</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300 shrink-0">EMAIL</span>
             </button>
 
-            <button onclick="switchTab('video')" id="tab-btn-video" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
-              <div>
-                <div class="text-xs font-bold text-white">🎬 9. Scenariusz Shorts / Reels (60s)</div>
-                <div class="text-[11px] text-slate-400 mt-0.5">Rozpisany obraz B-Roll + tekst lektora + Hook w 1. sekundzie</div>
+            <button type="button" onclick="switchTab('video')" id="tab-btn-video" class="channel-card-btn">
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white truncate">🎬 9. Scenariusz Shorts / Reels (60s)</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 truncate">Rozpisany obraz B-Roll + tekst lektora + Hook</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300 shrink-0">VIDEO</span>
             </button>
 
-            <button onclick="switchTab('github')" id="tab-btn-github" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
-              <div>
-                <div class="text-xs font-bold text-white">🔌 10. Kod Schema.org JSON-LD & Webhook</div>
-                <div class="text-[11px] text-slate-400 mt-0.5">Gotowy kod integracyjny pod stronę klienta i roboty AI</div>
+            <button type="button" onclick="switchTab('github')" id="tab-btn-github" class="channel-card-btn">
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white truncate">🔌 10. Kod Schema.org JSON-LD & Webhook</div>
+                <div class="text-[11px] text-slate-400 mt-0.5 truncate">Gotowy kod integracyjny pod stronę i roboty AI</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300 shrink-0">DEV</span>
             </button>
           </div>
 
-          <!-- Right 8 Cols: Document Canvas -->
-          <div class="lg:col-span-8 bento-card rounded-2xl p-6 flex flex-col justify-between space-y-4">
-            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
-              <div>
-                <div class="text-xs font-bold text-white" id="format-indicator"></div>
+          <!-- Right 8 Cols: Document Canvas (Locked 680px Height on Desktop — Zero Resize) -->
+          <div class="lg:col-span-8 bento-card rounded-2xl p-5 flex flex-col h-[560px] lg:h-[680px]">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3.5 shrink-0">
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white truncate" id="format-indicator"></div>
                 <div class="text-[11px] text-slate-400 font-mono mt-0.5" id="doc-stats-bar"></div>
               </div>
 
-              <div class="flex items-center gap-2">
+              <div class="flex flex-wrap items-center gap-2 shrink-0">
                 <div class="bg-black/50 p-1 rounded-xl border border-white/10 flex text-[11px]">
-                  <button onclick="setRenderMode('rendered')" id="mode-rendered" class="px-3 py-1 rounded-lg bg-indigo-600 text-white font-semibold transition">Podgląd Sformatowany</button>
-                  <button onclick="setRenderMode('raw')" id="mode-raw" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">Kod Markdown</button>
+                  <button type="button" onclick="setRenderMode('rendered')" id="mode-rendered" class="px-3 py-1 rounded-lg bg-indigo-600 text-white font-semibold transition">Podgląd Sformatowany</button>
+                  <button type="button" onclick="setRenderMode('raw')" id="mode-raw" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white font-semibold transition">Kod Markdown</button>
                 </div>
-                <button onclick="downloadFullBundleJson()" class="px-3.5 py-1.5 bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white text-xs font-semibold rounded-xl border border-indigo-500/30 transition">
-                  📦 Pobierz Paczkę 10w1 (.JSON)
+                <button type="button" onclick="downloadFullBundleJson()" class="h-8 px-3 bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white text-xs font-semibold rounded-xl border border-indigo-500/30 transition">
+                  📦 Paczka 10w1 (.JSON)
                 </button>
-                <button onclick="downloadCurrentFile()" class="px-3.5 py-1.5 bg-white/[0.05] hover:bg-white/[0.12] text-slate-200 text-xs font-semibold rounded-xl border border-white/10 transition">
-                  ⬇️ Pobierz .MD
+                <button type="button" onclick="downloadCurrentFile()" class="h-8 px-3 bg-white/[0.05] hover:bg-white/[0.12] text-slate-200 text-xs font-semibold rounded-xl border border-white/10 transition">
+                  ⬇️ .MD
                 </button>
-                <button onclick="copyCurrentContent()" class="px-3.5 py-1.5 bg-white/[0.08] hover:bg-white/[0.15] text-white text-xs font-semibold rounded-xl border border-white/10 transition">
+                <button type="button" onclick="copyCurrentContent()" class="h-8 px-3 bg-white/[0.08] hover:bg-white/[0.15] text-white text-xs font-semibold rounded-xl border border-white/10 transition">
                   📋 Kopiuj
                 </button>
               </div>
             </div>
 
-            <!-- Rendered Document Area -->
-            <div id="rendered-container" class="bg-[#05070C] border border-white/[0.07] rounded-2xl p-6 prose-doc max-h-[720px] overflow-y-auto"></div>
+            <!-- Rendered Document Area (Fills 100% of remaining fixed height) -->
+            <div id="rendered-container" class="flex-1 mt-4 bg-[#05070C] border border-white/[0.07] rounded-2xl p-5 sm:p-6 prose-doc overflow-y-auto"></div>
 
-            <!-- Raw Markdown Area -->
-            <div id="raw-container" class="hidden bg-[#05070C] border border-white/[0.07] rounded-2xl p-6 font-mono text-xs text-slate-300 max-h-[720px] overflow-y-auto">
+            <!-- Raw Markdown Area (Fills 100% of remaining fixed height) -->
+            <div id="raw-container" class="hidden flex-1 mt-4 bg-[#05070C] border border-white/[0.07] rounded-2xl p-5 sm:p-6 font-mono text-xs text-slate-300 overflow-y-auto">
               <pre id="content-display" class="whitespace-pre-wrap break-words"></pre>
             </div>
           </div>
@@ -355,7 +418,7 @@
       <!-- ========================================================= -->
       <!-- VIEW 2: 12-AGENT VIRTUAL WORKFORCE & COMMAND CENTER       -->
       <!-- ========================================================= -->
-      <section id="view-workforce" class="hidden space-y-6">
+      <section id="view-workforce" class="hidden view-panel space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div class="bento-card rounded-2xl p-5">
             <div class="text-[11px] font-mono uppercase text-slate-400">Wirtualna Drużyna AI</div>
@@ -425,7 +488,7 @@
       <!-- ========================================================= -->
       <!-- VIEW 3: PROJECT DNA & CMS CONFIGURATION                   -->
       <!-- ========================================================= -->
-      <section id="view-scanner" class="hidden space-y-6">
+      <section id="view-scanner" class="hidden view-panel space-y-6">
         <div class="bento-card rounded-2xl p-6 space-y-6">
           <div class="border-b border-white/10 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
@@ -485,7 +548,7 @@
       <!-- ========================================================= -->
       <!-- VIEW 4: API INTEGRATIONS & SOCIAL CONNECTIONS HUB         -->
       <!-- ========================================================= -->
-      <section id="view-integrations" class="hidden space-y-6">
+      <section id="view-integrations" class="hidden view-panel space-y-6">
         <div class="bento-card rounded-2xl p-6 space-y-6">
           <div class="border-b border-white/10 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
@@ -553,7 +616,7 @@
       <!-- ========================================================= -->
       <!-- VIEW 5: STATISTICAL DEPARTMENT (MULTI-ARMED BANDIT)       -->
       <!-- ========================================================= -->
-      <section id="view-analytics" class="hidden space-y-6">
+      <section id="view-analytics" class="hidden view-panel space-y-6">
         <div class="bento-card rounded-2xl p-6 space-y-5">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
             <div>
@@ -576,7 +639,7 @@
       <!-- ========================================================= -->
       <!-- VIEW 6: ANTI-BAN & UTM PIPELINE                           -->
       <!-- ========================================================= -->
-      <section id="view-antiban" class="hidden space-y-6">
+      <section id="view-antiban" class="hidden view-panel space-y-6">
         <div class="bento-card rounded-2xl p-6 space-y-4">
           <div class="border-b border-white/10 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
@@ -933,15 +996,17 @@ ${JSON.stringify({
         if (el) el.classList.add('hidden');
         const navBtn = document.getElementById('nav-' + v);
         if (navBtn) {
-          navBtn.className = "w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition border border-transparent";
+          navBtn.className = "nav-tab-btn";
         }
       });
       const targetEl = document.getElementById('view-' + viewId);
       if (targetEl) targetEl.classList.remove('hidden');
       const activeNav = document.getElementById('nav-' + viewId);
       if (activeNav) {
-        activeNav.className = "w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition bg-indigo-600/15 text-indigo-300 border border-indigo-500/30";
+        activeNav.className = "nav-tab-btn nav-tab-btn-active";
       }
+      const mainScroll = document.getElementById('main-scroll-area');
+      if (mainScroll) mainScroll.scrollTop = 0;
     }
 
     function renderProjectSelector() {
@@ -1056,11 +1121,11 @@ ${JSON.stringify({
     function switchTab(tabId) {
       currentTab = tabId;
       document.querySelectorAll('#channel-cards-nav button').forEach(btn => {
-        btn.className = "w-full text-left p-3.5 rounded-2xl border border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.05] transition flex items-start justify-between gap-3";
+        btn.className = "channel-card-btn";
       });
       const activeBtn = document.getElementById('tab-btn-' + tabId);
       if (activeBtn) {
-        activeBtn.className = "w-full text-left p-3.5 rounded-2xl border channel-btn-active transition flex items-start justify-between gap-3 shadow-lg";
+        activeBtn.className = "channel-card-btn channel-btn-active";
       }
 
       const conf = tabMap[tabId];
@@ -1079,7 +1144,11 @@ ${JSON.stringify({
       document.getElementById('doc-stats-bar').textContent = `Słowa: ${words} | Znaki: ${text.length} | Status: Gotowe do publikacji`;
 
       document.getElementById('content-display').textContent = text;
-      document.getElementById('rendered-container').innerHTML = renderMarkdown(text);
+      const rCont = document.getElementById('rendered-container');
+      const rawCont = document.getElementById('raw-container');
+      rCont.innerHTML = renderMarkdown(text);
+      rCont.scrollTop = 0;
+      rawCont.scrollTop = 0;
     }
 
     function setRenderMode(mode) {
@@ -1092,12 +1161,12 @@ ${JSON.stringify({
         rCont.classList.remove('hidden');
         rawCont.classList.add('hidden');
         btnRen.className = "px-3 py-1 rounded-lg bg-indigo-600 text-white font-semibold transition";
-        btnRaw.className = "px-3 py-1 rounded-lg text-slate-400 hover:text-white transition";
+        btnRaw.className = "px-3 py-1 rounded-lg text-slate-400 hover:text-white font-semibold transition";
       } else {
         rCont.classList.add('hidden');
         rawCont.classList.remove('hidden');
         btnRaw.className = "px-3 py-1 rounded-lg bg-indigo-600 text-white font-semibold transition";
-        btnRen.className = "px-3 py-1 rounded-lg text-slate-400 hover:text-white transition";
+        btnRen.className = "px-3 py-1 rounded-lg text-slate-400 hover:text-white font-semibold transition";
       }
     }
 
