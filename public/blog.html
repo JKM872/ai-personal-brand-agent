@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pl" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Centrum Analiz i Rankingów — Autonoma AI SEO/GEO Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/tracker.js" defer></script>
+  <script id="dynamic-json-ld" type="application/ld+json"></script>
+  <style>
+    body {
+      background-color: #05060A;
+      background-image: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.14), transparent 45%);
+      color: #F8FAFC;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    .article-prose h1 { font-size: 2rem; font-weight: 800; color: #FFFFFF; line-height: 1.25; margin-bottom: 1.2rem; letter-spacing: -0.02em; }
+    .article-prose h2 { font-size: 1.35rem; font-weight: 700; color: #F1F5F9; margin-top: 2.2rem; margin-bottom: 0.9rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .article-prose h3 { font-size: 1.1rem; font-weight: 600; color: #A5B4FC; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    .article-prose p { color: #CBD5E1; line-height: 1.85; margin-bottom: 1.1rem; font-size: 1.02rem; }
+    .article-prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.2rem; color: #CBD5E1; }
+    .article-prose li { margin-bottom: 0.45rem; line-height: 1.7; }
+    .article-prose blockquote { border-left: 4px solid #6366F1; background: rgba(99,102,241,0.1); padding: 1.1rem 1.4rem; border-radius: 0 0.85rem 0.85rem 0; color: #E2E8F0; margin: 1.5rem 0; }
+    .article-prose table { width: 100%; border-collapse: collapse; margin: 1.6rem 0; font-size: 0.92rem; border-radius: 0.75rem; overflow: hidden; }
+    .article-prose th { background: rgba(30, 41, 59, 0.9); color: #FFFFFF; font-weight: 700; text-align: left; padding: 0.85rem 1rem; border: 1px solid rgba(255,255,255,0.12); }
+    .article-prose td { padding: 0.8rem 1rem; border: 1px solid rgba(255,255,255,0.08); color: #CBD5E1; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- Top Navigation Bar -->
+  <header class="border-b border-white/10 bg-[#0B0D14]/90 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px] font-mono font-bold">
+          GEO + JSON-LD ACTIVE
+        </span>
+        <span class="text-sm font-bold text-white" id="nav-brand-name">Raport Ekspercki</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/llms.txt" target="_blank" class="text-xs font-mono text-indigo-400 hover:underline">/llms.txt (Dla ChatGPT)</a>
+        <a href="/" class="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition">
+          &larr; Wróć do Panelu Autonoma AI
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Article Container -->
+  <main class="max-w-4xl w-full mx-auto px-6 py-10 space-y-10">
+    <article id="article-body" class="article-prose bg-[#0B0D14] border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl"></article>
+
+    <!-- Built-In Newsletter Lead Capture Widget (Brevo / Supabase Ready) -->
+    <section class="rounded-3xl bg-gradient-to-r from-indigo-950/60 via-[#0E1324] to-emerald-950/40 border border-indigo-500/30 p-8 md:p-10 space-y-4">
+      <div class="flex items-center gap-2 text-xs font-mono uppercase text-emerald-400">
+        <span>📩 Pracownik #8 — Automatyczny System Lead Nurturingu</span>
+      </div>
+      <h3 class="text-xl font-extrabold text-white" id="lead-box-title">Odbierz cotygodniowe raporty wdrożeniowe i analizy ROI</h3>
+      <p class="text-sm text-slate-300" id="lead-box-desc">
+        Dołącz do bazy subskrybentów projektu i otrzymuj spersonalizowane wskazówki oraz porównania narzędzi prosto na skrzynkę.
+      </p>
+      <form onsubmit="handleLeadSubmit(event)" class="flex flex-col sm:flex-row gap-3 pt-2">
+        <input type="email" id="lead-email-input" required placeholder="Wpisz swój służbowy adres e-mail..." class="flex-1 px-4 py-3 rounded-xl bg-[#05070C] border border-white/15 text-white text-sm focus:border-indigo-500 focus:outline-none">
+        <button type="submit" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition shadow-lg shadow-indigo-600/30">
+          Zapisz się za darmo &rarr;
+        </button>
+      </form>
+      <p id="lead-feedback" class="text-xs font-mono text-emerald-400 hidden"></p>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/10 py-6 text-center text-xs text-slate-500">
+    Wygenerowano i zoptymalizowano przez <strong class="text-slate-300">Autonoma AI (12-Agent Workforce OS)</strong> &bull; Zgodność z GPTBot, PerplexityBot i Schema.org JSON-LD.
+  </footer>
+
+  <script>
+    function renderArticleMarkdown(md) {
+      if (!md) return '<p>Ładowanie artykułu...</p>';
+      let html = md.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      html = html.replace(/((?:^\|.*\|\r?\n)+)/gm, (tableBlock) => {
+        const rows = tableBlock.trim().split(/\r?\n/).filter(r => !r.match(/^\|[\s\-:\|]+\|$/));
+        if (rows.length === 0) return tableBlock;
+        let tHtml = '<table><thead>';
+        rows.forEach((row, idx) => {
+          const cols = row.split('|').slice(1, -1).map(c => c.trim());
+          if (idx === 0) {
+            tHtml += '<tr>' + cols.map(c => `<th>${c}</th>`).join('') + '</tr></thead><tbody>';
+          } else {
+            tHtml += '<tr>' + cols.map(c => `<td>${c}</td>`).join('') + '</tr>';
+          }
+        });
+        tHtml += '</tbody></table>';
+        return tHtml;
+      });
+      html = html
+        .replace(/^---$/gim, '<hr class="border-white/10 my-6">')
+        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+        .replace(/^&gt; (.*$)/gim, '<blockquote>$1</blockquote>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-semibold">$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-indigo-400 underline hover:text-indigo-300 font-semibold">$1</a>')
+        .replace(/^[\*\•\-] (.*$)/gim, '<li>$1</li>');
+      html = html.replace(/(?:<li>.*<\/li>\r?\n?)+/g, (m) => `<ul>${m}</ul>`);
+      html = html.split(/\n\n+/).map(p => {
+        const t = p.trim();
+        if (!t) return '';
+        if (t.startsWith('<h') || t.startsWith('<table') || t.startsWith('<blockquote') || t.startsWith('<ul') || t.startsWith('<hr')) return t;
+        return `<p>${t.replace(/\n/g, '<br>')}</p>`;
+      }).join('');
+      return html;
+    }
+
+    function handleLeadSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('lead-email-input').value.trim();
+      const fb = document.getElementById('lead-feedback');
+      const leads = JSON.parse(localStorage.getItem('autonoma_captured_leads') || '[]');
+      leads.push({ email, captured_at: new Date().toISOString(), url: window.location.href });
+      localStorage.setItem('autonoma_captured_leads', JSON.stringify(leads));
+      fb.textContent = `✅ Dziękujemy! Adres ${email} został dodany do bazy subskrybentów (łącznie leadów: ${leads.length}).`;
+      fb.classList.remove('hidden');
+      document.getElementById('lead-email-input').value = '';
+    }
+
+    async function initBlogReader() {
+      const params = new URLSearchParams(window.location.search);
+      const pid = params.get('project') || 'proj_autonoma_os';
+
+      let projects = [];
+      let bundles = {};
+      try {
+        const res = await fetch('/data.json');
+        const data = await res.json();
+        projects = data.projects || [];
+        bundles = data.bundles_by_project || {};
+      } catch (e) {}
+
+      const localProjs = localStorage.getItem('autonoma_projects_v4');
+      const localBundles = localStorage.getItem('autonoma_bundles_v4');
+      if (localProjs) { try { projects = JSON.parse(localProjs); } catch(e) {} }
+      if (localBundles) { try { Object.assign(bundles, JSON.parse(localBundles)); } catch(e) {} }
+
+      const proj = projects.find(p => p.id === pid) || projects[0] || { product_name: 'Autonoma AI', website_url: 'https://twoja-domena.pl' };
+      const bundle = bundles[proj.id] || {};
+
+      document.getElementById('nav-brand-name').textContent = proj.product_name;
+      document.getElementById('page-title').textContent = `${proj.product_name} — Oficjalny Ranking i Porównanie SEO/GEO`;
+      document.getElementById('article-body').innerHTML = renderArticleMarkdown(bundle.seo_article || '# Brak artykułu');
+
+      document.getElementById('dynamic-json-ld').textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": proj.product_name,
+        "url": proj.website_url,
+        "applicationCategory": proj.category || "BusinessApplication",
+        "description": proj.primary_problem_solved || ""
+      }, null, 2);
+    }
+
+    initBlogReader();
+  </script>
+</body>
+</html>

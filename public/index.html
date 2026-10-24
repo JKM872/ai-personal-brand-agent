@@ -182,6 +182,9 @@
         <span class="text-xs font-bold text-white" id="header-project-title"></span>
         <span class="text-xs text-slate-500">|</span>
         <span class="text-xs text-slate-400 hidden md:inline" id="header-project-category"></span>
+        <a id="header-live-article-link" href="#" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 ml-2 px-2.5 py-1 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/30 text-[11px] font-mono transition">
+          🌐 Podgląd Bloga SEO Klienta &nearr;
+        </a>
       </div>
 
       <!-- Owner CMS Permission Switch -->
@@ -325,6 +328,9 @@
                   <button onclick="setRenderMode('rendered')" id="mode-rendered" class="px-3 py-1 rounded-lg bg-indigo-600 text-white font-semibold transition">Podgląd Sformatowany</button>
                   <button onclick="setRenderMode('raw')" id="mode-raw" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">Kod Markdown</button>
                 </div>
+                <button onclick="downloadFullBundleJson()" class="px-3.5 py-1.5 bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white text-xs font-semibold rounded-xl border border-indigo-500/30 transition">
+                  📦 Pobierz Paczkę 10w1 (.JSON)
+                </button>
                 <button onclick="downloadCurrentFile()" class="px-3.5 py-1.5 bg-white/[0.05] hover:bg-white/[0.12] text-slate-200 text-xs font-semibold rounded-xl border border-white/10 transition">
                   ⬇️ Pobierz .MD
                 </button>
@@ -1020,6 +1026,10 @@ ${JSON.stringify({
       document.getElementById('sidebar-plan-badge').textContent = (proj.subscription_plan || 'PRO').toUpperCase();
       document.getElementById('header-project-title').textContent = proj.product_name || '';
       document.getElementById('header-project-category').textContent = proj.category || 'SaaS';
+      const liveBlogLink = document.getElementById('header-live-article-link');
+      if (liveBlogLink) {
+        liveBlogLink.href = `/blog.html?project=${encodeURIComponent(proj.id || 'proj_autonoma_os')}`;
+      }
 
       document.getElementById('studio-project-badge').textContent = `PROJEKT: ${proj.product_name}`;
       const cmsType = (proj.cms_permissions && proj.cms_permissions.cms_type) || 'github_markdown';
@@ -1347,6 +1357,26 @@ Użyj czystego formatowania Markdown, konkretnych wyliczeń i języka korzyści 
         document.getElementById('inp-problem').value = `Automatyzuje kluczowe procesy w oparciu o platformę ${brandCap}, oszczędzając kilkanaście godzin pracy tygodniowo.`;
       }
       showToast(`Przeskanowano domenę ${host} i automatycznie uzupełniono profil DNA!`);
+    }
+
+    function downloadFullBundleJson() {
+      const proj = getCurrentProject();
+      const bundle = getCurrentBundle();
+      const payload = {
+        exported_at: new Date().toISOString(),
+        project: proj,
+        channels_10_bundle: bundle
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${proj.id || 'autonoma'}_10_channels_bundle.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast(`Pobrano pełną paczkę 10 kanałów JSON dla: ${proj.product_name}!`);
     }
 
     function downloadCurrentFile() {
