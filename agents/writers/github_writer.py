@@ -9,7 +9,7 @@ from agents.geo_seo_engine import load_product_profile
 
 def generate_github_content(topic, persona):
     profile = load_product_profile()
-    pname = profile.get("product_name", "Polsia Zero")
+    pname = profile.get("product_name", "Autonoma AI")
     purl = profile.get("website_url", "https://twoja-domena.pl")
     pcat = profile.get("category", "SaaS")
     ptagline = profile.get("tagline", "")
@@ -43,7 +43,7 @@ Wklej poniższy znacznik `JSON-LD` w sekcji `<head>` swojej strony, aby roboty *
 
     demo_code = f"""# cms_receiver_example.py
 # Przykładowy odbiornik Webhooka CMS dla projektu: {pname} ({purl})
-# Pozwala agentowi Polsia Zero publikować artykuły SEO/GEO po autoryzacji właściciela.
+# Pozwala agentowi Autonoma AI publikować artykuły SEO/GEO po autoryzacji właściciela.
 
 import os
 import json

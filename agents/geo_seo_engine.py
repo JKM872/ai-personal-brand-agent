@@ -62,9 +62,9 @@ def derive_seo_headline(project: dict, trend_topic: dict = None) -> dict:
     problem = project.get("primary_problem_solved", "optymalizacja procesów")
     year = datetime.now().year
 
-    cat_lower = (cat + " " + problem).lower()
+    cat_lower = cat.lower()
 
-    if any(k in cat_lower for k in ["fintech", "faktur", "płatnoś", "windykac", "cashflow", "księgow"]):
+    if any(k in cat_lower for k in ["fintech", "faktur", "płatnoś", "windykac", "cashflow", "księgow"]) or any(k in problem.lower() for k in ["faktur", "zatory płatnicze", "windykac"]):
         seo_focus = "automatyzacji windykacji, fakturowania B2B i ochrony cashflow"
         short_topic = f"Automatyzacja płynności finansowej i faktur B2B w {year} roku"
         polish_insight = (
@@ -74,7 +74,7 @@ def derive_seo_headline(project: dict, trend_topic: dict = None) -> dict:
             "skraca średni czas oczekiwania na przelew (DSO) z 28 do zaledwie 6 dni roboczych."
         )
         metric_highlight = "Skrócenie czasu oczekiwania na płatność faktury średnio o 78% bez psucia relacji z klientem"
-    elif any(k in cat_lower for k in ["e-commerce", "sklep", "sprzedaż", "koszyk", "handl"]):
+    elif any(k in cat_lower for k in ["e-commerce", "sklep", "koszyk", "handl"]):
         seo_focus = "zwiększania konwersji w e-commerce i automatyzacji obsługi klienta"
         short_topic = f"Skalowanie sprzedaży e-commerce z wykorzystaniem agentów AI ({year})"
         polish_insight = (

@@ -637,9 +637,14 @@ def build_web_dashboard():
 
           <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-white/10">
             <span class="text-xs text-slate-400">Klucze są bezpiecznie zapisywane dla aktywnego projektu i używane podczas publikacji LIVE.</span>
-            <button onclick="saveApiIntegrations()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-lg shadow-emerald-600/25">
-              🔌 Zapisz Klucze i Aktywuj Połączenia
-            </button>
+            <div class="flex flex-wrap items-center gap-2.5">
+              <button onclick="dispatchWebhookLive()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow-lg shadow-indigo-600/25">
+                🚀 Wyślij Paczkę 10 Kanałów na Webhook Teraz
+              </button>
+              <button onclick="saveApiIntegrations()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-lg shadow-emerald-600/25">
+                🔌 Zapisz Klucze i Aktywuj Połączenia
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -970,20 +975,28 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
         return tHtml;
       }});
 
+      html = html.replace(/```([a-zA-Z0-9_-]*)\\r?\\n([\\s\\S]*?)```/g, (m, lang, code) => {{
+        return `<pre class="bg-[#080B14] border border-white/10 rounded-xl p-4 my-3 overflow-x-auto font-mono text-xs text-indigo-200"><code>${{code.trim()}}</code></pre>`;
+      }});
+
       html = html
+        .replace(/^---$/gim, '<hr class="border-white/10 my-5">')
         .replace(/^### (.*$)/gim, '<h3>$1</h3>')
         .replace(/^## (.*$)/gim, '<h2>$1</h2>')
         .replace(/^# (.*$)/gim, '<h1>$1</h1>')
         .replace(/^&gt; (.*$)/gim, '<blockquote>$1</blockquote>')
         .replace(/\\*\\*(.*?)\\*\\*/g, '<strong class="text-white font-semibold">$1</strong>')
         .replace(/\\*(.*?)\\*/g, '<em>$1</em>')
+        .replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded bg-white/10 text-indigo-300 font-mono text-[11px]">$1</code>')
         .replace(/\\[([^\\]]+)\\]\\(([^)]+)\\)/g, '<a href="$2" target="_blank" class="text-indigo-400 underline hover:text-indigo-300 font-medium">$1</a>')
         .replace(/^[\\*\\•\\-] (.*$)/gim, '<li>$1</li>');
 
-      html = html.replace(/(<li>.*<\\/li>)/gs, '<ul>$1</ul>');
+      html = html.replace(/(?:<li>.*<\\/li>\\r?\\n?)+/g, (match) => `<ul>${{match}}</ul>`);
       html = html.split(/\\n\\n+/).map(p => {{
-        if (p.startsWith('<h') || p.startsWith('<table') || p.startsWith('<blockquote') || p.startsWith('<ul')) return p;
-        return `<p>${{p.replace(/\\n/g, '<br>')}}</p>`;
+        const trimmed = p.trim();
+        if (!trimmed) return '';
+        if (trimmed.startsWith('<h') || trimmed.startsWith('<table') || trimmed.startsWith('<blockquote') || trimmed.startsWith('<ul') || trimmed.startsWith('<pre') || trimmed.startsWith('<hr')) return trimmed;
+        return `<p>${{trimmed.replace(/\\n/g, '<br>')}}</p>`;
       }}).join('');
       return html;
     }}
@@ -1201,6 +1214,52 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
       showToast(`Artykuł SEO/GEO dla "${{proj.product_name}}" został zatwierdzony i opublikowany na stronie (${{proj.website_url}})!`);
     }}
 
+    function loadApiIntegrations() {{
+      const saved = localStorage.getItem('autonoma_integrations_v4');
+      if (!saved) return;
+      try {{
+        const cfg = JSON.parse(saved);
+        if (cfg.gemini) document.getElementById('api-gemini').value = cfg.gemini;
+        if (cfg.groq) document.getElementById('api-groq').value = cfg.groq;
+        if (cfg.webhook) document.getElementById('api-webhook').value = cfg.webhook;
+        if (cfg.linkedin) document.getElementById('api-linkedin').value = cfg.linkedin;
+        if (cfg.brevo) document.getElementById('api-brevo').value = cfg.brevo;
+        if (cfg.telegram) document.getElementById('api-telegram').value = cfg.telegram;
+        if (cfg.cmsUrl) document.getElementById('api-cms-url').value = cfg.cmsUrl;
+        if (cfg.cmsToken) document.getElementById('api-cms-token').value = cfg.cmsToken;
+        if (cfg.gemini || cfg.webhook || cfg.brevo) {{
+          document.getElementById('integration-mode-badge').textContent = 'TRYB: POŁĄCZENIA AKTYWNE (LIVE)';
+        }}
+      }} catch(e) {{}}
+    }}
+
+    async function dispatchWebhookLive() {{
+      const whUrl = document.getElementById('api-webhook').value.trim();
+      const proj = getCurrentProject();
+      const bundle = getCurrentBundle();
+      if (!whUrl) {{
+        showToast('Wpisz najpierw URL Webhooka (np. z Make.com lub n8n) w polu #2!');
+        return;
+      }}
+      try {{
+        showToast('Wysyłanie kompletnej paczki 10 kanałów na Webhook...');
+        await fetch(whUrl, {{
+          method: 'POST',
+          headers: {{ 'Content-Type': 'application/json' }},
+          body: JSON.stringify({{
+            project_id: proj.id,
+            product_name: proj.product_name,
+            website_url: proj.website_url,
+            bundle: bundle,
+            timestamp: new Date().toISOString()
+          }})
+        }});
+        showToast(`Wysłano paczkę 10 kanałów projektu "${{proj.product_name}}" na Webhook!`);
+      }} catch (err) {{
+        showToast('Paczka została przygotowana (sprawdź CORS lub adres Webhooka).');
+      }}
+    }}
+
     function saveApiIntegrations() {{
       const cfg = {{
         gemini: document.getElementById('api-gemini').value.trim(),
@@ -1338,6 +1397,7 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
     }}
 
     // Initialize Application
+    loadApiIntegrations();
     renderWorkforceGrid();
     updateWorkspaceHeaderAndForms();
     switchTab('article');

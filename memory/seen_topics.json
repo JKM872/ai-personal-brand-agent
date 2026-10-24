@@ -15,7 +15,9 @@
     "https://github.com/jwuthri-cloud/Tracely-ai",
     "https://github.com/feder-cr/git-ai",
     "https://block.xyz/dessa",
-    "https://nitter.click/AikidoSecurity/status/2113759110625906950?__galadriel=lPmlGl9id4oAd5UeBwMhlYKArHyr6lR2IDGujPwB5HV2kQ1aLoPWFd5A9sGuzNcmrp8fUso8qygmHcKTDZ8MNHWqQ3bDJcycV87xp_0VypzQLYj6O_RRHlZuQqj33oASGY2YLSoAiMjeOZN40h7Stf8AG7DPrGZbAPVKUXy36HoMudRbvwF3_r2uYNmfJMhpKzywQDM6Ab8"
+    "https://nitter.click/AikidoSecurity/status/2113759110625906950?__galadriel=lPmlGl9id4oAd5UeBwMhlYKArHyr6lR2IDGujPwB5HV2kQ1aLoPWFd5A9sGuzNcmrp8fUso8qygmHcKTDZ8MNHWqQ3bDJcycV87xp_0VypzQLYj6O_RRHlZuQqj33oASGY2YLSoAiMjeOZN40h7Stf8AG7DPrGZbAPVKUXy36HoMudRbvwF3_r2uYNmfJMhpKzywQDM6Ab8",
+    "https://corgi.computer/",
+    "https://danielball.com/notes/ai_image_generation.html"
   ],
   "runs": [
     {
@@ -145,6 +147,22 @@
       "url": "https://nitter.click/AikidoSecurity/status/2113759110625906950?__galadriel=lPmlGl9id4oAd5UeBwMhlYKArHyr6lR2IDGujPwB5HV2kQ1aLoPWFd5A9sGuzNcmrp8fUso8qygmHcKTDZ8MNHWqQ3bDJcycV87xp_0VypzQLYj6O_RRHlZuQqj33oASGY2YLSoAiMjeOZN40h7Stf8AG7DPrGZbAPVKUXy36HoMudRbvwF3_r2uYNmfJMhpKzywQDM6Ab8",
       "score": 49.4,
       "folder": "2026-10-24_0903_proj_demo_client_evolving-threat-http2shell-is-an-rce-in-"
+    },
+    {
+      "timestamp": "2026-10-24 09:12:34",
+      "title": "Show HN: Corgi, a helpful {agent, terminal} multiplexer",
+      "source": "Hacker News",
+      "url": "https://corgi.computer/",
+      "score": 35.2,
+      "folder": "2026-10-24_0912_proj_autonoma_os_show-hn-corgi-a-helpful-agent-terminal-m"
+    },
+    {
+      "timestamp": "2026-10-24 09:12:35",
+      "title": "A practical guide to AI image generation, from diffusion to agents",
+      "source": "Hacker News",
+      "url": "https://danielball.com/notes/ai_image_generation.html",
+      "score": 26.8,
+      "folder": "2026-10-24_0912_proj_demo_client_a-practical-guide-to-ai-image-generation"
     }
   ]
 }

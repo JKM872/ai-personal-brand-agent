@@ -116,6 +116,9 @@ def dispatch_content_bundle(topic, bundle, queue_dir):
         "linkedin_carousel": bundle["linkedin"]["carousel"],
         "twitter_thread": bundle["twitter"]["thread"],
         "twitter_hooks": bundle["twitter"]["standalone_hooks"],
+        "community_playbook": bundle.get("community", {}).get("community_playbook", ""),
+        "ads_campaign": bundle.get("ads", {}).get("ads_campaign", ""),
+        "outreach_playbook": bundle.get("outreach", {}).get("outreach_playbook", ""),
         "newsletter_markdown": bundle["newsletter"]["newsletter"],
         "video_script": bundle["video"]["video_script"],
         "github_code": bundle["github"]["demo_code"]
