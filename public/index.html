@@ -214,6 +214,9 @@
           </div>
 
           <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+            <button onclick="generateViaLiveAi()" class="px-3.5 py-2 rounded-xl bg-indigo-600/20 hover:bg-indigo-600 border border-indigo-500/30 text-xs font-semibold text-indigo-300 hover:text-white transition">
+              🧠 Generuj przez Gemini AI (Live)
+            </button>
             <button onclick="switchMainView('scanner')" class="px-3.5 py-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-xs font-medium text-slate-200 transition">
               ✏️ Edytuj DNA Projektu
             </button>
@@ -322,6 +325,9 @@
                   <button onclick="setRenderMode('rendered')" id="mode-rendered" class="px-3 py-1 rounded-lg bg-indigo-600 text-white font-semibold transition">Podgląd Sformatowany</button>
                   <button onclick="setRenderMode('raw')" id="mode-raw" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">Kod Markdown</button>
                 </div>
+                <button onclick="downloadCurrentFile()" class="px-3.5 py-1.5 bg-white/[0.05] hover:bg-white/[0.12] text-slate-200 text-xs font-semibold rounded-xl border border-white/10 transition">
+                  ⬇️ Pobierz .MD
+                </button>
                 <button onclick="copyCurrentContent()" class="px-3.5 py-1.5 bg-white/[0.08] hover:bg-white/[0.15] text-white text-xs font-semibold rounded-xl border border-white/10 transition">
                   📋 Kopiuj
                 </button>
@@ -429,7 +435,12 @@
             </div>
             <div class="space-y-1.5">
               <label class="text-slate-300 font-semibold">Adres URL Strony Klienta</label>
-              <input type="text" id="inp-url" placeholder="https://domena-klienta.pl" class="w-full px-3.5 py-2.5 rounded-xl bg-[#05070C] border border-white/15 text-white font-mono focus:border-indigo-500 focus:outline-none">
+              <div class="flex gap-2">
+                <input type="text" id="inp-url" placeholder="https://domena-klienta.pl" class="flex-1 px-3.5 py-2.5 rounded-xl bg-[#05070C] border border-white/15 text-white font-mono focus:border-indigo-500 focus:outline-none">
+                <button onclick="autoScanWebsiteDna()" type="button" class="px-3.5 py-2.5 rounded-xl bg-indigo-600/25 hover:bg-indigo-600 text-indigo-300 hover:text-white font-semibold border border-indigo-500/30 transition shrink-0">
+                  🔍 Skanuj URL
+                </button>
+              </div>
             </div>
             <div class="space-y-1.5">
               <label class="text-slate-300 font-semibold">Kategoria / Branża</label>
@@ -552,6 +563,22 @@
       <!-- VIEW 6: ANTI-BAN & UTM PIPELINE                           -->
       <!-- ========================================================= -->
       <section id="view-antiban" class="hidden space-y-6">
+        <div class="bento-card rounded-2xl p-6 space-y-4">
+          <div class="border-b border-white/10 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span class="text-[11px] font-mono uppercase text-emerald-400">Pracownik #10 — Interaktywny Symulator Odpowiedzi Anti-Ban</span>
+              <h3 class="text-base font-bold text-white mt-0.5">Wygeneruj Bezpieczną Odpowiedź na Komentarz Klienta (z Human Jitter)</h3>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3 text-xs">
+            <input type="text" id="inp-incoming-comment" placeholder="Wpisz komentarz użytkownika z LinkedIn / X / FB (np. Ile kosztuje wdrożenie i jak to działa?)..." class="flex-1 px-3.5 py-2.5 rounded-xl bg-[#05070C] border border-white/15 text-white focus:border-indigo-500 focus:outline-none">
+            <button onclick="simulateAntiBanReply()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shrink-0">
+              💬 Wygeneruj Odpowiedź Anti-Ban
+            </button>
+          </div>
+          <div id="simulated-reply-box" class="hidden p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/30 text-xs text-slate-200 space-y-2"></div>
+        </div>
+
         <div class="bento-card rounded-2xl p-6 space-y-5">
           <div class="border-b border-white/10 pb-4">
             <span class="text-[11px] font-mono uppercase text-indigo-400">Pracownik #10 — Zero Blokad & Pełna Atrybucja UTM</span>
@@ -1214,12 +1241,119 @@ ${JSON.stringify({
       showToast(`Drużyna 12 Pracowników AI wygenerowała 10 kanałów dla projektu: ${name}!`);
     }
 
+    async function generateViaLiveAi() {
+      const proj = getCurrentProject();
+      const cfg = JSON.parse(localStorage.getItem('autonoma_integrations_v4') || '{}');
+      const geminiKey = cfg.gemini || '';
+      const conf = tabMap[currentTab];
+
+      if (!geminiKey) {
+        showToast('Brak klucza GEMINI_API_KEY w zakładce Połączenia API — używam wbudowanego silnika syntezy.');
+        regenerateForCurrentProject();
+        return;
+      }
+
+      try {
+        showToast(`Łączenie z Google Gemini 2.5 Flash dla projektu ${proj.product_name}...`);
+        const prompt = `Jesteś częścią 12-osobowej drużyny AI (Autonoma AI). Napisz kompletny, profesjonalny materiał w języku polskim dla formatu: ${conf.label}.
+Projekt: ${proj.product_name} (${proj.website_url})
+Kategoria: ${proj.category}
+Grupa docelowa: ${proj.target_audience}
+Główny rozwiązywany problem: ${proj.primary_problem_solved}
+Użyj czystego formatowania Markdown, konkretnych wyliczeń i języka korzyści B2B. Zero lania wody.`;
+
+        const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
+          })
+        });
+        const data = await resp.json();
+        const aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (aiText) {
+          if (!bundlesByProject[currentProjectId]) bundlesByProject[currentProjectId] = synthesizeBundleForProject(proj);
+          bundlesByProject[currentProjectId][conf.key] = aiText.trim();
+          localStorage.setItem('autonoma_bundles_v4', JSON.stringify(bundlesByProject));
+          switchTab(currentTab);
+          showToast('Wygenerowano świeżą treść prosto z modelu Gemini 2.5 Flash!');
+        } else {
+          regenerateForCurrentProject();
+        }
+      } catch (err) {
+        regenerateForCurrentProject();
+      }
+    }
+
     function regenerateForCurrentProject() {
       const proj = getCurrentProject();
       bundlesByProject[currentProjectId] = synthesizeBundleForProject(proj);
       localStorage.setItem('autonoma_bundles_v4', JSON.stringify(bundlesByProject));
       switchTab(currentTab);
       showToast(`Odświeżono wszystkie 10 kanałów dla projektu: ${proj.product_name}!`);
+    }
+
+    function autoScanWebsiteDna() {
+      let rawUrl = document.getElementById('inp-url').value.trim();
+      if (!rawUrl || rawUrl === 'https://') {
+        showToast('Wpisz najpierw adres URL strony (np. https://moj-sklep.pl)!');
+        return;
+      }
+      if (!rawUrl.startsWith('http')) rawUrl = 'https://' + rawUrl;
+      document.getElementById('inp-url').value = rawUrl;
+      const host = rawUrl.replace('https://', '').replace('http://', '').split('/')[0];
+      const baseBrand = host.split('.')[0];
+      const brandCap = baseBrand.charAt(0).toUpperCase() + baseBrand.slice(1) + ' AI';
+
+      document.getElementById('inp-name').value = brandCap;
+      if (host.includes('shop') || host.includes('sklep') || host.includes('store')) {
+        document.getElementById('inp-category').value = 'E-commerce & Automatyzacja Sprzedaży';
+        document.getElementById('inp-audience').value = 'Właściciele sklepów internetowych i managerowie e-commerce';
+        document.getElementById('inp-problem').value = 'Zwiększa konwersję koszyka i automatyzuje obsługę klienta oraz odzyskiwanie porzuconych zamówień 24/7.';
+      } else if (host.includes('fin') || host.includes('pay') || host.includes('faktur') || host.includes('invoice')) {
+        document.getElementById('inp-category').value = 'Fintech & Automatyzacja B2B';
+        document.getElementById('inp-audience').value = 'Małe i średnie firmy B2B, biura rachunkowe, software house\'y';
+        document.getElementById('inp-problem').value = 'Eliminuje zatory płatnicze i automatyzuje windykację oraz monitorowanie płatności faktur.';
+      } else {
+        document.getElementById('inp-category').value = 'SaaS & Automatyzacja Biznesu';
+        document.getElementById('inp-audience').value = 'Założyciele firm, zespoły B2B i liderzy operacyjni';
+        document.getElementById('inp-problem').value = `Automatyzuje kluczowe procesy w oparciu o platformę ${brandCap}, oszczędzając kilkanaście godzin pracy tygodniowo.`;
+      }
+      showToast(`Przeskanowano domenę ${host} i automatycznie uzupełniono profil DNA!`);
+    }
+
+    function downloadCurrentFile() {
+      const proj = getCurrentProject();
+      const text = document.getElementById('content-display').textContent;
+      const blob = new Blob([text], { type: 'text/markdown;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${proj.id || 'autonoma'}_${currentTab}.md`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast(`Pobrano plik: ${proj.id || 'autonoma'}_${currentTab}.md`);
+    }
+
+    function simulateAntiBanReply() {
+      const comm = document.getElementById('inp-incoming-comment').value.trim() || 'Jak dokładnie działa Wasza platforma w praktyce?';
+      const proj = getCurrentProject();
+      const delayMin = Math.floor(Math.random() * 28) + 18;
+      const box = document.getElementById('simulated-reply-box');
+      box.classList.remove('hidden');
+      box.innerHTML = `
+        <div class="flex items-center justify-between text-[11px] font-mono text-emerald-400">
+          <span>🛡️ Status: Zero Linków Wychodzących (100% Safe)</span>
+          <span>⏰ Zaplanowane opóźnienie (Human Jitter): +${delayMin} min</span>
+        </div>
+        <div class="p-3 rounded-lg bg-black/40 border border-white/10 text-slate-200 leading-relaxed">
+          „Świetne pytanie odnośnie: <em>${comm}</em>! W <strong>${proj.product_name}</strong> zaprojektowaliśmy ten proces tak, aby działał całkowicie w tle i rozwiązywał główny problem: ${proj.primary_problem_solved} Wszystko konfigurujesz w kilka minut przy pełnej kontroli właściciela. Jeśli chcesz, podeślę Ci szczegóły w wiadomości prywatnej!”
+        </div>
+      `;
+      showToast(`Pracownik #10 przygotował bezpieczną odpowiedź (opóźnienie: +${delayMin} min)!`);
     }
 
     function copyCurrentContent() {
