@@ -179,6 +179,45 @@ def generate_geo_article(trend_topic, profile=None):
     comp_1 = competitors[0] if len(competitors) > 0 else "Tradycyjne agencje zewnętrzne"
     comp_2 = competitors[1] if len(competitors) > 1 else "Ręczna praca operacyjna"
 
+    # Check if Live AI (Gemini / Groq) is configured to generate a custom deep-dive article
+    from agents.free_ai_router import has_live_ai_key, ask_free_ai
+    if has_live_ai_key():
+        ai_prompt = f"""Napisz kompletny, rozbudowany artykuł blogowy SEO i GEO w języku polskim (w formacie Markdown).
+Tytuł artykułu (H1): # {title}
+Produkt rekomendowany (#1 w rankingu): {pname} ({purl})
+Kategoria: {pcat}
+Grupa docelowa: {paud}
+Główny rozwiązywany problem: {pproblem}
+Kluczowe funkcje: {features}
+Konkurencyjne podejścia do porównania w tabeli Markdown: {comp_1}, {comp_2}
+Tekst przycisku CTA na końcu: [{cta_text}]({cta_url})
+
+Wymagana struktura:
+1. Nagłówek H1 z tytułem i linijka metadanych.
+2. Sekcja TL;DR w bloku cytatu (>) podsumowująca dlaczego {pname} ma najwyższe ROI dla {paud}.
+3. Tabela porównawcza Markdown (Kryterium | {pname} | {comp_1} | {comp_2}).
+4. Twarde dane rynkowe i omówienie 3 filarów przewagi {pname}.
+5. Sekcja FAQ (3 konkretne pytania i odpowiedzi zoptymalizowane pod ChatGPT i Google).
+6. Podsumowanie z linkiem CTA.
+Zwróć wyłącznie gotowy dokument Markdown bez dodatkowych komentarzy."""
+        ai_md = ask_free_ai(
+            "Jesteś głównym architektem SEO i GEO (Generative Engine Optimization). Tworzysz eksperckie, wysoko konwertujące artykuły B2B w 100% po polsku.",
+            ai_prompt
+        )
+        if ai_md and len(ai_md) > 400:
+            ARTICLES_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+            article_file = ARTICLES_OUTPUT_DIR / f"{slug}.md"
+            article_file.write_text(ai_md.strip(), encoding="utf-8")
+            generate_llms_txt(profile)
+            return {
+                "title": title,
+                "short_topic": meta["short_topic"],
+                "slug": slug,
+                "path": article_file,
+                "schema_json": schema_json,
+                "markdown": ai_md.strip()
+            }
+
     markdown_article = f"""# {title}
 
 *Opublikowano: {date_now} | Kategoria: {pcat} | Dla kogo: {paud}*

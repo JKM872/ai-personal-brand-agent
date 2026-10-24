@@ -1,7 +1,11 @@
 {
   "mode": "dry_run",
-  "comment": "Zmień 'mode' na 'live', gdy podepniesz klucze API lub Webhook poniżej.",
+  "comment": "Wklej poniżej swój darmowy klucz GEMINI_API_KEY (z aistudio.google.com) lub GROQ_API_KEY (z console.groq.com), aby przełączyć wszystkich 12 pracowników AI w tryb generowania LLM Live!",
   "schedule_interval_hours": 6,
+  "ai_keys": {
+    "GEMINI_API_KEY": "",
+    "GROQ_API_KEY": ""
+  },
   "channels": {
     "linkedin": {
       "enabled": false,
@@ -24,13 +28,13 @@
     "webhook_automation": {
       "enabled": false,
       "comment": "Najprostszy sposób: podepnij jeden adres Webhook z Make.com, n8n lub Zapier, który rozsyła posty na wszystkie konta naraz.",
-      "webhook_url": "https://hook.eu1.make.com/TWOJ_WEBHOOK"
+      "webhook_url": ""
     },
     "telegram_notifier": {
       "enabled": false,
       "comment": "Powiadomienia na telefon z gotowym postem do akceptacji 1 kliknięciem",
-      "bot_token": "TWÓJ_TELEGRAM_BOT_TOKEN",
-      "chat_id": "TWÓJ_CHAT_ID"
+      "bot_token": "",
+      "chat_id": ""
     }
   }
 }

@@ -19,6 +19,19 @@ def generate_linkedin_content(topic, persona):
     polish_insight = meta["polish_insight"]
     metric = meta["metric_highlight"]
 
+    from agents.free_ai_router import has_live_ai_key, ask_free_ai
+    if has_live_ai_key():
+        ai_post = ask_free_ai(
+            f"Jesteś ghostwriterem LinkedIn B2B piszącym w stylu: {active_style}. Tworzysz merytoryczne posty w 100% po polsku, bez linków w treści głównej.",
+            f"Napisz ekspercki post na LinkedIn dla projektu {product_name} ({profile.get('website_url')}). Grupa docelowa: {target_aud}. Rozwiązywany problem: {problem_solved}. Temat: {short_topic}. Kluczowe funkcje: {features}. Na końcu dodaj informację, że link do analizy jest w 1. komentarzu."
+        )
+        if ai_post and len(ai_post) > 150:
+            post = ai_post.strip()
+        else:
+            post = None
+    else:
+        post = None
+
     if active_style == "case_study":
         hook = f"Jak w praktyce rozwiązać jeden z najdroższych problemów dla grupy {target_aud}? Rozbijmy to na konkretny przypadek wdrożeniowy."
         angle = "Zespoły, które zastępują ręczną rutynę zautomatyzowanym procesem, odzyskują średnio kilkanaście godzin tygodniowo już w pierwszym miesiącu:"
@@ -31,7 +44,8 @@ def generate_linkedin_content(topic, persona):
 
     feat_lines = "\n".join([f"• {f}" for f in features[:3]])
 
-    post = f"""{hook}
+    if not post:
+        post = f"""{hook}
 
 Temat na dziś:
 👉 {short_topic}

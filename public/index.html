@@ -499,10 +499,13 @@
             <div class="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-3">
               <div class="font-bold text-white flex items-center justify-between">
                 <span>🧠 1. Darmowy Silnik AI (Google Gemini / Groq)</span>
-                <span class="text-[10px] font-mono text-emerald-400">1 500 req/dzień FREE</span>
+                <button onclick="testAiConnectionLive()" type="button" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-white font-mono text-[10px] border border-emerald-500/30 transition">
+                  ⚡ Testuj Połączenie AI
+                </button>
               </div>
-              <input type="password" id="api-gemini" placeholder="GEMINI_API_KEY (z aistudio.google.com)" class="w-full px-3 py-2 rounded-lg bg-[#05070C] border border-white/15 text-white font-mono">
-              <input type="password" id="api-groq" placeholder="GROQ_API_KEY (opcjonalny fallback LLaMA 3.3 70B)" class="w-full px-3 py-2 rounded-lg bg-[#05070C] border border-white/15 text-white font-mono">
+              <input type="password" id="api-gemini" placeholder="Wklej GEMINI_API_KEY (z aistudio.google.com/apikey)" class="w-full px-3 py-2 rounded-lg bg-[#05070C] border border-white/15 text-white font-mono">
+              <input type="password" id="api-groq" placeholder="Lub wklej GROQ_API_KEY (z console.groq.com/keys)" class="w-full px-3 py-2 rounded-lg bg-[#05070C] border border-white/15 text-white font-mono">
+              <div id="ai-test-result" class="hidden p-2.5 rounded-lg bg-black/50 border border-white/10 text-[11px] font-mono text-slate-300"></div>
             </div>
 
             <div class="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-3">
@@ -1187,6 +1190,74 @@ ${JSON.stringify({
       }
     }
 
+    async function testAiConnectionLive() {
+      const geminiKey = document.getElementById('api-gemini').value.trim();
+      const groqKey = document.getElementById('api-groq').value.trim();
+      const resBox = document.getElementById('ai-test-result');
+      resBox.classList.remove('hidden');
+
+      if (!geminiKey && !groqKey) {
+        resBox.innerHTML = '<span class="text-amber-400">⚠️ Wklej najpierw klucz GEMINI_API_KEY lub GROQ_API_KEY w powyższe pole!</span>';
+        return;
+      }
+
+      resBox.innerHTML = '⏳ Testowanie połączenia z modelem AI...';
+      saveApiIntegrations();
+
+      if (geminiKey) {
+        try {
+          const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: 'Odpowiedz jednym krótkim zdaniem po polsku: System Autonoma AI jest gotowy do pracy!' }] }]
+            })
+          });
+          const data = await resp.json();
+          const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (reply) {
+            resBox.innerHTML = `<span class="text-emerald-400">✅ Połączono z Google Gemini 2.5 Flash! Odpowiedź: "${reply.trim()}"</span>`;
+            showToast('Połączenie z Google Gemini 2.5 Flash działa bezbłędnie!');
+            return;
+          } else {
+            resBox.innerHTML = `<span class="text-rose-400">❌ Błąd klucza Gemini: ${data?.error?.message || 'Sprawdź poprawność klucza'}</span>`;
+            return;
+          }
+        } catch (e) {
+          resBox.innerHTML = `<span class="text-rose-400">❌ Błąd połączenia Gemini: ${e.message}</span>`;
+          return;
+        }
+      }
+
+      if (groqKey) {
+        try {
+          const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + groqKey,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              model: 'llama-3.3-70b-versatile',
+              messages: [{ role: 'user', content: 'Odpowiedz jednym zdaniem po polsku: System Autonoma AI działa!' }],
+              max_tokens: 60
+            })
+          });
+          const data = await resp.json();
+          const reply = data?.choices?.[0]?.message?.content;
+          if (reply) {
+            resBox.innerHTML = `<span class="text-emerald-400">✅ Połączono z Groq LLaMA 3.3 70B! Odpowiedź: "${reply.trim()}"</span>`;
+            showToast('Połączenie z Groq LLaMA 3.3 70B działa bezbłędnie!');
+            return;
+          } else {
+            resBox.innerHTML = `<span class="text-rose-400">❌ Błąd klucza Groq: ${data?.error?.message || 'Sprawdź poprawność klucza'}</span>`;
+          }
+        } catch (e) {
+          resBox.innerHTML = `<span class="text-rose-400">❌ Błąd połączenia Groq: ${e.message}</span>`;
+        }
+      }
+    }
+
     function saveApiIntegrations() {
       const cfg = {
         gemini: document.getElementById('api-gemini').value.trim(),
@@ -1260,9 +1331,75 @@ ${JSON.stringify({
       const proj = getCurrentProject();
       const cfg = JSON.parse(localStorage.getItem('autonoma_integrations_v4') || '{}');
       const geminiKey = cfg.gemini || '';
+      const groqKey = cfg.groq || '';
       const conf = tabMap[currentTab];
 
-      // 1. Try Cloudflare Pages Edge Function (/api/ai-generate) if deployed on Cloudflare
+      const prompt = `Jesteś częścią 12-osobowej drużyny AI (Autonoma AI). Napisz kompletny, profesjonalny materiał w języku polskim dla formatu: ${conf.label}.
+Projekt: ${proj.product_name} (${proj.website_url})
+Kategoria: ${proj.category}
+Grupa docelowa: ${proj.target_audience}
+Główny rozwiązywany problem: ${proj.primary_problem_solved}
+Użyj czystego formatowania Markdown, konkretnych wyliczeń i języka korzyści B2B. Zero lania wody.`;
+
+      // 1. Try Google Gemini 2.5 Flash if GEMINI_API_KEY is configured in UI
+      if (geminiKey) {
+        try {
+          showToast(`Łączenie z Google Gemini 2.5 Flash dla projektu ${proj.product_name}...`);
+          const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
+            })
+          });
+          const data = await resp.json();
+          const aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (aiText) {
+            if (!bundlesByProject[currentProjectId]) bundlesByProject[currentProjectId] = synthesizeBundleForProject(proj);
+            bundlesByProject[currentProjectId][conf.key] = aiText.trim();
+            localStorage.setItem('autonoma_bundles_v4', JSON.stringify(bundlesByProject));
+            switchTab(currentTab);
+            showToast('✅ Wygenerowano świeżą treść prosto z modelu Google Gemini 2.5 Flash!');
+            return;
+          }
+        } catch (e) {}
+      }
+
+      // 2. Try Groq LLaMA 3.3 70B if GROQ_API_KEY is configured in UI
+      if (groqKey) {
+        try {
+          showToast(`Łączenie z Groq LLaMA 3.3 70B dla projektu ${proj.product_name}...`);
+          const gResp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + groqKey,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              model: 'llama-3.3-70b-versatile',
+              messages: [
+                { role: 'system', content: 'Jesteś ekspertem marketingu i sprzedaży B2B w Autonoma AI. Piszesz w 100% po polsku.' },
+                { role: 'user', content: prompt }
+              ],
+              temperature: 0.7,
+              max_tokens: 2048
+            })
+          });
+          const gData = await gResp.json();
+          const gText = gData?.choices?.[0]?.message?.content;
+          if (gText) {
+            if (!bundlesByProject[currentProjectId]) bundlesByProject[currentProjectId] = synthesizeBundleForProject(proj);
+            bundlesByProject[currentProjectId][conf.key] = gText.trim();
+            localStorage.setItem('autonoma_bundles_v4', JSON.stringify(bundlesByProject));
+            switchTab(currentTab);
+            showToast('✅ Wygenerowano świeżą treść prosto z modelu Groq LLaMA 3.3 70B!');
+            return;
+          }
+        } catch (e) {}
+      }
+
+      // 3. Try Cloudflare Pages Edge Function (/api/ai-generate) if deployed on Cloudflare
       try {
         const cfResp = await fetch('/api/ai-generate', {
           method: 'POST',
@@ -1276,50 +1413,15 @@ ${JSON.stringify({
             bundlesByProject[currentProjectId][conf.key] = cfData.result.trim();
             localStorage.setItem('autonoma_bundles_v4', JSON.stringify(bundlesByProject));
             switchTab(currentTab);
-            showToast('Wygenerowano treść na żywo przez Cloudflare Workers AI (LLaMA 3.3 70B)!');
+            showToast('✅ Wygenerowano treść na żywo przez Cloudflare Workers AI (LLaMA 3.3 70B)!');
             return;
           }
         }
       } catch (e) {}
 
-      // 2. Try Google Gemini 2.5 Flash if GEMINI_API_KEY is configured in UI
-      if (!geminiKey) {
-        showToast('Wygenerowano nową paczkę przez wbudowany silnik syntezy (dodaj GEMINI_API_KEY w zakładce Połączenia API dla trybu LLM Live).');
-        regenerateForCurrentProject();
-        return;
-      }
-
-      try {
-        showToast(`Łączenie z Google Gemini 2.5 Flash dla projektu ${proj.product_name}...`);
-        const prompt = `Jesteś częścią 12-osobowej drużyny AI (Autonoma AI). Napisz kompletny, profesjonalny materiał w języku polskim dla formatu: ${conf.label}.
-Projekt: ${proj.product_name} (${proj.website_url})
-Kategoria: ${proj.category}
-Grupa docelowa: ${proj.target_audience}
-Główny rozwiązywany problem: ${proj.primary_problem_solved}
-Użyj czystego formatowania Markdown, konkretnych wyliczeń i języka korzyści B2B. Zero lania wody.`;
-
-        const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
-          })
-        });
-        const data = await resp.json();
-        const aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (aiText) {
-          if (!bundlesByProject[currentProjectId]) bundlesByProject[currentProjectId] = synthesizeBundleForProject(proj);
-          bundlesByProject[currentProjectId][conf.key] = aiText.trim();
-          localStorage.setItem('autonoma_bundles_v4', JSON.stringify(bundlesByProject));
-          switchTab(currentTab);
-          showToast('Wygenerowano świeżą treść prosto z modelu Gemini 2.5 Flash!');
-        } else {
-          regenerateForCurrentProject();
-        }
-      } catch (err) {
-        regenerateForCurrentProject();
-      }
+      // 4. Deterministic Fallback Synthesis
+      regenerateForCurrentProject();
+      showToast('Wygenerowano paczkę przez wbudowany silnik syntezy (wklej GEMINI_API_KEY lub GROQ_API_KEY w zakładce Połączenia API dla trybu LLM Live).');
     }
 
     function regenerateForCurrentProject() {
