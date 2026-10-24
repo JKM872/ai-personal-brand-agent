@@ -1,24 +1,31 @@
 """
-B2B Outreach & Partnership SDR Agent (Autonoma AI Workforce — Employee #9).
+B2B Outreach & Partnership SDR Agent (Autonoma AI Workforce — Employee #7).
 Generates hyper-personalized, non-spammy value-first outreach sequences (LinkedIn DM + Cold Email)
 and objection-handling responses tailored to the client's target audience.
 """
 
 from agents.geo_seo_engine import load_product_profile, derive_seo_headline
+from agents.free_ai_router import has_live_ai_key, ask_free_ai
 
 def generate_outreach_content(topic, persona):
     profile = load_product_profile()
     pname = profile.get("product_name", "Autonoma AI")
     purl = profile.get("website_url", "https://twoja-domena.pl")
-    pcat = profile.get("category", "SaaS & Automatyzacja")
     paud = profile.get("target_audience", "właścicieli firm B2B")
     pproblem = profile.get("primary_problem_solved", "")
     features = profile.get("key_features", ["Pełna automatyzacja 24/7"])
-    cta_text = profile.get("call_to_action", {}).get("text", "Wypróbuj za darmo")
 
     meta = derive_seo_headline(profile, topic)
     short_topic = meta["short_topic"]
     metric = meta["metric_highlight"]
+
+    if has_live_ai_key():
+        ai_out = ask_free_ai(
+            "Jesteś specjalistą B2B SDR & Cold Outreach w Autonoma AI. Piszesz w 100% po polsku w formacie Markdown, bez spamu (Value-First).",
+            f"Przygotuj sekwencję pozyskiwania klientów B2B dla produktu {pname} ({purl}), grupa docelowa (ICP): {paud}, problem: {pproblem}, temat: {short_topic}, efekt: {metric}. Uwzględnij: 1) Sekwencję 2 wiadomości LinkedIn DM, 2) Cold Email do decydenta, 3) Zbijanie 2 obiekcji sprzedażowych."
+        )
+        if ai_out and len(ai_out) > 200:
+            return {"outreach_playbook": ai_out.strip()}
 
     outreach_md = f"""# 🤝 Sekwencje Pozyskiwania Klientów B2B (SDR Outreach & DM) — {pname}
 

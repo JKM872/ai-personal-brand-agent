@@ -1,10 +1,11 @@
 """
-Micro-Budget Ads & Retargeting Agent (Autonoma AI Workforce — Employee #8).
-Generates high-ROI ad campaigns for minimum-budget performance marketing (15-20 PLN / day)
+Micro-Budget Ads & Retargeting Agent (Autonoma AI Workforce — Employee #6).
+Generates high-ROI ad campaigns for minimum-budget performance marketing (0-20 PLN / day)
 across Meta Ads (Facebook/Instagram), LinkedIn Boost, and Google High-Intent Search.
 """
 
 from agents.geo_seo_engine import load_product_profile, derive_seo_headline
+from agents.free_ai_router import has_live_ai_key, ask_free_ai
 
 def generate_ads_content(topic, persona):
     profile = load_product_profile()
@@ -17,8 +18,15 @@ def generate_ads_content(topic, persona):
     cta_text = profile.get("call_to_action", {}).get("text", "Wypróbuj za darmo")
 
     meta = derive_seo_headline(profile, topic)
-    short_topic = meta["short_topic"]
     metric = meta["metric_highlight"]
+
+    if has_live_ai_key():
+        ai_ads = ask_free_ai(
+            "Jesteś inżynierem kampanii Performance Marketing (Micro-Budget 0-20 zł/dzień) w Autonoma AI. Piszesz w 100% po polsku w formacie Markdown.",
+            f"Przygotuj kampanię reklamową niskiego budżetu (0-20 zł/dzień) dla projektu {pname} ({purl}), kategoria: {pcat}, grupa docelowa: {paud}, problem: {pproblem}, kluczowy wynik: {metric}. Uwzględnij: 1) Meta Ads Retargeting (10 zł/dzień), 2) Google Search Ads Exact-Match (10 zł/dzień), 3) Alternatywę 0,00 zł (GEO + Newsletter)."
+        )
+        if ai_ads and len(ai_ads) > 200:
+            return {"ads_campaign": ai_ads.strip()}
 
     ads_markdown = f"""# 🎯 Kampania Reklamowa Minimalnego Budżetu (Micro-Budget Ads: 0 – 20 zł / dzień) — {pname}
 

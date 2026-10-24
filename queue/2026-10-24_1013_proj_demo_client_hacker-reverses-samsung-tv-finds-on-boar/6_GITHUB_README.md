@@ -1,6 +1,6 @@
-# 🔌 Pakiet Integracyjny Strony (GEO Schema + Tracker + CMS) — Polsia Zero (Główna Platforma)
+# 🔌 Pakiet Integracyjny Strony (GEO Schema + Tracker + CMS) — InvoicePulse AI (Klient Subskrypcyjny #1)
 
-Gotowy pakiet wdrożeniowy dla domeny **https://twoja-domena.pl** (Tryb CMS: `github_markdown`).
+Gotowy pakiet wdrożeniowy dla domeny **https://invoicepulse-demo.com** (Tryb CMS: `wordpress`).
 Wklej poniższy znacznik `JSON-LD` w sekcji `<head>` swojej strony, aby roboty **ChatGPT Search (GPTBot)**, **Perplexity** oraz **Google** natychmiast indeksowały Twój produkt.
 
 ## 1. Kod Schema.org JSON-LD (Wklej do `<head>`)
@@ -10,11 +10,11 @@ Wklej poniższy znacznik `JSON-LD` w sekcji `<head>` swojej strony, aby roboty *
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Polsia Zero (Główna Platforma)",
-  "url": "https://twoja-domena.pl",
-  "applicationCategory": "SaaS & AI Growth Platform",
+  "name": "InvoicePulse AI (Klient Subskrypcyjny #1)",
+  "url": "https://invoicepulse-demo.com",
+  "applicationCategory": "Fintech & Automatyzacja B2B",
   "operatingSystem": "Web, Cloud",
-  "description": "Autonomiczny system wzrostu i marketingu 24/7 dla startupów i SaaS",
+  "description": "Inteligentny system do automatycznego odzyskiwania płatności i fakturowania B2B",
   "offers": {
     "@type": "Offer",
     "price": "0",

@@ -1,5 +1,5 @@
 """
-Technical Integration & GEO Schema Generator (Polsia Multi-Tenant SaaS).
+Technical Integration & GEO Schema Generator (Autonoma AI Multi-Tenant SaaS — Employee #12).
 Generates project-specific JSON-LD Schema.org markup, /llms.txt specification,
 and a Python CMS Webhook receiver for the client's website.
 """

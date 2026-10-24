@@ -1,6 +1,6 @@
 # cms_receiver_example.py
-# Przykładowy odbiornik Webhooka CMS dla projektu: Polsia Zero (Główna Platforma) (https://twoja-domena.pl)
-# Pozwala agentowi Polsia Zero publikować artykuły SEO/GEO po autoryzacji właściciela.
+# Przykładowy odbiornik Webhooka CMS dla projektu: Autonoma AI (Główna Platforma) (https://twoja-domena.pl)
+# Pozwala agentowi Autonoma AI publikować artykuły SEO/GEO po autoryzacji właściciela.
 
 import os
 import json
@@ -22,6 +22,6 @@ def handle_incoming_article_webhook(headers: dict, payload: dict) -> dict:
 
     return {
         "status": 200,
-        "project": "Polsia Zero (Główna Platforma)",
+        "project": "Autonoma AI (Główna Platforma)",
         "published_path": str(output_path)
     }

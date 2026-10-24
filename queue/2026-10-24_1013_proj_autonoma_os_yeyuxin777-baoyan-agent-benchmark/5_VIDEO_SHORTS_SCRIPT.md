@@ -1,8 +1,8 @@
-# 🎬 Scenariusz Wideo 60s (Shorts / Reels / TikTok) — Polsia Zero (Główna Platforma)
+# 🎬 Scenariusz Wideo 60s (Shorts / Reels / TikTok) — Autonoma AI (Główna Platforma)
 
 **Temat odcinka:** Autonomiczne systemy wzrostu, SEO i marketingu AI w 2026 roku
 **Grupa docelowa:** Założyciele SaaS, twórcy cyfrowi, firmy B2B i e-commerce
-**Styl narracji:** analityk_danych
+**Styl narracji:** case_study
 
 ---
 
@@ -10,6 +10,6 @@
 |---|---|---|
 | **0:00 - 0:04** | **Mocny Hook:** Zbliżenie na twarz, dynamiczny napis na środku ekranu: *"PRZESTAŃ ROBIĆ TO RĘCZNIE W 2026!"* | "Większość firm z grupy Założyciele SaaS, twórcy cyfrowi, firmy B2B i e-commerce traci kilkanaście godzin tygodniowo na proces, który dziś można zautomatyzować w 5 minut." |
 | **0:05 - 0:16** | Przebitka na konkretny wskaźnik na ekranie: *Redukcja czasu pracy nad marketingiem o 18 godzin tygodniowo i wzrost ruchu organicznego*. | "Najnowsze dane z rynku pokazują jasno: Redukcja czasu pracy nad marketingiem o 18 godzin tygodniowo i wzrost ruchu organicznego." |
-| **0:17 - 0:34** | Pokazanie ekranu platformy **Polsia Zero (Główna Platforma)** i jej głównego panelu. | "Dlatego stworzyliśmy Polsia Zero (Główna Platforma). Nasz system rozwiązuje główny ból: Zastępuje kosztowny dział marketingu autonomicznymi agentami AI, którzy sami piszą artykuły SEO/GEO, prowadzą social media i publikują na stronie przy budżecie 0 zł." |
+| **0:17 - 0:34** | Pokazanie ekranu platformy **Autonoma AI (Główna Platforma)** i jej głównego panelu. | "Dlatego stworzyliśmy Autonoma AI (Główna Platforma). Nasz system rozwiązuje główny ból: Zastępuje kosztowny dział marketingu i sprzedaży 12 autonomicznymi pracownikami AI, którzy sami piszą artykuły SEO/GEO, prowadzą social media, budują własną grupę, odpowiadają na komentarze i pozyskują klientów przy budżecie 0 zł." |
 | **0:35 - 0:48** | Szybkie wyliczenie na ekranie 2 kluczowych korzyści z zielonymi ikonami ✅. | "Po pierwsze: Autonomiczna publikacja artykułów SEO & GEO prosto na stronę za zgodą właściciela. Po drugie: masz pełną kontrolę i zero ryzyka blokad." |
-| **0:49 - 0:58** | Wskazanie na opis profilu / pierwszy komentarz. Napis: *"Link w komentarzu!"* | "Chcesz zobaczyć, jak to zadziała w Twojej firmie? Sprawdź pierwszy komentarz pod filmem i przetestuj Polsia Zero (Główna Platforma)!" |
+| **0:49 - 0:58** | Wskazanie na opis profilu / pierwszy komentarz. Napis: *"Link w komentarzu!"* | "Chcesz zobaczyć, jak to zadziała w Twojej firmie? Sprawdź pierwszy komentarz pod filmem i przetestuj Autonoma AI (Główna Platforma)!" |

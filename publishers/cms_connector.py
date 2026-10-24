@@ -19,11 +19,16 @@ from pathlib import Path
 BASE_DIR = Path(__file__).parent.parent.resolve()
 PROFILE_PATH = BASE_DIR / "saas_core" / "product_profile.json"
 
-def load_cms_permissions() -> dict:
+def load_cms_permissions(profile: dict = None) -> dict:
+    if isinstance(profile, dict):
+        perms = profile.get("cms_permissions") or profile.get("cms_config")
+        if isinstance(perms, dict) and perms:
+            return perms
+
     if PROFILE_PATH.exists():
         try:
             data = json.loads(PROFILE_PATH.read_text(encoding="utf-8"))
-            perms = data.get("cms_permissions", {})
+            perms = data.get("cms_permissions") or data.get("cms_config") or {}
             if perms:
                 return perms
         except Exception:
@@ -66,7 +71,7 @@ def publish_article_to_website(article: dict, profile: dict, force_owner_overrid
     """
     Publishes an article to the connected website ONLY if owner permissions allow it.
     """
-    perms = load_cms_permissions()
+    perms = load_cms_permissions(profile)
     is_authorized = perms.get("owner_authorized", False) or force_owner_override
     publish_mode = perms.get("publish_mode", "require_approval")
     cms_type = perms.get("cms_type", "github_markdown")
@@ -168,7 +173,7 @@ def publish_article_to_website(article: dict, profile: dict, force_owner_overrid
                 headers={
                     "Authorization": f"Bearer {perms['gh_token']}",
                     "Accept": "application/vnd.github.v3+json",
-                    "User-Agent": "PolsiaZeroAgent/2.0"
+                    "User-Agent": "AutonomaAIAgent/2.0"
                 },
                 method="PUT"
             )

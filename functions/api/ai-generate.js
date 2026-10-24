@@ -1,14 +1,14 @@
-"""
-Cloudflare Pages Function: /api/ai-generate
-Native integration with Cloudflare Workers AI (@cf/meta/llama-3.3-70b-instruct) for Autonoma AI Studio.
-Allows 0.00 PLN live generation of any of the 10 marketing channels directly at the Edge.
-"""
+/**
+ * Cloudflare Pages Function: /api/ai-generate
+ * Native integration with Cloudflare Workers AI (@cf/meta/llama-3.3-70b-instruct) for Autonoma AI Studio.
+ * Allows 0.00 PLN live generation of any of the 10 marketing channels directly at the Edge.
+ */
 export async function onRequestPost(context) {
   try {
     const body = await context.request.json();
     const project = body.project || {};
-    const channelLabel = body.channel_label || "Post Ekspercki LinkedIn";
-    const pname = project.product_name || "Autonoma AI";
+    const channelLabel = body.channel_label || body.format || "Post Ekspercki LinkedIn";
+    const pname = project.product_name || body.topic || "Autonoma AI";
     const purl = project.website_url || "https://twoja-domena.pl";
     const pcat = project.category || "SaaS & Automatyzacja";
     const paud = project.target_audience || "klienci B2B";

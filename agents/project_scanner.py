@@ -1,7 +1,7 @@
 """
-Polsia-Style Autonomous Project DNA Scanner.
+Autonoma AI Autonomous Project DNA Scanner.
 Connects to ANY website URL, extracts title, meta description, headings, value proposition,
-and adapts the entire AI agent workforce to the target project and industry.
+and adapts the entire 12-Agent AI workforce to the target project and industry.
 """
 
 import re
@@ -68,7 +68,7 @@ def scan_website_dna(url: str) -> dict:
     try:
         req = urllib.request.Request(
             url,
-            headers={"User-Agent": "Mozilla/5.0 (compatible; PolsiaAutonomousAgent/2.0)"}
+            headers={"User-Agent": "Mozilla/5.0 (compatible; AutonomaAIAgent/2.0)"}
         )
         with urllib.request.urlopen(req, timeout=12) as resp:
             raw_html = resp.read().decode("utf-8", errors="ignore")

@@ -1,16 +1,14 @@
 """
-Agent: Automated Newsletter Engine (Własna baza leadów za 0,00 PLN).
+Agent: Automated Newsletter Engine (Autonoma AI — Employee #8, 0,00 PLN).
 Integrates with Brevo API (up to 300 free emails/day) & Resend API (up to 100/day).
-Pulls active leads from Supabase and delivers curated weekly digests with anti-spam pacing.
+Pulls active leads from Supabase / SQLite and delivers curated weekly digests with anti-spam pacing.
 """
 
-import os
 import sys
 import time
 import json
 import random
 import urllib.request
-from datetime import datetime
 from pathlib import Path
 
 BASE_DIR = Path(__file__).parent.parent.resolve()
@@ -18,8 +16,9 @@ if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
 
 from db.supabase_client import db
+from agents.free_ai_router import _load_key
 
-def send_newsletter_batch(subject: str, html_content: str, sender_name: str = "AI Growth Digest", sender_email: str = "newsletter@twojadomena.pl"):
+def send_newsletter_batch(subject: str, html_content: str, sender_name: str = "Autonoma AI Digest", sender_email: str = "newsletter@twojadomena.pl"):
     """
     Sends a newsletter batch to up to 280 subscribers (staying safely below Brevo's 300/day free limit).
     """
@@ -28,9 +27,9 @@ def send_newsletter_batch(subject: str, html_content: str, sender_name: str = "A
         print("[INFO] Brak aktywnych subskrybentów w bazie newslettera.")
         return {"status": "no_subscribers", "count": 0}
 
-    brevo_key = os.environ.get("BREVO_API_KEY", "").strip()
-    resend_key = os.environ.get("RESEND_API_KEY", "").strip()
-    
+    brevo_key = _load_key("BREVO_API_KEY")
+    resend_key = _load_key("RESEND_API_KEY")
+
     # 1. Brevo API (300 maili/dzień za darmo)
     if brevo_key:
         print(f"📧 [BREVO API] Rozpoczynanie wysyłki do {len(subs)} subskrybentów...")
@@ -58,7 +57,7 @@ def send_newsletter_batch(subject: str, html_content: str, sender_name: str = "A
                         sent_count += 1
             except Exception as e:
                 print(f"[WARN] Błąd wysyłki do {sub['email']}: {e}")
-            time.sleep(random.uniform(1.2, 3.0)) # Anti-spam pacing
+            time.sleep(random.uniform(1.2, 3.0))
         return {"status": "sent", "provider": "brevo", "count": sent_count}
 
     # 2. Resend API Fallback (100 maili/dzień)
@@ -99,6 +98,6 @@ def send_newsletter_batch(subject: str, html_content: str, sender_name: str = "A
         return {"status": "dry_run", "count": len(subs), "file": str(queue_file)}
 
 if __name__ == "__main__":
-    test_html = "<h1>Cześć!</h1><p>Oto najnowsze zestawienie narzędzi AI i automatyzacji.</p>"
-    res = send_newsletter_batch("🧠 Tygodniowy Przegląd Techniczny AI", test_html)
+    test_html = "<h1>Cześć!</h1><p>Oto najnowsze zestawienie narzędzi AI i automatyzacji od Autonoma AI.</p>"
+    res = send_newsletter_batch("🧠 Tygodniowy Przegląd Strategiczny Autonoma AI", test_html)
     print("Wynik wysyłki:", res)

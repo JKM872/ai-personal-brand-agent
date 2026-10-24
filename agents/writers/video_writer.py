@@ -1,24 +1,34 @@
 """
-Video & Shorts Script Ghostwriter Agent (Polsia Multi-Tenant SaaS).
+Video & Shorts Script Ghostwriter Agent (Autonoma AI Multi-Tenant SaaS — Employee #9).
 Generates a high-retention 60-second vertical video script (YouTube Shorts, Reels, TikTok)
 tailored 100% in Polish to the active client project, pain point, and value proposition.
 """
 
 from agents.geo_seo_engine import load_product_profile, derive_seo_headline
+from agents.free_ai_router import has_live_ai_key, ask_free_ai
 
 def generate_video_content(topic, persona):
     profile = load_product_profile()
-    pname = profile.get("product_name", "Polsia Zero")
+    pname = profile.get("product_name", "Autonoma AI")
     paud = profile.get("target_audience", "właścicieli firm")
     pproblem = profile.get("primary_problem_solved", "")
     features = profile.get("key_features", ["Pełna automatyzacja w chmurze"])
+    active_style = persona.get("active_style", "analityk_danych")
     meta = derive_seo_headline(profile, topic)
+
+    if has_live_ai_key():
+        ai_vid = ask_free_ai(
+            f"Jesteś reżyserem krótkich form wideo (Shorts / Reels / TikTok) w stylu: {active_style}. Tworzysz 60-sekundowe scenariusze w tabeli Markdown po polsku.",
+            f"Napisz scenariusz 60s Shorts dla produktu {pname}. Grupa docelowa: {paud}. Temat: {meta['short_topic']}. Problem: {pproblem}. Efekt: {meta['metric_highlight']}. Użyj tabeli Markdown z kolumnami: Sekunda | Obraz / B-Roll | Lektor."
+        )
+        if ai_vid and len(ai_vid) > 150:
+            return {"video_script": ai_vid.strip()}
 
     script = f"""# 🎬 Scenariusz Wideo 60s (Shorts / Reels / TikTok) — {pname}
 
 **Temat odcinka:** {meta['short_topic']}
 **Grupa docelowa:** {paud}
-**Styl narracji:** {persona.get('active_style', 'analityk_danych')}
+**Styl narracji:** {active_style}
 
 ---
 

@@ -1,14 +1,15 @@
 """
-X / Twitter Ghostwriter Agent (Project-Adaptive & Anti-Ban Compliant).
+X / Twitter Ghostwriter Agent (Autonoma AI Multi-Tenant SaaS — Employee #4).
 Generates a 100% Polish 5-part thread without outbound links in Tweet #1 (preventing algorithmic reach penalties),
 placing the tracked UTM link in the delayed follow-up comment.
 """
 
 from agents.geo_seo_engine import load_product_profile, derive_seo_headline
+from agents.free_ai_router import has_live_ai_key, ask_free_ai
 
 def generate_twitter_content(topic, persona):
     profile = load_product_profile()
-    product_name = profile.get("product_name", "Nasz Projekt")
+    product_name = profile.get("product_name", "Autonoma AI")
     problem_solved = profile.get("primary_problem_solved", "automatyzacja wzrostu")
     target_aud = profile.get("target_audience", "właściciele firm B2B")
     features = profile.get("key_features", ["Pełna automatyzacja 24/7"])
@@ -19,7 +20,17 @@ def generate_twitter_content(topic, persona):
     polish_insight = meta["polish_insight"]
     metric = meta["metric_highlight"]
 
-    thread = f"""🧵 1/5 [Styl: {active_style}]
+    thread = None
+    if has_live_ai_key():
+        ai_thread = ask_free_ai(
+            f"Jesteś strategiem X / Twitter B2B w stylu: {active_style}. Tworzysz 5-częściowe wątki (1/5 do 5/5) w 100% po polsku, bez linków w pierwszym tweecie (Anti-Ban).",
+            f"Napisz 5-tweetowy wątek dla projektu {product_name} ({profile.get('website_url')}). Grupa docelowa: {target_aud}. Rozwiązywany problem: {problem_solved}. Temat: {short_topic}. Dane rynkowe: {polish_insight}. Efekt: {metric}. Oddziel tweety linią '---'."
+        )
+        if ai_thread and len(ai_thread) > 150:
+            thread = ai_thread.strip()
+
+    if not thread:
+        thread = f"""🧵 1/5 [Styl: {active_style}]
 Większość firm z grupy {target_aud} traci kilkanaście godzin tygodniowo na procesy, które dziś powinny działać w 100% automatycznie.
 
 Temat: {short_topic}.

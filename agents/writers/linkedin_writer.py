@@ -1,5 +1,5 @@
 """
-LinkedIn Ghostwriter Agent (Polsia Multi-Tenant SaaS).
+LinkedIn Ghostwriter Agent (Autonoma AI Multi-Tenant SaaS — Employee #3).
 Generates 100% Polish, executive-grade LinkedIn posts and 5-slide PDF carousel outlines
 tailored to the client's project DNA and the active Multi-Armed Bandit persona.
 """

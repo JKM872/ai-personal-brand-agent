@@ -1,10 +1,11 @@
 """
-Community & Own Group Builder Agent (Autonoma AI Workforce — Employee #7).
+Community & Own Group Builder Agent (Autonoma AI Workforce — Employee #5).
 Generates weekly growth plans and engagement posts for the owner's proprietary community
 (Facebook Group, Discord, Skool, or LinkedIn Group) to turn passive readers into warm leads.
 """
 
 from agents.geo_seo_engine import load_product_profile, derive_seo_headline
+from agents.free_ai_router import has_live_ai_key, ask_free_ai
 
 def generate_community_content(topic, persona):
     profile = load_product_profile()
@@ -13,12 +14,19 @@ def generate_community_content(topic, persona):
     paud = profile.get("target_audience", "właścicieli firm i twórców")
     pproblem = profile.get("primary_problem_solved", "")
     features = profile.get("key_features", ["Automatyzacja procesów 24/7"])
-    cta_text = profile.get("call_to_action", {}).get("text", "Dołącz i przetestuj za darmo")
 
     meta = derive_seo_headline(profile, topic)
     short_topic = meta["short_topic"]
     polish_insight = meta["polish_insight"]
     metric = meta["metric_highlight"]
+
+    if has_live_ai_key():
+        ai_comm = ask_free_ai(
+            "Jesteś managerem społeczności B2B (FB Group / Discord / Skool) w Autonoma AI. Piszesz w 100% po polsku w formacie Markdown.",
+            f"Przygotuj strategię własnej grupy na ten tydzień dla produktu {pname} ({purl}), grupa docelowa: {paud}, problem: {pproblem}, temat: {short_topic}. Uwzględnij: 1) Post przypięty z Lead Magnetem (komentarz 'START'), 2) Ankietę dyskusyjną (1, 2 lub 3), 3) Szablony odpowiedzi z opóźnieniem Anti-Ban."
+        )
+        if ai_comm and len(ai_comm) > 200:
+            return {"community_playbook": ai_comm.strip()}
 
     community_plan = f"""# 👥 Strategia Własnej Grupy i Społeczności (FB Group / Discord / Skool) — {pname}
 

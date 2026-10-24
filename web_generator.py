@@ -978,7 +978,7 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
         "url": purl,
         "applicationCategory": pcat,
         "description": pprob
-      }}, null, 2)}}\n<\/script>`;
+      }}, null, 2)}}\n<\\/script>`;
 
       return {{
         folder_name: `live_${{proj.id}}_${{dateStr}}`,
@@ -1320,28 +1320,32 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
       saveApiIntegrations();
 
       if (geminiKey) {{
-        try {{
-          const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${{geminiKey}}`, {{
-            method: 'POST',
-            headers: {{ 'Content-Type': 'application/json' }},
-            body: JSON.stringify({{
-              contents: [{{ parts: [{{ text: 'Odpowiedz jednym krótkim zdaniem po polsku: System Autonoma AI jest gotowy do pracy!' }}] }}]
-            }})
-          }});
-          const data = await resp.json();
-          const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (reply) {{
-            resBox.innerHTML = `<span class="text-emerald-400">✅ Połączono z Google Gemini 2.5 Flash! Odpowiedź: "${{reply.trim()}}"</span>`;
-            showToast('Połączenie z Google Gemini 2.5 Flash działa bezbłędnie!');
-            return;
-          }} else {{
-            resBox.innerHTML = `<span class="text-rose-400">❌ Błąd klucza Gemini: ${{data?.error?.message || 'Sprawdź poprawność klucza'}}</span>`;
-            return;
+        const geminiModels = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+        let lastErr = '';
+        for (const mName of geminiModels) {{
+          try {{
+            const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${{mName}}:generateContent?key=${{geminiKey}}`, {{
+              method: 'POST',
+              headers: {{ 'Content-Type': 'application/json' }},
+              body: JSON.stringify({{
+                contents: [{{ parts: [{{ text: 'Odpowiedz jednym krótkim zdaniem po polsku: System Autonoma AI jest gotowy do pracy!' }}] }}]
+              }})
+            }});
+            const data = await resp.json();
+            const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (reply) {{
+              resBox.innerHTML = `<span class="text-emerald-400">✅ Połączono z Google Gemini (${{mName}})! Odpowiedź: "${{reply.trim()}}"</span>`;
+              showToast(`Połączenie z Google Gemini (${{mName}}) działa bezbłędnie!`);
+              return;
+            }} else {{
+              lastErr = data?.error?.message || 'Sprawdź poprawność klucza';
+            }}
+          }} catch (e) {{
+            lastErr = e.message;
           }}
-        }} catch (e) {{
-          resBox.innerHTML = `<span class="text-rose-400">❌ Błąd połączenia Gemini: ${{e.message}}</span>`;
-          return;
         }}
+        resBox.innerHTML = `<span class="text-rose-400">❌ Błąd klucza Gemini: ${{lastErr}}</span>`;
+        if (!groqKey) return;
       }}
 
       if (groqKey) {{
@@ -1456,29 +1460,32 @@ Grupa docelowa: ${{proj.target_audience}}
 Główny rozwiązywany problem: ${{proj.primary_problem_solved}}
 Użyj czystego formatowania Markdown, konkretnych wyliczeń i języka korzyści B2B. Zero lania wody.`;
 
-      // 1. Try Google Gemini 2.5 Flash if GEMINI_API_KEY is configured in UI
+      // 1. Try Google Gemini (2.5 / 2.0 / 1.5 Flash) if GEMINI_API_KEY is configured in UI
       if (geminiKey) {{
-        try {{
-          showToast(`Łączenie z Google Gemini 2.5 Flash dla projektu ${{proj.product_name}}...`);
-          const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${{geminiKey}}`, {{
-            method: 'POST',
-            headers: {{ 'Content-Type': 'application/json' }},
-            body: JSON.stringify({{
-              contents: [{{ parts: [{{ text: prompt }}] }}],
-              generationConfig: {{ temperature: 0.7, maxOutputTokens: 2048 }}
-            }})
-          }});
-          const data = await resp.json();
-          const aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (aiText) {{
-            if (!bundlesByProject[currentProjectId]) bundlesByProject[currentProjectId] = synthesizeBundleForProject(proj);
-            bundlesByProject[currentProjectId][conf.key] = aiText.trim();
-            localStorage.setItem('autonoma_bundles_v4', JSON.stringify(bundlesByProject));
-            switchTab(currentTab);
-            showToast('✅ Wygenerowano świeżą treść prosto z modelu Google Gemini 2.5 Flash!');
-            return;
-          }}
-        }} catch (e) {{}}
+        const geminiModels = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+        showToast(`Łączenie z Google Gemini AI dla projektu ${{proj.product_name}}...`);
+        for (const mName of geminiModels) {{
+          try {{
+            const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${{mName}}:generateContent?key=${{geminiKey}}`, {{
+              method: 'POST',
+              headers: {{ 'Content-Type': 'application/json' }},
+              body: JSON.stringify({{
+                contents: [{{ parts: [{{ text: prompt }}] }}],
+                generationConfig: {{ temperature: 0.7, maxOutputTokens: 2048 }}
+              }})
+            }});
+            const data = await resp.json();
+            const aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (aiText) {{
+              if (!bundlesByProject[currentProjectId]) bundlesByProject[currentProjectId] = synthesizeBundleForProject(proj);
+              bundlesByProject[currentProjectId][conf.key] = aiText.trim();
+              localStorage.setItem('autonoma_bundles_v4', JSON.stringify(bundlesByProject));
+              switchTab(currentTab);
+              showToast(`✅ Wygenerowano świeżą treść prosto z modelu Google Gemini (${{mName}})!`);
+              return;
+            }}
+          }} catch (e) {{}}
+        }}
       }}
 
       // 2. Try Groq LLaMA 3.3 70B if GROQ_API_KEY is configured in UI
@@ -1611,19 +1618,52 @@ Użyj czystego formatowania Markdown, konkretnych wyliczeń i języka korzyści 
       showToast(`Pobrano plik: ${{proj.id || 'autonoma'}}_${{currentTab}}.md`);
     }}
 
-    function simulateAntiBanReply() {{
+    async function simulateAntiBanReply() {{
       const comm = document.getElementById('inp-incoming-comment').value.trim() || 'Jak dokładnie działa Wasza platforma w praktyce?';
       const proj = getCurrentProject();
       const delayMin = Math.floor(Math.random() * 28) + 18;
       const box = document.getElementById('simulated-reply-box');
       box.classList.remove('hidden');
+
+      const cfg = JSON.parse(localStorage.getItem('autonoma_integrations_v4') || '{{}}');
+      let replyBody = `„Świetne pytanie odnośnie: <em>${{comm}}</em>! W <strong>${{proj.product_name}}</strong> zaprojektowaliśmy ten proces tak, aby działał całkowicie w tle i rozwiązywał główny problem: ${{proj.primary_problem_solved}} Wszystko konfigurujesz w kilka minut przy pełnej kontroli właściciela. Jeśli chcesz, podeślę Ci szczegóły w wiadomości prywatnej!”`;
+
+      if (cfg.gemini) {{
+        try {{
+          const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${{cfg.gemini}}`, {{
+            method: 'POST',
+            headers: {{ 'Content-Type': 'application/json' }},
+            body: JSON.stringify({{
+              contents: [{{ parts: [{{ text: `Jesteś Pracownikiem #10 (Strażnik Komentarzy Anti-Ban) w Autonoma AI. Odpowiedz merytorycznie po polsku (3-4 zdania, BEZ żadnych linków URL) na komentarz użytkownika: "${{comm}}" w kontekście produktu ${{proj.product_name}} (${{proj.primary_problem_solved}}).` }}] }}]
+            }})
+          }});
+          const d = await r.json();
+          const t = d?.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (t) replyBody = t.trim();
+        }} catch (e) {{}}
+      }} else if (cfg.groq) {{
+        try {{
+          const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {{
+            method: 'POST',
+            headers: {{ 'Authorization': 'Bearer ' + cfg.groq, 'Content-Type': 'application/json' }},
+            body: JSON.stringify({{
+              model: 'llama-3.3-70b-versatile',
+              messages: [{{ role: 'user', content: `Odpowiedz merytorycznie po polsku (3-4 zdania, BEZ linków URL) na komentarz: "${{comm}}" w kontekście produktu ${{proj.product_name}} (${{proj.primary_problem_solved}}).` }}]
+            }})
+          }});
+          const d = await r.json();
+          const t = d?.choices?.[0]?.message?.content;
+          if (t) replyBody = t.trim();
+        }} catch (e) {{}}
+      }}
+
       box.innerHTML = `
         <div class="flex items-center justify-between text-[11px] font-mono text-emerald-400">
           <span>🛡️ Status: Zero Linków Wychodzących (100% Safe)</span>
           <span>⏰ Zaplanowane opóźnienie (Human Jitter): +${{delayMin}} min</span>
         </div>
         <div class="p-3 rounded-lg bg-black/40 border border-white/10 text-slate-200 leading-relaxed">
-          „Świetne pytanie odnośnie: <em>${{comm}}</em>! W <strong>${{proj.product_name}}</strong> zaprojektowaliśmy ten proces tak, aby działał całkowicie w tle i rozwiązywał główny problem: ${{proj.primary_problem_solved}} Wszystko konfigurujesz w kilka minut przy pełnej kontroli właściciela. Jeśli chcesz, podeślę Ci szczegóły w wiadomości prywatnej!”
+          ${{replyBody}}
         </div>
       `;
       showToast(`Pracownik #10 przygotował bezpieczną odpowiedź (opóźnienie: +${{delayMin}} min)!`);

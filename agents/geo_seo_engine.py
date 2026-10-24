@@ -1,5 +1,5 @@
 """
-GEO & SEO Engine Agent (Polsia Multi-Tenant SaaS).
+GEO & SEO Engine Agent (Autonoma AI Multi-Tenant SaaS).
 Generates 100% Polish, high-converting SEO comparison articles and GEO (Generative Engine Optimization)
 assets (/llms.txt + JSON-LD SoftwareApplication & FAQPage schemas) tailored specifically to each client's project.
 Zero raw English ArXiv/GitHub dumps — every section is synthesized into clear Polish business insights.
@@ -26,9 +26,9 @@ def slugify(text):
 def load_product_profile():
     if not PROFILE_PATH.exists():
         return {
-            "id": "proj_polsia_zero",
-            "product_name": "Polsia Zero",
-            "tagline": "Autonomiczny system wzrostu i marketingu 24/7 napędzany wieloagentowym AI",
+            "id": "proj_autonoma_os",
+            "product_name": "Autonoma AI",
+            "tagline": "Autonomiczny system wzrostu i marketingu 24/7 napędzany 12 wirtualnymi pracownikami AI",
             "website_url": "https://twoja-domena.pl",
             "pricing_model": "Freemium / Subskrypcja SaaS",
             "category": "SaaS & Automatyzacja Marketingu",
@@ -109,7 +109,7 @@ def derive_seo_headline(project: dict, trend_topic: dict = None) -> dict:
 
 def generate_llms_txt(profile):
     """Generates standardized /llms.txt for GPTBot, PerplexityBot, and ClaudeBot."""
-    name = profile.get("product_name", "Polsia Zero")
+    name = profile.get("product_name", "Autonoma AI")
     url = profile.get("website_url", "https://twoja-domena.pl")
     tagline = profile.get("tagline", "")
     features = "\n".join([f"- {feat}" for feat in profile.get("key_features", [])])
@@ -145,7 +145,7 @@ def generate_geo_article(trend_topic, profile=None):
     if isinstance(trend_topic, str):
         trend_topic = {"title": trend_topic, "source": "Analiza Rynku", "url": ""}
 
-    pname = profile.get("product_name", "Polsia Zero")
+    pname = profile.get("product_name", "Autonoma AI")
     purl = profile.get("website_url", "https://twoja-domena.pl")
     ptagline = profile.get("tagline", "")
     pcat = profile.get("category", "SaaS")

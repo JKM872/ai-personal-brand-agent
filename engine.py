@@ -44,7 +44,8 @@ from agents.writers.community_writer import generate_community_content
 from agents.writers.ads_writer import generate_ads_content
 from agents.writers.outreach_writer import generate_outreach_content
 from agents.geo_seo_engine import generate_geo_article
-from agents.analyst_agent import pick_best_persona
+from agents.analyst_agent import pick_best_persona, run_nightly_optimization
+from agents.free_ai_router import has_live_ai_key
 from tracking.utm_builder import build_tracked_url
 from db.supabase_client import db
 from publishers.social_publisher import dispatch_content_bundle
@@ -64,6 +65,50 @@ def enrich_item_descriptions(items):
             desc = f"Nowoczesny sygnał technologiczny z obszaru automatyzacji i skalowania biznesu: {item.get('title')}."
         item["description"] = desc
     return items
+
+def update_markdown_dashboard(active_projects: list, cycle_results: list, base_dir: Path, now_dt: datetime):
+    ai_status = "🟢 LIVE LLM (Gemini / Groq API aktywne)" if has_live_ai_key() else "🟡 Wbudowany Silnik Syntezy (Wklej klucz w config/accounts.json lub w Panelu WWW)"
+    lines = [
+        "# ⚡ Autonoma AI — Centrum Dowodzenia (12-Agent Workforce OS)",
+        "",
+        f"> **Ostatni cykl:** `{now_dt.strftime('%Y-%m-%d %H:%M:%S')}`  ",
+        f"> **Silnik AI:** `{ai_status}`  ",
+        f"> **Obsłużone projekty klientów (Multi-Tenant):** `{len(active_projects)}`  ",
+        "> **Koszt infrastruktury:** `0,00 PLN`  ",
+        "",
+        "---",
+        "",
+        "## 🏢 Obsłużone Projekty i Wygenerowane Paczki (10 Kanałów na Projekt)",
+        ""
+    ]
+
+    for res in cycle_results:
+        proj = res["project"]
+        qdir = res["queue_dir"]
+        persona = res["persona"]
+        cms_stat = res["cms_status"]
+        lines.extend([
+            f"### 🚀 Projekt: **{proj.get('product_name')}** (`{proj.get('id')}`)",
+            f"* **Domena:** {proj.get('website_url')} | **Kategoria:** {proj.get('category')}",
+            f"* **Wybrany styl (Multi-Armed Bandit):** `{persona}` | **Status Bramki CMS:** `{cms_stat}`",
+            f"* **Folder paczki 10 kanałów:** [`queue/{qdir.name}/`](queue/{qdir.name})",
+            "",
+            "| # | Kanał / Format | Plik w Kolejce | Odpowiedzialny Pracownik AI |",
+            "|---|---|---|---|",
+            f"| 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/{qdir.name}/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |",
+            f"| 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/{qdir.name}/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |",
+            f"| 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/{qdir.name}/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |",
+            f"| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/{qdir.name}/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X + Anti-Ban) |",
+            f"| 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/{qdir.name}/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |",
+            f"| 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/{qdir.name}/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |",
+            f"| 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/{qdir.name}/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |",
+            f"| 8 | **Wydanie Newslettera (Brevo / Resend)** | [`4_NEWSLETTER_EDITION.md`](queue/{qdir.name}/4_NEWSLETTER_EDITION.md) | Pracownik #8 (Redaktor Newslettera) |",
+            f"| 9 | **Scenariusz Wideo 60s (Shorts / Reels)** | [`5_VIDEO_SHORTS_SCRIPT.md`](queue/{qdir.name}/5_VIDEO_SHORTS_SCRIPT.md) | Pracownik #9 (Reżyser Wideo Shorts) |",
+            f"| 10 | **Kod Schema.org JSON-LD & Webhook** | [`6_GITHUB_SNIPPET.py`](queue/{qdir.name}/6_GITHUB_SNIPPET.py) | Pracownik #12 (Inżynier Integracji CMS) |",
+            ""
+        ])
+
+    (base_dir / "DASHBOARD.md").write_text("\n".join(lines), encoding="utf-8")
 
 def run_single_project_cycle(project: dict, all_scouted_items: list, base_dir: Path, now_dt: datetime):
     proj_id = project.get("id", "proj_default")
@@ -87,6 +132,13 @@ def run_single_project_cycle(project: dict, all_scouted_items: list, base_dir: P
         unseen_items = all_scouted_items
 
     primary_topic, secondaries = curate_topics(unseen_items)
+    if not primary_topic:
+        primary_topic = {
+            "title": f"Automatyzacja i skalowanie procesów w kategorii {project.get('category', 'SaaS')}",
+            "source": "Analiza Rynkowa Autonoma AI",
+            "url": project.get("website_url", "https://twoja-domena.pl"),
+            "description": project.get("primary_problem_solved", "")
+        }
     print(f"🔍 [Pracownik #1 — Radar Rynkowy] Sygnał bazowy: {primary_topic['title']} ({primary_topic['source']})")
 
     # 3. Save this project as active profile in saas_core/product_profile.json
@@ -168,7 +220,12 @@ def run_single_project_cycle(project: dict, all_scouted_items: list, base_dir: P
     save_to_memory(primary_topic, queue_dir.name)
     dispatch_content_bundle(primary_topic, bundle, queue_dir)
     print(f"✅ Kompletna paczka 10 formatów dla {proj_name} zapisana w: queue/{queue_dir.name}")
-    return queue_dir
+    return {
+        "project": project,
+        "queue_dir": queue_dir,
+        "persona": chosen_persona.get("persona_name"),
+        "cms_status": cms_result.get("status", "AWAITING_OWNER_PERMISSION")
+    }
 
 def run_brand_engine():
     base_dir = Path(__file__).parent.resolve()
@@ -190,11 +247,20 @@ def run_brand_engine():
     arxiv_items = fetch_recent_ai_papers(limit=5)
     all_items = enrich_item_descriptions(gh_items + hn_items + arxiv_items)
 
+    cycle_results = []
     for project in active_projects:
-        run_single_project_cycle(project, all_items, base_dir, now_dt)
+        res = run_single_project_cycle(project, all_items, base_dir, now_dt)
+        cycle_results.append(res)
 
-    print("\n📊 Aktualizacja Autonoma AI Web Studio & Telemetry...")
+    print("\n📈 [Pracownik #11] Aktualizacja raportu Działu Statystycznego (Multi-Armed Bandit)...")
     try:
+        run_nightly_optimization()
+    except Exception as e:
+        print(f"[WARN] Błąd raportu statystycznego: {e}")
+
+    print("\n📊 Aktualizacja Autonoma AI Web Studio & DASHBOARD.md...")
+    try:
+        update_markdown_dashboard(active_projects, cycle_results, base_dir, now_dt)
         build_web_dashboard()
     except Exception as e:
         print(f"[WARN] Błąd generatora web: {e}")
