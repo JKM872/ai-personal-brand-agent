@@ -1,7 +1,8 @@
 """
-Polsia Zero — Multi-Tenant SaaS Web Application Generator.
-Compiles per-project content bundles (bundlesByProject[project_id]), Multi-Armed Bandit telemetry,
-Owner CMS Permission Gate controls, and dynamic client-side generation into public/index.html.
+Autonoma AI — Multi-Tenant SaaS Web Application Generator (12-Agent Workforce Edition).
+Compiles per-project 10-format content bundles (bundlesByProject[project_id]),
+12-Agent Workforce directory, Multi-Armed Bandit telemetry, Owner CMS Permission Gate controls,
+and API Integrations Hub into public/index.html.
 """
 
 import sys
@@ -34,8 +35,26 @@ FILE_MAP = {
     "github_readme": "6_GITHUB_README.md",
     "github_code": "6_GITHUB_SNIPPET.py",
     "api_payload": "7_API_PAYLOAD_READY.json",
+    "community_plan": "8_COMMUNITY_GROUP_PLAN.md",
+    "ads_campaign": "9_MICRO_ADS_CAMPAIGN.md",
+    "outreach_sdr": "10_B2B_OUTREACH_SDR.md",
     "publish_status": "PUBLISH_STATUS.json"
 }
+
+WORKFORCE_ROSTER = [
+    {"id": 1, "role": "Radar Rynkowy & Trend Scout", "dept": "Research", "task": "Przeszukuje sygnały rynkowe, problemy klientów B2B i trendy branżowe 24/7.", "badge": "AKTYWNY"},
+    {"id": 2, "role": "Architekt SEO & GEO (AI Search)", "dept": "Content & SEO", "task": "Pisze długie artykuły porównawcze, tabele ROI, sekcje FAQ oraz aktualizuje /llms.txt pod ChatGPT i Perplexity.", "badge": "AKTYWNY"},
+    {"id": 3, "role": "Ghostwriter LinkedIn B2B", "dept": "Social Media", "task": "Tworzy eksperckie posty B2B i konspekty 5-slajdowych karuzel PDF bez ucinania zasięgu.", "badge": "AKTYWNY"},
+    {"id": 4, "role": "Strateg Wątków X / Twitter", "dept": "Social Media", "task": "Buduje wiralowe nitki (5 tweetów) z twardymi wyliczeniami i pytaniem angażującym.", "badge": "AKTYWNY"},
+    {"id": 5, "role": "Manager Własnej Grupy (FB / Discord)", "dept": "Community", "task": "Generuje posty powitalne z Lead Magnetem, ankiety i dyskusje rozkręcające własną społeczność.", "badge": "AKTYWNY"},
+    {"id": 6, "role": "Inżynier Reklam Micro-Budget Ads", "dept": "Performance", "task": "Tworzy kreacje retargetingowe (0–20 zł/dzień) na Meta Ads i frazy Exact-Match w Google.", "badge": "AKTYWNY"},
+    {"id": 7, "role": "Specjalista B2B Outreach & SDR", "dept": "Sales", "task": "Pisze spersonalizowane wiadomości LinkedIn DM, Cold Emaile i zbija obiekcje sprzedażowe.", "badge": "AKTYWNY"},
+    {"id": 8, "role": "Redaktor Newslettera (Brevo / Resend)", "dept": "Retention", "task": "Komponuje cotygodniowe wydania biuletynu dla własnej bazy subskrybentów.", "badge": "AKTYWNY"},
+    {"id": 9, "role": "Reżyser Wideo Shorts / Reels / TikTok", "dept": "Video", "task": "Rozpisuje 60-sekundowe scenariusze wideo (Hook w 1. sekundzie, B-Roll i tekst lektora).", "badge": "AKTYWNY"},
+    {"id": 10, "role": "Strażnik Komentarzy Anti-Ban", "dept": "Safety", "task": "Wrzuca linki UTM w 1. komentarzu i odpowiada z ludzkim opóźnieniem (Jitter 18–95 min).", "badge": "AKTYWNY"},
+    {"id": 11, "role": "Analityk Multi-Armed Bandit (ROI)", "dept": "Analytics", "task": "Liczy skuteczność stylów pisania z kliknięć UTM i kieruje 80% ruchu na najlepszy styl.", "badge": "AKTYWNY"},
+    {"id": 12, "role": "Inżynier Integracji CMS & JSON-LD", "dept": "DevOps", "task": "Publikuje artykuły na stronie klienta (GitHub / WordPress / Webhook) za zgodą właściciela.", "badge": "AKTYWNY"}
+]
 
 def read_bundle_from_folder(folder: Path) -> dict:
     if not folder or not folder.exists():
@@ -59,6 +78,9 @@ def get_bundles_by_project(active_projects: list) -> dict:
         bundles[pid] = read_bundle_from_folder(matched)
     return bundles
 
+def safe_json_for_script(obj) -> str:
+    return json.dumps(obj, ensure_ascii=False).replace(chr(60) + chr(47), chr(60) + chr(92) + chr(47))
+
 def build_web_dashboard():
     PUBLIC_DIR.mkdir(parents=True, exist_ok=True)
     active_projects = db.get_active_projects()
@@ -74,13 +96,14 @@ def build_web_dashboard():
     personas = db.get_personas()
     scheduled_pipeline = db.get_scheduled_pipeline(limit=10)
     default_project = active_projects[0] if active_projects else {}
-    default_pid = default_project.get("id", "proj_polsia_zero")
+    default_pid = default_project.get("id", "proj_autonoma_os")
 
     (PUBLIC_DIR / "data.json").write_text(
         json.dumps({
             "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "projects": active_projects,
             "bundles_by_project": bundles_by_project,
+            "workforce": WORKFORCE_ROSTER,
             "personas": personas,
             "history": memory.get("runs", []),
             "pipeline": scheduled_pipeline
@@ -88,20 +111,18 @@ def build_web_dashboard():
         encoding="utf-8"
     )
 
-    runs_list = memory.get("runs", [])
-    sync_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    projects_json_str = json.dumps(active_projects, ensure_ascii=False).replace(chr(60) + chr(47), chr(60) + chr(92) + chr(47))
-    bundles_json_str = json.dumps(bundles_by_project, ensure_ascii=False).replace(chr(60) + chr(47), chr(60) + chr(92) + chr(47))
-    personas_json_str = json.dumps(personas, ensure_ascii=False).replace(chr(60) + chr(47), chr(60) + chr(92) + chr(47))
-    pipeline_json_str = json.dumps(scheduled_pipeline, ensure_ascii=False).replace(chr(60) + chr(47), chr(60) + chr(92) + chr(47))
+    projects_json_str = safe_json_for_script(active_projects)
+    bundles_json_str = safe_json_for_script(bundles_by_project)
+    workforce_json_str = safe_json_for_script(WORKFORCE_ROSTER)
+    personas_json_str = safe_json_for_script(personas)
+    pipeline_json_str = safe_json_for_script(scheduled_pipeline)
 
     html_content = f"""<!DOCTYPE html>
 <html lang="pl" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Polsia Zero — Multi-Tenant AI Growth SaaS</title>
+  <title>Autonoma AI — 12-Agent Autonomous Growth OS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -125,7 +146,6 @@ def build_web_dashboard():
       --bg-surface: #0B0D14;
       --bg-elevated: #111520;
       --border-hairline: rgba(255, 255, 255, 0.07);
-      --border-glow: rgba(99, 102, 241, 0.4);
     }}
     body {{
       background-color: var(--bg-canvas);
@@ -136,7 +156,7 @@ def build_web_dashboard():
       overflow-x: hidden;
     }}
     .surface-panel {{
-      background: rgba(11, 13, 20, 0.86);
+      background: rgba(11, 13, 20, 0.88);
       backdrop-filter: blur(20px);
       border: 1px solid var(--border-hairline);
     }}
@@ -151,13 +171,13 @@ def build_web_dashboard():
     }}
     .channel-btn-active {{
       background: linear-gradient(90deg, rgba(99, 102, 241, 0.22) 0%, rgba(99, 102, 241, 0.05) 100%);
-      border-color: rgba(99, 102, 241, 0.5);
+      border-color: rgba(99, 102, 241, 0.55);
       color: #FFFFFF;
     }}
-    .prose-doc h1 {{ font-size: 1.45rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.85rem; letter-spacing: -0.02em; line-height: 1.3; }}
-    .prose-doc h2 {{ font-size: 1.12rem; font-weight: 700; color: #F1F5F9; margin-top: 1.6rem; margin-bottom: 0.6rem; padding-bottom: 0.4rem; border-bottom: 1px solid rgba(255,255,255,0.08); }}
-    .prose-doc h3 {{ font-size: 0.98rem; font-weight: 600; color: #A5B4FC; margin-top: 1.2rem; margin-bottom: 0.4rem; }}
-    .prose-doc p {{ color: #CBD5E1; line-height: 1.75; margin-bottom: 0.9rem; font-size: 0.92rem; }}
+    .prose-doc h1 {{ font-size: 1.4rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.85rem; letter-spacing: -0.02em; line-height: 1.3; }}
+    .prose-doc h2 {{ font-size: 1.1rem; font-weight: 700; color: #F1F5F9; margin-top: 1.5rem; margin-bottom: 0.6rem; padding-bottom: 0.4rem; border-bottom: 1px solid rgba(255,255,255,0.08); }}
+    .prose-doc h3 {{ font-size: 0.96rem; font-weight: 600; color: #A5B4FC; margin-top: 1.1rem; margin-bottom: 0.4rem; }}
+    .prose-doc p {{ color: #CBD5E1; line-height: 1.75; margin-bottom: 0.85rem; font-size: 0.92rem; }}
     .prose-doc ul {{ list-style-type: disc; padding-left: 1.4rem; margin-bottom: 1rem; color: #CBD5E1; font-size: 0.92rem; }}
     .prose-doc li {{ margin-bottom: 0.35rem; }}
     .prose-doc blockquote {{ border-left: 3px solid #6366F1; background: rgba(99,102,241,0.09); padding: 0.85rem 1.1rem; border-radius: 0 0.65rem 0.65rem 0; color: #E2E8F0; margin: 1.1rem 0; font-size: 0.9rem; }}
@@ -172,7 +192,7 @@ def build_web_dashboard():
 <body class="min-h-screen flex flex-col lg:flex-row antialiased selection:bg-indigo-500 selection:text-white">
 
   <!-- ================================================================= -->
-  <!-- SIDEBAR: MULTI-TENANT SAAS NAVIGATION                             -->
+  <!-- SIDEBAR: AUTONOMA AI MULTI-TENANT NAVIGATION                      -->
   <!-- ================================================================= -->
   <aside class="w-full lg:w-72 surface-panel border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col justify-between shrink-0 lg:h-screen lg:sticky lg:top-0 z-40">
     <div>
@@ -184,9 +204,9 @@ def build_web_dashboard():
           </div>
           <div>
             <div class="font-extrabold text-sm tracking-tight text-white flex items-center gap-2">
-              POLSIA <span class="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">SaaS OS</span>
+              AUTONOMA <span class="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">AI OS</span>
             </div>
-            <div class="text-[11px] text-slate-400">Multi-Tenant AI Workforce</div>
+            <div class="text-[11px] text-slate-400">12-Agent Virtual Workforce</div>
           </div>
         </div>
       </div>
@@ -200,50 +220,52 @@ def build_web_dashboard():
         <select id="project-selector" onchange="switchProject(this.value)" class="w-full px-3 py-2 rounded-xl bg-[#06080F] border border-white/15 text-white font-semibold text-xs focus:border-indigo-500 focus:outline-none cursor-pointer transition">
         </select>
         <div class="flex items-center justify-between text-[11px] pt-0.5">
-          <span class="text-indigo-400 font-mono truncate max-w-[170px]" id="sidebar-project-url"></span>
-          <button onclick="switchProject('NEW_PROJECT')" class="text-slate-300 hover:text-white font-medium underline text-[11px]">+ Dodaj Klienta</button>
+          <span class="text-indigo-400 font-mono truncate max-w-[165px]" id="sidebar-project-url"></span>
+          <button onclick="switchProject('NEW_PROJECT')" class="text-slate-300 hover:text-white font-medium underline text-[11px]">+ Dodaj Projekt</button>
         </div>
       </div>
 
       <!-- Main Navigation -->
-      <nav class="px-3 mt-5 space-y-1">
-        <div class="px-3 pb-1.5 text-[10px] font-mono uppercase tracking-wider text-slate-500">Moduły Operacyjne</div>
+      <nav class="px-3 mt-4 space-y-1">
+        <div class="px-3 pb-1 text-[10px] font-mono uppercase tracking-wider text-slate-500">Moduły Operacyjne</div>
 
         <button onclick="switchMainView('studio')" id="nav-studio" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition bg-indigo-600/15 text-indigo-300 border border-indigo-500/30">
           <span class="flex items-center gap-3">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
-            Studio Treści & Publikacja CMS
+            <span>📝</span> Studio 10 Kanałów & CMS
           </span>
-          <span class="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded">LIVE</span>
+          <span class="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded">10/10</span>
         </button>
 
-        <button onclick="switchMainView('overview')" id="nav-overview" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition border border-transparent">
+        <button onclick="switchMainView('workforce')" id="nav-workforce" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition border border-transparent">
           <span class="flex items-center gap-3">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
-            Centrum Dowodzenia & Agenci
+            <span>🤖</span> Drużyna 12 Pracowników AI
           </span>
-          <span class="text-[10px] font-mono text-slate-500">6/6</span>
+          <span class="text-[10px] font-mono text-emerald-400">12 ACTIVE</span>
         </button>
 
         <button onclick="switchMainView('scanner')" id="nav-scanner" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition border border-transparent">
           <span class="flex items-center gap-3">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
-            Konfiguracja Projektu & CMS
+            <span>🌐</span> Konfiguracja Projektu & CMS
           </span>
+        </button>
+
+        <button onclick="switchMainView('integrations')" id="nav-integrations" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition border border-transparent">
+          <span class="flex items-center gap-3">
+            <span>🔌</span> Połączenia API & Konta
+          </span>
+          <span class="text-[10px] font-mono text-indigo-400">HUB</span>
         </button>
 
         <button onclick="switchMainView('analytics')" id="nav-analytics" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition border border-transparent">
           <span class="flex items-center gap-3">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-            Dział Statystyczny (Bandit)
+            <span>📊</span> Dział Statystyczny (Bandit)
           </span>
           <span class="text-[10px] font-mono text-indigo-400">ROI</span>
         </button>
 
         <button onclick="switchMainView('antiban')" id="nav-antiban" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition border border-transparent">
           <span class="flex items-center gap-3">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-            Kolejka Anti-Ban & UTM
+            <span>🛡️</span> Kolejka Anti-Ban & UTM
           </span>
         </button>
       </nav>
@@ -256,10 +278,10 @@ def build_web_dashboard():
           <span class="text-slate-300 font-semibold">Koszt Infrastruktury</span>
           <span class="font-mono font-bold text-emerald-400">0,00 PLN</span>
         </div>
-        <div class="text-[10px] text-slate-400">GitHub Actions + Cloudflare + Supabase</div>
+        <div class="text-[10px] text-slate-400">12 Agentów 24/7 • Zero Blokad</div>
       </div>
       <button onclick="regenerateForCurrentProject()" class="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold text-xs shadow-lg shadow-indigo-600/25 transition flex items-center justify-center gap-2">
-        ⚡ Wygeneruj Świeżą Paczkę
+        ⚡ Wygeneruj Świeżą Paczkę (10 Formatów)
       </button>
     </div>
   </aside>
@@ -294,7 +316,7 @@ def build_web_dashboard():
     <main class="p-6 max-w-7xl w-full mx-auto space-y-6">
 
       <!-- ========================================================= -->
-      <!-- VIEW 1: CONTENT STUDIO & CMS PUBLISHER (DEFAULT ACTIVE)   -->
+      <!-- VIEW 1: 10-CHANNEL CONTENT STUDIO & CMS PUBLISHER         -->
       <!-- ========================================================= -->
       <section id="view-studio" class="space-y-6">
 
@@ -323,60 +345,84 @@ def build_web_dashboard():
         <!-- Split-Pane Content Studio -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-          <!-- Left 4 Cols: Channel Selector Cards -->
-          <div class="lg:col-span-4 space-y-2.5" id="channel-cards-nav">
-            <button onclick="switchTab('article')" id="tab-btn-article" class="w-full text-left p-4 rounded-2xl border transition flex items-start justify-between gap-3">
+          <!-- Left 4 Cols: 10 Channel Selector Cards -->
+          <div class="lg:col-span-4 space-y-2" id="channel-cards-nav">
+            <button onclick="switchTab('article')" id="tab-btn-article" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
               <div>
-                <div class="text-xs font-bold text-white flex items-center gap-2">🌐 Artykuł Blogowy SEO & GEO</div>
-                <div class="text-[11px] text-slate-400 mt-1">Tabela porównawcza + FAQ pod cytowania w ChatGPT i Google</div>
+                <div class="text-xs font-bold text-white">🌐 1. Artykuł Blogowy SEO & GEO</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Tabela porównawcza + FAQ pod cytowania w ChatGPT i Google</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 shrink-0">CMS</span>
             </button>
 
-            <button onclick="switchTab('linkedin')" id="tab-btn-linkedin" class="w-full text-left p-4 rounded-2xl border transition flex items-start justify-between gap-3">
+            <button onclick="switchTab('linkedin')" id="tab-btn-linkedin" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
               <div>
-                <div class="text-xs font-bold text-white">💼 Post Ekspercki LinkedIn</div>
-                <div class="text-[11px] text-slate-400 mt-1">Dopasowany do grupy docelowej (bez linku w treści głównej)</div>
+                <div class="text-xs font-bold text-white">💼 2. Post Ekspercki LinkedIn</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Dopasowany do grupy docelowej (bez linku w treści głównej)</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 shrink-0">B2B</span>
             </button>
 
-            <button onclick="switchTab('carousel')" id="tab-btn-carousel" class="w-full text-left p-4 rounded-2xl border transition flex items-start justify-between gap-3">
+            <button onclick="switchTab('carousel')" id="tab-btn-carousel" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
               <div>
-                <div class="text-xs font-bold text-white">📑 Karuzela LinkedIn / IG (5 Slajdów)</div>
-                <div class="text-[11px] text-slate-400 mt-1">Gotowy rozkład slajdów PDF z Call-To-Action</div>
+                <div class="text-xs font-bold text-white">📑 3. Karuzela LinkedIn / IG (5 Slajdów)</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Gotowy rozkład slajdów PDF z Call-To-Action</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300 shrink-0">PDF</span>
             </button>
 
-            <button onclick="switchTab('twitter')" id="tab-btn-twitter" class="w-full text-left p-4 rounded-2xl border transition flex items-start justify-between gap-3">
+            <button onclick="switchTab('twitter')" id="tab-btn-twitter" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
               <div>
-                <div class="text-xs font-bold text-white">🐦 Wątek X / Twitter + 1. Komentarz</div>
-                <div class="text-[11px] text-slate-400 mt-1">5 tweetów merytorycznych + link z tagiem UTM w komentarzu</div>
+                <div class="text-xs font-bold text-white">🐦 4. Wątek X / Twitter + 1. Komentarz</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">5 tweetów merytorycznych + link z tagiem UTM w komentarzu</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 shrink-0">ANTI-BAN</span>
             </button>
 
-            <button onclick="switchTab('newsletter')" id="tab-btn-newsletter" class="w-full text-left p-4 rounded-2xl border transition flex items-start justify-between gap-3">
+            <button onclick="switchTab('community')" id="tab-btn-community" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
               <div>
-                <div class="text-xs font-bold text-white">📩 Newsletter (Brevo / Resend)</div>
-                <div class="text-[11px] text-slate-400 mt-1">Cotygodniowe podsumowanie dla własnej bazy subskrybentów</div>
+                <div class="text-xs font-bold text-white">👥 5. Własna Grupa (FB / Discord / Skool)</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Post przypięty z Lead Magnetem + ankieta + szablony odpowiedzi</div>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 shrink-0">GRUPA</span>
+            </button>
+
+            <button onclick="switchTab('ads')" id="tab-btn-ads" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
+              <div>
+                <div class="text-xs font-bold text-white">🎯 6. Kampania Micro-Budget Ads (0-20 zł)</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Kreacje Meta Retargeting + Google Exact-Match + GEO Ads</div>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 shrink-0">ROAS</span>
+            </button>
+
+            <button onclick="switchTab('outreach')" id="tab-btn-outreach" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
+              <div>
+                <div class="text-xs font-bold text-white">🤝 7. Pozyskiwanie Klientów B2B (SDR DM)</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Sekwencje LinkedIn DM + Cold Email + zbijanie obiekcji</div>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 shrink-0">SALES</span>
+            </button>
+
+            <button onclick="switchTab('newsletter')" id="tab-btn-newsletter" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
+              <div>
+                <div class="text-xs font-bold text-white">📩 8. Newsletter (Brevo / Resend)</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Cotygodniowe podsumowanie dla własnej bazy subskrybentów</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300 shrink-0">EMAIL</span>
             </button>
 
-            <button onclick="switchTab('video')" id="tab-btn-video" class="w-full text-left p-4 rounded-2xl border transition flex items-start justify-between gap-3">
+            <button onclick="switchTab('video')" id="tab-btn-video" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
               <div>
-                <div class="text-xs font-bold text-white">🎬 Scenariusz Shorts / Reels (60s)</div>
-                <div class="text-[11px] text-slate-400 mt-1">Rozpisany obraz B-Roll + tekst lektora + Hook w 1. sekundzie</div>
+                <div class="text-xs font-bold text-white">🎬 9. Scenariusz Shorts / Reels (60s)</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Rozpisany obraz B-Roll + tekst lektora + Hook w 1. sekundzie</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300 shrink-0">VIDEO</span>
             </button>
 
-            <button onclick="switchTab('github')" id="tab-btn-github" class="w-full text-left p-4 rounded-2xl border transition flex items-start justify-between gap-3">
+            <button onclick="switchTab('github')" id="tab-btn-github" class="w-full text-left p-3.5 rounded-2xl border transition flex items-start justify-between gap-3">
               <div>
-                <div class="text-xs font-bold text-white">🔌 Kod Schema.org JSON-LD & Webhook</div>
-                <div class="text-[11px] text-slate-400 mt-1">Gotowy kod integracyjny pod stronę klienta i roboty AI</div>
+                <div class="text-xs font-bold text-white">🔌 10. Kod Schema.org JSON-LD & Webhook</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Gotowy kod integracyjny pod stronę klienta i roboty AI</div>
               </div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300 shrink-0">DEV</span>
             </button>
@@ -402,10 +448,10 @@ def build_web_dashboard():
             </div>
 
             <!-- Rendered Document Area -->
-            <div id="rendered-container" class="bg-[#05070C] border border-white/[0.07] rounded-2xl p-6 prose-doc max-h-[640px] overflow-y-auto"></div>
+            <div id="rendered-container" class="bg-[#05070C] border border-white/[0.07] rounded-2xl p-6 prose-doc max-h-[720px] overflow-y-auto"></div>
 
             <!-- Raw Markdown Area -->
-            <div id="raw-container" class="hidden bg-[#05070C] border border-white/[0.07] rounded-2xl p-6 font-mono text-xs text-slate-300 max-h-[640px] overflow-y-auto">
+            <div id="raw-container" class="hidden bg-[#05070C] border border-white/[0.07] rounded-2xl p-6 font-mono text-xs text-slate-300 max-h-[720px] overflow-y-auto">
               <pre id="content-display" class="whitespace-pre-wrap break-words"></pre>
             </div>
           </div>
@@ -414,24 +460,24 @@ def build_web_dashboard():
       </section>
 
       <!-- ========================================================= -->
-      <!-- VIEW 2: OVERVIEW & MULTI-TENANT COMMAND CENTER            -->
+      <!-- VIEW 2: 12-AGENT VIRTUAL WORKFORCE & COMMAND CENTER       -->
       <!-- ========================================================= -->
-      <section id="view-overview" class="hidden space-y-6">
+      <section id="view-workforce" class="hidden space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div class="bento-card rounded-2xl p-5">
-            <div class="text-[11px] font-mono uppercase text-slate-400">Aktywne Projekty SaaS</div>
+            <div class="text-[11px] font-mono uppercase text-slate-400">Wirtualna Drużyna AI</div>
+            <div class="text-2xl font-extrabold text-white mt-2">12 Pracowników</div>
+            <div class="text-xs text-emerald-400 mt-1">Pełna obsługa marketingu i sprzedaży 24/7</div>
+          </div>
+          <div class="bento-card rounded-2xl p-5">
+            <div class="text-[11px] font-mono uppercase text-slate-400">Obsługiwane Projekty</div>
             <div class="text-2xl font-extrabold text-white mt-2" id="kpi-projects-count"></div>
-            <div class="text-xs text-emerald-400 mt-1">Izolowane DNA i osobne bramki CMS</div>
+            <div class="text-xs text-indigo-400 mt-1">Izolowane DNA i osobne bramki CMS</div>
           </div>
           <div class="bento-card rounded-2xl p-5">
             <div class="text-[11px] font-mono uppercase text-slate-400">Lider Multi-Armed Bandit</div>
             <div class="text-2xl font-extrabold text-white mt-2 font-mono" id="kpi-top-persona">analityk_danych</div>
             <div class="text-xs text-indigo-400 mt-1" id="kpi-top-score"></div>
-          </div>
-          <div class="bento-card rounded-2xl p-5">
-            <div class="text-[11px] font-mono uppercase text-slate-400">Indeksacja AI (GEO)</div>
-            <div class="text-2xl font-extrabold text-white mt-2">ChatGPT + Bing</div>
-            <div class="text-xs text-slate-400 mt-1">Standard /llms.txt + JSON-LD + IndexNow</div>
           </div>
           <div class="bento-card rounded-2xl p-5">
             <div class="text-[11px] font-mono uppercase text-slate-400">Ochrona Kont Social</div>
@@ -440,12 +486,26 @@ def build_web_dashboard():
           </div>
         </div>
 
+        <!-- 12 AI Employees Grid -->
+        <div class="bento-card rounded-2xl p-6 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
+            <div>
+              <span class="text-[11px] font-mono uppercase text-indigo-400">Wirtualni Pracownicy Twojej Firmy</span>
+              <h3 class="text-lg font-bold text-white mt-0.5">12 Specjalistów AI Pracujących na Wzrost Twojego Projektu</h3>
+            </div>
+            <button onclick="regenerateForCurrentProject(); switchMainView('studio');" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition">
+              ⚡ Uruchom Wszystkich 12 Pracowników Teraz
+            </button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="workforce-grid-container"></div>
+        </div>
+
         <!-- Subscribed Client Projects Table -->
         <div class="bento-card rounded-2xl p-6 space-y-4">
           <div class="flex items-center justify-between border-b border-white/10 pb-3">
             <div>
               <h3 class="text-sm font-bold text-white">Projekty Klientów Obsługiwane przez Platformę (Multi-Tenant)</h3>
-              <p class="text-xs text-slate-400">Kliknij „Przełącz”, aby otworzyć Studio Treści wybranego klienta.</p>
+              <p class="text-xs text-slate-400">Kliknij „Otwórz Studio”, aby zarządzać treściami wybranego projektu.</p>
             </div>
             <button onclick="switchProject('NEW_PROJECT')" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition">
               + Dodaj Nowy Projekt Klienta
@@ -476,7 +536,7 @@ def build_web_dashboard():
         <div class="bento-card rounded-2xl p-6 space-y-6">
           <div class="border-b border-white/10 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <span class="text-[11px] font-mono uppercase text-indigo-400">Konfiguracja Subskrybenta (Polsia Onboarding)</span>
+              <span class="text-[11px] font-mono uppercase text-indigo-400">Konfiguracja Subskrybenta (Autonoma Onboarding)</span>
               <h2 class="text-xl font-bold text-white mt-0.5">DNA Projektu i Połączenie ze Stroną Klienta (CMS)</h2>
             </div>
           </div>
@@ -518,20 +578,80 @@ def build_web_dashboard():
 
           <div class="flex flex-wrap items-center justify-end gap-3 pt-4 border-t border-white/10">
             <button onclick="saveProjectAndGenerate()" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow-lg shadow-indigo-600/25">
-              💾 Zapisz Projekt i Wygeneruj Dedykowaną Paczkę Treści
+              💾 Zapisz Projekt i Wygeneruj Wszystkie 10 Kanałów
             </button>
           </div>
         </div>
       </section>
 
       <!-- ========================================================= -->
-      <!-- VIEW 4: STATISTICAL DEPARTMENT (MULTI-ARMED BANDIT)       -->
+      <!-- VIEW 4: API INTEGRATIONS & SOCIAL CONNECTIONS HUB         -->
+      <!-- ========================================================= -->
+      <section id="view-integrations" class="hidden space-y-6">
+        <div class="bento-card rounded-2xl p-6 space-y-6">
+          <div class="border-b border-white/10 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <span class="text-[11px] font-mono uppercase text-emerald-400">Centrum Połączeń Zewnętrznych (0,00 PLN Stack)</span>
+              <h2 class="text-xl font-bold text-white mt-0.5">Klucze API do Modeli AI, Social Media, Newslettera i Strony CMS</h2>
+            </div>
+            <span class="text-xs font-mono px-3 py-1 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/30" id="integration-mode-badge">TRYB: GOTOWY DO PODPIĘCIA</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-3">
+              <div class="font-bold text-white flex items-center justify-between">
+                <span>🧠 1. Darmowy Silnik AI (Google Gemini / Groq)</span>
+                <span class="text-[10px] font-mono text-emerald-400">1 500 req/dzień FREE</span>
+              </div>
+              <input type="password" id="api-gemini" placeholder="GEMINI_API_KEY (z aistudio.google.com)" class="w-full px-3 py-2 rounded-lg bg-[#05070C] border border-white/15 text-white font-mono">
+              <input type="password" id="api-groq" placeholder="GROQ_API_KEY (opcjonalny fallback LLaMA 3.3 70B)" class="w-full px-3 py-2 rounded-lg bg-[#05070C] border border-white/15 text-white font-mono">
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-3">
+              <div class="font-bold text-white flex items-center justify-between">
+                <span>📣 2. Automatyzacja Social Media (Make.com / n8n / LinkedIn)</span>
+                <span class="text-[10px] font-mono text-indigo-400">Webhook / REST</span>
+              </div>
+              <input type="text" id="api-webhook" placeholder="URL Webhooka Make.com / n8n (do wysyłki na LinkedIn, X, FB)" class="w-full px-3 py-2 rounded-lg bg-[#05070C] border border-white/15 text-white font-mono">
+              <input type="password" id="api-linkedin" placeholder="LinkedIn Access Token (opcjonalny zapis bezpośredni)" class="w-full px-3 py-2 rounded-lg bg-[#05070C] border border-white/15 text-white font-mono">
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-3">
+              <div class="font-bold text-white flex items-center justify-between">
+                <span>📩 3. Newsletter & Powiadomienia (Brevo / Telegram)</span>
+                <span class="text-[10px] font-mono text-emerald-400">300 maili/dzień FREE</span>
+              </div>
+              <input type="password" id="api-brevo" placeholder="BREVO_API_KEY (darmowe wysyłki newslettera)" class="w-full px-3 py-2 rounded-lg bg-[#05070C] border border-white/15 text-white font-mono">
+              <input type="text" id="api-telegram" placeholder="TELEGRAM_BOT_TOKEN (powiadomienia na telefon)" class="w-full px-3 py-2 rounded-lg bg-[#05070C] border border-white/15 text-white font-mono">
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-3">
+              <div class="font-bold text-white flex items-center justify-between">
+                <span>🌐 4. Zapis Artykułów na Stronie Klienta (CMS Endpoint)</span>
+                <span class="text-[10px] font-mono text-amber-300">Chronione Bramką</span>
+              </div>
+              <input type="text" id="api-cms-url" placeholder="Adres Webhooka CMS lub repozytorium GitHub (user/repo)" class="w-full px-3 py-2 rounded-lg bg-[#05070C] border border-white/15 text-white font-mono">
+              <input type="password" id="api-cms-token" placeholder="CMS Secret Token / GitHub Token / WordPress App Password" class="w-full px-3 py-2 rounded-lg bg-[#05070C] border border-white/15 text-white font-mono">
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-white/10">
+            <span class="text-xs text-slate-400">Klucze są bezpiecznie zapisywane dla aktywnego projektu i używane podczas publikacji LIVE.</span>
+            <button onclick="saveApiIntegrations()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-lg shadow-emerald-600/25">
+              🔌 Zapisz Klucze i Aktywuj Połączenia
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- VIEW 5: STATISTICAL DEPARTMENT (MULTI-ARMED BANDIT)       -->
       <!-- ========================================================= -->
       <section id="view-analytics" class="hidden space-y-6">
         <div class="bento-card rounded-2xl p-6 space-y-5">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
             <div>
-              <span class="text-[11px] font-mono uppercase text-emerald-400">Optymalizacja Konwersji (80% Eksploatacja / 20% Eksploracja)</span>
+              <span class="text-[11px] font-mono uppercase text-emerald-400">Pracownik #11 — Optymalizacja Konwersji (80% Eksploatacja / 20% Eksploracja)</span>
               <h2 class="text-xl font-bold text-white mt-0.5">Dział Statystyczny — Ranking Stylów Pisania</h2>
             </div>
             <span class="text-xs font-mono bg-white/[0.05] px-3 py-1.5 rounded-lg border border-white/10 text-slate-300">
@@ -543,13 +663,13 @@ def build_web_dashboard():
       </section>
 
       <!-- ========================================================= -->
-      <!-- VIEW 5: ANTI-BAN & UTM PIPELINE                           -->
+      <!-- VIEW 6: ANTI-BAN & UTM PIPELINE                           -->
       <!-- ========================================================= -->
       <section id="view-antiban" class="hidden space-y-6">
         <div class="bento-card rounded-2xl p-6 space-y-5">
           <div class="border-b border-white/10 pb-4">
-            <span class="text-[11px] font-mono uppercase text-indigo-400">Zero Blokad & Pełna Atrybucja UTM</span>
-            <h2 class="text-xl font-bold text-white mt-0.5">Harmonogram Publikacji z Losowym Opóźnieniem (Human Jitter)</h2>
+            <span class="text-[11px] font-mono uppercase text-indigo-400">Pracownik #10 — Zero Blokad & Pełna Atrybucja UTM</span>
+            <h2 class="text-xl font-bold text-white mt-0.5">Harmonogram Publikacji z Losowym Opóźnieniem (Human Jitter 18-95 min)</h2>
           </div>
           <div class="space-y-3" id="pipeline-list-container"></div>
         </div>
@@ -567,12 +687,13 @@ def build_web_dashboard():
   <script>
     let projectsList = {projects_json_str};
     let bundlesByProject = {bundles_json_str};
+    const workforceList = {workforce_json_str};
     const personasList = {personas_json_str};
     const pipelineList = {pipeline_json_str};
 
-    // Restore custom projects & bundles from localStorage if user created/edited in UI
-    const savedProjs = localStorage.getItem('polsia_projects_v3');
-    const savedBundles = localStorage.getItem('polsia_bundles_v3');
+    // Restore custom projects & bundles from localStorage (v4)
+    const savedProjs = localStorage.getItem('autonoma_projects_v4');
+    const savedBundles = localStorage.getItem('autonoma_bundles_v4');
     if (savedProjs) {{ try {{ projectsList = JSON.parse(savedProjs); }} catch(e) {{}} }}
     if (savedBundles) {{ try {{ Object.assign(bundlesByProject, JSON.parse(savedBundles)); }} catch(e) {{}} }}
 
@@ -582,13 +703,16 @@ def build_web_dashboard():
     let isAddingNewProject = false;
 
     const tabMap = {{
-      'article': {{ key: 'seo_article', label: '🌐 Artykuł Blogowy SEO / GEO (Gotowy do publikacji w CMS strony)' }},
-      'linkedin': {{ key: 'linkedin_post', label: '💼 Post Ekspercki LinkedIn (Zoptymalizowany pod zasięg organiczny)' }},
-      'carousel': {{ key: 'linkedin_carousel', label: '📑 Konspekt 5 Slajdów Karuzeli PDF' }},
-      'twitter': {{ key: 'twitter_thread', label: '🐦 Wątek X / Twitter + Opóźniony 1. Komentarz z linkiem UTM' }},
-      'newsletter': {{ key: 'newsletter', label: '📩 Wydanie Newslettera (Kompatybilne z Brevo / Resend API)' }},
-      'video': {{ key: 'video_script', label: '🎬 Scenariusz Wideo 60s (YouTube Shorts / Reels / TikTok)' }},
-      'github': {{ key: 'github_code', label: '🔌 Kod Integracyjny Schema.org JSON-LD & Webhook CMS' }}
+      'article': {{ key: 'seo_article', label: '🌐 1. Artykuł Blogowy SEO / GEO (Gotowy do publikacji w CMS strony)' }},
+      'linkedin': {{ key: 'linkedin_post', label: '💼 2. Post Ekspercki LinkedIn (Zoptymalizowany pod zasięg organiczny)' }},
+      'carousel': {{ key: 'linkedin_carousel', label: '📑 3. Konspekt 5 Slajdów Karuzeli PDF' }},
+      'twitter': {{ key: 'twitter_thread', label: '🐦 4. Wątek X / Twitter + Opóźniony 1. Komentarz z linkiem UTM' }},
+      'community': {{ key: 'community_plan', label: '👥 5. Strategia Własnej Grupy (FB Group / Discord / Skool) + Szablony Odpowiedzi' }},
+      'ads': {{ key: 'ads_campaign', label: '🎯 6. Kampania Reklamowa Minimalnego Budżetu (0-20 zł/dzień — Meta & Google Ads)' }},
+      'outreach': {{ key: 'outreach_sdr', label: '🤝 7. Sekwencje Pozyskiwania Klientów B2B (LinkedIn DM + Cold Email + Obiekcje)' }},
+      'newsletter': {{ key: 'newsletter', label: '📩 8. Wydanie Newslettera (Kompatybilne z Brevo / Resend API)' }},
+      'video': {{ key: 'video_script', label: '🎬 9. Scenariusz Wideo 60s (YouTube Shorts / Reels / TikTok)' }},
+      'github': {{ key: 'github_code', label: '🔌 10. Kod Integracyjny Schema.org JSON-LD & Webhook CMS' }}
     }};
 
     function getCurrentProject() {{
@@ -603,10 +727,10 @@ def build_web_dashboard():
       const t = document.getElementById('toast');
       document.getElementById('toast-msg').textContent = msg;
       t.classList.remove('hidden');
-      setTimeout(() => t.classList.add('hidden'), 3200);
+      setTimeout(() => t.classList.add('hidden'), 3400);
     }}
 
-    // Synthesize a complete tailored 7-format bundle dynamically for any project
+    // Synthesize a complete tailored 10-format bundle dynamically for any project
     function synthesizeBundleForProject(proj) {{
       const pname = proj.product_name || 'Nasz SaaS';
       const purl = proj.website_url || 'https://twoja-domena.pl';
@@ -674,7 +798,7 @@ Głównym zadaniem systemu jest: *${{pprob}}*
 
       const linkedin_post = `Twarde dane z rynku (${{pcat}}) pokazują wyraźną zmianę: firmy, które nadal wykonują te procesy ręcznie, tracą średnio kilkanaście godzin tygodniowo na operacje możliwe do zautomatyzowania.
 
-Budując i rozwijając **${{pname}}**, skupiliśmy się na jednym mierzalnym celu dla ${'{'}paud{'}'}:
+Budując i rozwijając **${{pname}}**, skupiliśmy się na jednym mierzalnym celu dla ${{paud}}:
 👉 ${{pprob}}
 
 Co daje przejście na zautomatyzowaną architekturę?
@@ -687,7 +811,7 @@ Który obszar operacyjny w Waszej firmie generuje dziś największe wąskie gard
 
 *(Link do pełnego zestawienia porównawczego oraz strony ${{pname}} zostawiam w pierwszym komentarzu poniżej 👇)*
 
-#Biznes #SaaS #Automatyzacja #Wzrost #Technologia`;
+#Biznes #SaaS #Automatyzacja #Wzrost #B2B`;
 
       const linkedin_carousel = `### 📑 KONSPEKT KARUZELI PDF (5 SLAJDÓW) — ${{pname}}
 
@@ -735,6 +859,44 @@ Zamiast dokładać kolejne ręczne kroki, kluczem jest eliminacja wąskiego gard
 ### 💬 Anti-Ban 1st Comment:
 Pełne porównanie i szczegóły wdrożenia ${{pname}} znajdziesz tutaj 👉 ${{utmUrl}}`;
 
+      const community_plan = `# 👥 Strategia Własnej Grupy i Społeczności (FB Group / Discord / Skool) — ${{pname}}
+
+**Grupa docelowa:** ${{paud}}
+
+---
+
+## 📌 1. Post Przypięty (Powitalny Lead Magnet)
+Witaj w społeczności! Jeśli działasz jako **${{paud}}**, przygotowaliśmy dla Ciebie bezpłatny pakiet wdrożeniowy rozwiązujący główny problem: *${{pprob}}*
+👉 Skomentuj **„START”**, a wyślemy Ci bezpośredni dostęp do **${{pname}}** (${{purl}})!
+
+---
+
+## 🔥 2. Ankieta Angażująca Członków Grupy
+Jak obecnie rozwiązujecie u siebie kwestię **${{pcat}}**?
+- **[1]** Robimy wszystko ręcznie
+- **[2]** Zlecamy agencji zewnętrznej
+- **[3]** Korzystamy z automatyzacji AI`;
+
+      const ads_campaign = `# 🎯 Kampania Reklamowa Minimalnego Budżetu (0 – 20 zł / dzień) — ${{pname}}
+
+## 1. Meta Ads (Retargeting osób odwiedzających artykuł SEO — 10 zł/dzień)
+* **Tekst główny:** Nadal tracisz czas na ręczną pracę w obszarze ${{pcat}}? Zobacz, jak **${{pname}}** rozwiązuje ten problem dla ${{paud}}: ${{pprob}}
+* **Nagłówek:** ${{pname}} — ${{ctaText}}
+* **Link docelowy:** ${{utmUrl}}
+
+## 2. Google Search Ads (Frazy Exact-Match — 10 zł/dzień)
+* **Słowa kluczowe:** "[najlepsze narzędzie ${{pcat.toLowerCase()}}]", "[${{pname.toLowerCase()}}]"
+* **Nagłówek:** ${{pname}} — Automatyzacja 24/7`;
+
+      const outreach_sdr = `# 🤝 Sekwencje Pozyskiwania Klientów B2B (SDR Outreach & DM) — ${{pname}}
+
+## 💬 1. Wiadomość LinkedIn DM (Value-First)
+> Cześć [Imię]! Widzę, że rozwijasz biznes w obszarze ${{paud}}. Przygotowaliśmy świeże zestawienie pokazujące, jak wyeliminować główny problem operacyjny: *${{pprob}}*. Podesłać Ci link do raportu?
+
+## 📧 2. Cold Email do Decydenta
+**Temat:** Szybkie pytanie o ${{pcat}} w [Nazwa Firmy]
+> Dzień dobry [Imię], w **${{pname}}** (${{purl}}) pomagamy firmom z grupy ${{paud}} zautomatyzować: ${{feats[0]}}. Czy krótkie 2-minutowe demo w tym tygodniu brzmi interesująco?`;
+
       const newsletter = `# 📩 Biuletyn Strategiczny ${{pname}}
 
 *Wydanie dedykowane dla: ${{paud}}*
@@ -748,8 +910,8 @@ Cześć! W tym tygodniu analizujemy, jak firmy z sektora **${{pcat}}** optymaliz
 > **Kluczowe wyzwanie:** ${{pprob}}
 
 W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
-1. **${{feats[0]}}**
-2. **${{feats[1] || 'Bezpieczną automatyzację 24/7'}}**
+- **${{feats[0]}}**
+- **${{feats[1] || 'Bezpieczną automatyzację 24/7'}}**
 
 👉 **[${{ctaText}} (${{pname}})](${{utmUrl}})**`;
 
@@ -778,6 +940,9 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
         linkedin_post,
         linkedin_carousel,
         twitter_thread,
+        community_plan,
+        ads_campaign,
+        outreach_sdr,
         newsletter,
         video_script,
         github_readme,
@@ -786,7 +951,7 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
     }}
 
     function renderMarkdown(md) {{
-      if (!md) return '<p class="text-slate-500">Brak wygenerowanej treści.</p>';
+      if (!md) return '<p class="text-slate-500">Brak wygenerowanej treści. Kliknij „Wygeneruj Świeżą Paczkę” w lewym dolnym rogu.</p>';
       let html = md.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
       html = html.replace(/((?:^\\|.*\\|\\r?\\n)+)/gm, (tableBlock) => {{
@@ -824,14 +989,16 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
     }}
 
     function switchMainView(viewId) {{
-      ['studio', 'overview', 'scanner', 'analytics', 'antiban'].forEach(v => {{
-        document.getElementById('view-' + v).classList.add('hidden');
+      ['studio', 'workforce', 'scanner', 'integrations', 'analytics', 'antiban'].forEach(v => {{
+        const el = document.getElementById('view-' + v);
+        if (el) el.classList.add('hidden');
         const navBtn = document.getElementById('nav-' + v);
         if (navBtn) {{
           navBtn.className = "w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition border border-transparent";
         }}
       }});
-      document.getElementById('view-' + viewId).classList.remove('hidden');
+      const targetEl = document.getElementById('view-' + viewId);
+      if (targetEl) targetEl.classList.remove('hidden');
       const activeNav = document.getElementById('nav-' + viewId);
       if (activeNav) {{
         activeNav.className = "w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition bg-indigo-600/15 text-indigo-300 border border-indigo-500/30";
@@ -846,8 +1013,24 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
           ${{p.product_name}}
         </option>
       `).join('') + '<option value="NEW_PROJECT">+ Dodaj Nowego Klienta / Projekt...</option>';
-      document.getElementById('kpi-projects-count').textContent = `${{projectsList.length}} Aktywne`;
+      const kpiEl = document.getElementById('kpi-projects-count');
+      if (kpiEl) kpiEl.textContent = `${{projectsList.length}} Aktywne`;
       renderProjectsTable();
+    }}
+
+    function renderWorkforceGrid() {{
+      const cont = document.getElementById('workforce-grid-container');
+      if (!cont) return;
+      cont.innerHTML = workforceList.map(emp => `
+        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.08] hover:border-indigo-500/40 transition space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300">Pracownik #${{emp.id}} &bull; ${{emp.dept}}</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">● ${{emp.badge}}</span>
+          </div>
+          <div class="text-xs font-bold text-white pt-1">${{emp.role}}</div>
+          <p class="text-[11px] text-slate-400 leading-relaxed">${{emp.task}}</p>
+        </div>
+      `).join('');
     }}
 
     function renderProjectsTable() {{
@@ -887,13 +1070,13 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
         document.getElementById('inp-audience').value = '';
         document.getElementById('inp-problem').value = '';
         document.getElementById('inp-cta').value = 'Wypróbuj za darmo';
-        showToast('Wpisz dane nowego klienta, aby utworzyć dla niego osobną instancję agentów.');
+        showToast('Wpisz dane nowego projektu, aby przydzielić mu drużynę 12 Pracowników AI.');
         return;
       }}
       isAddingNewProject = false;
       currentProjectId = selectedId;
       const proj = getCurrentProject();
-      if (!bundlesByProject[currentProjectId] || !bundlesByProject[currentProjectId].seo_article) {{
+      if (!bundlesByProject[currentProjectId] || !bundlesByProject[currentProjectId].seo_article || !bundlesByProject[currentProjectId].community_plan) {{
         bundlesByProject[currentProjectId] = synthesizeBundleForProject(proj);
       }}
       updateWorkspaceHeaderAndForms();
@@ -911,7 +1094,7 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
       document.getElementById('studio-project-badge').textContent = `PROJEKT: ${{proj.product_name}}`;
       const cmsType = (proj.cms_permissions && proj.cms_permissions.cms_type) || 'github_markdown';
       document.getElementById('studio-cms-type').textContent = `Konektor CMS: ${{cmsType}}`;
-      document.getElementById('studio-headline').textContent = `Pakiet Treści i Artykułów SEO/GEO dla: ${{proj.product_name}}`;
+      document.getElementById('studio-headline').textContent = `Pakiet 10 Kanałów Wzrostu dla: ${{proj.product_name}}`;
       document.getElementById('studio-subtext').textContent = `Cel projektu: ${{proj.primary_problem_solved || ''}}`;
 
       // Populate form
@@ -930,17 +1113,21 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
     function switchTab(tabId) {{
       currentTab = tabId;
       document.querySelectorAll('#channel-cards-nav button').forEach(btn => {{
-        btn.className = "w-full text-left p-4 rounded-2xl border border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.05] transition flex items-start justify-between gap-3";
+        btn.className = "w-full text-left p-3.5 rounded-2xl border border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.05] transition flex items-start justify-between gap-3";
       }});
       const activeBtn = document.getElementById('tab-btn-' + tabId);
       if (activeBtn) {{
-        activeBtn.className = "w-full text-left p-4 rounded-2xl border channel-btn-active transition flex items-start justify-between gap-3 shadow-lg";
+        activeBtn.className = "w-full text-left p-3.5 rounded-2xl border channel-btn-active transition flex items-start justify-between gap-3 shadow-lg";
       }}
 
       const conf = tabMap[tabId];
       document.getElementById('format-indicator').textContent = conf.label;
 
-      const bundle = getCurrentBundle();
+      let bundle = getCurrentBundle();
+      if (!bundle[conf.key]) {{
+        bundle = synthesizeBundleForProject(getCurrentProject());
+        bundlesByProject[currentProjectId] = bundle;
+      }}
       let text = bundle[conf.key] || '';
       if (tabId === 'github' && bundle['github_readme']) {{
         text = bundle['github_readme'] + '\\n\\n' + (bundle['github_code'] || '');
@@ -995,7 +1182,7 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
       const proj = getCurrentProject();
       if (!proj.cms_permissions) proj.cms_permissions = {{}};
       proj.cms_permissions.owner_authorized = !proj.cms_permissions.owner_authorized;
-      localStorage.setItem('polsia_projects_v3', JSON.stringify(projectsList));
+      localStorage.setItem('autonoma_projects_v4', JSON.stringify(projectsList));
       renderPermissionUI();
       renderProjectsTable();
       showToast(proj.cms_permissions.owner_authorized
@@ -1008,10 +1195,26 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
       const proj = getCurrentProject();
       if (!proj.cms_permissions) proj.cms_permissions = {{}};
       proj.cms_permissions.owner_authorized = true;
-      localStorage.setItem('polsia_projects_v3', JSON.stringify(projectsList));
+      localStorage.setItem('autonoma_projects_v4', JSON.stringify(projectsList));
       renderPermissionUI();
       renderProjectsTable();
       showToast(`Artykuł SEO/GEO dla "${{proj.product_name}}" został zatwierdzony i opublikowany na stronie (${{proj.website_url}})!`);
+    }}
+
+    function saveApiIntegrations() {{
+      const cfg = {{
+        gemini: document.getElementById('api-gemini').value.trim(),
+        groq: document.getElementById('api-groq').value.trim(),
+        webhook: document.getElementById('api-webhook').value.trim(),
+        linkedin: document.getElementById('api-linkedin').value.trim(),
+        brevo: document.getElementById('api-brevo').value.trim(),
+        telegram: document.getElementById('api-telegram').value.trim(),
+        cmsUrl: document.getElementById('api-cms-url').value.trim(),
+        cmsToken: document.getElementById('api-cms-token').value.trim()
+      }};
+      localStorage.setItem('autonoma_integrations_v4', JSON.stringify(cfg));
+      document.getElementById('integration-mode-badge').textContent = 'TRYB: POŁĄCZENIA AKTYWNE (LIVE)';
+      showToast('Zapisano klucze integracji API dla Twojej drużyny 12 Pracowników AI!');
     }}
 
     function saveProjectAndGenerate() {{
@@ -1059,20 +1262,20 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
         bundlesByProject[currentProjectId] = synthesizeBundleForProject(proj);
       }}
 
-      localStorage.setItem('polsia_projects_v3', JSON.stringify(projectsList));
-      localStorage.setItem('polsia_bundles_v3', JSON.stringify(bundlesByProject));
+      localStorage.setItem('autonoma_projects_v4', JSON.stringify(projectsList));
+      localStorage.setItem('autonoma_bundles_v4', JSON.stringify(bundlesByProject));
       updateWorkspaceHeaderAndForms();
       switchTab('article');
       switchMainView('studio');
-      showToast(`Wygenerowano kompletną paczkę 7 formatów dla projektu: ${{name}}!`);
+      showToast(`Drużyna 12 Pracowników AI wygenerowała 10 kanałów dla projektu: ${{name}}!`);
     }}
 
     function regenerateForCurrentProject() {{
       const proj = getCurrentProject();
       bundlesByProject[currentProjectId] = synthesizeBundleForProject(proj);
-      localStorage.setItem('polsia_bundles_v3', JSON.stringify(bundlesByProject));
+      localStorage.setItem('autonoma_bundles_v4', JSON.stringify(bundlesByProject));
       switchTab(currentTab);
-      showToast(`Odświeżono pakiet treści dla projektu: ${{proj.product_name}}!`);
+      showToast(`Odświeżono wszystkie 10 kanałów dla projektu: ${{proj.product_name}}!`);
     }}
 
     function copyCurrentContent() {{
@@ -1135,6 +1338,7 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
     }}
 
     // Initialize Application
+    renderWorkforceGrid();
     updateWorkspaceHeaderAndForms();
     switchTab('article');
   </script>
@@ -1142,7 +1346,7 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
 </html>
 """
     (PUBLIC_DIR / "index.html").write_text(html_content, encoding="utf-8")
-    print(f"✅ Przebudowany panel SaaS Polsia Zero wygenerowany w: {PUBLIC_DIR / 'index.html'}")
+    print(f"✅ Przebudowany panel SaaS Autonoma AI (12 Pracowników + 10 Kanałów) wygenerowany w: {PUBLIC_DIR / 'index.html'}")
 
 if __name__ == "__main__":
     build_web_dashboard()

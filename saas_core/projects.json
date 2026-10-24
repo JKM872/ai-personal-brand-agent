@@ -1,12 +1,12 @@
 [
   {
-    "id": "proj_polsia_zero",
-    "product_name": "Polsia Zero (Główna Platforma)",
+    "id": "proj_autonoma_os",
+    "product_name": "Autonoma AI (Główna Platforma)",
     "website_url": "https://twoja-domena.pl",
-    "tagline": "Autonomiczny system wzrostu i marketingu 24/7 dla startupów i SaaS",
-    "category": "SaaS & AI Growth Platform",
+    "tagline": "Autonomiczny system wzrostu i marketingu 24/7 napędzany 12 wirtualnymi pracownikami AI",
+    "category": "SaaS & AI Workforce Platform",
     "target_audience": "Założyciele SaaS, twórcy cyfrowi, firmy B2B i e-commerce",
-    "primary_problem_solved": "Zastępuje kosztowny dział marketingu autonomicznymi agentami AI, którzy sami piszą artykuły SEO/GEO, prowadzą social media i publikują na stronie przy budżecie 0 zł.",
+    "primary_problem_solved": "Zastępuje kosztowny dział marketingu i sprzedaży 12 autonomicznymi pracownikami AI, którzy sami piszą artykuły SEO/GEO, prowadzą social media, budują własną grupę, odpowiadają na komentarze i pozyskują klientów przy budżecie 0 zł.",
     "industry_keywords": ["saas", "ai", "automation", "growth", "agent"],
     "key_features": [
       "Autonomiczna publikacja artykułów SEO & GEO prosto na stronę za zgodą właściciela",
@@ -44,7 +44,7 @@
       "publish_mode": "require_approval",
       "cms_type": "wordpress",
       "wp_url": "https://invoicepulse-demo.com",
-      "wp_user": "polsia_editor",
+      "wp_user": "autonoma_editor",
       "wp_app_password": ""
     },
     "subscription_status": "active",

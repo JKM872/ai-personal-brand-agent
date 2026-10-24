@@ -13,7 +13,9 @@
     "http://arxiv.org/abs/2610.31646v1",
     "https://github.com/rociiu/talorys",
     "https://github.com/jwuthri-cloud/Tracely-ai",
-    "https://github.com/feder-cr/git-ai"
+    "https://github.com/feder-cr/git-ai",
+    "https://block.xyz/dessa",
+    "https://nitter.click/AikidoSecurity/status/2113759110625906950?__galadriel=lPmlGl9id4oAd5UeBwMhlYKArHyr6lR2IDGujPwB5HV2kQ1aLoPWFd5A9sGuzNcmrp8fUso8qygmHcKTDZ8MNHWqQ3bDJcycV87xp_0VypzQLYj6O_RRHlZuQqj33oASGY2YLSoAiMjeOZN40h7Stf8AG7DPrGZbAPVKUXy36HoMudRbvwF3_r2uYNmfJMhpKzywQDM6Ab8"
   ],
   "runs": [
     {
@@ -127,6 +129,22 @@
       "url": "https://github.com/feder-cr/git-ai",
       "score": 24.8,
       "folder": "2026-10-23_2219_proj_demo_client_feder-cr-git-ai"
+    },
+    {
+      "timestamp": "2026-10-24 09:03:13",
+      "title": "Dessa: Conversation Model trained only on speech",
+      "source": "Hacker News",
+      "url": "https://block.xyz/dessa",
+      "score": 60,
+      "folder": "2026-10-24_0903_proj_autonoma_os_dessa-conversation-model-trained-only-on"
+    },
+    {
+      "timestamp": "2026-10-24 09:03:14",
+      "title": "Evolving Threat: http2shell is an RCE in Node, Python, and more",
+      "source": "Hacker News",
+      "url": "https://nitter.click/AikidoSecurity/status/2113759110625906950?__galadriel=lPmlGl9id4oAd5UeBwMhlYKArHyr6lR2IDGujPwB5HV2kQ1aLoPWFd5A9sGuzNcmrp8fUso8qygmHcKTDZ8MNHWqQ3bDJcycV87xp_0VypzQLYj6O_RRHlZuQqj33oASGY2YLSoAiMjeOZN40h7Stf8AG7DPrGZbAPVKUXy36HoMudRbvwF3_r2uYNmfJMhpKzywQDM6Ab8",
+      "score": 49.4,
+      "folder": "2026-10-24_0903_proj_demo_client_evolving-threat-http2shell-is-an-rce-in-"
     }
   ]
 }

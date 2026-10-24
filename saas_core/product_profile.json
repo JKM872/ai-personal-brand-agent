@@ -23,7 +23,7 @@
     "publish_mode": "require_approval",
     "cms_type": "wordpress",
     "wp_url": "https://invoicepulse-demo.com",
-    "wp_user": "polsia_editor",
+    "wp_user": "autonoma_editor",
     "wp_app_password": ""
   },
   "subscription_status": "active",

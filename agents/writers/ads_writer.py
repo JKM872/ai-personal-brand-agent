@@ -1,0 +1,69 @@
+"""
+Micro-Budget Ads & Retargeting Agent (Autonoma AI Workforce — Employee #8).
+Generates high-ROI ad campaigns for minimum-budget performance marketing (15-20 PLN / day)
+across Meta Ads (Facebook/Instagram), LinkedIn Boost, and Google High-Intent Search.
+"""
+
+from agents.geo_seo_engine import load_product_profile, derive_seo_headline
+
+def generate_ads_content(topic, persona):
+    profile = load_product_profile()
+    pname = profile.get("product_name", "Autonoma AI")
+    purl = profile.get("website_url", "https://twoja-domena.pl")
+    pcat = profile.get("category", "SaaS & Automatyzacja")
+    paud = profile.get("target_audience", "właścicieli firm B2B")
+    pproblem = profile.get("primary_problem_solved", "")
+    features = profile.get("key_features", ["Pełna automatyzacja 24/7"])
+    cta_text = profile.get("call_to_action", {}).get("text", "Wypróbuj za darmo")
+
+    meta = derive_seo_headline(profile, topic)
+    short_topic = meta["short_topic"]
+    metric = meta["metric_highlight"]
+
+    ads_markdown = f"""# 🎯 Kampania Reklamowa Minimalnego Budżetu (Micro-Budget Ads: 0 – 20 zł / dzień) — {pname}
+
+**Grupa docelowa (Targeting):** {paud}
+**Cel kampanii:** Maksymalny zwrot z inwestycji (ROAS) przy minimalnym budżecie (Retargeting osób odwiedzających artykuły SEO/GEO + Wyszukiwarka Google na frazy wysokiego zamiaru zakupu).
+
+---
+
+## 1. Meta Ads (Facebook & Instagram Retargeting — Budżet: 10 zł / dzień)
+
+> **Zasada oszczędzania budżetu:** Nie przepalaj budżetu na zimny ruch. Kieruj tę reklamę wyłącznie do osób, które przeczytały Twój artykuł porównawczy na stronie `{purl}` w ciągu ostatnich 30 dni.
+
+* **Tekst główny reklamy (Primary Text):**
+  Nadal tracisz czas na procesy, które w 2026 roku powinny działać w 100% automatycznie?
+  Firmy z grupy **{paud}** przechodzą na **{pname}**, bo liczy się konkretny wynik:
+  ✅ {metric}
+  ✅ {features[0] if len(features) > 0 else 'Działa 24/7 w chmurze'}
+  ✅ {features[1] if len(features) > 1 else 'Pełna kontrola właściciela'}
+  Sprawdź, jak **{pname}** eliminuje główny ból operacyjny: *{pproblem}*
+
+* **Nagłówek (Headline):** {pname} — {cta_text}
+* **Opis linku (Description):** Wdrożenie w 5 minut • Bezpieczna architektura
+* **Przycisk CTA:** `Więcej informacji` / `Zarejestruj się`
+* **Docelowy URL z UTM:** `{purl}?utm_source=meta_ads&utm_medium=retargeting_micro&utm_campaign=roi_boost`
+
+---
+
+## 2. Google Search Ads (Tylko Frazy Exact-Match — Budżet: 10 zł / dzień)
+
+* **Słowa kluczowe (Exact Match — najwyższa intencja zakupowa):**
+  - `[najlepsze narzędzie do {pcat.lower()}]`
+  - `[{pname.lower()} opinie]`
+  - `[automatyzacja dla {paud.lower()[:35]}]`
+* **Nagłówek 1 ( do 30 znaków ):** {pname[:28]} — Oficjalna
+* **Nagłówek 2 ( do 30 znaków ):** Automatyzacja 24/7 dla Firm
+* **Nagłówek 3 ( do 30 znaków ):** {cta_text[:28]}
+* **Tekst reklamy 1 ( do 90 znaków ):** {pproblem[:88]}
+* **Tekst reklamy 2 ( do 90 znaków ):** {metric[:88]}
+
+---
+
+## 3. Darmowa Alternatywa 0,00 zł (Organic Boost + AI Search Ads)
+
+Jeśli chcesz utrzymać budżet reklamowy na poziomie **dokładnie 0,00 zł**:
+1. **Pozycjonowanie w ChatGPT i Perplexity (GEO):** Twój plik `/llms.txt` oraz artykuł porównawczy z tabelą sprawiają, że asystenci AI rekomendują **{pname}** za darmo, gdy użytkownik pyta o rozwiązania w kategorii *{pcat}*.
+2. **Retargeting przez Newsletter:** Zamiast płacić za kliknięcia w Meta Ads, zbieraj maile pod artykułem blogowym i pozwól Agentowi Newsletterowemu domykać sprzedaż za 0 zł (Brevo Free Tier).
+"""
+    return {"ads_campaign": ads_markdown.strip()}
