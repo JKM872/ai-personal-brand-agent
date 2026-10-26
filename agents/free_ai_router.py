@@ -1,12 +1,13 @@
 """
-Free AI Router (0,00 PLN Budget — Autonoma AI Workforce).
+Free AI Router & Universal Secret Loader (0,00 PLN Budget — Autonoma AI Workforce).
 Intelligently cascades across 100% free AI model providers and reads keys from:
-1. Environment variables (GEMINI_API_KEY, GROQ_API_KEY, CF_API_TOKEN)
-2. Local configuration file (config/accounts.json)
-3. Local .env file if present
+1. Environment variables (GEMINI_API_KEY, GROQ_API_KEY, etc.)
+2. Local .env file (git-ignored, safe from accidental commits)
+3. Local config/accounts.local.json (git-ignored)
+4. Local config/accounts.json
 
 Tiers:
-- Tier 1: Google Gemini 2.5 / 1.5 Flash API (Google AI Studio — 1,500 free reqs/day)
+- Tier 1: Google Gemini 2.5 / 2.0 / 1.5 Flash API (Google AI Studio — 1,500 free reqs/day)
 - Tier 2: Groq LLaMA 3.3 70B Versatile API (Groq Cloud Free Tier)
 - Tier 3: Cloudflare Workers AI (@cf/meta/llama-3.3-70b-instruct)
 - Tier 4: Deterministic Project-Adaptive Synthesis Fallback
@@ -15,17 +16,29 @@ Tiers:
 import os
 import json
 import urllib.request
-import urllib.parse
 from pathlib import Path
 
 BASE_DIR = Path(__file__).parent.parent.resolve()
 CONFIG_FILE = BASE_DIR / "config" / "accounts.json"
+LOCAL_CONFIG_FILE = BASE_DIR / "config" / "accounts.local.json"
 ENV_FILE = BASE_DIR / ".env"
+
+def _is_placeholder(val: str) -> bool:
+    if not val:
+        return True
+    v = val.strip()
+    return (
+        not v
+        or v.startswith("TWÓJ_")
+        or v.startswith("TWOJ_")
+        or v.startswith("ghp_TWÓJ")
+        or v == "urn:li:person:TWOJE_ID"
+    )
 
 def _load_key(key_name: str) -> str:
     # 1. Check OS Environment
     val = os.environ.get(key_name, "").strip()
-    if val and not val.startswith("TWÓJ_"):
+    if not _is_placeholder(val):
         return val
 
     # 2. Check .env file
@@ -37,26 +50,29 @@ def _load_key(key_name: str) -> str:
                     k, v = line.split("=", 1)
                     if k.strip() == key_name:
                         v_clean = v.strip().strip('"').strip("'")
-                        if v_clean and not v_clean.startswith("TWÓJ_"):
+                        if not _is_placeholder(v_clean):
                             return v_clean
         except Exception:
             pass
 
-    # 3. Check config/accounts.json
-    if CONFIG_FILE.exists():
-        try:
-            cfg = json.loads(CONFIG_FILE.read_text(encoding="utf-8"))
-            ai_cfg = cfg.get("ai_keys", {})
-            val = ai_cfg.get(key_name, "").strip()
-            if val and not val.startswith("TWÓJ_"):
-                return val
-        except Exception:
-            pass
+    # 3. Check config/accounts.local.json and config/accounts.json
+    for cfg_path in (LOCAL_CONFIG_FILE, CONFIG_FILE):
+        if cfg_path.exists():
+            try:
+                cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
+                # Check top-level or ai_keys
+                for section in (cfg.get("ai_keys", {}), cfg):
+                    if isinstance(section, dict) and key_name in section:
+                        v_clean = str(section.get(key_name, "")).strip()
+                        if not _is_placeholder(v_clean):
+                            return v_clean
+            except Exception:
+                pass
 
     return ""
 
 def has_live_ai_key() -> bool:
-    return bool(_load_key("GEMINI_API_KEY") or _load_key("GROQ_API_KEY"))
+    return bool(_load_key("GEMINI_API_KEY") or _load_key("GROQ_API_KEY") or (_load_key("CF_ACCOUNT_ID") and _load_key("CF_API_TOKEN")))
 
 def ask_free_ai(system_prompt: str, user_prompt: str, temperature: float = 0.7) -> str:
     # --- TIER 1: Google Gemini API (Darmowy limit w Google AI Studio) ---

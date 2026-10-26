@@ -1,40 +1,59 @@
 """
-Autonomous Social Publisher Hub.
-Connects generated content to LinkedIn, X/Twitter, GitHub, Telegram, and Make/n8n Webhooks.
-Safely defaults to 'dry_run' mode until accounts are enabled in config/accounts.json.
+Autonomous Social Publisher Hub (Autonoma AI Workforce).
+Connects generated content to Make/n8n Webhooks, LinkedIn, Telegram, and Brevo/Resend Newsletter.
+Automatically detects credentials from .env, OS environment, config/accounts.local.json, or config/accounts.json.
+Safely defaults to 'dry_run' mode per channel until credentials are provided.
 """
 
-import os
 import json
 import urllib.request
 from datetime import datetime
 from pathlib import Path
+from agents.free_ai_router import _load_key, _is_placeholder
 
-CONFIG_FILE = Path(__file__).parent.parent / "config" / "accounts.json"
+BASE_DIR = Path(__file__).parent.parent.resolve()
+CONFIG_FILE = BASE_DIR / "config" / "accounts.json"
+LOCAL_CONFIG_FILE = BASE_DIR / "config" / "accounts.local.json"
 
 def load_accounts_config():
     cfg = {"mode": "dry_run", "channels": {}}
-    if CONFIG_FILE.exists():
-        cfg = json.loads(CONFIG_FILE.read_text(encoding="utf-8"))
-        
-    # Cloud / GitHub Actions Secrets override
-    env_webhook = os.environ.get("WEBHOOK_URL", "").strip()
-    env_tg_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
-    env_tg_chat = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
-    
-    if env_webhook:
+    for p in (CONFIG_FILE, LOCAL_CONFIG_FILE):
+        if p.exists():
+            try:
+                loaded = json.loads(p.read_text(encoding="utf-8"))
+                cfg.update(loaded)
+            except Exception:
+                pass
+
+    channels = cfg.setdefault("channels", {})
+
+    # 1. Webhook (Make.com / n8n / Zapier)
+    wh_url = _load_key("WEBHOOK_URL") or channels.get("webhook_automation", {}).get("webhook_url", "").strip()
+    if not _is_placeholder(wh_url):
         cfg["mode"] = "live"
-        cfg.setdefault("channels", {})["webhook_automation"] = {
-            "enabled": True,
-            "webhook_url": env_webhook
-        }
-    if env_tg_token and env_tg_chat:
+        channels["webhook_automation"] = {"enabled": True, "webhook_url": wh_url}
+
+    # 2. Telegram Notifier
+    tg_token = _load_key("TELEGRAM_BOT_TOKEN") or channels.get("telegram_notifier", {}).get("bot_token", "").strip()
+    tg_chat = _load_key("TELEGRAM_CHAT_ID") or channels.get("telegram_notifier", {}).get("chat_id", "").strip()
+    if not _is_placeholder(tg_token) and not _is_placeholder(tg_chat):
         cfg["mode"] = "live"
-        cfg.setdefault("channels", {})["telegram_notifier"] = {
-            "enabled": True,
-            "bot_token": env_tg_token,
-            "chat_id": env_tg_chat
-        }
+        channels["telegram_notifier"] = {"enabled": True, "bot_token": tg_token, "chat_id": tg_chat}
+
+    # 3. LinkedIn Direct API
+    li_token = _load_key("LINKEDIN_ACCESS_TOKEN") or channels.get("linkedin", {}).get("access_token", "").strip()
+    li_urn = _load_key("LINKEDIN_AUTHOR_URN") or channels.get("linkedin", {}).get("author_urn", "").strip()
+    if not _is_placeholder(li_token) and not _is_placeholder(li_urn):
+        cfg["mode"] = "live"
+        channels["linkedin"] = {"enabled": True, "access_token": li_token, "author_urn": li_urn}
+
+    # 4. Newsletter (Brevo / Resend)
+    brevo_key = _load_key("BREVO_API_KEY")
+    resend_key = _load_key("RESEND_API_KEY")
+    if brevo_key or resend_key:
+        cfg["mode"] = "live"
+        channels["newsletter"] = {"enabled": True, "provider": "brevo" if brevo_key else "resend"}
+
     return cfg
 
 def send_webhook(webhook_url, payload):
@@ -42,7 +61,7 @@ def send_webhook(webhook_url, payload):
     req = urllib.request.Request(
         webhook_url,
         data=data,
-        headers={"Content-Type": "application/json", "User-Agent": "PersonalBrandAgent/2.0"},
+        headers={"Content-Type": "application/json", "User-Agent": "AutonomaAIAgent/2.0"},
         method="POST"
     )
     with urllib.request.urlopen(req, timeout=15) as resp:
@@ -99,7 +118,7 @@ def dispatch_content_bundle(topic, bundle, queue_dir):
     cfg = load_accounts_config()
     mode = cfg.get("mode", "dry_run")
     channels = cfg.get("channels", {})
-    
+
     results = {
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "mode": mode,
@@ -107,7 +126,6 @@ def dispatch_content_bundle(topic, bundle, queue_dir):
         "dispatches": {}
     }
 
-    # Universal payload for Make.com / n8n / Zapier / Buffer
     universal_payload = {
         "topic_title": topic.get("title"),
         "topic_url": topic.get("url"),
@@ -126,11 +144,11 @@ def dispatch_content_bundle(topic, bundle, queue_dir):
 
     if mode == "dry_run":
         results["status_summary"] = "GOTOWE W KOLEJCE (Tryb Dry-Run — konta jeszcze niepodpięte)"
-        for ch_name in ["linkedin", "twitter_x", "github", "webhook_automation", "telegram_notifier"]:
+        for ch_name in ["linkedin", "twitter_x", "github", "webhook_automation", "telegram_notifier", "newsletter"]:
             results["dispatches"][ch_name] = "QUEUED_FOR_AUTO_PUBLISH"
     else:
         results["status_summary"] = "AUTOMATYCZNA PUBLIKACJA AKTYWNA (Tryb LIVE)"
-        
+
         # 1. Webhook (Make / n8n / Zapier)
         wh_cfg = channels.get("webhook_automation", {})
         if wh_cfg.get("enabled") and wh_cfg.get("webhook_url"):
@@ -153,13 +171,25 @@ def dispatch_content_bundle(topic, bundle, queue_dir):
         tg_cfg = channels.get("telegram_notifier", {})
         if tg_cfg.get("enabled") and tg_cfg.get("bot_token"):
             try:
-                msg = f"🚀 *Nowa paczka treści AI wygenerowana!*\n\n*Temat:* {topic.get('title')}\n*Źródło:* {topic.get('url')}\n\n---\n{bundle['linkedin']['post'][:1000]}"
+                msg = f"🚀 *Autonoma AI — Nowa paczka 10 kanałów!*\n\n*Temat:* {topic.get('title')}\n*Źródło:* {topic.get('url')}\n\n---\n{bundle['linkedin']['post'][:1000]}"
                 code = send_telegram_notification(tg_cfg["bot_token"], tg_cfg["chat_id"], msg)
                 results["dispatches"]["telegram_notifier"] = f"SENT (HTTP {code})"
             except Exception as e:
                 results["dispatches"]["telegram_notifier"] = f"ERROR: {e}"
 
-    # Save ready-to-send API payload & status inside queue folder
+        # 4. Newsletter (Brevo / Resend)
+        nl_cfg = channels.get("newsletter", {})
+        if nl_cfg.get("enabled"):
+            try:
+                from agents.newsletter_agent import send_newsletter_batch
+                nl_res = send_newsletter_batch(
+                    subject=f"📩 Biuletyn Strategiczny: {topic.get('title', 'Nowości')[:65]}",
+                    html_content=f"<pre style='font-family:sans-serif;white-space:pre-wrap'>{bundle['newsletter']['newsletter']}</pre>"
+                )
+                results["dispatches"]["newsletter"] = f"{nl_res.get('status')} ({nl_res.get('count', 0)} odbiorców)"
+            except Exception as e:
+                results["dispatches"]["newsletter"] = f"ERROR: {e}"
+
     (queue_dir / "7_API_PAYLOAD_READY.json").write_text(
         json.dumps(universal_payload, indent=2, ensure_ascii=False), encoding="utf-8"
     )

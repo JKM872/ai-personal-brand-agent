@@ -721,10 +721,13 @@ def build_web_dashboard():
           <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-white/10">
             <span class="text-xs text-slate-400">Klucze są bezpiecznie zapisywane dla aktywnego projektu i używane podczas publikacji LIVE.</span>
             <div class="flex flex-wrap items-center gap-2.5">
-              <button onclick="dispatchWebhookLive()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow-lg shadow-indigo-600/25">
+              <button type="button" onclick="exportDotEnvFile()" class="px-4 py-2.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 text-slate-200 text-xs font-semibold transition">
+                ⬇️ Pobierz gotowy plik .env
+              </button>
+              <button type="button" onclick="dispatchWebhookLive()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow-lg shadow-indigo-600/25">
                 🚀 Wyślij Paczkę 10 Kanałów na Webhook Teraz
               </button>
-              <button onclick="saveApiIntegrations()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-lg shadow-emerald-600/25">
+              <button type="button" onclick="saveApiIntegrations()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-lg shadow-emerald-600/25">
                 🔌 Zapisz Klucze i Aktywuj Połączenia
               </button>
             </div>
@@ -1460,6 +1463,32 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
       localStorage.setItem('autonoma_integrations_v4', JSON.stringify(cfg));
       document.getElementById('integration-mode-badge').textContent = 'TRYB: POŁĄCZENIA AKTYWNE (LIVE)';
       showToast('Zapisano klucze integracji API dla Twojej drużyny 12 Pracowników AI!');
+    }}
+
+    function exportDotEnvFile() {{
+      saveApiIntegrations();
+      const cfg = JSON.parse(localStorage.getItem('autonoma_integrations_v4') || '{{}}');
+      const envLines = [
+        '# AUTONOMA AI — Automatycznie wygenerowany plik .env',
+        `GEMINI_API_KEY=${{cfg.gemini || ''}}`,
+        `GROQ_API_KEY=${{cfg.groq || ''}}`,
+        `WEBHOOK_URL=${{cfg.webhook || ''}}`,
+        `LINKEDIN_ACCESS_TOKEN=${{cfg.linkedin || ''}}`,
+        `BREVO_API_KEY=${{cfg.brevo || ''}}`,
+        `TELEGRAM_BOT_TOKEN=${{cfg.telegram || ''}}`,
+        `CMS_WEBHOOK_URL=${{cfg.cmsUrl || ''}}`,
+        `CMS_API_KEY=${{cfg.cmsToken || ''}}`
+      ];
+      const blob = new Blob([envLines.join('\\n')], {{ type: 'text/plain;charset=utf-8' }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = '.env';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Pobrano gotowy plik .env! Umieść go w głównym folderze projektu.');
     }}
 
     function saveProjectAndGenerate() {{

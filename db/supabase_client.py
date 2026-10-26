@@ -17,8 +17,9 @@ LOCAL_DB_PATH = BASE_DIR / "db" / "local_storage.db"
 
 class SupabaseClient:
     def __init__(self):
-        self.url = os.environ.get("SUPABASE_URL", "").rstrip("/")
-        self.key = os.environ.get("SUPABASE_KEY", os.environ.get("SUPABASE_ANON_KEY", ""))
+        from agents.free_ai_router import _load_key
+        self.url = (_load_key("SUPABASE_URL") or os.environ.get("SUPABASE_URL", "")).rstrip("/")
+        self.key = _load_key("SUPABASE_KEY") or _load_key("SUPABASE_ANON_KEY") or os.environ.get("SUPABASE_KEY", "")
         self.is_connected = bool(self.url and self.key)
         self._init_local_db()
 
