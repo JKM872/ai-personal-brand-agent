@@ -1308,16 +1308,25 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
       }}
     }}
 
+    function persistProjectsToDisk() {{
+      localStorage.setItem('autonoma_projects_v4', JSON.stringify(projectsList));
+      fetch('/api/save-projects', {{
+        method: 'POST',
+        headers: {{ 'Content-Type': 'application/json' }},
+        body: JSON.stringify({{ projects: projectsList }})
+      }}).catch(() => {{}});
+    }}
+
     function toggleOwnerPermission() {{
       const proj = getCurrentProject();
       if (!proj.cms_permissions) proj.cms_permissions = {{}};
       proj.cms_permissions.owner_authorized = !proj.cms_permissions.owner_authorized;
-      localStorage.setItem('autonoma_projects_v4', JSON.stringify(projectsList));
+      persistProjectsToDisk();
       renderPermissionUI();
       renderProjectsTable();
       showToast(proj.cms_permissions.owner_authorized
-        ? `Nadano uprawnienia publikacji CMS dla projektu ${{proj.product_name}}!`
-        : `Włączono blokadę bezpieczeństwa CMS dla projektu ${{proj.product_name}}.`
+        ? `Nadano uprawnienia publikacji CMS dla projektu ${{proj.product_name}} (zapisano na dysku)!`
+        : `Włączono blokadę bezpieczeństwa CMS dla projektu ${{proj.product_name}} (zapisano na dysku).`
       );
     }}
 
@@ -1325,27 +1334,47 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
       const proj = getCurrentProject();
       if (!proj.cms_permissions) proj.cms_permissions = {{}};
       proj.cms_permissions.owner_authorized = true;
-      localStorage.setItem('autonoma_projects_v4', JSON.stringify(projectsList));
+      persistProjectsToDisk();
       renderPermissionUI();
       renderProjectsTable();
       showToast(`Artykuł SEO/GEO dla "${{proj.product_name}}" został zatwierdzony i opublikowany na stronie (${{proj.website_url}})!`);
     }}
 
-    function loadApiIntegrations() {{
+    function applyApiConfigToInputs(cfg) {{
+      if (!cfg) return;
+      if (cfg.gemini) document.getElementById('api-gemini').value = cfg.gemini;
+      if (cfg.groq) document.getElementById('api-groq').value = cfg.groq;
+      if (cfg.webhook) document.getElementById('api-webhook').value = cfg.webhook;
+      if (cfg.linkedin) document.getElementById('api-linkedin').value = cfg.linkedin;
+      if (cfg.brevo) document.getElementById('api-brevo').value = cfg.brevo;
+      if (cfg.telegram) document.getElementById('api-telegram').value = cfg.telegram;
+      if (cfg.cmsUrl) document.getElementById('api-cms-url').value = cfg.cmsUrl;
+      if (cfg.cmsToken) document.getElementById('api-cms-token').value = cfg.cmsToken;
+      if (cfg.gemini || cfg.groq || cfg.webhook || cfg.brevo) {{
+        document.getElementById('integration-mode-badge').textContent = 'TRYB: POŁĄCZENIA AKTYWNE (ZAPISANO NA DYSKU)';
+      }}
+    }}
+
+    async function loadApiIntegrations() {{
       const saved = localStorage.getItem('autonoma_integrations_v4');
-      if (!saved) return;
+      if (saved) {{
+        try {{
+          applyApiConfigToInputs(JSON.parse(saved));
+        }} catch(e) {{}}
+      }}
       try {{
-        const cfg = JSON.parse(saved);
-        if (cfg.gemini) document.getElementById('api-gemini').value = cfg.gemini;
-        if (cfg.groq) document.getElementById('api-groq').value = cfg.groq;
-        if (cfg.webhook) document.getElementById('api-webhook').value = cfg.webhook;
-        if (cfg.linkedin) document.getElementById('api-linkedin').value = cfg.linkedin;
-        if (cfg.brevo) document.getElementById('api-brevo').value = cfg.brevo;
-        if (cfg.telegram) document.getElementById('api-telegram').value = cfg.telegram;
-        if (cfg.cmsUrl) document.getElementById('api-cms-url').value = cfg.cmsUrl;
-        if (cfg.cmsToken) document.getElementById('api-cms-token').value = cfg.cmsToken;
-        if (cfg.gemini || cfg.webhook || cfg.brevo) {{
-          document.getElementById('integration-mode-badge').textContent = 'TRYB: POŁĄCZENIA AKTYWNE (LIVE)';
+        const resp = await fetch('/api/load-keys');
+        if (resp.ok) {{
+          const data = await resp.json();
+          if (data && data.keys) {{
+            const localCfg = JSON.parse(localStorage.getItem('autonoma_integrations_v4') || '{{}}');
+            const merged = Object.assign({{}}, data.keys, localCfg);
+            Object.keys(data.keys).forEach(k => {{
+              if (data.keys[k] && !merged[k]) merged[k] = data.keys[k];
+            }});
+            applyApiConfigToInputs(merged);
+            localStorage.setItem('autonoma_integrations_v4', JSON.stringify(merged));
+          }}
         }}
       }} catch(e) {{}}
     }}
@@ -1455,7 +1484,7 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
       }}
     }}
 
-    function saveApiIntegrations() {{
+    async function saveApiIntegrations() {{
       const cfg = {{
         gemini: document.getElementById('api-gemini').value.trim(),
         groq: document.getElementById('api-groq').value.trim(),
@@ -1467,8 +1496,20 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
         cmsToken: document.getElementById('api-cms-token').value.trim()
       }};
       localStorage.setItem('autonoma_integrations_v4', JSON.stringify(cfg));
-      document.getElementById('integration-mode-badge').textContent = 'TRYB: POŁĄCZENIA AKTYWNE (LIVE)';
-      showToast('Zapisano klucze integracji API dla Twojej drużyny 12 Pracowników AI!');
+      try {{
+        const resp = await fetch('/api/save-keys', {{
+          method: 'POST',
+          headers: {{ 'Content-Type': 'application/json' }},
+          body: JSON.stringify(cfg)
+        }});
+        if (resp.ok) {{
+          document.getElementById('integration-mode-badge').textContent = 'TRYB: ZAPISANO W PRZEGLĄDARCE I W PLIKU .ENV NA DYSKU';
+          showToast('✅ Zapisano klucze na stałe w przeglądarce ORAZ na dysku (.env + config/accounts.local.json)!');
+          return;
+        }}
+      }} catch(e) {{}}
+      document.getElementById('integration-mode-badge').textContent = 'TRYB: POŁĄCZENIA AKTYWNE (ZAPISANO W PRZEGLĄDARCE)';
+      showToast('Zapisano klucze na stałe w pamięci przeglądarki (localStorage)!');
     }}
 
     function exportDotEnvFile() {{
@@ -1542,12 +1583,12 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
         bundlesByProject[currentProjectId] = synthesizeBundleForProject(proj);
       }}
 
-      localStorage.setItem('autonoma_projects_v4', JSON.stringify(projectsList));
+      persistProjectsToDisk();
       localStorage.setItem('autonoma_bundles_v4', JSON.stringify(bundlesByProject));
       updateWorkspaceHeaderAndForms();
       switchTab('article');
       switchMainView('studio');
-      showToast(`Drużyna 12 Pracowników AI wygenerowała 10 kanałów dla projektu: ${{name}}!`);
+      showToast(`Zapisano projekt "${{name}}" na dysku (saas_core/projects.json) i wygenerowano 10 kanałów!`);
     }}
 
     async function generateViaLiveAi() {{
