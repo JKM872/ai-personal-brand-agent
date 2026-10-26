@@ -118,9 +118,15 @@ class AutonomaRequestHandler(http.server.SimpleHTTPRequestHandler):
         return self._send_json({"ok": False, "error": "Unknown endpoint"}, status=404)
 
 def run_server(port: int = 3000):
+    import sys
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
     socketserver.TCPServer.allow_reuse_address = True
     with socketserver.TCPServer(("", port), AutonomaRequestHandler) as httpd:
-        print(f"🚀 [Autonoma AI Local Server] Działa na http://localhost:{port} (z automatycznym zapisem na dysk do .env i projects.json!)", flush=True)
+        print(f"[Autonoma AI Local Server] Running on http://localhost:{port} (auto-saves to .env, config/accounts.local.json, and saas_core/projects.json)", flush=True)
         httpd.serve_forever()
 
 if __name__ == "__main__":
