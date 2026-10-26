@@ -57,7 +57,18 @@ def load_accounts_config():
     return cfg
 
 def send_webhook(webhook_url, payload):
-    data = json.dumps(payload).encode("utf-8")
+    if "discord.com/api/webhooks" in webhook_url or "discordapp.com/api/webhooks" in webhook_url:
+        discord_body = {
+            "content": (
+                f"🚀 **Autonoma AI — Nowa Paczka 10 Kanałów Gotowa!**\n"
+                f"**Temat:** {payload.get('topic_title', '')}\n\n"
+                f"**Post LinkedIn:**\n{payload.get('linkedin_post', '')[:1200]}\n\n"
+                f"**Wątek X/Twitter:**\n{payload.get('twitter_thread', '')[:500]}"
+            )[:1990]
+        }
+        data = json.dumps(discord_body).encode("utf-8")
+    else:
+        data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(
         webhook_url,
         data=data,

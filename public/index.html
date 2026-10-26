@@ -1245,16 +1245,26 @@ ${JSON.stringify({
       }
       try {
         showToast('Wysyłanie kompletnej paczki 10 kanałów na Webhook...');
+        const isDiscord = whUrl.includes('discord.com/api/webhooks') || whUrl.includes('discordapp.com/api/webhooks');
+        const bodyPayload = isDiscord
+          ? {
+              content: `🚀 **Autonoma AI — Paczka dla projektu: ${proj.product_name}**
+**Strona:** ${proj.website_url}
+
+**Post LinkedIn:**
+${(bundle.linkedin_post || '').slice(0, 1400)}`
+            }
+          : {
+              project_id: proj.id,
+              product_name: proj.product_name,
+              website_url: proj.website_url,
+              bundle: bundle,
+              timestamp: new Date().toISOString()
+            };
         await fetch(whUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            project_id: proj.id,
-            product_name: proj.product_name,
-            website_url: proj.website_url,
-            bundle: bundle,
-            timestamp: new Date().toISOString()
-          })
+          body: JSON.stringify(bodyPayload)
         });
         showToast(`Wysłano paczkę 10 kanałów projektu "${proj.product_name}" na Webhook!`);
       } catch (err) {
