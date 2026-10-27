@@ -1,0 +1,5 @@
+{"verdict": "APPROVED", "findings": [
+{"id": 1, "severity": "NIT", "title": "NEWSLETTER_PREVIEW.html owner conflict", "fix": "publish.py writes queue/<paczka>/NEWSLETTER_PREVIEW.html when skipping newsletter; send_newsletter_batch signature unchanged"},
+{"id": 2, "severity": "NIT", "title": "Publisher module paths missing publishers/ prefix in section 1 table", "fix": "Use publishers/social_publisher.py, publishers/cms_connector.py, publishers/indexnow.py"},
+{"id": 3, "severity": "NIT", "title": "_post_* duplicate existing post_to_linkedin/send_webhook/send_telegram_notification", "fix": "_post_* are thin wrappers over existing functions mapping status/exception to {status}"}
+], "reviewDoc": "c:/Users/hp/Documents/antigravity/mysterious-darwin/.agents/tasks/rescue/design-review.md"}

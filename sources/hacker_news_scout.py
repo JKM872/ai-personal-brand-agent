@@ -7,6 +7,8 @@ import json
 import urllib.request
 import re
 
+from agents.runtime import is_offline, load_fixture
+
 AI_KEYWORDS = [
     "ai", "llm", "agent", "gpt", "gemini", "claude", "transformer", 
     "model", "deepseek", "open source", "weights", "inference", "rag",
@@ -17,6 +19,8 @@ def fetch_top_hn_ai_stories(limit=5, scan_depth=30):
     """
     Fetches the top stories from Hacker News and filters for AI relevance.
     """
+    if is_offline():
+        return load_fixture("hn", "Hacker News scout", limit)
     top_ids_url = "https://hacker-news.firebaseio.com/v0/topstories.json"
     headers = {"User-Agent": "PersonalBrandAgent/1.0"}
     

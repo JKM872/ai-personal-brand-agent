@@ -1,0 +1,12 @@
+form.lead-form{display:grid;gap:14px;max-width:640px}
+form.lead-form label{font-weight:600;color:#e2e8f0;display:block;margin-bottom:4px}
+form.lead-form input,form.lead-form select,form.lead-form textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #475569;background:#05070c;color:#fff;font:inherit;box-sizing:border-box}
+form.lead-form input[type=checkbox]{width:auto;margin:4px 8px 0 0}
+form.lead-form .consent{display:flex;align-items:flex-start;font-weight:400}
+form.lead-form a{color:#a5b4fc;text-decoration:underline}
+form.lead-form .hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+form.lead-form .lead-error{color:#fca5a5;font-size:.9rem}
+form.lead-form [aria-invalid=true]{border-color:#f87171}
+form.lead-form button{display:inline-block;padding:14px 22px;border-radius:12px;background:#4f46e5;color:#fff;font:inherit;font-weight:700;border:0;cursor:pointer;justify-self:start}
+form.lead-form :focus{outline:3px solid #facc15;outline-offset:2px}
+form.lead-form [role=status]{min-height:1.5em;color:#86efac;margin:0}

@@ -1,0 +1,5 @@
+[
+  {"source": "ArXiv", "title": "Human-in-the-loop evaluation of LLM agents (fixture)", "summary": "Przykładowy wpis offline opisujący ocenę agentów LLM z udziałem człowieka.", "url": "https://example.com/arxiv/hitl-agents", "published": "2025-01-01"},
+  {"source": "ArXiv", "title": "Retrieval-augmented generation for small teams (fixture)", "summary": "Przykładowy wpis offline o RAG w małych zespołach.", "url": "https://example.com/arxiv/rag-small-teams", "published": "2025-01-01"},
+  {"source": "ArXiv", "title": "Cost-aware inference with open-weights models (fixture)", "summary": "Przykładowy wpis offline o tanim wnioskowaniu na otwartych modelach.", "url": "https://example.com/arxiv/cost-aware-inference", "published": "2025-01-01"}
+]

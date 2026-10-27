@@ -19,6 +19,7 @@ if sys.platform == "win32":
 
 BASE_DIR = Path(__file__).parent.resolve()
 PUBLIC_DIR = BASE_DIR / "public"
+ADMIN_DIR = BASE_DIR / "admin"
 MEMORY_FILE = BASE_DIR / "memory" / "seen_topics.json"
 QUEUE_DIR = BASE_DIR / "queue"
 PROFILE_PATH = BASE_DIR / "saas_core" / "product_profile.json"
@@ -51,7 +52,7 @@ WORKFORCE_ROSTER = [
     {"id": 7, "role": "Specjalista B2B Outreach & SDR", "dept": "Sales", "task": "Pisze spersonalizowane wiadomości LinkedIn DM, Cold Emaile i zbija obiekcje sprzedażowe.", "badge": "AKTYWNY"},
     {"id": 8, "role": "Redaktor Newslettera (Brevo / Resend)", "dept": "Retention", "task": "Komponuje cotygodniowe wydania biuletynu dla własnej bazy subskrybentów.", "badge": "AKTYWNY"},
     {"id": 9, "role": "Reżyser Wideo Shorts / Reels / TikTok", "dept": "Video", "task": "Rozpisuje 60-sekundowe scenariusze wideo (Hook w 1. sekundzie, B-Roll i tekst lektora).", "badge": "AKTYWNY"},
-    {"id": 10, "role": "Strażnik Komentarzy Anti-Ban", "dept": "Safety", "task": "Wrzuca linki UTM w 1. komentarzu i odpowiada z ludzkim opóźnieniem (Jitter 18–95 min).", "badge": "AKTYWNY"},
+    {"id": 10, "role": "Kolejka akceptacji", "dept": "Compliance", "task": "Zbiera gotowe paczki do ręcznego zatwierdzenia przez właściciela; nic nie jest publikowane bez akceptacji.", "badge": "AKTYWNY"},
     {"id": 11, "role": "Analityk Multi-Armed Bandit (ROI)", "dept": "Analytics", "task": "Liczy skuteczność stylów pisania z kliknięć UTM i kieruje 80% ruchu na najlepszy styl.", "badge": "AKTYWNY"},
     {"id": 12, "role": "Inżynier Integracji CMS & JSON-LD", "dept": "DevOps", "task": "Publikuje artykuły na stronie klienta (GitHub / WordPress / Webhook) za zgodą właściciela.", "badge": "AKTYWNY"}
 ]
@@ -81,8 +82,25 @@ def get_bundles_by_project(active_projects: list) -> dict:
 def safe_json_for_script(obj) -> str:
     return json.dumps(obj, ensure_ascii=False).replace(chr(60) + chr(47), chr(60) + chr(92) + chr(47))
 
+def get_approvals(limit: int = 30) -> list:
+    """Lists queue bundles with their APPROVAL.json status (legacy = no file)."""
+    if not QUEUE_DIR.exists():
+        return []
+    out = []
+    for f in sorted([d for d in QUEUE_DIR.iterdir() if d.is_dir()], key=lambda x: x.name, reverse=True)[:limit]:
+        status = "legacy"
+        ap = f / "APPROVAL.json"
+        if ap.exists():
+            try:
+                status = json.loads(ap.read_text(encoding="utf-8")).get("status", "pending_approval")
+            except Exception:
+                status = "error"
+        out.append({"folder": f.name, "status": status})
+    return out
+
 def build_web_dashboard():
-    PUBLIC_DIR.mkdir(parents=True, exist_ok=True)
+    """Builds the local admin panel into admin/ (not deployed: Pages serves public/)."""
+    ADMIN_DIR.mkdir(parents=True, exist_ok=True)
     active_projects = db.get_active_projects()
     bundles_by_project = get_bundles_by_project(active_projects)
 
@@ -98,7 +116,7 @@ def build_web_dashboard():
     default_project = active_projects[0] if active_projects else {}
     default_pid = default_project.get("id", "proj_autonoma_os")
 
-    (PUBLIC_DIR / "data.json").write_text(
+    (ADMIN_DIR / "data.json").write_text(
         json.dumps({
             "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "projects": active_projects,
@@ -116,6 +134,7 @@ def build_web_dashboard():
     workforce_json_str = safe_json_for_script(WORKFORCE_ROSTER)
     personas_json_str = safe_json_for_script(personas)
     pipeline_json_str = safe_json_for_script(scheduled_pipeline)
+    approvals_json_str = safe_json_for_script(get_approvals())
 
     html_content = f"""<!DOCTYPE html>
 <html lang="pl" class="dark">
@@ -324,11 +343,11 @@ def build_web_dashboard():
             <span class="text-[10px] font-mono bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded shrink-0">ROI</span>
           </button>
 
-          <button type="button" onclick="switchMainView('antiban')" id="nav-antiban" class="nav-tab-btn">
+          <button type="button" onclick="switchMainView('approval')" id="nav-approval" class="nav-tab-btn">
             <span class="flex items-center gap-2.5 truncate">
-              <span>🛡️</span> <span class="truncate">Kolejka Anti-Ban</span>
+              <span>✅</span> <span class="truncate">Do akceptacji</span>
             </span>
-            <span class="text-[10px] font-mono bg-emerald-500/15 text-emerald-300 px-1.5 py-0.5 rounded shrink-0">SAFE</span>
+            <span class="text-[10px] font-mono bg-emerald-500/15 text-emerald-300 px-1.5 py-0.5 rounded shrink-0">HUMAN</span>
           </button>
         </nav>
       </div>
@@ -445,7 +464,7 @@ def build_web_dashboard():
                 <div class="text-xs font-bold text-white truncate">🐦 4. Wątek X / Twitter + 1. Komentarz</div>
                 <div class="text-[11px] text-slate-400 mt-0.5 truncate">5 tweetów + link z tagiem UTM w komentarzu</div>
               </div>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 shrink-0">ANTI-BAN</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 shrink-0">RĘCZNIE</span>
             </button>
 
             <button type="button" onclick="switchTab('community')" id="tab-btn-community" class="channel-card-btn">
@@ -555,9 +574,9 @@ def build_web_dashboard():
             <div class="text-xs text-indigo-400 mt-1" id="kpi-top-score"></div>
           </div>
           <div class="bento-card rounded-2xl p-5">
-            <div class="text-[11px] font-mono uppercase text-slate-400">Ochrona Kont Social</div>
-            <div class="text-2xl font-extrabold text-emerald-400 mt-2">100% Safe</div>
-            <div class="text-xs text-slate-400 mt-1">Jitter 18-95 min &bull; Link w 1. komentarzu</div>
+            <div class="text-[11px] font-mono uppercase text-slate-400">Publikacja</div>
+            <div class="text-2xl font-extrabold text-emerald-400 mt-2">Po akceptacji</div>
+            <div class="text-xs text-slate-400 mt-1">Każda paczka czeka na zatwierdzenie człowieka (approve.py)</div>
           </div>
         </div>
 
@@ -759,29 +778,26 @@ def build_web_dashboard():
       </section>
 
       <!-- ========================================================= -->
-      <!-- VIEW 6: ANTI-BAN & UTM PIPELINE                           -->
+      <!-- VIEW 6: KOLEJKA AKCEPTACJI CZŁOWIEKA                      -->
       <!-- ========================================================= -->
-      <section id="view-antiban" class="hidden view-panel space-y-6">
+      <section id="view-approval" class="hidden view-panel space-y-6">
         <div class="bento-card rounded-2xl p-6 space-y-4">
-          <div class="border-b border-white/10 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div>
-              <span class="text-[11px] font-mono uppercase text-emerald-400">Pracownik #10 — Interaktywny Symulator Odpowiedzi Anti-Ban</span>
-              <h3 class="text-base font-bold text-white mt-0.5">Wygeneruj Bezpieczną Odpowiedź na Komentarz Klienta (z Human Jitter)</h3>
-            </div>
+          <div class="border-b border-white/10 pb-3">
+            <span class="text-[11px] font-mono uppercase text-emerald-400">Pracownik #10 — Kolejka akceptacji</span>
+            <h3 class="text-base font-bold text-white mt-0.5">Paczki czekające na Twoją decyzję</h3>
+            <p class="text-xs text-slate-400 mt-1">Nic nie jest publikowane bez akceptacji. Zatwierdzasz w terminalu: <code>python approve.py list</code>, <code>python approve.py approve &lt;paczka&gt;</code>, a potem <code>python publish.py</code>.</p>
           </div>
-          <div class="flex flex-col sm:flex-row gap-3 text-xs">
-            <input type="text" id="inp-incoming-comment" placeholder="Wpisz komentarz użytkownika z LinkedIn / X / FB (np. Ile kosztuje wdrożenie i jak to działa?)..." class="flex-1 px-3.5 py-2.5 rounded-xl bg-[#05070C] border border-white/15 text-white focus:border-indigo-500 focus:outline-none">
-            <button onclick="simulateAntiBanReply()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shrink-0">
-              💬 Wygeneruj Odpowiedź Anti-Ban
-            </button>
+          <div class="space-y-2" id="approval-list-container"></div>
+          <div class="flex flex-col sm:flex-row gap-2 text-xs pt-2">
+            <label for="inp-admin-token" class="text-slate-300 self-center">ADMIN_TOKEN (dla /api/ai-generate, tylko ta sesja):</label>
+            <input type="password" id="inp-admin-token" autocomplete="off" class="flex-1 px-3 py-2 rounded-xl bg-[#05070C] border border-white/15 text-white" oninput="sessionStorage.setItem('autonoma_admin_token', this.value)">
           </div>
-          <div id="simulated-reply-box" class="hidden p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/30 text-xs text-slate-200 space-y-2"></div>
         </div>
 
         <div class="bento-card rounded-2xl p-6 space-y-5">
           <div class="border-b border-white/10 pb-4">
-            <span class="text-[11px] font-mono uppercase text-indigo-400">Pracownik #10 — Zero Blokad & Pełna Atrybucja UTM</span>
-            <h2 class="text-xl font-bold text-white mt-0.5">Harmonogram Publikacji z Losowym Opóźnieniem (Human Jitter 18-95 min)</h2>
+            <span class="text-[11px] font-mono uppercase text-indigo-400">Historia wygenerowanych treści (atrybucja UTM)</span>
+            <h2 class="text-xl font-bold text-white mt-0.5">Ostatnie treści w bazie</h2>
           </div>
           <div class="space-y-3" id="pipeline-list-container"></div>
         </div>
@@ -802,6 +818,7 @@ def build_web_dashboard():
     const workforceList = {workforce_json_str};
     const personasList = {personas_json_str};
     const pipelineList = {pipeline_json_str};
+    const approvalsList = {approvals_json_str};
 
     // Restore custom projects & bundles from localStorage (v4)
     const savedProjs = localStorage.getItem('autonoma_projects_v4');
@@ -881,7 +898,7 @@ Wybór odpowiedniego systemu z obszaru **${{pcat}}** decyduje o tym, jak szybko 
 |---|---|---|---|
 | **Model działania** | **Zautomatyzowana platforma 24/7** | Zewnętrzna obsługa ręczna | Obciążenie własnego zespołu |
 | **Czas uruchomienia** | **Kilka minut** | 2 – 6 tygodni | Ciągły koszt czasowy |
-| **Bezpieczeństwo i kontrola** | **Bramka właściciela + Anti-Ban** | Ograniczona kontrola | Wysoka podatność na błędy |
+| **Bezpieczeństwo i kontrola** | **Akceptacja właściciela przed publikacją** | Ograniczona kontrola | Wysoka podatność na błędy |
 | **Optymalizacja konwersji** | **Automatyczna pętla analityczna** | Raportowanie post-factum | Brak testów A/B |
 
 ---
@@ -968,7 +985,7 @@ Zamiast dokładać kolejne ręczne kroki, kluczem jest eliminacja wąskiego gard
 
 4/4 💬 Jak rozwiązujecie to obecnie u siebie?
 
-### 💬 Anti-Ban 1st Comment:
+### Link do dodania ręcznie (opcjonalnie w komentarzu):
 Pełne porównanie i szczegóły wdrożenia ${{pname}} znajdziesz tutaj 👉 ${{utmUrl}}`;
 
       const community_plan = `# 👥 Strategia Własnej Grupy i Społeczności (FB Group / Discord / Skool) — ${{pname}}
@@ -979,7 +996,7 @@ Pełne porównanie i szczegóły wdrożenia ${{pname}} znajdziesz tutaj 👉 ${{
 
 ## 📌 1. Post Przypięty (Powitalny Lead Magnet)
 Witaj w społeczności! Jeśli działasz jako **${{paud}}**, przygotowaliśmy dla Ciebie bezpłatny pakiet wdrożeniowy rozwiązujący główny problem: *${{pprob}}*
-👉 Skomentuj **„START”**, a wyślemy Ci bezpośredni dostęp do **${{pname}}** (${{purl}})!
+👉 Dołącz do grupy i podziel się w komentarzu: jakie jest Twoje największe wyzwanie w tym obszarze? Materiały znajdziesz tu: ${{purl}}
 
 ---
 
@@ -1000,14 +1017,17 @@ Jak obecnie rozwiązujecie u siebie kwestię **${{pcat}}**?
 * **Słowa kluczowe:** "[najlepsze narzędzie ${{pcat.toLowerCase()}}]", "[${{pname.toLowerCase()}}]"
 * **Nagłówek:** ${{pname}} — Automatyzacja 24/7`;
 
-      const outreach_sdr = `# 🤝 Sekwencje Pozyskiwania Klientów B2B (SDR Outreach & DM) — ${{pname}}
+      const outreach_sdr = `# 🤝 Szablony do ręcznego, spersonalizowanego kontaktu (1:1) — ${{pname}}
 
-## 💬 1. Wiadomość LinkedIn DM (Value-First)
+**Szablony do ręcznego, spersonalizowanego kontaktu (1:1). Pisz tylko do osób, z którymi masz relację lub uzasadniony interes; zawsze dodaj zdanie o możliwości rezygnacji.**
+
+## 💬 1. Wiadomość LinkedIn (1:1, po nawiązaniu kontaktu)
 > Cześć [Imię]! Widzę, że rozwijasz biznes w obszarze ${{paud}}. Przygotowaliśmy świeże zestawienie pokazujące, jak wyeliminować główny problem operacyjny: *${{pprob}}*. Podesłać Ci link do raportu?
 
-## 📧 2. Cold Email do Decydenta
+## 📧 2. E-mail 1:1 (do osoby, z którą masz relację)
 **Temat:** Szybkie pytanie o ${{pcat}} w [Nazwa Firmy]
-> Dzień dobry [Imię], w **${{pname}}** (${{purl}}) pomagamy firmom z grupy ${{paud}} zautomatyzować: ${{feats[0]}}. Czy krótkie 2-minutowe demo w tym tygodniu brzmi interesująco?`;
+> Dzień dobry [Imię], w **${{pname}}** (${{purl}}) pomagamy firmom z grupy ${{paud}} zautomatyzować: ${{feats[0]}}. Czy krótkie 2-minutowe demo w tym tygodniu brzmi interesująco?
+> Jeśli wolisz nie otrzymywać ode mnie wiadomości, po prostu odpisz — nie będę się więcej odzywać.`;
 
       const newsletter = `# 📩 Biuletyn Strategiczny ${{pname}}
 
@@ -1109,7 +1129,7 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
     }}
 
     function switchMainView(viewId) {{
-      ['studio', 'workforce', 'scanner', 'integrations', 'analytics', 'antiban'].forEach(v => {{
+      ['studio', 'workforce', 'scanner', 'integrations', 'analytics', 'approval'].forEach(v => {{
         const el = document.getElementById('view-' + v);
         if (el) el.classList.add('hidden');
         const navBtn = document.getElementById('nav-' + v);
@@ -1670,7 +1690,7 @@ Użyj czystego formatowania Markdown, konkretnych wyliczeń i języka korzyści 
       try {{
         const cfResp = await fetch('/api/ai-generate', {{
           method: 'POST',
-          headers: {{ 'Content-Type': 'application/json' }},
+          headers: {{ 'Content-Type': 'application/json', 'X-Admin-Token': sessionStorage.getItem('autonoma_admin_token') || '' }},
           body: JSON.stringify({{ project: proj, channel_label: conf.label }})
         }});
         if (cfResp.ok) {{
@@ -1763,57 +1783,6 @@ Użyj czystego formatowania Markdown, konkretnych wyliczeń i języka korzyści 
       showToast(`Pobrano plik: ${{proj.id || 'autonoma'}}_${{currentTab}}.md`);
     }}
 
-    async function simulateAntiBanReply() {{
-      const comm = document.getElementById('inp-incoming-comment').value.trim() || 'Jak dokładnie działa Wasza platforma w praktyce?';
-      const proj = getCurrentProject();
-      const delayMin = Math.floor(Math.random() * 28) + 18;
-      const box = document.getElementById('simulated-reply-box');
-      box.classList.remove('hidden');
-
-      const cfg = JSON.parse(localStorage.getItem('autonoma_integrations_v4') || '{{}}');
-      let replyBody = `„Świetne pytanie odnośnie: <em>${{comm}}</em>! W <strong>${{proj.product_name}}</strong> zaprojektowaliśmy ten proces tak, aby działał całkowicie w tle i rozwiązywał główny problem: ${{proj.primary_problem_solved}} Wszystko konfigurujesz w kilka minut przy pełnej kontroli właściciela. Jeśli chcesz, podeślę Ci szczegóły w wiadomości prywatnej!”`;
-
-      if (cfg.gemini) {{
-        try {{
-          const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${{cfg.gemini}}`, {{
-            method: 'POST',
-            headers: {{ 'Content-Type': 'application/json' }},
-            body: JSON.stringify({{
-              contents: [{{ parts: [{{ text: `Jesteś Pracownikiem #10 (Strażnik Komentarzy Anti-Ban) w Autonoma AI. Odpowiedz merytorycznie po polsku (3-4 zdania, BEZ żadnych linków URL) na komentarz użytkownika: "${{comm}}" w kontekście produktu ${{proj.product_name}} (${{proj.primary_problem_solved}}).` }}] }}]
-            }})
-          }});
-          const d = await r.json();
-          const t = d?.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (t) replyBody = t.trim();
-        }} catch (e) {{}}
-      }} else if (cfg.groq) {{
-        try {{
-          const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {{
-            method: 'POST',
-            headers: {{ 'Authorization': 'Bearer ' + cfg.groq, 'Content-Type': 'application/json' }},
-            body: JSON.stringify({{
-              model: 'llama-3.3-70b-versatile',
-              messages: [{{ role: 'user', content: `Odpowiedz merytorycznie po polsku (3-4 zdania, BEZ linków URL) na komentarz: "${{comm}}" w kontekście produktu ${{proj.product_name}} (${{proj.primary_problem_solved}}).` }}]
-            }})
-          }});
-          const d = await r.json();
-          const t = d?.choices?.[0]?.message?.content;
-          if (t) replyBody = t.trim();
-        }} catch (e) {{}}
-      }}
-
-      box.innerHTML = `
-        <div class="flex items-center justify-between text-[11px] font-mono text-emerald-400">
-          <span>🛡️ Status: Zero Linków Wychodzących (100% Safe)</span>
-          <span>⏰ Zaplanowane opóźnienie (Human Jitter): +${{delayMin}} min</span>
-        </div>
-        <div class="p-3 rounded-lg bg-black/40 border border-white/10 text-slate-200 leading-relaxed">
-          ${{replyBody}}
-        </div>
-      `;
-      showToast(`Pracownik #10 przygotował bezpieczną odpowiedź (opóźnienie: +${{delayMin}} min)!`);
-    }}
-
     function copyCurrentContent() {{
       const text = document.getElementById('content-display').textContent;
       navigator.clipboard.writeText(text).then(() => {{
@@ -1869,7 +1838,22 @@ Użyj czystego formatowania Markdown, konkretnych wyliczeń i języka korzyści 
 
     renderBanditCards();
 
-    // Populate Anti-Ban Pipeline
+    // Populate human approval queue (queue/*/APPROVAL.json)
+    (function renderApprovals() {{
+      const box = document.getElementById('approval-list-container');
+      if (!box) return;
+      if (!approvalsList || approvalsList.length === 0) {{
+        box.innerHTML = '<p class="text-xs text-slate-400">Brak paczek w kolejce.</p>';
+        return;
+      }}
+      box.innerHTML = approvalsList.map(a => `
+        <div class="p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] flex justify-between gap-3 text-xs">
+          <span class="font-mono text-slate-200 truncate">${{a.folder}}</span>
+          <span class="font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 shrink-0">${{a.status}}</span>
+        </div>`).join('');
+    }})();
+
+    // Populate content history
     if (pipelineList && pipelineList.length > 0) {{
       document.getElementById('pipeline-list-container').innerHTML = pipelineList.map(item => `
         <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] flex flex-col md:flex-row justify-between gap-4">
@@ -1877,15 +1861,15 @@ Użyj czystego formatowania Markdown, konkretnych wyliczeń i języka korzyści 
             <div class="flex items-center gap-2">
               <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300">${{item.channel}}</span>
               <span class="text-xs font-mono text-slate-400">Styl: ${{item.persona_used}}</span>
-              <span class="text-xs font-mono text-emerald-400">Publikacja (Jitter): ${{item.scheduled_for.slice(0,16).replace('T',' ')}}</span>
+              <span class="text-xs font-mono text-emerald-400">Utworzono: ${{(item.scheduled_for || '').slice(0,16).replace('T',' ')}}</span>
             </div>
             <div class="text-sm font-semibold text-white">${{item.title}}</div>
             <div class="text-xs font-mono text-indigo-300 bg-indigo-950/30 px-3 py-1.5 rounded-lg border border-indigo-500/20 mt-2">
-              💬 1. Komentarz z linkiem UTM: ${{item.followup_comment}}
+              🔗 Link UTM do dodania ręcznie: ${{item.followup_comment}}
             </div>
           </div>
           <div class="flex items-center gap-2 shrink-0">
-            <span class="px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-400 font-mono text-[11px]">🛡️ Anti-Ban OK</span>
+            <span class="px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-400 font-mono text-[11px]">${{item.status || 'pending_approval'}}</span>
           </div>
         </div>
       `).join('');
@@ -1900,8 +1884,219 @@ Użyj czystego formatowania Markdown, konkretnych wyliczeń i języka korzyści 
 </body>
 </html>
 """
-    (PUBLIC_DIR / "index.html").write_text(html_content, encoding="utf-8")
-    print(f"✅ Przebudowany panel SaaS Autonoma AI (12 Pracowników + 10 Kanałów) wygenerowany w: {PUBLIC_DIR / 'index.html'}")
+    (ADMIN_DIR / "index.html").write_text(html_content, encoding="utf-8")
+    print(f"✅ Przebudowany panel SaaS Autonoma AI (12 Pracowników + 10 Kanałów) wygenerowany w: {ADMIN_DIR / 'index.html'}")
+
+
+# ---------------------------------------------------------------------------
+# Public offer site (deployed by Cloudflare Pages from public/)
+# ---------------------------------------------------------------------------
+LEAD_FORM_START = "<!-- LEADFORM:START -->"
+LEAD_FORM_END = "<!-- LEADFORM:END -->"
+SERVICE_LABELS = {"audyt": "Audyt marki i treści", "wdrozenie": "Wdrożenie systemu agentów", "abonament": "Abonament Content Ops", "inne": "Inne"}
+
+PUBLIC_CSS = """
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#0b0d14;color:#e2e8f0;line-height:1.6}
+a{color:#a5b4fc}a:focus,button:focus,input:focus,select:focus,textarea:focus{outline:3px solid #facc15;outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}header.top{border-bottom:1px solid #1e293b;padding:14px 0}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+nav a{margin-left:16px;text-decoration:none;color:#cbd5e1}section{padding:56px 0;border-bottom:1px solid #1e293b}
+h1{font-size:2.2rem;line-height:1.2;margin:0 0 16px;color:#fff}h2{font-size:1.6rem;color:#fff;margin:0 0 20px}h3{color:#fff;margin:0 0 8px}
+.lead{font-size:1.1rem;color:#cbd5e1;max-width:760px}.cta{display:inline-block;padding:14px 22px;border-radius:12px;background:#4f46e5;color:#fff;font-weight:700;text-decoration:none;margin:8px 12px 0 0}
+.cta.alt{background:transparent;border:1px solid #64748b}.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:#111827;border:1px solid #1f2937;border-radius:16px;padding:20px}.price{font-size:1.4rem;font-weight:800;color:#fff}
+ol.steps li{margin-bottom:10px}details{background:#111827;border:1px solid #1f2937;border-radius:12px;padding:12px 16px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:600;color:#fff}footer{padding:28px 0;color:#94a3b8;font-size:.9rem}
+"""
+
+
+def _esc(v) -> str:
+    import html as _html
+    return _html.escape(str(v if v is not None else ""), quote=True)
+
+
+def lead_form_html(contact_email: str, form_id: str = "lead-form") -> str:
+    """Shared lead form markup (used on public/index.html and public/blog.html). JS: /lead-form.js"""
+    ce = _esc(contact_email)
+    options = '<option value="">— wybierz —</option>' + "".join(
+        f'<option value="{k}">{_esc(v)}</option>' for k, v in SERVICE_LABELS.items())
+    return f"""{LEAD_FORM_START}
+<link rel="stylesheet" href="/lead-form.css">
+<form id="{form_id}" class="lead-form" action="/api/lead" method="post" data-contact-email="{ce}" novalidate>
+  <div><label for="{form_id}-name">Imię i nazwisko *</label>
+    <input id="{form_id}-name" name="name" type="text" required maxlength="100" autocomplete="name" aria-describedby="lead-err-name">
+    <span id="lead-err-name" class="lead-error"></span></div>
+  <div><label for="{form_id}-email">E-mail *</label>
+    <input id="{form_id}-email" name="email" type="email" required maxlength="254" autocomplete="email" aria-describedby="lead-err-email">
+    <span id="lead-err-email" class="lead-error"></span></div>
+  <div><label for="{form_id}-company">Firma</label>
+    <input id="{form_id}-company" name="company" type="text" maxlength="150" autocomplete="organization" aria-describedby="lead-err-company">
+    <span id="lead-err-company" class="lead-error"></span></div>
+  <div><label for="{form_id}-service">Czym jesteś zainteresowany?</label>
+    <select id="{form_id}-service" name="service" aria-describedby="lead-err-service">{options}</select>
+    <span id="lead-err-service" class="lead-error"></span></div>
+  <div><label for="{form_id}-message">Wiadomość</label>
+    <textarea id="{form_id}-message" name="message" rows="4" maxlength="2000" aria-describedby="lead-err-message"></textarea>
+    <span id="lead-err-message" class="lead-error"></span></div>
+  <div class="hp" aria-hidden="true"><label for="{form_id}-website">Strona www (zostaw puste)</label>
+    <input id="{form_id}-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+  <input type="hidden" name="ts" value="0">
+  <input type="hidden" name="utm_source" value=""><input type="hidden" name="utm_medium" value=""><input type="hidden" name="utm_campaign" value="">
+  <div><label class="consent" for="{form_id}-consent"><input id="{form_id}-consent" name="consent" type="checkbox" required aria-describedby="lead-err-consent">
+    <span>Wyrażam zgodę na kontakt w sprawie mojego zapytania. Szczegóły: <a href="/polityka-prywatnosci.html">polityka prywatności</a>.</span></label>
+    <span id="lead-err-consent" class="lead-error"></span></div>
+  <button type="submit" class="cta">Wyślij zapytanie</button>
+  <p role="status" aria-live="polite"></p>
+</form>
+<script src="/lead-form.js" defer></script>
+{LEAD_FORM_END}"""
+
+
+def _list_public_articles() -> list:
+    art_dir = PUBLIC_DIR / "articles"
+    items = []
+    if art_dir.exists():
+        for f in sorted(art_dir.glob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True):
+            title = f.stem.replace("-", " ")
+            try:
+                for line in f.read_text(encoding="utf-8").splitlines():
+                    if line.startswith("# "):
+                        title = line[2:].strip()
+                        break
+            except Exception:
+                pass
+            items.append({"slug": f.stem, "title": title, "url": f"/articles/{f.name}"})
+    return items
+
+
+def _page(title: str, description: str, site_url: str, path: str, body: str, json_ld: str = "") -> str:
+    url = site_url.rstrip("/") + path
+    ld = f'<script type="application/ld+json">{json_ld}</script>' if json_ld else ""
+    return f"""<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{_esc(title)}</title>
+<meta name="description" content="{_esc(description)}">
+<link rel="canonical" href="{_esc(url)}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{_esc(title)}">
+<meta property="og:description" content="{_esc(description)}">
+<meta property="og:url" content="{_esc(url)}">
+<style>{PUBLIC_CSS}</style>
+{ld}
+</head>
+<body>
+{body}
+</body>
+</html>
+"""
+
+
+def build_public_site(base_dir: Path = None) -> dict:
+    """Generates the public offer page, privacy policy, robots.txt and sitemap.xml from tenants/default."""
+    from saas_core.tenants import load_tenant
+    public_dir = Path(base_dir) / "public" if base_dir else PUBLIC_DIR
+    public_dir.mkdir(parents=True, exist_ok=True)
+    tenant = load_tenant("default")
+    offer = tenant.get("offer") or {}
+    persona = tenant.get("persona") or {}
+    site_url = (tenant.get("site_url") or "https://twoja-domena.pl").rstrip("/")
+    contact = tenant.get("contact_email") or offer.get("contact_email") or ""
+    brand = offer.get("brand_name") or persona.get("name") or tenant.get("display_name") or "Marka"
+    headline = offer.get("headline", "Agenci AI dla Twojej marki eksperckiej")
+    sub = offer.get("subheadline", "")
+    articles = _list_public_articles()
+
+    header = f"""<header class="top"><div class="wrap"><strong>{_esc(brand)}</strong>
+<nav aria-label="Główna"><a href="#uslugi">Usługi</a><a href="#proces">Jak pracuję</a><a href="/blog.html">Blog</a><a href="#kontakt">Kontakt</a></nav></div></header>"""
+    footer = f"""<footer><div class="wrap">© {datetime.now().year} {_esc(brand)} · <a href="mailto:{_esc(contact)}">{_esc(contact)}</a> · <a href="/polityka-prywatnosci.html">Polityka prywatności</a></div></footer>"""
+
+    problems = "".join(
+        f'<div class="card"><h3>{_esc(p.get("problem"))}</h3><p>{_esc(p.get("solution"))}</p></div>'
+        for p in offer.get("problems", []))
+    services = "".join(
+        f"""<div class="card"><h3>{_esc(s.get("name"))}</h3><p class="price">od {f"{int(s.get('price_from_pln', 0)):,}".replace(",", " ")} zł"""
+        + f""" <small>{_esc(s.get("unit", ""))}</small></p><ul>{''.join(f'<li>{_esc(b)}</li>' for b in s.get("bullets", []))}</ul>
+<a class="cta alt" href="#kontakt">Zapytaj o {_esc(s.get("name", "usługę").lower())}</a></div>"""
+        for s in offer.get("services", []))
+    process = "".join(f'<li><strong>{_esc(p.get("step"))}</strong> — {_esc(p.get("desc"))}</li>' for p in offer.get("process", []))
+    faq = "".join(f'<details><summary>{_esc(f.get("q"))}</summary><p>{_esc(f.get("a"))}</p></details>' for f in offer.get("faq", []))
+    cases = offer.get("case_studies") or []
+    proof_cases = "".join(
+        f'<div class="card"><h3>{_esc(c.get("title"))}</h3><p>{_esc(c.get("summary"))}</p></div>' for c in cases)
+    proof_articles = "".join(f'<li><a href="{_esc(a["url"])}">{_esc(a["title"])}</a></li>' for a in articles[:6])
+    proof = f"""<section id="dowody"><div class="wrap"><h2>Przykłady treści</h2>
+{f'<div class="grid">{proof_cases}</div>' if proof_cases else ''}
+{f'<ul>{proof_articles}</ul>' if proof_articles else ''}
+<p><a class="cta alt" href="/blog.html">Zobacz przykładowy artykuł</a></p></div></section>"""
+
+    json_ld = json.dumps({
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "Person", "name": brand, "url": site_url, "email": contact},
+            *[{"@type": "Service", "name": s.get("name"), "provider": {"@type": "Person", "name": brand},
+               "offers": {"@type": "Offer", "priceCurrency": "PLN", "price": s.get("price_from_pln")}}
+              for s in offer.get("services", [])],
+        ],
+    }, ensure_ascii=False).replace("</", "<\\/")
+
+    body = f"""{header}
+<main>
+<section id="hero"><div class="wrap"><h1>{_esc(headline)}</h1><p class="lead">{_esc(sub)}</p>
+<a class="cta" href="#kontakt">Umów bezpłatną 30-min konsultację</a><a class="cta alt" href="/blog.html">Zobacz przykłady</a></div></section>
+<section id="problem"><div class="wrap"><h2>Problem → rozwiązanie</h2><div class="grid">{problems}</div></div></section>
+<section id="uslugi"><div class="wrap"><h2>Usługi i ceny</h2><div class="grid">{services}</div></div></section>
+<section id="proces"><div class="wrap"><h2>Jak pracuję</h2><ol class="steps">{process}</ol></div></section>
+{proof}
+<section id="faq"><div class="wrap"><h2>Najczęstsze pytania</h2>{faq}</div></section>
+<section id="kontakt"><div class="wrap"><h2>Porozmawiajmy o Twojej marce</h2>
+<p>Zostaw kontakt — odpowiem w ciągu 1–2 dni roboczych. Wolisz e-mail? <a href="mailto:{_esc(contact)}">{_esc(contact)}</a></p>
+{lead_form_html(contact)}
+</div></section>
+</main>
+{footer}"""
+    (public_dir / "index.html").write_text(
+        _page(f"{brand} — agenci AI dla marki eksperckiej", sub or headline, site_url, "/", body, json_ld), encoding="utf-8")
+
+    privacy = offer.get("privacy", {})
+    privacy_body = f"""{header}
+<main><section><div class="wrap">
+<h1>Polityka prywatności</h1>
+<h2>Administrator danych</h2><p>{_esc(privacy.get("administrator", "[UZUPEŁNIJ]"))}. Kontakt: <a href="mailto:{_esc(privacy.get("administrator_contact", contact))}">{_esc(privacy.get("administrator_contact", contact))}</a>.</p>
+<h2>Cel i podstawa przetwarzania</h2><p>Dane z formularza kontaktowego (imię, e-mail, firma, wiadomość) przetwarzam wyłącznie, aby odpowiedzieć na Twoje zapytanie i przygotować ofertę — na podstawie Twojej zgody (art. 6 ust. 1 lit. a RODO) oraz działań przed zawarciem umowy (art. 6 ust. 1 lit. b RODO).</p>
+<h2>Odbiorcy</h2><p>{_esc(privacy.get("processors", "Dostawcy hostingu"))}.</p>
+<h2>Okres przechowywania</h2><p>{_esc(privacy.get("retention", "24 miesiące od ostatniego kontaktu"))}.</p>
+<h2>Twoje prawa</h2><p>Masz prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia, cofnięcia zgody w dowolnym momencie oraz wniesienia skargi do Prezesa UODO.</p>
+<h2>Newsletter</h2><p>Newsletter wysyłam tylko osobom, które same się zapisały. W każdej wiadomości jest link do wypisania.</p>
+<p><a href="/">← Wróć na stronę główną</a></p>
+</div></section></main>
+{footer}"""
+    (public_dir / "polityka-prywatnosci.html").write_text(
+        _page(f"Polityka prywatności — {brand}", "Polityka prywatności i informacje RODO.", site_url, "/polityka-prywatnosci.html", privacy_body),
+        encoding="utf-8")
+
+    (public_dir / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {site_url}/sitemap.xml\n", encoding="utf-8")
+    urls = ["/", "/blog.html", "/polityka-prywatnosci.html"] + [a["url"] for a in articles]
+    sitemap = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    sitemap += [f"  <url><loc>{_esc(site_url + u)}</loc></url>" for u in urls]
+    sitemap.append("</urlset>")
+    (public_dir / "sitemap.xml").write_text("\n".join(sitemap) + "\n", encoding="utf-8")
+
+    # Keep the lead form on blog.html in sync (only the marked block is replaced).
+    blog = public_dir / "blog.html"
+    if blog.exists():
+        txt = blog.read_text(encoding="utf-8")
+        s, e = txt.find(LEAD_FORM_START), txt.find(LEAD_FORM_END)
+        if s != -1 and e != -1:
+            txt = txt[:s] + lead_form_html(contact, "blog-lead-form") + txt[e + len(LEAD_FORM_END):]
+            blog.write_text(txt, encoding="utf-8")
+
+    print(f"✅ Strona ofertowa wygenerowana: {public_dir / 'index.html'} (+ polityka-prywatnosci.html, robots.txt, sitemap.xml)")
+    return {"index": str(public_dir / "index.html"), "articles": len(articles)}
+
 
 if __name__ == "__main__":
     build_web_dashboard()
+    build_public_site()

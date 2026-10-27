@@ -43,7 +43,7 @@
       <div class="flex items-center gap-3">
         <a href="/llms.txt" target="_blank" class="text-xs font-mono text-indigo-400 hover:underline">/llms.txt (Dla ChatGPT)</a>
         <a href="/" class="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition">
-          &larr; Wróć do Panelu Autonoma AI
+          &larr; Strona główna
         </a>
       </div>
     </div>
@@ -58,17 +58,40 @@
       <div class="flex items-center gap-2 text-xs font-mono uppercase text-emerald-400">
         <span>📩 Pracownik #8 — Automatyczny System Lead Nurturingu</span>
       </div>
-      <h3 class="text-xl font-extrabold text-white" id="lead-box-title">Odbierz cotygodniowe raporty wdrożeniowe i analizy ROI</h3>
+      <h3 class="text-xl font-extrabold text-white" id="lead-box-title">Chcesz takie treści dla swojej marki?</h3>
       <p class="text-sm text-slate-300" id="lead-box-desc">
-        Dołącz do bazy subskrybentów projektu i otrzymuj spersonalizowane wskazówki oraz porównania narzędzi prosto na skrzynkę.
+        Zostaw kontakt — umówimy bezpłatną 30-minutową konsultację. <a href="/#uslugi" class="text-indigo-400 underline">Zobacz usługi i ceny</a>.
       </p>
-      <form onsubmit="handleLeadSubmit(event)" class="flex flex-col sm:flex-row gap-3 pt-2">
-        <input type="email" id="lead-email-input" required placeholder="Wpisz swój służbowy adres e-mail..." class="flex-1 px-4 py-3 rounded-xl bg-[#05070C] border border-white/15 text-white text-sm focus:border-indigo-500 focus:outline-none">
-        <button type="submit" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition shadow-lg shadow-indigo-600/30">
-          Zapisz się za darmo &rarr;
-        </button>
-      </form>
-      <p id="lead-feedback" class="text-xs font-mono text-emerald-400 hidden"></p>
+<!-- LEADFORM:START -->
+<link rel="stylesheet" href="/lead-form.css">
+<form id="blog-lead-form" class="lead-form" action="/api/lead" method="post" data-contact-email="kontakt@twoja-domena.pl" novalidate>
+  <div><label for="blog-lead-form-name">Imię i nazwisko *</label>
+    <input id="blog-lead-form-name" name="name" type="text" required maxlength="100" autocomplete="name" aria-describedby="lead-err-name">
+    <span id="lead-err-name" class="lead-error"></span></div>
+  <div><label for="blog-lead-form-email">E-mail *</label>
+    <input id="blog-lead-form-email" name="email" type="email" required maxlength="254" autocomplete="email" aria-describedby="lead-err-email">
+    <span id="lead-err-email" class="lead-error"></span></div>
+  <div><label for="blog-lead-form-company">Firma</label>
+    <input id="blog-lead-form-company" name="company" type="text" maxlength="150" autocomplete="organization" aria-describedby="lead-err-company">
+    <span id="lead-err-company" class="lead-error"></span></div>
+  <div><label for="blog-lead-form-service">Czym jesteś zainteresowany?</label>
+    <select id="blog-lead-form-service" name="service" aria-describedby="lead-err-service"><option value="">— wybierz —</option><option value="audyt">Audyt marki i treści</option><option value="wdrozenie">Wdrożenie systemu agentów</option><option value="abonament">Abonament Content Ops</option><option value="inne">Inne</option></select>
+    <span id="lead-err-service" class="lead-error"></span></div>
+  <div><label for="blog-lead-form-message">Wiadomość</label>
+    <textarea id="blog-lead-form-message" name="message" rows="4" maxlength="2000" aria-describedby="lead-err-message"></textarea>
+    <span id="lead-err-message" class="lead-error"></span></div>
+  <div class="hp" aria-hidden="true"><label for="blog-lead-form-website">Strona www (zostaw puste)</label>
+    <input id="blog-lead-form-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+  <input type="hidden" name="ts" value="0">
+  <input type="hidden" name="utm_source" value=""><input type="hidden" name="utm_medium" value=""><input type="hidden" name="utm_campaign" value="">
+  <div><label class="consent" for="blog-lead-form-consent"><input id="blog-lead-form-consent" name="consent" type="checkbox" required aria-describedby="lead-err-consent">
+    <span>Wyrażam zgodę na kontakt w sprawie mojego zapytania. Szczegóły: <a href="/polityka-prywatnosci.html">polityka prywatności</a>.</span></label>
+    <span id="lead-err-consent" class="lead-error"></span></div>
+  <button type="submit" class="cta">Wyślij zapytanie</button>
+  <p role="status" aria-live="polite"></p>
+</form>
+<script src="/lead-form.js" defer></script>
+<!-- LEADFORM:END -->
     </section>
   </main>
 
@@ -113,18 +136,6 @@
         return `<p>${t.replace(/\n/g, '<br>')}</p>`;
       }).join('');
       return html;
-    }
-
-    function handleLeadSubmit(e) {
-      e.preventDefault();
-      const email = document.getElementById('lead-email-input').value.trim();
-      const fb = document.getElementById('lead-feedback');
-      const leads = JSON.parse(localStorage.getItem('autonoma_captured_leads') || '[]');
-      leads.push({ email, captured_at: new Date().toISOString(), url: window.location.href });
-      localStorage.setItem('autonoma_captured_leads', JSON.stringify(leads));
-      fb.textContent = `✅ Dziękujemy! Adres ${email} został dodany do bazy subskrybentów (łącznie leadów: ${leads.length}).`;
-      fb.classList.remove('hidden');
-      document.getElementById('lead-email-input').value = '';
     }
 
     async function initBlogReader() {

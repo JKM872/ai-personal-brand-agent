@@ -1,0 +1,18 @@
+{
+  "name": "Zespół InvoicePulse (demo)",
+  "title": "Fintech B2B — automatyzacja należności",
+  "tone_of_voice": {
+    "style": "Rzeczowy, spokojny, nastawiony na konkretne procesy finansowe",
+    "perspective": "Praktyk rozliczeń B2B, który pomaga firmom szybciej otrzymywać płatności",
+    "rules": [
+      "Nie podawaj liczb bez źródła — w razie braku użyj [UZUPEŁNIJ: źródło].",
+      "Pisz o kulturze relacji z klientem, nie o agresywnej windykacji."
+    ]
+  },
+  "content_pillars": [
+    "Płynność finansowa małych firm",
+    "Automatyzacja przypomnień o płatnościach",
+    "Prognozowanie cashflow"
+  ],
+  "target_audience": "Software house'y, agencje marketingowe, małe i średnie firmy B2B"
+}

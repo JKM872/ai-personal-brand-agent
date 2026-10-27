@@ -7,13 +7,19 @@ If SUPABASE_URL / SUPABASE_KEY are not yet configured, gracefully falls back to 
 import os
 import json
 import sqlite3
+import uuid
 import urllib.request
 import urllib.parse
 from datetime import datetime
 from pathlib import Path
 
 BASE_DIR = Path(__file__).parent.parent.resolve()
-LOCAL_DB_PATH = BASE_DIR / "db" / "local_storage.db"
+LOCAL_DB_PATH = Path(os.environ.get("LOCAL_DB_PATH") or (BASE_DIR / "db" / "local_storage.db"))
+
+LEAD_STATUSES = ("new", "contacted", "qualified", "proposal", "won", "lost")
+LEAD_FIELDS = ("tenant_id", "name", "email", "company", "service_interest", "message", "source_utm",
+               "consent_at", "consent_text_version", "status", "value_pln", "next_action",
+               "next_action_at", "notes")
 
 class SupabaseClient:
     def __init__(self):
@@ -79,6 +85,63 @@ class SupabaseClient:
                 created_at TEXT
             );
             """)
+            # --- Client pipeline (leads) + tenants ---
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS tenants (
+                id TEXT PRIMARY KEY,
+                display_name TEXT NOT NULL,
+                plan TEXT DEFAULT 'owner',
+                status TEXT DEFAULT 'active' CHECK (status IN ('active','trial','paused','cancelled')),
+                config TEXT DEFAULT '{}',
+                created_at TEXT
+            );
+            """)
+            cursor.execute(
+                "INSERT OR IGNORE INTO tenants (id, display_name, created_at) VALUES ('default', 'Marka właściciela', ?)",
+                (datetime.now().isoformat(),))
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS leads (
+                id TEXT PRIMARY KEY,
+                tenant_id TEXT NOT NULL DEFAULT 'default' REFERENCES tenants(id),
+                name TEXT NOT NULL CHECK (length(name) BETWEEN 1 AND 100),
+                email TEXT NOT NULL CHECK (length(email) <= 254),
+                company TEXT CHECK (company IS NULL OR length(company) <= 150),
+                service_interest TEXT,
+                message TEXT CHECK (message IS NULL OR length(message) <= 2000),
+                source_utm TEXT,
+                consent_at TEXT NOT NULL,
+                consent_text_version TEXT NOT NULL,
+                status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new','contacted','qualified','proposal','won','lost')),
+                value_pln REAL,
+                next_action TEXT,
+                next_action_at TEXT,
+                notes TEXT,
+                created_at TEXT,
+                updated_at TEXT
+            );
+            """)
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_leads_tenant_status ON leads(tenant_id, status);")
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS lead_events (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                lead_id TEXT REFERENCES leads(id) ON DELETE CASCADE,
+                event TEXT NOT NULL,
+                from_status TEXT,
+                to_status TEXT,
+                note TEXT,
+                created_at TEXT
+            );
+            """)
+            # Idempotent column additions for existing installs
+            for table, col, ddl in (
+                ("subscribers", "consent_at", "TEXT"),
+                ("subscribers", "unsubscribed_at", "TEXT"),
+                ("subscribers", "tenant_id", "TEXT DEFAULT 'default'"),
+                ("content_pipeline", "tenant_id", "TEXT DEFAULT 'default'"),
+            ):
+                existing = [r[1] for r in cursor.execute(f"PRAGMA table_info({table})").fetchall()]
+                if col not in existing:
+                    cursor.execute(f"ALTER TABLE {table} ADD COLUMN {col} {ddl}")
             # Seed 3 distinct strategic personas with realistic initial metrics
             now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             cursor.execute("""
@@ -260,5 +323,123 @@ class SupabaseClient:
 
         projects_file.write_text(json.dumps(all_projs, indent=2, ensure_ascii=False), encoding="utf-8")
         return project_dict
+
+    # --- Client pipeline (leads) ---
+    def insert_lead(self, lead: dict) -> str:
+        """Stores a validated lead (see crm/validation.py). Supabase when configured, else SQLite."""
+        now = datetime.now().isoformat()
+        row = {k: lead.get(k) for k in LEAD_FIELDS if lead.get(k) not in (None, "")}
+        row.setdefault("tenant_id", "default")
+        row.setdefault("status", "new")
+        row.setdefault("consent_at", now)
+        row.setdefault("consent_text_version", "manual")
+        if row["status"] not in LEAD_STATUSES:
+            raise ValueError(f"Nieprawidłowy status leada: {row['status']}")
+        row["id"] = str(uuid.uuid4())
+        row["created_at"] = now
+        row["updated_at"] = now
+        if self.is_connected:
+            try:
+                self._api_request("leads", method="POST", data=row)
+                return row["id"]
+            except Exception as e:
+                print(f"[WARN] Supabase insert_lead error: {e} — zapis do lokalnego SQLite")
+        with sqlite3.connect(LOCAL_DB_PATH) as conn:
+            cols = ", ".join(row.keys())
+            conn.execute(f"INSERT INTO leads ({cols}) VALUES ({', '.join(['?'] * len(row))})", list(row.values()))
+            conn.execute("INSERT INTO lead_events (lead_id, event, to_status, created_at) VALUES (?, 'created', ?, ?)",
+                         (row["id"], row["status"], now))
+            conn.commit()
+        return row["id"]
+
+    def list_leads(self, tenant_id=None, status=None):
+        sql, args = "SELECT * FROM leads WHERE 1=1", []
+        if tenant_id:
+            sql += " AND tenant_id = ?"
+            args.append(tenant_id)
+        if status:
+            sql += " AND status = ?"
+            args.append(status)
+        with sqlite3.connect(LOCAL_DB_PATH) as conn:
+            conn.row_factory = sqlite3.Row
+            return [dict(r) for r in conn.execute(sql + " ORDER BY created_at DESC", args).fetchall()]
+
+    def get_lead(self, lead_id_prefix: str):
+        """Returns the lead whose id starts with the prefix (None if none or ambiguous)."""
+        with sqlite3.connect(LOCAL_DB_PATH) as conn:
+            conn.row_factory = sqlite3.Row
+            rows = conn.execute("SELECT * FROM leads WHERE id LIKE ?", (f"{lead_id_prefix}%",)).fetchall()
+            if len(rows) != 1:
+                return None
+            lead = dict(rows[0])
+            lead["events"] = [dict(r) for r in conn.execute(
+                "SELECT * FROM lead_events WHERE lead_id = ? ORDER BY id", (lead["id"],)).fetchall()]
+            return lead
+
+    def update_lead(self, lead_id: str, **fields):
+        allowed = {k: v for k, v in fields.items() if k in ("status", "value_pln", "next_action", "next_action_at", "notes")}
+        if "status" in allowed and allowed["status"] not in LEAD_STATUSES:
+            raise ValueError(f"Nieprawidłowy status leada: {allowed['status']}")
+        lead = self.get_lead(lead_id)
+        if not lead:
+            return None
+        now = datetime.now().isoformat()
+        allowed["updated_at"] = now
+        with sqlite3.connect(LOCAL_DB_PATH) as conn:
+            sets = ", ".join(f"{k} = ?" for k in allowed)
+            conn.execute(f"UPDATE leads SET {sets} WHERE id = ?", list(allowed.values()) + [lead["id"]])
+            if "status" in fields and fields["status"] != lead["status"]:
+                conn.execute(
+                    "INSERT INTO lead_events (lead_id, event, from_status, to_status, created_at) VALUES (?, 'status', ?, ?, ?)",
+                    (lead["id"], lead["status"], fields["status"], now))
+            conn.commit()
+        return self.get_lead(lead["id"])
+
+    def add_lead_note(self, lead_id: str, note: str):
+        lead = self.get_lead(lead_id)
+        if not lead:
+            return None
+        now = datetime.now().isoformat()
+        notes = ((lead.get("notes") or "") + f"\n[{now[:16]}] {note}").strip()
+        with sqlite3.connect(LOCAL_DB_PATH) as conn:
+            conn.execute("UPDATE leads SET notes = ?, updated_at = ? WHERE id = ?", (notes, now, lead["id"]))
+            conn.execute("INSERT INTO lead_events (lead_id, event, note, created_at) VALUES (?, 'note', ?, ?)",
+                         (lead["id"], note, now))
+            conn.commit()
+        return self.get_lead(lead["id"])
+
+    def lead_funnel(self, tenant_id=None) -> dict:
+        """Counts per status + total value of won deals (numbers only, no personal data)."""
+        funnel = {s: 0 for s in LEAD_STATUSES}
+        sql, args = "SELECT status, COUNT(*), COALESCE(SUM(CASE WHEN status='won' THEN value_pln END), 0) FROM leads", []
+        if tenant_id:
+            sql += " WHERE tenant_id = ?"
+            args.append(tenant_id)
+        won_value = 0.0
+        with sqlite3.connect(LOCAL_DB_PATH) as conn:
+            for status, cnt, val in conn.execute(sql + " GROUP BY status", args).fetchall():
+                funnel[status] = cnt
+                won_value += val or 0
+        funnel["won_value"] = won_value
+        return funnel
+
+    def fetch_remote_leads(self, since: str = None) -> list:
+        """Supabase -> list of leads (requires service role SUPABASE_KEY; anon cannot SELECT through RLS)."""
+        if not self.is_connected:
+            return []
+        params = {"order": "created_at.asc"}
+        if since:
+            params["created_at"] = f"gte.{since}"
+        return self._api_request("leads", method="GET", params=params) or []
+
+    def upsert_local_lead(self, lead: dict) -> bool:
+        """Inserts a remote lead into SQLite if its id is not there yet (dedup by id)."""
+        row = {k: lead.get(k) for k in ("id",) + LEAD_FIELDS + ("created_at", "updated_at")}
+        with sqlite3.connect(LOCAL_DB_PATH) as conn:
+            if conn.execute("SELECT 1 FROM leads WHERE id = ?", (row["id"],)).fetchone():
+                return False
+            conn.execute(f"INSERT INTO leads ({', '.join(row)}) VALUES ({', '.join(['?'] * len(row))})", list(row.values()))
+            conn.commit()
+        return True
 
 db = SupabaseClient()

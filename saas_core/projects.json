@@ -1,6 +1,7 @@
 [
   {
     "id": "proj_autonoma_os",
+    "tenant_id": "default",
     "product_name": "Autonoma AI (Główna Platforma)",
     "website_url": "https://twoja-domena.pl",
     "tagline": "Autonomiczny system wzrostu i marketingu 24/7 napędzany 12 wirtualnymi pracownikami AI",
@@ -27,6 +28,7 @@
   },
   {
     "id": "proj_demo_client",
+    "tenant_id": "demo",
     "product_name": "InvoicePulse AI (Klient Subskrypcyjny #1)",
     "website_url": "https://invoicepulse-demo.com",
     "tagline": "Inteligentny system do automatycznego odzyskiwania płatności i fakturowania B2B",

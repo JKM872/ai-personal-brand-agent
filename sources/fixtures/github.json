@@ -1,0 +1,5 @@
+[
+  {"source": "GitHub", "title": "example-org/agent-workflow-kit", "description": "Przykładowy (fixture) zestaw narzędzi do budowy przepływów agentów AI z akceptacją człowieka.", "url": "https://example.com/github/agent-workflow-kit", "stars": 0, "language": "Python", "topics": ["ai", "agents"]},
+  {"source": "GitHub", "title": "example-org/local-llm-runner", "description": "Przykładowy (fixture) projekt uruchamiania lokalnych modeli LLM na laptopie.", "url": "https://example.com/github/local-llm-runner", "stars": 0, "language": "Python", "topics": ["llm", "local"]},
+  {"source": "GitHub", "title": "example-org/content-ops-templates", "description": "Przykładowe (fixture) szablony procesu treści eksperckich dla małych firm.", "url": "https://example.com/github/content-ops-templates", "stars": 0, "language": "Markdown", "topics": ["content", "marketing"]}
+]

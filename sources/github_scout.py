@@ -8,10 +8,14 @@ import urllib.request
 import urllib.parse
 from datetime import datetime, timedelta, timezone
 
+from agents.runtime import is_offline, load_fixture
+
 def fetch_trending_ai_repos(limit=5):
     """
     Fetches trending or popular recently created AI repositories.
     """
+    if is_offline():
+        return load_fixture("github", "GitHub scout", limit)
     seven_days_ago = (datetime.now(timezone.utc) - timedelta(days=14)).strftime("%Y-%m-%d")
     query = f"ai agent created:>{seven_days_ago}"
     url = f"https://api.github.com/search/repositories?q={urllib.parse.quote(query)}&sort=stars&order=desc&per_page={limit}"

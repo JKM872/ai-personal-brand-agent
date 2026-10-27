@@ -1,0 +1,8 @@
+{
+  "id": "demo",
+  "display_name": "InvoicePulse (demo)",
+  "persona_file": "tenants/demo/persona.json",
+  "site_url": "https://invoicepulse-demo.com",
+  "contact_email": "kontakt@invoicepulse-demo.com",
+  "is_owner": false
+}

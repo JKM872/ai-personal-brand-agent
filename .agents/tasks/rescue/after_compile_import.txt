@@ -1,0 +1,72 @@
+﻿py_compile FAIL=0 z 57
+IMPORT OK engine
+IMPORT OK leads
+IMPORT OK local_server
+IMPORT OK run_daemon
+IMPORT OK web_generator
+IMPORT OK agents.analyst_agent
+IMPORT OK agents.cloudflare_ai
+IMPORT OK agents.curator
+IMPORT OK agents.free_ai_router
+IMPORT OK agents.geo_seo_engine
+IMPORT OK agents.memory
+IMPORT OK agents.newsletter_agent
+IMPORT OK agents.project_scanner
+IMPORT OK agents.reply_drafter
+IMPORT OK agents.runtime
+IMPORT OK agents.writers.ads_writer
+IMPORT OK agents.writers.community_writer
+IMPORT OK agents.writers.github_writer
+IMPORT OK agents.writers.linkedin_writer
+IMPORT OK agents.writers.newsletter_writer
+IMPORT OK agents.writers.outreach_writer
+IMPORT OK agents.writers.twitter_writer
+IMPORT OK agents.writers.video_writer
+IMPORT OK crm.validation
+IMPORT OK db.supabase_client
+IMPORT OK publishers.cms_connector
+IMPORT OK publishers.indexnow
+IMPORT OK publishers.social_publisher
+IMPORT OK saas_core.tenants
+IMPORT OK sources.arxiv_scout
+IMPORT OK sources.github_scout
+IMPORT OK sources.hacker_news_scout
+IMPORT OK tracking.utm_builder
+import FAIL=0 z 33
+ M .gitignore
+D  agents/anti_ban_commenter.py
+ M agents/cloudflare_ai.py
+ M agents/free_ai_router.py
+ M agents/newsletter_agent.py
+ M db/schema.sql
+ M db/supabase_client.py
+ M engine.py
+ M public/blog.html
+ M public/index.html
+ M publishers/cms_connector.py
+ M publishers/indexnow.py
+ M publishers/social_publisher.py
+ M saas_core/projects.json
+ M sources/arxiv_scout.py
+ M sources/github_scout.py
+ M sources/hacker_news_scout.py
+ M web_generator.py
+?? .agents/
+?? .env.example
+?? agents/reply_drafter.py
+?? agents/runtime.py
+?? crm/
+?? db/migrations/
+?? docs/
+?? functions/api/_lead_validate.js
+?? functions/api/lead.js
+?? leads.py
+?? public/lead-form.css
+?? public/lead-form.js
+?? public/polityka-prywatnosci.html
+?? public/robots.txt
+?? public/sitemap.xml
+?? saas_core/tenants.py
+?? sources/fixtures/
+?? tenants/
+?? tests/

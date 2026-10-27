@@ -1,0 +1,7 @@
+{"verdict": "CHANGES_REQUESTED", "findings": [
+"Missing .agents/tasks/rescue/verification.md: no recorded dry-run before/after, compile or test evidence.",
+"No lead endpoint in functions/api (only ai-generate.js, status.js); need validated, spam-protected lead.js.",
+"No offer page with lead form and CTA in public/; public/ unchanged in diff.",
+"db/schema.sql and db/supabase_client.py unchanged: no leads/clients tables for Supabase or SQLite fallback.",
+".env.example not added/updated to document every key, free tier and what it unlocks."
+], "reviewDoc": "c:/Users/hp/Documents/antigravity/mysterious-darwin/.agents/tasks/rescue/code-review.md"}

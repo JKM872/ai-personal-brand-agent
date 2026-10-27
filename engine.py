@@ -51,7 +51,7 @@ from db.supabase_client import db
 from publishers.social_publisher import dispatch_content_bundle
 from publishers.cms_connector import publish_article_to_website
 from publishers.indexnow import submit_to_indexnow
-from web_generator import build_web_dashboard
+from web_generator import build_web_dashboard, build_public_site
 
 def slugify(text):
     text = text.lower()
@@ -107,6 +107,22 @@ def update_markdown_dashboard(active_projects: list, cycle_results: list, base_d
             f"| 10 | **Kod Schema.org JSON-LD & Webhook** | [`6_GITHUB_SNIPPET.py`](queue/{qdir.name}/6_GITHUB_SNIPPET.py) | Pracownik #12 (Inżynier Integracji CMS) |",
             ""
         ])
+
+    # Client pipeline summary (numbers only — DASHBOARD.md is committed, no personal data)
+    try:
+        funnel = db.lead_funnel()
+        lines.extend([
+            "## 💼 Lejek leadów",
+            "",
+            "| new | contacted | qualified | proposal | won | lost | Wartość wygranych (PLN) |",
+            "|---|---|---|---|---|---|---|",
+            f"| {funnel['new']} | {funnel['contacted']} | {funnel['qualified']} | {funnel['proposal']} | {funnel['won']} | {funnel['lost']} | {funnel['won_value']:.2f} |",
+            "",
+            "Zarządzanie: `python leads.py list` / `python leads.py update <id> --status contacted`.",
+            ""
+        ])
+    except Exception as e:
+        print(f"[WARN] Lejek leadów niedostępny: {e}")
 
     (base_dir / "DASHBOARD.md").write_text("\n".join(lines), encoding="utf-8")
 
@@ -264,6 +280,10 @@ def run_brand_engine():
         build_web_dashboard()
     except Exception as e:
         print(f"[WARN] Błąd generatora web: {e}")
+    try:
+        build_public_site()
+    except Exception as e:
+        print(f"[WARN] Błąd generatora strony ofertowej: {e}")
 
     print("\n" + "=" * 70)
     print(f"🎉 Wszystkie projekty ({len(active_projects)}) zostały obsłużone przez drużynę 12 Pracowników AI!")

@@ -1,0 +1,9 @@
+{
+  "id": "default",
+  "display_name": "Marka właściciela",
+  "persona_file": "brand_core/persona.json",
+  "offer_file": "tenants/default/offer.json",
+  "site_url": "https://twoja-domena.pl",
+  "contact_email": "kontakt@twoja-domena.pl",
+  "is_owner": true
+}

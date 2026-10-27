@@ -6,10 +6,14 @@ Fetches recent cutting-edge papers in CS.AI (Artificial Intelligence) & CS.CL (C
 import urllib.request
 import xml.etree.ElementTree as ET
 
+from agents.runtime import is_offline, load_fixture
+
 def fetch_recent_ai_papers(limit=4):
     """
     Fetches the latest research papers from ArXiv API in AI & LLMs.
     """
+    if is_offline():
+        return load_fixture("arxiv", "ArXiv scout", limit)
     query_url = (
         "http://export.arxiv.org/api/query?"
         "search_query=cat:cs.AI+OR+cat:cs.CL"

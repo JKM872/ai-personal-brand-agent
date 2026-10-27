@@ -16,7 +16,7 @@ def call_cloudflare_ai(prompt, system_prompt="Jesteś inżynierem AI tworzącym 
     api_token = _load_key("CF_API_TOKEN")
 
     if not account_id or not api_token:
-        return None
+        return ""
 
     url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{model}"
     payload = {

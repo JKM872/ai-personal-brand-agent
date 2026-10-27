@@ -74,7 +74,19 @@ def _load_key(key_name: str) -> str:
 def has_live_ai_key() -> bool:
     return bool(_load_key("GEMINI_API_KEY") or _load_key("GROQ_API_KEY") or (_load_key("CF_ACCOUNT_ID") and _load_key("CF_API_TOKEN")))
 
+_mock_logged = False
+
+def log_mock_ai_once() -> None:
+    """Logs once per process that no AI key is configured (writers fall back to templates)."""
+    global _mock_logged
+    if not _mock_logged:
+        _mock_logged = True
+        print("[MOCK] AI: brak klucza, writery używają szablonów")
+
 def ask_free_ai(system_prompt: str, user_prompt: str, temperature: float = 0.7) -> str:
+    if not has_live_ai_key():
+        log_mock_ai_once()
+        return ""
     # --- TIER 1: Google Gemini API (Darmowy limit w Google AI Studio) ---
     gemini_key = _load_key("GEMINI_API_KEY")
     if gemini_key:

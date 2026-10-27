@@ -1,0 +1,39 @@
+{
+  "brand_name": "[UZUPEŁNIJ: Twoje imię i nazwisko / marka]",
+  "headline": "Wdrażam agentów AI, którzy piszą i dystrybuują Twoje treści eksperckie — Ty zatwierdzasz jednym kliknięciem",
+  "subheadline": "System treści dla ekspertów i małych firm B2B: artykuły SEO/GEO, posty LinkedIn i newsletter przygotowywane przez agentów AI, publikowane dopiero po Twojej akceptacji. Narzędzia w darmowych planach.",
+  "problems": [
+    {"problem": "Brakuje czasu na regularne publikowanie treści eksperckich.", "solution": "Agenci przygotowują gotowe szkice na wszystkie kanały — Ty tylko je czytasz i zatwierdzasz."},
+    {"problem": "Treści nie przekładają się na zapytania od klientów.", "solution": "Każda treść kończy się jasnym zaproszeniem do kontaktu, a leady trafiają do prostego lejka sprzedaży."},
+    {"problem": "Agencja to koszt kilku tysięcy złotych miesięcznie.", "solution": "System działa na darmowych planach narzędzi; płacisz tylko za wdrożenie lub opiekę."}
+  ],
+  "services": [
+    {"id": "audyt", "name": "Audyt marki i treści", "price_from_pln": 490, "unit": "jednorazowo",
+     "bullets": ["Analiza profilu LinkedIn i strony", "10 tematów eksperckich", "Plan treści na 30 dni", "3 gotowe posty"]},
+    {"id": "wdrozenie", "name": "Wdrożenie systemu agentów treści", "price_from_pln": 2900, "unit": "jednorazowo",
+     "bullets": ["Konfiguracja persony, oferty i kanałów", "Kolejka akceptacji treści", "Strona z formularzem leadów", "Szkolenie 1 h"]},
+    {"id": "abonament", "name": "Abonament „Content Ops”", "price_from_pln": 1200, "unit": "mies. (min. 3 mies.)",
+     "bullets": ["8 postów + 2 artykuły SEO/GEO + 2 newslettery miesięcznie", "Redakcja i akceptacja z Tobą", "Raport miesięczny"]}
+  ],
+  "process": [
+    {"step": "Bezpłatna konsultacja (30 min)", "desc": "Poznaję Twoją firmę, klientów i cele."},
+    {"step": "Audyt", "desc": "Diagnoza obecnych treści i plan na 30 dni."},
+    {"step": "Wdrożenie", "desc": "Konfiguruję agentów, kolejkę akceptacji i stronę z formularzem."},
+    {"step": "Raport miesięczny", "desc": "Co opublikowano, ile było zapytań, co poprawiamy."}
+  ],
+  "faq": [
+    {"q": "Ile kosztują narzędzia?", "a": "System działa na darmowych planach (GitHub Actions, Cloudflare Pages, Supabase Free, darmowe limity modeli AI). Płacisz wyłącznie za moją pracę."},
+    {"q": "Kto zatwierdza treści?", "a": "Ty. Żadna treść nie jest publikowana bez Twojej akceptacji."},
+    {"q": "Czy to jest zgodne z RODO?", "a": "Formularz zbiera tylko dane potrzebne do odpowiedzi, za Twoją zgodą. Newsletter trafia wyłącznie do osób, które się zapisały. Szczegóły w polityce prywatności."},
+    {"q": "Ile trwa wdrożenie?", "a": "Zwykle 1–2 tygodnie od konsultacji."},
+    {"q": "Czy AI pisze za mnie wszystko?", "a": "AI przygotowuje szkice na podstawie Twojej persony i tematów. Ty decydujesz, co wychodzi pod Twoim nazwiskiem."}
+  ],
+  "case_studies": [],
+  "contact_email": "kontakt@twoja-domena.pl",
+  "privacy": {
+    "administrator": "[UZUPEŁNIJ: imię i nazwisko / nazwa firmy, adres, NIP]",
+    "administrator_contact": "kontakt@twoja-domena.pl",
+    "retention": "24 miesiące od ostatniego kontaktu",
+    "processors": "Supabase (hosting bazy danych, region wybrany przy zakładaniu projektu — zalecany UE), Cloudflare (hosting strony)"
+  }
+}

@@ -9,12 +9,14 @@ Supported Website Backends:
 3. Custom REST / Webhook Endpoint (POST with Bearer Token)
 """
 
-import os
 import json
 import base64
 import urllib.request
 from datetime import datetime
 from pathlib import Path
+
+from agents.free_ai_router import _load_key
+from agents.runtime import is_dry_run, log_skip
 
 BASE_DIR = Path(__file__).parent.parent.resolve()
 PROFILE_PATH = BASE_DIR / "saas_core" / "product_profile.json"
@@ -34,19 +36,21 @@ def load_cms_permissions(profile: dict = None) -> dict:
         except Exception:
             pass
 
-    # Fallback default permissions (Safe: requires owner approval by default)
+    # Fallback default permissions (Safe: requires owner approval by default).
+    # Keys resolved via _load_key so .env / config/accounts.local.json work too.
+    k = lambda name, default="": _load_key(name) or default
     return {
-        "owner_authorized": os.environ.get("CMS_OWNER_AUTHORIZED", "false").lower() == "true",
-        "publish_mode": os.environ.get("CMS_PUBLISH_MODE", "require_approval"), # 'require_approval' or 'autonomous'
-        "cms_type": os.environ.get("CMS_TYPE", "github_markdown"), # 'github_markdown', 'wordpress', 'custom_webhook'
-        "webhook_url": os.environ.get("CMS_WEBHOOK_URL", ""),
-        "cms_api_key": os.environ.get("CMS_API_KEY", ""),
-        "wp_url": os.environ.get("WP_SITE_URL", ""),
-        "wp_user": os.environ.get("WP_USERNAME", ""),
-        "wp_app_password": os.environ.get("WP_APP_PASSWORD", ""),
-        "gh_repo": os.environ.get("CMS_GH_REPO", ""),
-        "gh_token": os.environ.get("CMS_GH_TOKEN", ""),
-        "gh_path_prefix": os.environ.get("CMS_GH_PATH", "content/blog")
+        "owner_authorized": k("CMS_OWNER_AUTHORIZED", "false").lower() == "true",
+        "publish_mode": k("CMS_PUBLISH_MODE", "require_approval"), # 'require_approval' or 'autonomous'
+        "cms_type": k("CMS_TYPE", "github_markdown"), # 'github_markdown', 'wordpress', 'custom_webhook'
+        "webhook_url": k("CMS_WEBHOOK_URL"),
+        "cms_api_key": k("CMS_API_KEY"),
+        "wp_url": k("WP_SITE_URL"),
+        "wp_user": k("WP_USERNAME"),
+        "wp_app_password": k("WP_APP_PASSWORD"),
+        "gh_repo": k("CMS_GH_REPO"),
+        "gh_token": k("CMS_GH_TOKEN"),
+        "gh_path_prefix": k("CMS_GH_PATH", "content/blog")
     }
 
 def build_frontmatter_markdown(article: dict, profile: dict) -> str:
@@ -97,7 +101,13 @@ def publish_article_to_website(article: dict, profile: dict, force_owner_overrid
         result["message"] = "Uprawnienia nadane w trybie 'require_approval' — artykuł oczekuje na 1 kliknięcie zatwierdzające w panelu właściciela."
         return result
 
-    # Gate 3: Owner authorized autonomous publishing -> Execute dispatch!
+    # Gate 3: Dry-run never sends anything to an external CMS
+    if is_dry_run():
+        log_skip("CMS", f"publikacja artykułu {article.get('slug')}")
+        result["status"] = "DRY_RUN_SKIPPED"
+        return result
+
+    # Gate 4: Owner authorized publishing -> Execute dispatch
     full_mdx = build_frontmatter_markdown(article, profile)
 
     # 1. Custom Webhook CMS (Next.js / Custom Backend / Ghost / Make)
@@ -185,10 +195,8 @@ def publish_article_to_website(article: dict, profile: dict, force_owner_overrid
             result["status"] = f"GH_CMS_ERROR: {e}"
             return result
 
-    # Default local public/articles deployment (already hosted on Cloudflare Pages!)
-    result["status"] = "PUBLISHED_LOCAL_CLOUDFLARE_CMS"
-    result["message"] = f"Właściciel nadał uprawnienia: artykuł opublikowany w public/articles/{article.get('slug')}.md z pełnym Frontmatterem MDX."
-    mdx_path = BASE_DIR / "public" / "articles" / f"{article.get('slug')}.md"
-    mdx_path.parent.mkdir(parents=True, exist_ok=True)
-    mdx_path.write_text(full_mdx, encoding="utf-8")
+    # No external CMS configured. Owner articles go to public/ via approve.py only
+    # (the single place writing public/articles/), so nothing is written here.
+    result["status"] = "CMS_NOT_CONFIGURED"
+    result["message"] = "Brak skonfigurowanego CMS (CMS_TYPE + klucze). Artykuł właściciela publikuje approve.py."
     return result
