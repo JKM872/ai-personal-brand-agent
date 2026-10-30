@@ -1,15 +1,15 @@
-# Code review – rescue (pass 1)
+# Code review – rescue (pass 2)
+Werdykt: APPROVED
 
-Werdykt: CHANGES_REQUESTED
+Zakres: commity `3f62fbe` i `fced209` względem `baf519b`, `verification.md` (bez ponownego uruchamiania testów).
 
-Co sprawdziłem: `git status`, `git diff --stat`, czy istnieją wymagane pliki w `.agents/tasks/rescue/`, `functions/api/`, `public/`, `db/`.
+Sprawdzenie blokerów z pass 1:
+1. Dowody weryfikacji: `verification.md` zawiera baseline i wynik po zmianach (dry-run online/offline exit 0, unittest OK, py_compile 0/67, import 0/36, approve/publish w trybie DRY_RUN_SKIPPED). Rozwiązane.
+2. Endpoint leadów: `functions/api/lead.js` + `_lead_validate.js`. Jest walidacja, honeypot `website`, kontrola czasu `ts` (<3 s = spam), limit 8 KB, sprawdzanie same-origin. Klucze pochodzą tylko z `env`. Bez konfiguracji zwraca 503 z fallbackiem mailto. Rozwiązane.
+3. Strona oferty: `public/index.html` to strona ofertowa z formularzem kierującym na `/api/lead` (potwierdza `tests/test_public_html`). Panel admina przeniesiono do `admin/`. Rozwiązane.
+4. Tabele: `leads`, tabela zdarzeń leadów, RLS insert-only w `db/schema.sql`, fallback SQLite w `db/supabase_client.py`. Rozwiązane.
+5. `.env.example`: klucze opisane po polsku, z darmowymi planami, bez prawdziwych wartości. Grep sekretów: 0 trafień. Rozwiązane.
 
-## Blokery
+Pozostałe wymagania: `agents/anti_ban_commenter.py` usunięty, a publikacja przechodzi przez kolejkę zatwierdzeń człowieka (`approve.py`). Diff nie usuwa żadnego pliku w `queue/` ani `public/articles/` (jedyny `D` to anti_ban_commenter). `requirements.txt` bez zmian. Dokumentacja jest po polsku. Fundament multi-tenant to `saas_core/tenants.py` i `tenants/`, bez billingu.
 
-1. Brak dowodów weryfikacji. Plik `.agents/tasks/rescue/verification.md` nie istnieje, więc nie ma zapisanego dry-runu przed/po, kompilacji ani testów. Konsekwencja: nie da się potwierdzić, że pipeline scan → curate → write → queue → publish działa bez kluczy. Poprawka: uruchomić dry-run/testy i zapisać wyniki (komendy, wyjście, porównanie z `baseline/`) w `verification.md`.
-2. Brak endpointu leadów. `functions/api/` zawiera tylko `ai-generate.js` i `status.js`; nie ma endpointu lead z walidacją i ochroną antyspamową (honeypot/limit). Poprawka: dodać `functions/api/lead.js` zgodnie z design.md.
-3. Brak strony oferty z formularzem leadów i CTA w `public/` (są tylko `index.html`, `blog.html`, `articles/`, …). W diffie nie ma zmian w `public/`. Poprawka: dodać stronę oferty z formularzem kierującym na endpoint leadów.
-4. Brak tabel leadów/klientów w bazie. `db/schema.sql` i `db/supabase_client.py` nie są zmienione (brak w diffie), więc brakuje schematu Supabase i fallbacku SQLite. Poprawka: dodać tabele `leads`/`clients` w obu.
-5. `.env.example` nie zostało zmienione/dodane w diffie; wymaganie udokumentowania każdego klucza, darmowego limitu i tego, co odblokowuje, nie jest spełnione. Poprawka: uzupełnić `.env.example` bez prawdziwych wartości.
-
-Uwaga pozytywna (niebloker): `agents/anti_ban_commenter.py` jest usunięty, dodano `agents/reply_drafter.py`, `saas_core/tenants.py`, `tenants/`. Nie widzę usunięć w `queue/` ani `public/articles/`.
+Blokery: brak.
