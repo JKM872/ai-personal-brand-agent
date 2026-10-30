@@ -19,7 +19,9 @@
     "https://corgi.computer/",
     "https://danielball.com/notes/ai_image_generation.html",
     "https://github.com/yeyuxin777/baoyan-agent-benchmark",
-    "https://www.reddit.com/r/antiai/comments/1xdv3e5/hacker_reverse_engineers_his_samsung_tv_and_finds/"
+    "https://www.reddit.com/r/antiai/comments/1xdv3e5/hacker_reverse_engineers_his_samsung_tv_and_finds/",
+    "https://phorion.io/blog/offical-claude-code-vsx-compromise/",
+    "https://newsletter.signoz.io/p/ai-isnt-replacing-sres-its-deskilling"
   ],
   "runs": [
     {
@@ -181,6 +183,22 @@
       "url": "https://www.reddit.com/r/antiai/comments/1xdv3e5/hacker_reverse_engineers_his_samsung_tv_and_finds/",
       "score": 14.0,
       "folder": "2026-10-24_1013_proj_demo_client_hacker-reverses-samsung-tv-finds-on-boar"
+    },
+    {
+      "timestamp": "2026-10-30 22:01:37",
+      "title": "Backdoor in Claude Code for VS Code extension on the Cursor Marketplace",
+      "source": "Hacker News",
+      "url": "https://phorion.io/blog/offical-claude-code-vsx-compromise/",
+      "score": 60,
+      "folder": "2026-10-30_2201_proj_autonoma_os_backdoor-in-claude-code-for-vs-code-exte"
+    },
+    {
+      "timestamp": "2026-10-30 22:01:37",
+      "title": "AI isn't replacing SREs, it's deskilling them",
+      "source": "Hacker News",
+      "url": "https://newsletter.signoz.io/p/ai-isnt-replacing-sres-its-deskilling",
+      "score": 60,
+      "folder": "2026-10-30_2201_proj_demo_client_ai-isn-t-replacing-sres-it-s-deskilling-"
     }
   ]
 }

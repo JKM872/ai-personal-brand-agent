@@ -1,0 +1,17 @@
+{
+  "status": "pending_approval",
+  "tenant_id": "default",
+  "project_id": "proj_autonoma_os",
+  "created_at": "2026-10-30T22:01:34.582708",
+  "decided_at": null,
+  "decided_by": null,
+  "note": "",
+  "items": {
+    "website_article": "pending",
+    "linkedin": "pending",
+    "newsletter": "pending",
+    "webhook": "pending",
+    "telegram": "pending"
+  },
+  "published": {}
+}
