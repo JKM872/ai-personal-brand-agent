@@ -1,0 +1,26 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      DRY_RUN: '1'
+      OFFLINE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Kompilacja
+        run: python -m compileall -q agents publishers sources db saas_core tracking crm *.py
+      - name: Testy
+        run: python -m unittest discover -s tests -v
+      - name: Dry run silnika (bez kluczy, bez sieci, bez commitu)
+        run: python engine.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Testy JS (opcjonalne)
+        run: if [ -d tests/js ]; then node --test tests/js; fi

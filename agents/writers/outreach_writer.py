@@ -4,25 +4,25 @@ Generates hyper-personalized, non-spammy value-first outreach sequences (LinkedI
 and objection-handling responses tailored to the client's target audience.
 """
 
-from agents.geo_seo_engine import load_product_profile, derive_seo_headline
+from agents.writers._common import resolve_profile, headline, brand_prompt
 from agents.free_ai_router import has_live_ai_key, ask_free_ai
 
-def generate_outreach_content(topic, persona):
-    profile = load_product_profile()
+def generate_outreach_content(topic, persona, project=None, brand=None):
+    profile = resolve_profile(project)
     pname = profile.get("product_name", "Autonoma AI")
     purl = profile.get("website_url", "https://twoja-domena.pl")
     paud = profile.get("target_audience", "właścicieli firm B2B")
     pproblem = profile.get("primary_problem_solved", "")
     features = profile.get("key_features", ["Pełna automatyzacja 24/7"])
 
-    meta = derive_seo_headline(profile, topic)
+    meta = headline(profile, topic)
     short_topic = meta["short_topic"]
     metric = meta["metric_highlight"]
 
     if has_live_ai_key():
         ai_out = ask_free_ai(
-            "Jesteś specjalistą B2B SDR & Cold Outreach w Autonoma AI. Piszesz w 100% po polsku w formacie Markdown, bez spamu (Value-First).",
-            f"Przygotuj sekwencję pozyskiwania klientów B2B dla produktu {pname} ({purl}), grupa docelowa (ICP): {paud}, problem: {pproblem}, temat: {short_topic}, efekt: {metric}. Uwzględnij: 1) Sekwencję 2 wiadomości LinkedIn DM, 2) Cold Email do decydenta, 3) Zbijanie 2 obiekcji sprzedażowych."
+            "Jesteś specjalistą B2B SDR & Cold Outreach w Autonoma AI. Piszesz w 100% po polsku w formacie Markdown, bez spamu (Value-First)." + brand_prompt(brand),
+            f"Przygotuj sekwencję pozyskiwania klientów B2B dla produktu {pname} ({purl}), grupa docelowa (ICP): {paud}, problem: {pproblem}, temat: {short_topic}, efekt: {metric}. Uwzględnij: 1) Sekwencję 2 wiadomości LinkedIn DM, 2) E-mail 1:1 do znanej osoby z możliwością rezygnacji, 3) Zbijanie 2 obiekcji sprzedażowych."
         )
         if ai_out and len(ai_out) > 200:
             return {"outreach_playbook": ai_out.strip()}
@@ -30,7 +30,7 @@ def generate_outreach_content(topic, persona):
     outreach_md = f"""# 🤝 Sekwencje Pozyskiwania Klientów B2B (SDR Outreach & DM) — {pname}
 
 **Profil idealnego klienta (ICP):** {paud}
-**Zasada bezpieczeństwa Anti-Spam:** Zero masowego spamu. Wysyłaj maksymalnie 15–20 spersonalizowanych wiadomości dziennie do osób, które skomentowały tematy branżowe lub odwiedziły profil.
+**Szablony do ręcznego, spersonalizowanego kontaktu (1:1). Pisz tylko do osób, z którymi masz relację lub uzasadniony interes; zawsze dodaj zdanie o możliwości rezygnacji.**
 
 ---
 
@@ -48,7 +48,7 @@ def generate_outreach_content(topic, persona):
 
 ---
 
-## 📧 2. Krótki Email B2B do Decydentów (Value-First Cold Email)
+## 📧 2. Krótki e-mail 1:1 (tylko do osób, z którymi masz relację lub które wyraziły zgodę)
 
 **Temat maila:** Szybkie pytanie o proces w [Nazwa Firmy] / {short_topic}
 
@@ -67,6 +67,8 @@ def generate_outreach_content(topic, persona):
 > - {features[1] if len(features) > 1 else 'Pełna kontrola właściciela nad procesem'}
 >
 > Czy ma sens, abym podesłał krótkie, 2-minutowe nagranie pokazujące, jak zadziała to w [Nazwa Firmy]?
+>
+> Jeśli to nie jest dla Ciebie temat, po prostu daj znać — nie będę więcej pisać.
 >
 > Pozdrawiam serdecznie,
 > Zespół {pname} ({purl})

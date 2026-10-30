@@ -4,18 +4,18 @@ Generates a 100% Polish 5-part thread without outbound links in Tweet #1 (preven
 placing the tracked UTM link in the delayed follow-up comment.
 """
 
-from agents.geo_seo_engine import load_product_profile, derive_seo_headline
+from agents.writers._common import resolve_profile, headline, brand_prompt
 from agents.free_ai_router import has_live_ai_key, ask_free_ai
 
-def generate_twitter_content(topic, persona):
-    profile = load_product_profile()
+def generate_twitter_content(topic, persona, project=None, brand=None):
+    profile = resolve_profile(project)
     product_name = profile.get("product_name", "Autonoma AI")
     problem_solved = profile.get("primary_problem_solved", "automatyzacja wzrostu")
     target_aud = profile.get("target_audience", "właściciele firm B2B")
     features = profile.get("key_features", ["Pełna automatyzacja 24/7"])
     active_style = persona.get("active_style", "analityk_danych")
 
-    meta = derive_seo_headline(profile, topic)
+    meta = headline(profile, topic)
     short_topic = meta["short_topic"]
     polish_insight = meta["polish_insight"]
     metric = meta["metric_highlight"]
@@ -23,7 +23,7 @@ def generate_twitter_content(topic, persona):
     thread = None
     if has_live_ai_key():
         ai_thread = ask_free_ai(
-            f"Jesteś strategiem X / Twitter B2B w stylu: {active_style}. Tworzysz 5-częściowe wątki (1/5 do 5/5) w 100% po polsku, bez linków w pierwszym tweecie (Anti-Ban).",
+            f"Jesteś strategiem X / Twitter B2B w stylu: {active_style}. Tworzysz 5-częściowe wątki (1/5 do 5/5) w 100% po polsku, bez linków w pierwszym tweecie." + brand_prompt(brand),
             f"Napisz 5-tweetowy wątek dla projektu {product_name} ({profile.get('website_url')}). Grupa docelowa: {target_aud}. Rozwiązywany problem: {problem_solved}. Temat: {short_topic}. Dane rynkowe: {polish_insight}. Efekt: {metric}. Oddziel tweety linią '---'."
         )
         if ai_thread and len(ai_thread) > 150:

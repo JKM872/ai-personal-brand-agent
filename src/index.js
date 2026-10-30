@@ -10,18 +10,16 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
-    if (request.method === 'OPTIONS') {
-      return new Response(null, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization'
-        }
-      });
-    }
 
     // Endpoint: On-demand AI generation using Cloudflare Workers AI
     if (url.pathname === '/api/ai-generate' && request.method === 'POST') {
+      // Admin-only: X-Admin-Token must equal env.ADMIN_TOKEN; no CORS.
+      const deny = (error, status) => new Response(JSON.stringify({ success: false, error }), {
+        status, headers: { 'Content-Type': 'application/json' }
+      });
+      if (!env.ADMIN_TOKEN) return deny('disabled', 503);
+      if (request.headers.get('X-Admin-Token') !== env.ADMIN_TOKEN) return deny('unauthorized', 401);
+      if (!env.AI) return deny('ai_binding_missing', 503);
       try {
         const body = await request.json();
         const project = body.project || {};
@@ -54,12 +52,12 @@ Dane projektu:
         });
 
         return new Response(JSON.stringify({ success: true, result: response.response }), {
-          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          headers: { 'Content-Type': 'application/json' }
         });
       } catch (err) {
         return new Response(JSON.stringify({ success: false, error: err.message }), {
           status: 500,
-          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          headers: { 'Content-Type': 'application/json' }
         });
       }
     }
@@ -72,7 +70,7 @@ Dane projektu:
         models_available: ["@cf/meta/llama-3.3-70b-instruct", "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b"],
         timestamp: new Date().toISOString()
       }), {
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        headers: { 'Content-Type': 'application/json' }
       });
     }
 

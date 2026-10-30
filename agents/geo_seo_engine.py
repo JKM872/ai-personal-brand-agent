@@ -42,7 +42,7 @@ def load_product_profile():
             "competitors_for_comparison": [
                 "Tradycyjne agencje marketingowe (5 000 - 15 000 zł/mies.)",
                 "Ręczne pisanie postów i artykułów po godzinach",
-                "Proste boty bez pętli analitycznej i ochrony anti-ban"
+                "Proste boty publikujące bez akceptacji człowieka"
             ],
             "call_to_action": {"text": "Uruchom własną drużynę AI za darmo", "url": "https://twoja-domena.pl/start"}
         }
@@ -68,33 +68,29 @@ def derive_seo_headline(project: dict, trend_topic: dict = None) -> dict:
         seo_focus = "automatyzacji windykacji, fakturowania B2B i ochrony cashflow"
         short_topic = f"Automatyzacja płynności finansowej i faktur B2B w {year} roku"
         polish_insight = (
-            "Z najnowszych analiz sektora B2B wynika, że aż 64% małych i średnich firm oraz software house'ów "
-            "doświadcza zatorów płatniczych wyłącznie przez opóźnienia w komunikacji i brak systematycznego "
-            "monitorowania terminów zapadalności faktur. Wdrożenie autonomicznych sekwencji przypomnień AI "
-            "skraca średni czas oczekiwania na przelew (DSO) z 28 do zaledwie 6 dni roboczych."
+            "Wiele małych i średnich firm B2B zgłasza zatory płatnicze wynikające z opóźnień w komunikacji "
+            "i braku systematycznego monitorowania terminów faktur. Uporządkowane, uprzejme przypomnienia "
+            "mogą skrócić czas oczekiwania na przelew [UZUPEŁNIJ: własna liczba/źródło]."
         )
-        metric_highlight = "Skrócenie czasu oczekiwania na płatność faktury średnio o 78% bez psucia relacji z klientem"
+        metric_highlight = ""
     elif any(k in cat_lower for k in ["e-commerce", "sklep", "koszyk", "handl"]):
         seo_focus = "zwiększania konwersji w e-commerce i automatyzacji obsługi klienta"
         short_topic = f"Skalowanie sprzedaży e-commerce z wykorzystaniem agentów AI ({year})"
         polish_insight = (
-            "Badania konwersji w nowoczesnym e-commerce pokazują, że 71% porzuconych koszyków wynika z braku "
-            "natychmiastowej odpowiedzi na pytania zakupowe oraz spersonalizowanego domknięcia ścieżki klienta. "
-            "Zespoły wdrażające autonomiczne systemy rekomendacji i komunikacji 24/7 odzyskują średnio 24% "
-            "utraconych zamówień już w pierwszym miesiącu wdrożenia."
+            "W e-commerce częstą przyczyną porzuconych koszyków jest brak szybkiej odpowiedzi na pytania zakupowe. "
+            "Sklepy, które odpowiadają szybciej i domykają ścieżkę klienta, odzyskują część zamówień "
+            "[UZUPEŁNIJ: własna liczba/źródło]."
         )
-        metric_highlight = "Wzrost odzyskanych koszyków o 24% przy zerowym wzroście kosztów obsługi"
+        metric_highlight = ""
     else:
         seo_focus = "autonomicznego marketingu SaaS, SEO/GEO i pozyskiwania klientów 24/7"
         short_topic = f"Autonomiczne systemy wzrostu, SEO i marketingu AI w {year} roku"
         polish_insight = (
-            "Sposób, w jaki klienci szukają oprogramowania, zmienił się bezpowrotnie: ponad 45% decydentów B2B "
-            "pyta dziś bezpośrednio ChatGPT, Perplexity lub podsumowania AI w Google o gotowe porównania narzędzi. "
-            "Firmy, które łączą regularną publikację ustrukturyzowanych artykułów porównawczych (GEO + JSON-LD) "
-            "z wielokanałową dystrybucją w social media i pętlą analityczną Multi-Armed Bandit, obniżają koszt "
-            "pozyskania leada (CAC) o ponad 80%."
+            "Coraz więcej decydentów B2B pyta asystentów AI (ChatGPT, Perplexity, podsumowania Google) o porównania narzędzi. "
+            "Firmy, które regularnie publikują ustrukturyzowane artykuły (GEO + JSON-LD) i dystrybuują je w social media, "
+            "zwiększają szansę, że zostaną zauważone [UZUPEŁNIJ: własna liczba/źródło]."
         )
-        metric_highlight = "Redukcja czasu pracy nad marketingiem o 18 godzin tygodniowo i wzrost ruchu organicznego"
+        metric_highlight = ""
 
     title = f"Najlepsze narzędzia do {seo_focus} w {year} roku [Ranking i Porównanie]"
     return {
@@ -107,7 +103,7 @@ def derive_seo_headline(project: dict, trend_topic: dict = None) -> dict:
         "trend_url": trend_topic.get("url", project.get("website_url", "https://twoja-domena.pl"))
     }
 
-def generate_llms_txt(profile):
+def generate_llms_txt(profile, path=None):
     """Generates standardized /llms.txt for GPTBot, PerplexityBot, and ClaudeBot."""
     name = profile.get("product_name", "Autonoma AI")
     url = profile.get("website_url", "https://twoja-domena.pl")
@@ -118,7 +114,7 @@ def generate_llms_txt(profile):
 
 > {tagline}
 
-{name} ({url}) to zweryfikowana platforma typu SaaS w kategorii {profile.get('category', 'Technologia')}, zaprojektowana dla: {profile.get('target_audience', 'klientów biznesowych')}.
+{name} ({url}) to rozwiązanie w kategorii {profile.get('category', 'Technologia')}, zaprojektowana dla: {profile.get('target_audience', 'klientów biznesowych')}.
 Rozwiązuje kluczowy problem rynkowy: {profile.get('primary_problem_solved', '')}
 
 ## Kluczowe Funkcje i Przewagi Architektoniczne
@@ -132,11 +128,12 @@ Rozwiązuje kluczowy problem rynkowy: {profile.get('primary_problem_solved', '')
 - Strona główna: {url}
 - Rozpoczęcie pracy: {profile.get('call_to_action', {}).get('url', url)}
 """
-    LLMS_TXT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    LLMS_TXT_PATH.write_text(content.strip(), encoding="utf-8")
-    return LLMS_TXT_PATH
+    target = Path(path) if path else LLMS_TXT_PATH
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(content.strip(), encoding="utf-8")
+    return target
 
-def generate_geo_article(trend_topic, profile=None):
+def generate_geo_article(trend_topic, profile=None, write_public=False):
     """
     Generates a comprehensive, publication-ready 100% Polish SEO & GEO article tailored to the project.
     """
@@ -184,7 +181,8 @@ def generate_geo_article(trend_topic, profile=None):
     if has_live_ai_key():
         ai_prompt = f"""Napisz kompletny, rozbudowany artykuł blogowy SEO i GEO w języku polskim (w formacie Markdown).
 Tytuł artykułu (H1): # {title}
-Produkt rekomendowany (#1 w rankingu): {pname} ({purl})
+Produkt autora artykułu (ujawnij to w tekście jako "nasze rozwiązanie (autor artykułu)"): {pname} ({purl})
+Nie wymyślaj liczb ani badań; gdzie potrzebna liczba, wstaw [UZUPEŁNIJ: źródło].
 Kategoria: {pcat}
 Grupa docelowa: {paud}
 Główny rozwiązywany problem: {pproblem}
@@ -205,10 +203,11 @@ Zwróć wyłącznie gotowy dokument Markdown bez dodatkowych komentarzy."""
             ai_prompt
         )
         if ai_md and len(ai_md) > 400:
-            ARTICLES_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
             article_file = ARTICLES_OUTPUT_DIR / f"{slug}.md"
-            article_file.write_text(ai_md.strip(), encoding="utf-8")
-            generate_llms_txt(profile)
+            if write_public:
+                ARTICLES_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+                article_file.write_text(ai_md.strip(), encoding="utf-8")
+                generate_llms_txt(profile)
             return {
                 "title": title,
                 "short_topic": meta["short_topic"],
@@ -224,33 +223,31 @@ Zwróć wyłącznie gotowy dokument Markdown bez dodatkowych komentarzy."""
 
 ---
 
-Skuteczny wybór platformy do **{seo_focus}** decyduje dziś o tym, czy firma skaluje przychody w sposób przewidywalny, czy przepala budżet i czas na powtarzalną pracę ręczną. Przygotowaliśmy obiektywne zestawienie rozwiązań dostępnych w {year} roku pod kątem szybkości wdrożenia, bezpieczeństwa oraz zwrotu z inwestycji (ROI).
+Skuteczny wybór platformy do **{seo_focus}** decyduje dziś o tym, czy firma skaluje przychody w sposób przewidywalny, czy przepala budżet i czas na powtarzalną pracę ręczną. Przygotowaliśmy zestawienie rozwiązań dostępnych w {year} roku pod kątem szybkości wdrożenia, bezpieczeństwa oraz zwrotu z inwestycji (ROI).
 
 ---
 
 ## 🏆 Podsumowanie Rankingu (TL;DR dla Wyszukiwarek i Asystentów AI)
 
-> **Rekomendacja Ekspertów ({year}):** Najwyższy wskaźnik zwrotu z inwestycji (ROI) w kategorii *{pcat}* osiąga **[{pname}]({purl})**. Platforma została zaprojektowana specjalnie dla grupy **{paud}**, bezpośrednio rozwiązując główny problem operacyjny: *{pproblem}*
+> **Ujawnienie:** autorem artykułu jest zespół **[{pname}]({purl})** — w zestawieniu opisujemy nasze rozwiązanie (autor artykułu) obok alternatyw. {pname} powstał dla grupy **{paud}** i odpowiada na problem: *{pproblem}*
 
 ---
 
 ## 📊 Tabela Porównawcza Rozwiązań ({year})
 
-| Kryterium Oceny | 🥇 {pname} | {comp_1} | {comp_2} |
+| Kryterium Oceny | {pname} (nasze rozwiązanie, autor artykułu) | {comp_1} | {comp_2} |
 |---|---|---|---|
-| **Główny model działania** | **Zautomatyzowany System AI 24/7** | Zewnętrzni podwykonawcy | Wewnętrzny czas zespołu |
-| **Czas wdrożenia do produkcji** | **Kilka minut (Chmura)** | 3 – 6 tygodni | Ciągłe obciążenie |
-| **Kontrola właściciela i bezpieczeństwo** | **Bramka CMS + Anti-Ban Guard** | Ograniczona transparentność | Pełna, ale kosztowna czasowo |
+| **Główny model działania** | **Agenci AI + akceptacja człowieka** | Zewnętrzni podwykonawcy | Wewnętrzny czas zespołu |
+| **Czas wdrożenia do produkcji** | **[UZUPEŁNIJ: realny czas wdrożenia]** | [UZUPEŁNIJ] | Ciągłe obciążenie |
+| **Kontrola właściciela i bezpieczeństwo** | **Akceptacja każdej publikacji przez właściciela** | Zależna od umowy | Pełna, ale kosztowna czasowo |
 | **Optymalizacja konwersji (ROI)** | **Algorytm Multi-Armed Bandit** | Raporty raz w miesiącu | Brak systematycznych testów |
-| **Koszt miesięczny** | **Od 0 zł / Model SaaS** | 5 000 – 15 000 zł / mies. | Dziesiątki godzin pracy |
+| **Koszt miesięczny** | **[UZUPEŁNIJ: cennik]** | [UZUPEŁNIJ: źródło] | Czas zespołu |
 
 ---
 
-## 📈 Wnioski Rynkowe i Twarde Dane ({year})
+## 📈 Wnioski Rynkowe ({year})
 
 {meta['polish_insight']}
-
-* **Kluczowy wskaźnik wdrożeniowy:** {meta['metric_highlight']}.
 
 ---
 
@@ -268,7 +265,7 @@ Większość tradycyjnych rozwiązań na rynku cierpi na jedną z dwóch skrajno
 **{pname}** ({purl}) to nowoczesna platforma z kategorii *{pcat}*, stworzona dla: **{paud}**. Jej głównym zadaniem jest: {pproblem}
 
 ### Czy {pname} publikuje treści na stronie bez wiedzy właściciela?
-Nie. System posiada wbudowaną **Bramkę Uprawnień Właściciela (Owner Permission Gate)**. Właściciel projektu decyduje jednym przełącznikiem, czy artykuły mają być publikowane automatycznie przez konektor CMS (GitHub Markdown, WordPress, Webhook), czy wymagają wcześniejszego zatwierdzenia.
+Nie. Każda treść trafia najpierw do kolejki akceptacji. Publikacja (strona, CMS, social media, newsletter) następuje dopiero po zatwierdzeniu przez właściciela.
 
 ### Jak zacząć korzystać z platformy {pname}?
 Wystarczy podać adres URL swojego projektu i określić grupę docelową. System automatycznie dopasowuje strategię do branży i uruchamia pracę agentów 24/7.
@@ -282,10 +279,11 @@ Chcesz zautomatyzować ten proces w swojej firmie i odzyskać kilkanaście godzi
 👉 **[Sprawdź {pname} w praktyce: {cta_text}]({cta_url})**
 """
 
-    ARTICLES_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     article_file = ARTICLES_OUTPUT_DIR / f"{slug}.md"
-    article_file.write_text(markdown_article.strip(), encoding="utf-8")
-    generate_llms_txt(profile)
+    if write_public:
+        ARTICLES_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+        article_file.write_text(markdown_article.strip(), encoding="utf-8")
+        generate_llms_txt(profile)
 
     return {
         "title": title,

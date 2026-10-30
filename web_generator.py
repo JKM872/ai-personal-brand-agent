@@ -1387,13 +1387,12 @@ W **${{pname}}** (${{purl}}) rozwiązujemy to poprzez:
         if (resp.ok) {{
           const data = await resp.json();
           if (data && data.keys) {{
-            const localCfg = JSON.parse(localStorage.getItem('autonoma_integrations_v4') || '{{}}');
-            const merged = Object.assign({{}}, data.keys, localCfg);
+            // Server returns only {{set, masked}} — show which keys are saved, never full values.
             Object.keys(data.keys).forEach(k => {{
-              if (data.keys[k] && !merged[k]) merged[k] = data.keys[k];
+              const el = document.getElementById('api-' + k);
+              const info = data.keys[k] || {{}};
+              if (el && info.set && !el.value) el.placeholder = 'zapisany w .env: ' + info.masked;
             }});
-            applyApiConfigToInputs(merged);
-            localStorage.setItem('autonoma_integrations_v4', JSON.stringify(merged));
           }}
         }}
       }} catch(e) {{}}
@@ -1952,8 +1951,8 @@ def lead_form_html(contact_email: str, form_id: str = "lead-form") -> str:
 {LEAD_FORM_END}"""
 
 
-def _list_public_articles() -> list:
-    art_dir = PUBLIC_DIR / "articles"
+def _list_public_articles(public_dir: Path = None) -> list:
+    art_dir = (public_dir or PUBLIC_DIR) / "articles"
     items = []
     if art_dir.exists():
         for f in sorted(art_dir.glob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True):
@@ -2007,7 +2006,7 @@ def build_public_site(base_dir: Path = None) -> dict:
     brand = offer.get("brand_name") or persona.get("name") or tenant.get("display_name") or "Marka"
     headline = offer.get("headline", "Agenci AI dla Twojej marki eksperckiej")
     sub = offer.get("subheadline", "")
-    articles = _list_public_articles()
+    articles = _list_public_articles(public_dir)
 
     header = f"""<header class="top"><div class="wrap"><strong>{_esc(brand)}</strong>
 <nav aria-label="Główna"><a href="#uslugi">Usługi</a><a href="#proces">Jak pracuję</a><a href="/blog.html">Blog</a><a href="#kontakt">Kontakt</a></nav></div></header>"""

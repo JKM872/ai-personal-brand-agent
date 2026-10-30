@@ -4,26 +4,26 @@ Generates weekly growth plans and engagement posts for the owner's proprietary c
 (Facebook Group, Discord, Skool, or LinkedIn Group) to turn passive readers into warm leads.
 """
 
-from agents.geo_seo_engine import load_product_profile, derive_seo_headline
+from agents.writers._common import resolve_profile, headline, brand_prompt
 from agents.free_ai_router import has_live_ai_key, ask_free_ai
 
-def generate_community_content(topic, persona):
-    profile = load_product_profile()
+def generate_community_content(topic, persona, project=None, brand=None):
+    profile = resolve_profile(project)
     pname = profile.get("product_name", "Autonoma AI")
     purl = profile.get("website_url", "https://twoja-domena.pl")
     paud = profile.get("target_audience", "właścicieli firm i twórców")
     pproblem = profile.get("primary_problem_solved", "")
     features = profile.get("key_features", ["Automatyzacja procesów 24/7"])
 
-    meta = derive_seo_headline(profile, topic)
+    meta = headline(profile, topic)
     short_topic = meta["short_topic"]
     polish_insight = meta["polish_insight"]
     metric = meta["metric_highlight"]
 
     if has_live_ai_key():
         ai_comm = ask_free_ai(
-            "Jesteś managerem społeczności B2B (FB Group / Discord / Skool) w Autonoma AI. Piszesz w 100% po polsku w formacie Markdown.",
-            f"Przygotuj strategię własnej grupy na ten tydzień dla produktu {pname} ({purl}), grupa docelowa: {paud}, problem: {pproblem}, temat: {short_topic}. Uwzględnij: 1) Post przypięty z Lead Magnetem (komentarz 'START'), 2) Ankietę dyskusyjną (1, 2 lub 3), 3) Szablony odpowiedzi z opóźnieniem Anti-Ban."
+            "Jesteś managerem społeczności B2B (FB Group / Discord / Skool) w Autonoma AI. Piszesz w 100% po polsku w formacie Markdown." + brand_prompt(brand),
+            f"Przygotuj strategię własnej grupy na ten tydzień dla produktu {pname} ({purl}), grupa docelowa: {paud}, problem: {pproblem}, temat: {short_topic}. Uwzględnij: 1) Post przypięty z zaproszeniem do grupy i pytaniem otwartym, 2) Ankietę dyskusyjną (1, 2 lub 3), 3) Szablony odpowiedzi do ręcznego użycia przez autora (bez automatycznych wiadomości prywatnych)."
         )
         if ai_comm and len(ai_comm) > 200:
             return {"community_playbook": ai_comm.strip()}
@@ -47,7 +47,7 @@ W tej grupie dzielimy się wyłącznie sprawdzonymi procesami, twardymi wyliczen
 1. Pełne porównanie narzędzi i strategii: *{short_topic}*.
 2. Dostęp do naszego systemu **{pname}**, który bezpośrednio rozwiązuje główny problem: *{pproblem}*
 
-👉 **Napisz w komentarzu pod tym postem słowo „START”**, a nasz zespół (lub automatyczny asystent) wyśle Ci bezpośredni dostęp oraz checklistę wdrożeniową!
+👉 **Przedstaw się w komentarzu i napisz, z jakim wyzwaniem przychodzisz** — materiały i checklistę znajdziesz tu: {purl}
 
 ---
 
@@ -69,10 +69,10 @@ Najciekawsze komentarze rozłożymy na czynniki pierwsze w piątkowym podsumowan
 
 ---
 
-## 💬 3. Gotowe Szablony Odpowiedzi Agenta na Komentarze Członków (Human-Delay 18-45 min)
+## 💬 3. Szablony odpowiedzi do ręcznego użycia (piszesz i publikujesz sam)
 
-* **Gdy członek grupy napisze „START”:**
-  > „Cześć! Świetnie, że jesteś z nami. Wysłałem Ci szczegóły w wiadomości prywatnej, a tutaj zostawiam bezpośredni link do uruchomienia {pname}: {purl} — daj znać, jak pierwsze wrażenia!”
+* **Gdy nowa osoba się przedstawi:**
+  > „Cześć! Świetnie, że jesteś z nami. Jakie jest teraz Twoje największe wyzwanie w tym obszarze? Materiały zebraliśmy tu: {purl}”
 
 * **Gdy członek grupy wybierze [1] (praca ręczna):**
   > „Dzięki za szczerość! Większość firm z grupy {paud} zaczyna dokładnie w tym punkcie. Największy przełom daje zautomatyzowanie pierwszego kroku: *{features[0] if features else 'automatyzacja bazowa'}*. Sprawdź nasze ostatnie zestawienie na blogu!”

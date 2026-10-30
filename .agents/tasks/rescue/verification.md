@@ -1,69 +1,51 @@
-# Weryfikacja — rescue, iteracja 2 (poprawki po code-review pass 1)
+# Weryfikacja — rescue (iteracja 2)
 
-Środowisko: Windows, PowerShell, Python 3.14.0, Node v24.12.0. Żadnych kluczy w env (skrypt dry-run usuwa zmienne `KEY|TOKEN|WEBHOOK|SUPABASE|CMS_|LINKEDIN|TELEGRAM|DRY_RUN|OFFLINE`), brak pliku `.env` w repo. Nic nie zostało wysłane na zewnętrzne platformy.
+Środowisko: Windows, PowerShell, Python 3.14.0. Żadnych kluczy (zmienne `*KEY*`, `*TOKEN*`, `WEBHOOK*`, `SUPABASE*`, `CMS_*`, `LINKEDIN*`, `TELEGRAM*`, `DRY_RUN` usuwane przed każdym uruchomieniem). Nic nie zostało wysłane na zewnątrz.
 
-## Co poprawiono (mapowanie na findings)
-| Finding | Poprawka |
+Skrypty: `.agents/tasks/rescue/scripts/dryrun.ps1` (kopia repo do `%TEMP%\md_dry` bez `.git/.agents/__pycache__`, `git init`, `python engine.py`, `git status`), `compile_import.ps1`, `final_checks.ps1`. Surowe wyniki: `baseline/`, `final/`.
+
+## Uwaga o równoległej sesji
+W trakcie pracy inna sesja zrobiła commit `3f62fbe` (lead.js, offer page, leads.py, crm/validation.py, tabele leadów, .env.example, tests/test_leads.py, tests/test_public_html.py). Ta iteracja nie duplikuje tych zmian: moje edycje `db/supabase_client.py`/`db/schema.sql` z duplikatami metod cofnięto (`git checkout`) i zastosowano tylko brakujące poprawki. Zduplikowane wywołanie `build_public_site()` i podwójny lejek w `engine.py` usunięto.
+
+## 1. Baseline (przed zmianami, kod `baf519b`)
+| Komenda | Wynik |
 |---|---|
-| 1. brak verification.md | ten plik + `after/`, `after_compile_import.txt` |
-| 2. brak endpointu leadów | `functions/api/lead.js` (405/403/413/400/200/502/503, honeypot `website`, pułapka czasowa `ts` ≥ 3 s, same-origin, limit 8 KB, Supabase REST anon + timeout 5 s, opcjonalny Telegram bez e-maila) + `functions/api/_lead_validate.js` |
-| 3. brak strony oferty | `web_generator.build_public_site()` → `public/index.html` (hero + 2 CTA, problem→rozwiązanie, usługi z cenami z `tenants/default/offer.json`, proces, dowody/artykuły, FAQ, formularz `#kontakt`), `public/polityka-prywatnosci.html`, `public/robots.txt`, `public/sitemap.xml`; wspólny formularz `public/lead-form.js` + `public/lead-form.css`; `public/blog.html`: formularz `localStorage` zastąpiony tym samym formularzem (blok `<!-- LEADFORM:START/END -->`); `engine.py` woła `build_public_site()` po panelu |
-| 4. brak tabel leadów | `db/migrations/002_leads_tenants.sql` (Supabase, RLS insert-only dla anon), dopisane do `db/schema.sql`; `db/supabase_client.py`: tabele `tenants/leads/lead_events` w SQLite, idempotentne `ALTER TABLE ADD COLUMN`, metody `insert_lead/list_leads/get_lead/update_lead/add_lead_note/lead_funnel/fetch_remote_leads/upsert_local_lead`, `LOCAL_DB_PATH` z env; `crm/validation.py`; CLI `leads.py`; sekcja „Lejek leadów” w `DASHBOARD.md` (tylko liczby) |
-| 5. `.env.example` | przepisany wg design §7: każdy klucz z opisem darmowego planu i tego, co odblokowuje; komentarze w osobnych liniach (parser `_load_key` nie obsługuje komentarzy w linii); brak realnych wartości; `.gitignore`: `!.env.example`, `exports/` |
+| `dryrun.ps1 -Out baseline` | `EXIT=0`; 2 paczki × 13 plików; zmiany: `DASHBOARD.md`, `memory/seen_topics.json`, **`public/articles/*.md` (2 pliki nadpisane)**, `public/data.json`, `public/index.html`, `public/raport_statystyczny.md` |
+| `compile_import.ps1` | `py_compile FAIL=0 z 49`, `import FAIL=0 z 29` |
 
-Dodatkowo: `db/schema.sql` — usunięte komentarze „Anti-Ban!”/„Human-like delay”, `reply_at` NULLABLE.
+## 2. Po zmianach
+| Komenda | Wynik |
+|---|---|
+| `python -m unittest discover -s tests -v` (z e2e `test_engine_dry_run`) | `OK`, exit 0 (`final/unittest.txt`) |
+| `compile_import.ps1` (wszystkie .py, łącznie z `queue/*`; import każdego modułu z roota) | `py_compile FAIL=0 z 67`, `import FAIL=0 z 36` (nowe: `agents.runtime`, `agents.reply_drafter`, `agents.writers._common`, `saas_core.tenants`, `crm.validation`, `approve`, `publish`, `leads`; usunięty `agents.anti_ban_commenter`) |
+| `dryrun.ps1 -Out final/online` (z siecią) | `EXIT=0`, 0× `Traceback` |
+| `dryrun.ps1 -Out final/offline -Offline` | `EXIT=0`, 0× `Traceback`, 3× `[OFFLINE] … fixture`, `[MOCK] AI: brak klucza…` |
+| `python approve.py list` (kopia) | exit 0, nowe paczki `pending_approval`, stare `legacy` |
+| `python approve.py approve <pierwsza paczka>` | exit 0, nowy plik `public/articles/najlepsze-narzedzia-…md`, odświeżone `sitemap.xml`, `llms.txt`, `blog.html`, archiwum `public/newsletter/` |
+| `python publish.py` | exit 0, linkedin/newsletter/webhook/telegram = `DRY_RUN_SKIPPED`, `urlopen` niewołany |
+| `python approve.py approve nie-ma-takiej` | exit 2 |
+| `python leads.py add --name Test --email t@example.com` / `list` (baza tymczasowa `LOCAL_DB_PATH`) | exit 0 / exit 0, lead widoczny |
+| `python -m agents.analyst_agent --reset-stats` (bez `--yes`) | exit 2 |
+| `python -m unittest tests.test_public_html -v` | exit 0 (zbalansowane tagi, pola `name,email,company,service,message,consent(required),website`, action `/api/lead`, lokalne `href` istnieją) |
+| `git grep -nE "AIza\|gsk_\|ghp_[A-Za-z0-9]{20}"` | 0 trafień |
+| `git status` — `D` w `queue/` lub `public/articles/` | brak |
 
-## Komendy i wyniki
-
-### 1. Baseline (przed zmianami, iteracja 1) — `.agents/tasks/rescue/baseline/`
-`powershell -File .agents/tasks/rescue/scripts/dryrun.ps1 -Out .agents/tasks/rescue/baseline` → `EXIT=0`, 2 paczki × 13 plików = 26 (`bundle_files.txt`), `compile_import.txt`.
-
-### 2. Kompilacja + importy (po)
-`powershell -NoProfile -File .agents/tasks/rescue/scripts/compile_import.ps1` → `py_compile FAIL=0 z 57`, `import FAIL=0 z 33` (pełny wynik: `after_compile_import.txt`; nowe moduły `crm.validation`, `leads` importują się bez efektów ubocznych).
-
-### 3. Testy
-`python -m unittest discover -s tests -v` → `Ran 8 tests ... OK`
-(`tests/test_leads.py`: walidacja, spam, lejek w SQLite w katalogu tymczasowym, idempotentny init; `tests/test_public_html.py`: każdy `public/*.html` dobrze sformowany, formularze w `index.html` i `blog.html` mają `action="/api/lead"` i pola `name,email,company,service,message,consent,website,ts`, `name/email/consent` required, wszystkie lokalne `href/src` istnieją w `public/`, CTA `#kontakt` → `id="kontakt"`, `lang="pl"`).
-
-### 4. Pages Function (Node, lokalnie, bez sieci, `env={}`)
-`node --input-type=module -e "...validateLead / onRequest..."`:
-- validateLead poprawny → `{lead:{...status:"new",consent_text_version:"v1"}}`; honeypot → `{spam:"honeypot"}`; złe pola → `{errors:{name:"required",email:"invalid",consent:"required"}}`
-- `GET` → 405; `POST {bad` → 400 `invalid_json`; poprawny `POST` bez konfiguracji Supabase → 503 `{fallback:"mailto"}`; `Origin: https://evil.com` → 403.
-
-### 5. End-to-end dry run bez kluczy (po) — `.agents/tasks/rescue/after/`
-`powershell -NoProfile -File .agents/tasks/rescue/scripts/dryrun.ps1 -Out .agents/tasks/rescue/after` (kopia repo w `%TEMP%\md_dry`, `python engine.py`).
-
-| | baseline | po zmianach |
+## 3. Porównanie dry-run: baseline → po
+| | Baseline | Po |
 |---|---|---|
-| exit code | 0 | 0 |
-| `Traceback` w run.txt | 0 | 0 |
-| nowe paczki queue/ | 2 × 13 plików | 2 × 13 plików (te same nazwy plików) |
-| `DASHBOARD.md` | M | M (+ sekcja „💼 Lejek leadów”) |
-| `memory/seen_topics.json` | M | M |
-| `public/raport_statystyczny.md` | M | M |
-| `public/index.html` | M (panel SaaS) | strona ofertowa; w kopii brak `M`, bo repo zawiera już wygenerowaną wersję (generator deterministyczny) |
-| `public/data.json` | M | bez zmian (panel pisze do `admin/data.json` — zmiana z iteracji 1) |
-| `admin/index.html`, `admin/data.json` | — | nowe (lokalny panel) |
-| `public/articles/*` (2 pliki) | M | M (zachowanie bez zmian w tej iteracji; bramka approve to zadanie 4 planu) |
-| `saas_core/product_profile.json` | — | M (+`"tenant_id": "demo"` — engine kopiuje projekt do profilu; skutek `tenant_id` dodanego w iteracji 1; usunięcie zapisu to zadanie 9) |
+| Exit code | 0 | 0 (online i offline) |
+| Paczki | 2 × 13 plików | 2 × 14 plików: te same 13 + `APPROVAL.json` (`Compare-Object` → jedyna różnica `=> APPROVAL.json`) |
+| `PUBLISH_STATUS.json` | `QUEUED_FOR_AUTO_PUBLISH` | `mode: dry_run`, kanały `AWAITING_APPROVAL` |
+| `public/articles/*` | **nadpisywane w każdym cyklu** | nietknięte (publikuje tylko `approve.py`) |
+| `public/llms.txt`, `saas_core/product_profile.json` | zmieniane | nietknięte |
+| `public/data.json` | pełne dane panelu | nietknięty; panel → `admin/index.html`, `admin/data.json` |
+| `public/index.html` | panel admina z polami kluczy | strona ofertowa (generowana z `tenants/default/offer.json`; bez zmian względem commitu) |
+| `DASHBOARD.md`, `memory/seen_topics.json`, `public/raport_statystyczny.md` | zmieniane | zmieniane (bez zmian zachowania) |
+| Zapisy zewnętrzne | IndexNow ping z domyślnym kluczem | brak (IndexNow/CMS/social/newsletter → `SKIPPED`/`DRY_RUN_SKIPPED`) |
 
-Log zawiera `✅ Strona ofertowa wygenerowana`, brak `[ERROR]`/`[WARN]` generatorów.
+Wszystko, co działało w baseline (scan → curate → write → queue, dashboard, raport, pamięć), działa nadal.
 
-### 6. CLI leadów (w kopii `%TEMP%\md_dry`, SQLite)
-- `python leads.py add --name Test --email t@example.com` → uuid, exit 0
-- `python leads.py list` → wiersz `new ... Test <t@example.com>`, exit 0
-- `python leads.py update <id> --status zle` → `[ERROR] Nieznany status`, exit 2
-- `python leads.py update <8 znaków> --status contacted --value 490` → exit 0; `note` → exit 0; `show` → historia `created`, `status new -> contacted`, `note`
-- `python leads.py export` → `exports/leads_<data>.csv`, exit 0
-- `python leads.py sync` bez kluczy → `[WARN] sync wymaga ...`, exit 0
-- `python leads.py add --name X --email bad` → exit 2
-
-### 7. Repo
-- `git status --short` — brak `D` w `queue/` i `public/articles/`.
-- `.env` nie istnieje i nie jest w indeksie; `.env.example` zawiera tylko puste wartości/placeholdery.
-
-## Czego nie zweryfikowano
-- Realny zapis do Supabase i powiadomienie Telegram (brak kluczy — celowo).
-- Działanie Pages Function na Cloudflare (testowane lokalnie w Node z `Request`/`Response`).
-- Pełna zgodność WCAG wymaga ręcznych testów z czytnikiem ekranu.
-- Pozostałe zadania planu (4: bramka `approve.py`/`publish.py`, 9–12) nie były objęte findingami tej rundy.
+## 4. Nierozwiązane / świadome
+- Node.js nie był uruchamiany (brak `tests/js`), JS sprawdzony przeglądem; `ci.yml` uruchamia `node --test` warunkowo.
+- `DASHBOARD.md` zawierał stary napis „+ Anti-Ban” — poprawiony ręcznie; kolejne cykle generują nowy tekst.
+- Istniejące wiersze bandyty w lokalnej (ignorowanej) bazie użytkownika nie są kasowane; reset: `python -m agents.analyst_agent --reset-stats --yes`.

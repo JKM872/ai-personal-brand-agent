@@ -1,44 +1,71 @@
-name: 🚀 Autonoma AI — 12-Agent Workforce 24/7 (Cloud Server)
-
+name: Autonoma AI — cykl agentów (co 6 h)
 on:
-  # Uruchamia się automatycznie co 6 godzin na serwerach GitHuba (nawet gdy Twój laptop jest wyłączony)
+  # Uruchamia się automatycznie co 6 godzin na serwerach GitHuba
   schedule:
     - cron: '0 */6 * * *'
-  # Pozwala też uruchomić ręcznie jednym kliknięciem w zakładce "Actions" na GitHubie lub z telefonu
+  # Ręczne uruchomienie w zakładce "Actions"
   workflow_dispatch:
-
 permissions:
   contents: write
-
 jobs:
   run-autonoma-workforce:
     runs-on: ubuntu-latest
+    env:
+      # Domyślnie dry-run. Zmień zmienną repozytorium DRY_RUN na 0, gdy podasz klucze.
+      DRY_RUN: ${{ vars.DRY_RUN || '1' }}
     steps:
-      - name: 📥 Pobranie kodu repozytorium
+      - name: Pobranie kodu
         uses: actions/checkout@v4
-
-      - name: 🐍 Konfiguracja Python 3.12
+      - name: Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
-      - name: 🚀 Uruchomienie cyklu 12 Pracowników Autonoma AI
+      - name: Kompilacja i testy
+        env:
+          SKIP_E2E: '1'
+        run: |
+          python -m compileall -q agents publishers sources db saas_core tracking crm *.py
+          python -m unittest discover -s tests -v
+      - name: Cykl agentów (paczki trafiają do kolejki akceptacji)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SITE_URL: ${{ vars.SITE_URL }}
+          CONTACT_EMAIL: ${{ vars.CONTACT_EMAIL }}
+        run: python engine.py
+      - name: Publikacja wyłącznie zatwierdzonych paczek
+        env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          NEWSLETTER_FROM: ${{ vars.NEWSLETTER_FROM }}
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          CMS_OWNER_AUTHORIZED: ${{ vars.CMS_OWNER_AUTHORIZED }}
+          CMS_TYPE: ${{ vars.CMS_TYPE }}
+          CMS_GH_REPO: ${{ vars.CMS_GH_REPO }}
+          CMS_GH_TOKEN: ${{ secrets.CMS_GH_TOKEN }}
+          WP_SITE_URL: ${{ vars.WP_SITE_URL }}
+          WP_USERNAME: ${{ vars.WP_USERNAME }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+          CMS_WEBHOOK_URL: ${{ secrets.CMS_WEBHOOK_URL }}
+          CMS_API_KEY: ${{ secrets.CMS_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-        run: |
-          python engine.py
-
-      - name: 💾 Zapisanie nowych paczek 10 kanałów, pamięci i panelu WWW
+          SITE_URL: ${{ vars.SITE_URL }}
+          CONTACT_EMAIL: ${{ vars.CONTACT_EMAIL }}
+        run: python publish.py
+      - name: Zapis paczek, pamięci i strony
         run: |
           git config --global user.name "Autonoma AI 24/7"
           git config --global user.email "agent@noreply.github.com"
-          git add queue/ memory/ DASHBOARD.md public/ logs/
-          git diff --staged --quiet || git commit -m "🤖 Autonoma AI: nowa paczka 10 kanałów wzrostu [skip ci]"
+          git add queue/ memory/ DASHBOARD.md public/ admin/
+          git diff --staged --quiet || git commit -m "chore(agent): nowe paczki do akceptacji [skip ci]"
           git push

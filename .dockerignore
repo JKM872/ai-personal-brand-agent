@@ -1,0 +1,9 @@
+.git
+.env
+.env.*
+!.env.example
+db/*.db
+config/accounts.local.json
+__pycache__
+exports/
+.agents/

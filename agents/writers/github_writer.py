@@ -5,10 +5,10 @@ and a Python CMS Webhook receiver for the client's website.
 """
 
 import json
-from agents.geo_seo_engine import load_product_profile
+from agents.writers._common import resolve_profile, headline, brand_prompt
 
-def generate_github_content(topic, persona):
-    profile = load_product_profile()
+def generate_github_content(topic, persona, project=None, brand=None):
+    profile = resolve_profile(project)
     pname = profile.get("product_name", "Autonoma AI")
     purl = profile.get("website_url", "https://twoja-domena.pl")
     pcat = profile.get("category", "SaaS")
@@ -49,9 +49,11 @@ import os
 import json
 from pathlib import Path
 
-EXPECTED_OWNER_TOKEN = os.environ.get("CMS_API_KEY", "twoj_sekretny_klucz_wlasciciela")
+EXPECTED_OWNER_TOKEN = os.environ.get("CMS_API_KEY", "")
 
 def handle_incoming_article_webhook(headers: dict, payload: dict) -> dict:
+    if not EXPECTED_OWNER_TOKEN:
+        return {{"status": 401, "error": "CMS_API_KEY nie jest ustawiony — odbiornik wyłączony"}}
     auth_header = headers.get("Authorization", "")
     if auth_header != f"Bearer {{EXPECTED_OWNER_TOKEN}}":
         return {{"status": 403, "error": "Brak autoryzacji właściciela strony (Owner Permission Denied)"}}

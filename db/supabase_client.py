@@ -142,28 +142,16 @@ class SupabaseClient:
                 existing = [r[1] for r in cursor.execute(f"PRAGMA table_info({table})").fetchall()]
                 if col not in existing:
                     cursor.execute(f"ALTER TABLE {table} ADD COLUMN {col} {ddl}")
-            # Seed 3 distinct strategic personas with realistic initial metrics
+            # Seed 3 personas with neutral stats (no invented clicks). Existing rows are kept;
+            # reset via: python -m agents.analyst_agent --reset-stats --yes
             now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             cursor.execute("""
             INSERT OR IGNORE INTO agent_strategy (persona_name, system_prompt, posts_count, total_clicks, conversions, effectiveness_score, updated_at)
             VALUES 
-                ('analityk_danych', 'Jesteś chłodnym inżynierem i analitykiem. Operujesz liczbami, architekturą, benchmarkami i wyliczeniami. Zero lania wody.', 5, 92, 7, 25.4, ?),
-                ('case_study', 'Jesteś praktykiem biznesowym. Pokazujesz realne case studies, problem klienta, krok po kroku rozwiązanie i wymierne rezultaty.', 4, 64, 4, 21.0, ?),
-                ('kontrowersyjny_ekspert', 'Jesteś bezkompromisowym ekspertem. Podważasz powszechne mity i hype rynkowy, wskazujesz ukryte koszty i błędy popełniane przez większość firm.', 3, 39, 2, 16.3, ?);
+                ('analityk_danych', 'Jesteś chłodnym inżynierem i analitykiem. Operujesz liczbami, architekturą, benchmarkami i wyliczeniami. Zero lania wody.', 0, 0, 0, 1.0, ?),
+                ('case_study', 'Jesteś praktykiem biznesowym. Pokazujesz realne case studies, problem klienta, krok po kroku rozwiązanie i wymierne rezultaty.', 0, 0, 0, 1.0, ?),
+                ('kontrowersyjny_ekspert', 'Jesteś bezkompromisowym ekspertem. Podważasz powszechne mity i hype rynkowy, wskazujesz ukryte koszty i błędy popełniane przez większość firm.', 0, 0, 0, 1.0, ?);
             """, (now_str, now_str, now_str))
-            # Fix any legacy zero rows
-            cursor.execute("""
-            UPDATE agent_strategy SET posts_count = 4, total_clicks = 68, conversions = 5, effectiveness_score = 23.2
-            WHERE effectiveness_score <= 0.1 AND persona_name = 'analityk_danych';
-            """)
-            cursor.execute("""
-            UPDATE agent_strategy SET posts_count = 3, total_clicks = 45, conversions = 3, effectiveness_score = 20.0
-            WHERE effectiveness_score <= 0.1 AND persona_name = 'case_study';
-            """)
-            cursor.execute("""
-            UPDATE agent_strategy SET posts_count = 3, total_clicks = 34, conversions = 2, effectiveness_score = 14.7
-            WHERE effectiveness_score <= 0.1 AND persona_name = 'kontrowersyjny_ekspert';
-            """)
             conn.commit()
 
     def _api_request(self, endpoint, method="GET", data=None, params=None):
@@ -252,13 +240,17 @@ class SupabaseClient:
     def get_active_subscribers(self, limit=280):
         if self.is_connected:
             try:
-                return self._api_request("subscribers", method="GET", params={"is_active": "eq.true", "limit": str(limit)})
+                return self._api_request("subscribers", method="GET", params={"is_active": "eq.true", "consent_at": "not.is.null", "unsubscribed_at": "is.null", "limit": str(limit)})
             except Exception as e:
                 print(f"[WARN] Supabase get_active_subscribers error: {e}")
 
         with sqlite3.connect(LOCAL_DB_PATH) as conn:
             conn.row_factory = sqlite3.Row
-            rows = conn.execute("SELECT * FROM subscribers WHERE is_active = 1 LIMIT ?", (limit,)).fetchall()
+            cols = [r[1] for r in conn.execute("PRAGMA table_info(subscribers)").fetchall()]
+            if "consent_at" not in cols or "unsubscribed_at" not in cols:
+                return []
+            rows = conn.execute("SELECT * FROM subscribers WHERE is_active = 1 AND consent_at IS NOT NULL "
+                                "AND unsubscribed_at IS NULL LIMIT ?", (limit,)).fetchall()
             return [dict(r) for r in rows]
 
     # --- Multi-Tenant Projects Registry ---

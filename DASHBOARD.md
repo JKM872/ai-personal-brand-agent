@@ -19,7 +19,7 @@
 | 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/2026-10-24_1013_proj_autonoma_os_yeyuxin777-baoyan-agent-benchmark/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |
 | 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/2026-10-24_1013_proj_autonoma_os_yeyuxin777-baoyan-agent-benchmark/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |
 | 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/2026-10-24_1013_proj_autonoma_os_yeyuxin777-baoyan-agent-benchmark/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |
-| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-10-24_1013_proj_autonoma_os_yeyuxin777-baoyan-agent-benchmark/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X + Anti-Ban) |
+| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-10-24_1013_proj_autonoma_os_yeyuxin777-baoyan-agent-benchmark/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X) |
 | 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/2026-10-24_1013_proj_autonoma_os_yeyuxin777-baoyan-agent-benchmark/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |
 | 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/2026-10-24_1013_proj_autonoma_os_yeyuxin777-baoyan-agent-benchmark/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |
 | 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/2026-10-24_1013_proj_autonoma_os_yeyuxin777-baoyan-agent-benchmark/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |
@@ -37,7 +37,7 @@
 | 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/2026-10-24_1013_proj_demo_client_hacker-reverses-samsung-tv-finds-on-boar/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |
 | 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/2026-10-24_1013_proj_demo_client_hacker-reverses-samsung-tv-finds-on-boar/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |
 | 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/2026-10-24_1013_proj_demo_client_hacker-reverses-samsung-tv-finds-on-boar/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |
-| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-10-24_1013_proj_demo_client_hacker-reverses-samsung-tv-finds-on-boar/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X + Anti-Ban) |
+| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-10-24_1013_proj_demo_client_hacker-reverses-samsung-tv-finds-on-boar/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X) |
 | 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/2026-10-24_1013_proj_demo_client_hacker-reverses-samsung-tv-finds-on-boar/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |
 | 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/2026-10-24_1013_proj_demo_client_hacker-reverses-samsung-tv-finds-on-boar/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |
 | 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/2026-10-24_1013_proj_demo_client_hacker-reverses-samsung-tv-finds-on-boar/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |

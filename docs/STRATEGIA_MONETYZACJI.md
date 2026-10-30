@@ -58,3 +58,5 @@ Infrastruktura: GitHub Actions (cron), Supabase Free (leady), Cloudflare Pages/W
 | Odsetek treści odrzuconych w akceptacji | `APPROVAL.json` | spada → lepsza persona |
 
 Przegląd co tydzień (30 min): lejek, zaległe `next_action`, co z treści przyniosło leady (UTM), korekta tematów i persony w `brand_core/persona.json`.
+
+Pliki w repo: oferta i ceny na stronie — `tenants/default/offer.json` (generuje `public/index.html`); lejek leadów — `python leads.py` i sekcja „Lejek leadów” w `DASHBOARD.md`; kolejka akceptacji — `python approve.py list`, publikacja zatwierdzonych — `python publish.py`.

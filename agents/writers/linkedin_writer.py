@@ -4,17 +4,17 @@ Generates 100% Polish, executive-grade LinkedIn posts and 5-slide PDF carousel o
 tailored to the client's project DNA and the active Multi-Armed Bandit persona.
 """
 
-from agents.geo_seo_engine import load_product_profile, derive_seo_headline
+from agents.writers._common import resolve_profile, headline, brand_prompt
 
-def generate_linkedin_content(topic, persona):
-    profile = load_product_profile()
+def generate_linkedin_content(topic, persona, project=None, brand=None):
+    profile = resolve_profile(project)
     product_name = profile.get("product_name", "Nasz Projekt")
     problem_solved = profile.get("primary_problem_solved", "optymalizacja i automatyzacja procesów")
     target_aud = profile.get("target_audience", "przedsiębiorcy i liderzy")
     features = profile.get("key_features", ["Automatyzacja 24/7", "Skalowalność", "Bezpieczeństwo"])
     active_style = persona.get("active_style", "analityk_danych")
 
-    meta = derive_seo_headline(profile, topic)
+    meta = headline(profile, topic)
     short_topic = meta["short_topic"]
     polish_insight = meta["polish_insight"]
     metric = meta["metric_highlight"]
@@ -22,7 +22,7 @@ def generate_linkedin_content(topic, persona):
     from agents.free_ai_router import has_live_ai_key, ask_free_ai
     if has_live_ai_key():
         ai_post = ask_free_ai(
-            f"Jesteś ghostwriterem LinkedIn B2B piszącym w stylu: {active_style}. Tworzysz merytoryczne posty w 100% po polsku, bez linków w treści głównej.",
+            f"Jesteś ghostwriterem LinkedIn B2B piszącym w stylu: {active_style}. Tworzysz merytoryczne posty w 100% po polsku, bez linków w treści głównej." + brand_prompt(brand),
             f"Napisz ekspercki post na LinkedIn dla projektu {product_name} ({profile.get('website_url')}). Grupa docelowa: {target_aud}. Rozwiązywany problem: {problem_solved}. Temat: {short_topic}. Kluczowe funkcje: {features}. Na końcu dodaj informację, że link do analizy jest w 1. komentarzu."
         )
         if ai_post and len(ai_post) > 150:

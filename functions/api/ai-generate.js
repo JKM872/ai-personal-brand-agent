@@ -3,7 +3,15 @@
  * Native integration with Cloudflare Workers AI (@cf/meta/llama-3.3-70b-instruct) for Autonoma AI Studio.
  * Allows 0.00 PLN live generation of any of the 10 marketing channels directly at the Edge.
  */
+const json = (obj, status = 200) =>
+  new Response(JSON.stringify(obj), { status, headers: { 'Content-Type': 'application/json' } });
+
+// Admin-only: requires X-Admin-Token == env.ADMIN_TOKEN. No CORS (same-origin admin panel only).
 export async function onRequestPost(context) {
+  const env = context.env || {};
+  if (!env.ADMIN_TOKEN) return json({ success: false, error: 'disabled' }, 503);
+  if (context.request.headers.get('X-Admin-Token') !== env.ADMIN_TOKEN) return json({ success: false, error: 'unauthorized' }, 401);
+  if (!env.AI) return json({ success: false, error: 'ai_binding_missing' }, 503);
   try {
     const body = await context.request.json();
     const project = body.project || {};
@@ -35,23 +43,8 @@ Dane projektu:
       temperature: 0.7
     });
 
-    return new Response(JSON.stringify({ success: true, result: response.response }), {
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-    });
+    return json({ success: true, result: response.response });
   } catch (err) {
-    return new Response(JSON.stringify({ success: false, error: err.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-    });
+    return json({ success: false, error: err.message }, 500);
   }
-}
-
-export async function onRequestOptions() {
-  return new Response(null, {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type'
-    }
-  });
 }

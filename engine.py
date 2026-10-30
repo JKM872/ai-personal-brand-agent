@@ -10,7 +10,7 @@ Coordinates the 12-Agent Virtual Workforce across ALL active subscribed client p
 - Employee #7: Specjalista B2B Outreach & SDR (LinkedIn DM + Cold Email)
 - Employee #8: Redaktor Newslettera i Lead Nurturingu (Brevo / Resend)
 - Employee #9: Reżyser Wideo Shorts / Reels / TikTok (60s)
-- Employee #10: Strażnik Komentarzy Anti-Ban (Human Jitter 18-95 min)
+- Employee #10: Kolejka akceptacji człowieka (nic nie wychodzi bez approve.py)
 - Employee #11: Dział Statystyczny Multi-Armed Bandit (Optymalizacja ROI 80/20)
 - Employee #12: Inżynier Integracji CMS & Schema.org JSON-LD (Owner Permission Gate)
 """
@@ -19,7 +19,7 @@ import os
 import sys
 import re
 import json
-import random
+import traceback
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -45,13 +45,12 @@ from agents.writers.ads_writer import generate_ads_content
 from agents.writers.outreach_writer import generate_outreach_content
 from agents.geo_seo_engine import generate_geo_article
 from agents.analyst_agent import pick_best_persona, run_nightly_optimization
-from agents.free_ai_router import has_live_ai_key
+from agents.free_ai_router import has_live_ai_key, log_mock_ai_once
 from tracking.utm_builder import build_tracked_url
 from db.supabase_client import db
 from publishers.social_publisher import dispatch_content_bundle
-from publishers.cms_connector import publish_article_to_website
-from publishers.indexnow import submit_to_indexnow
 from web_generator import build_web_dashboard, build_public_site
+from saas_core.tenants import load_tenant
 
 def slugify(text):
     text = text.lower()
@@ -65,6 +64,19 @@ def enrich_item_descriptions(items):
             desc = f"Nowoczesny sygnał technologiczny z obszaru automatyzacji i skalowania biznesu: {item.get('title')}."
         item["description"] = desc
     return items
+
+def write_approval(queue_dir: Path, project: dict, now_dt: datetime) -> None:
+    """Human approval gate: nothing in this bundle is published until approve.py marks it approved."""
+    data = {
+        "status": "pending_approval",
+        "tenant_id": project.get("tenant_id", "default"),
+        "project_id": project.get("id", "proj_default"),
+        "created_at": now_dt.isoformat(),
+        "decided_at": None, "decided_by": None, "note": "",
+        "items": {k: "pending" for k in ("website_article", "linkedin", "newsletter", "webhook", "telegram")},
+        "published": {}
+    }
+    (queue_dir / "APPROVAL.json").write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
 def update_markdown_dashboard(active_projects: list, cycle_results: list, base_dir: Path, now_dt: datetime):
     ai_status = "🟢 LIVE LLM (Gemini / Groq API aktywne)" if has_live_ai_key() else "🟡 Wbudowany Silnik Syntezy (Wklej klucz w config/accounts.json lub w Panelu WWW)"
@@ -98,7 +110,7 @@ def update_markdown_dashboard(active_projects: list, cycle_results: list, base_d
             f"| 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/{qdir.name}/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |",
             f"| 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/{qdir.name}/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |",
             f"| 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/{qdir.name}/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |",
-            f"| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/{qdir.name}/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X + Anti-Ban) |",
+            f"| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/{qdir.name}/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X) |",
             f"| 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/{qdir.name}/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |",
             f"| 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/{qdir.name}/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |",
             f"| 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/{qdir.name}/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |",
@@ -157,32 +169,27 @@ def run_single_project_cycle(project: dict, all_scouted_items: list, base_dir: P
         }
     print(f"🔍 [Pracownik #1 — Radar Rynkowy] Sygnał bazowy: {primary_topic['title']} ({primary_topic['source']})")
 
-    # 3. Save this project as active profile in saas_core/product_profile.json
-    profile_path = base_dir / "saas_core" / "product_profile.json"
-    profile_path.write_text(json.dumps(project, indent=2, ensure_ascii=False), encoding="utf-8")
+    # 3. Tenant persona (brand voice) for this project
+    brand = load_tenant(project.get("tenant_id", "default"))["persona"]
+    kw = {"project": project, "brand": brand}
 
     # 4. Generate 10-Channel Content Suite across all AI Employees
-    li_data = generate_linkedin_content(primary_topic, persona_dict)
-    tw_data = generate_twitter_content(primary_topic, persona_dict)
-    nl_data = generate_newsletter_content(primary_topic, persona_dict, secondaries)
-    vid_data = generate_video_content(primary_topic, persona_dict)
-    gh_data = generate_github_content(primary_topic, persona_dict)
-    comm_data = generate_community_content(primary_topic, persona_dict)
-    ads_data = generate_ads_content(primary_topic, persona_dict)
-    out_data = generate_outreach_content(primary_topic, persona_dict)
+    li_data = generate_linkedin_content(primary_topic, persona_dict, **kw)
+    tw_data = generate_twitter_content(primary_topic, persona_dict, **kw)
+    nl_data = generate_newsletter_content(primary_topic, persona_dict, secondaries, **kw)
+    vid_data = generate_video_content(primary_topic, persona_dict, **kw)
+    gh_data = generate_github_content(primary_topic, persona_dict, **kw)
+    comm_data = generate_community_content(primary_topic, persona_dict, **kw)
+    ads_data = generate_ads_content(primary_topic, persona_dict, **kw)
+    out_data = generate_outreach_content(primary_topic, persona_dict, **kw)
     print(f"✍️  [Pracownicy #3-#9] Wygenerowano: LinkedIn, Karuzelę, X Thread, Własną Grupę, Kampanię Ads, Outreach B2B, Newsletter i Wideo 60s.")
 
-    # 5. Generate SEO & GEO Article + Owner Permission CMS Gate (Employee #2 & #12)
-    cms_result = {"status": "AWAITING_OWNER_PERMISSION"}
+    # 5. Generate SEO & GEO Article into the queue only; publication happens after approval
+    cms_result = {"status": "AWAITING_APPROVAL"}
     geo_res = None
     try:
-        geo_res = generate_geo_article(primary_topic, project)
-        print(f"🌐 [Pracownik #2 — SEO & GEO] Artykuł: {geo_res['title']}")
-        cms_result = publish_article_to_website(geo_res, project)
-        print(f"🔐 [Pracownik #12 — Bramka CMS] Status dla {proj_name}: {cms_result['status']}")
-        if "PUBLISHED" in cms_result.get("status", ""):
-            host = project.get("website_url", "twoja-domena.pl").replace("https://", "").replace("http://", "").split("/")[0]
-            submit_to_indexnow(host, [f"{project.get('website_url')}/articles/{geo_res['slug']}"])
+        geo_res = generate_geo_article(primary_topic, project, write_public=False)
+        print(f"🌐 [Pracownik #2 — SEO & GEO] Artykuł (do akceptacji): {geo_res['title']}")
     except Exception as e:
         print(f"[WARN] Błąd generatora GEO/SEO dla {proj_name}: {e}")
 
@@ -197,7 +204,7 @@ def run_single_project_cycle(project: dict, all_scouted_items: list, base_dir: P
         "outreach": out_data
     }
 
-    # 6. Save to Queue & Memory (Employee #10 — Anti-Ban Guard)
+    # 6. Save to Queue & Memory (#10 — Kolejka akceptacji człowieka)
     stamp_str = now_dt.strftime("%Y-%m-%d_%H%M")
     topic_slug = slugify(primary_topic['title'])
     queue_dir = base_dir / "queue" / f"{stamp_str}_{proj_id}_{topic_slug}"
@@ -211,7 +218,7 @@ def run_single_project_cycle(project: dict, all_scouted_items: list, base_dir: P
 
     (queue_dir / "1_LINKEDIN_POST.md").write_text(li_data["post"], encoding="utf-8")
     (queue_dir / "2_LINKEDIN_CAROUSEL.md").write_text(li_data["carousel"], encoding="utf-8")
-    (queue_dir / "3_TWITTER_THREAD.md").write_text(tw_data["thread"] + f"\n\n### 💬 Anti-Ban 1st Comment:\n{followup_comment}", encoding="utf-8")
+    (queue_dir / "3_TWITTER_THREAD.md").write_text(tw_data["thread"] + f"\n\n### Link do dodania ręcznie (opcjonalnie w komentarzu):\n{followup_comment}", encoding="utf-8")
     (queue_dir / "4_NEWSLETTER_EDITION.md").write_text(nl_data["newsletter"], encoding="utf-8")
     (queue_dir / "5_VIDEO_SHORTS_SCRIPT.md").write_text(vid_data["video_script"], encoding="utf-8")
     (queue_dir / "6_GITHUB_SNIPPET.py").write_text(gh_data["demo_code"], encoding="utf-8")
@@ -228,13 +235,14 @@ def run_single_project_cycle(project: dict, all_scouted_items: list, base_dir: P
         "body": tw_data['thread'][:1500],
         "followup_comment": followup_comment,
         "utm_tag": utm_info['utm_tag'],
-        "status": "scheduled",
-        "scheduled_for": (now_dt + timedelta(minutes=random.randint(18, 95))).isoformat(),
+        "status": "pending_approval",
+        "scheduled_for": now_dt.isoformat(),
         "created_at": now_dt.isoformat()
     })
 
     save_to_memory(primary_topic, queue_dir.name)
-    dispatch_content_bundle(primary_topic, bundle, queue_dir)
+    dispatch_content_bundle(primary_topic, bundle, queue_dir, dry_run_only=True)
+    write_approval(queue_dir, project, now_dt)
     print(f"✅ Kompletna paczka 10 formatów dla {proj_name} zapisana w: queue/{queue_dir.name}")
     return {
         "project": project,
@@ -252,10 +260,12 @@ def run_brand_engine():
 
     active_projects = db.get_active_projects()
     print(f"👥 Liczba aktywnych projektów / subskrybentów: {len(active_projects)}")
+    if not has_live_ai_key():
+        log_mock_ai_once()
 
     if not active_projects:
         print("[!] Brak aktywnych projektów w bazie. Dodaj projekt w saas_core/projects.json")
-        return
+        return 0
 
     print("\n🔍 [Pracownik #1] Przeczesywanie źródeł trendów dla wszystkich projektów...")
     gh_items = fetch_trending_ai_repos(limit=6)
@@ -265,8 +275,15 @@ def run_brand_engine():
 
     cycle_results = []
     for project in active_projects:
-        res = run_single_project_cycle(project, all_items, base_dir, now_dt)
-        cycle_results.append(res)
+        try:
+            res = run_single_project_cycle(project, all_items, base_dir, now_dt)
+            cycle_results.append(res)
+        except Exception as e:
+            print(f"[ERROR] Projekt {project.get('id')}: {e}")
+            log_dir = base_dir / "logs"
+            log_dir.mkdir(exist_ok=True)
+            with open(log_dir / "engine.log", "a", encoding="utf-8") as fh:
+                fh.write(f"--- {datetime.now().isoformat()} projekt {project.get('id')}\n{traceback.format_exc()}\n")
 
     print("\n📈 [Pracownik #11] Aktualizacja raportu Działu Statystycznego (Multi-Armed Bandit)...")
     try:
@@ -288,6 +305,10 @@ def run_brand_engine():
     print("\n" + "=" * 70)
     print(f"🎉 Wszystkie projekty ({len(active_projects)}) zostały obsłużone przez drużynę 12 Pracowników AI!")
     print("=" * 70)
+    if not cycle_results:
+        print("[ERROR] Żaden projekt nie zakończył się sukcesem")
+        return 1
+    return 0
 
 if __name__ == "__main__":
-    run_brand_engine()
+    sys.exit(run_brand_engine())

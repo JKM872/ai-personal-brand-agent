@@ -1,0 +1,42 @@
+﻿ M DASHBOARD.md
+ M memory/seen_topics.json
+ M public/blog.html
+ M public/index.html
+ M public/llms.txt
+ M public/raport_statystyczny.md
+ M public/sitemap.xml
+?? admin/data.json
+?? admin/index.html
+?? bundle_files.txt
+?? public/articles/najlepsze-narzedzia-do-autonomicznego-marketingu-saas-s.md
+?? public/newsletter/2026-10-30-najlepsze-narzedzia-do-autonomicznego-marketingu-saas-s.html
+?? queue/2026-10-30_0813_proj_autonoma_os_human-in-the-loop-evaluation-of-llm-agen/0_WEBSITE_SEO_ARTICLE.md
+?? queue/2026-10-30_0813_proj_autonoma_os_human-in-the-loop-evaluation-of-llm-agen/10_B2B_OUTREACH_SDR.md
+?? queue/2026-10-30_0813_proj_autonoma_os_human-in-the-loop-evaluation-of-llm-agen/1_LINKEDIN_POST.md
+?? queue/2026-10-30_0813_proj_autonoma_os_human-in-the-loop-evaluation-of-llm-agen/2_LINKEDIN_CAROUSEL.md
+?? queue/2026-10-30_0813_proj_autonoma_os_human-in-the-loop-evaluation-of-llm-agen/3_TWITTER_THREAD.md
+?? queue/2026-10-30_0813_proj_autonoma_os_human-in-the-loop-evaluation-of-llm-agen/4_NEWSLETTER_EDITION.md
+?? queue/2026-10-30_0813_proj_autonoma_os_human-in-the-loop-evaluation-of-llm-agen/5_VIDEO_SHORTS_SCRIPT.md
+?? queue/2026-10-30_0813_proj_autonoma_os_human-in-the-loop-evaluation-of-llm-agen/6_GITHUB_README.md
+?? queue/2026-10-30_0813_proj_autonoma_os_human-in-the-loop-evaluation-of-llm-agen/6_GITHUB_SNIPPET.py
+?? queue/2026-10-30_0813_proj_autonoma_os_human-in-the-loop-evaluation-of-llm-agen/7_API_PAYLOAD_READY.json
+?? queue/2026-10-30_0813_proj_autonoma_os_human-in-the-loop-evaluation-of-llm-agen/8_COMMUNITY_GROUP_PLAN.md
+?? queue/2026-10-30_0813_proj_autonoma_os_human-in-the-loop-evaluation-of-llm-agen/9_MICRO_ADS_CAMPAIGN.md
+?? queue/2026-10-30_0813_proj_autonoma_os_human-in-the-loop-evaluation-of-llm-agen/APPROVAL.json
+?? queue/2026-10-30_0813_proj_autonoma_os_human-in-the-loop-evaluation-of-llm-agen/PUBLISH_STATUS.json
+?? queue/2026-10-30_0813_proj_demo_client_retrieval-augmented-generation-for-small/0_WEBSITE_SEO_ARTICLE.md
+?? queue/2026-10-30_0813_proj_demo_client_retrieval-augmented-generation-for-small/10_B2B_OUTREACH_SDR.md
+?? queue/2026-10-30_0813_proj_demo_client_retrieval-augmented-generation-for-small/1_LINKEDIN_POST.md
+?? queue/2026-10-30_0813_proj_demo_client_retrieval-augmented-generation-for-small/2_LINKEDIN_CAROUSEL.md
+?? queue/2026-10-30_0813_proj_demo_client_retrieval-augmented-generation-for-small/3_TWITTER_THREAD.md
+?? queue/2026-10-30_0813_proj_demo_client_retrieval-augmented-generation-for-small/4_NEWSLETTER_EDITION.md
+?? queue/2026-10-30_0813_proj_demo_client_retrieval-augmented-generation-for-small/5_VIDEO_SHORTS_SCRIPT.md
+?? queue/2026-10-30_0813_proj_demo_client_retrieval-augmented-generation-for-small/6_GITHUB_README.md
+?? queue/2026-10-30_0813_proj_demo_client_retrieval-augmented-generation-for-small/6_GITHUB_SNIPPET.py
+?? queue/2026-10-30_0813_proj_demo_client_retrieval-augmented-generation-for-small/7_API_PAYLOAD_READY.json
+?? queue/2026-10-30_0813_proj_demo_client_retrieval-augmented-generation-for-small/8_COMMUNITY_GROUP_PLAN.md
+?? queue/2026-10-30_0813_proj_demo_client_retrieval-augmented-generation-for-small/9_MICRO_ADS_CAMPAIGN.md
+?? queue/2026-10-30_0813_proj_demo_client_retrieval-augmented-generation-for-small/APPROVAL.json
+?? queue/2026-10-30_0813_proj_demo_client_retrieval-augmented-generation-for-small/PUBLISH_STATUS.json
+?? run.txt
+?? status.txt
