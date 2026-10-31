@@ -25,7 +25,9 @@
     "https://github.com/dbreunig/nesformer",
     "https://fortune.com/2026/10/30/cisco-president-jeetu-patel-gen-z-27-year-old-unlimited-ai-tokens-rewrite-legacy-code-entry-level-jobs/",
     "https://github.com/qybaihe/bla",
-    "https://github.com/andyhuo520/digital-human-koubo"
+    "https://github.com/andyhuo520/digital-human-koubo",
+    "https://github.com/wangzan101/Mika",
+    "https://thedataexchange.media/leo-de-moura-lean-aws/"
   ],
   "runs": [
     {
@@ -235,6 +237,22 @@
       "url": "https://github.com/andyhuo520/digital-human-koubo",
       "score": 40.7,
       "folder": "2026-10-31_1152_proj_demo_client_andyhuo520-digital-human-koubo"
+    },
+    {
+      "timestamp": "2026-10-31 16:58:09",
+      "title": "wangzan101/Mika",
+      "source": "GitHub",
+      "url": "https://github.com/wangzan101/Mika",
+      "score": 40.0,
+      "folder": "2026-10-31_1658_proj_autonoma_os_wangzan101-mika"
+    },
+    {
+      "timestamp": "2026-10-31 16:58:09",
+      "title": "AI, Lean, and the Future of Formal Verification, with Lean Creator Leo de Moura",
+      "source": "Hacker News",
+      "url": "https://thedataexchange.media/leo-de-moura-lean-aws/",
+      "score": 36.9,
+      "folder": "2026-10-31_1658_proj_demo_client_ai-lean-and-the-future-of-formal-verific"
     }
   ]
 }

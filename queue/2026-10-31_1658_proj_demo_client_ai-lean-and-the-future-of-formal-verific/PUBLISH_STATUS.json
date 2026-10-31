@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-10-31 16:58:09",
+  "mode": "dry_run",
+  "topic": "AI, Lean, and the Future of Formal Verification, with Lean Creator Leo de Moura",
+  "dispatches": {
+    "website_article": "AWAITING_APPROVAL",
+    "linkedin": "AWAITING_APPROVAL",
+    "webhook": "AWAITING_APPROVAL",
+    "telegram": "AWAITING_APPROVAL",
+    "newsletter": "AWAITING_APPROVAL"
+  },
+  "status_summary": "GOTOWE W KOLEJCE — czeka na akceptację człowieka (python approve.py list)"
+}
