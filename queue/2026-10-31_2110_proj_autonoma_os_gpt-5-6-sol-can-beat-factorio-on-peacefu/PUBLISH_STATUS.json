@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-10-31 21:10:14",
+  "mode": "dry_run",
+  "topic": "GPT-5.6 Sol can beat Factorio on peaceful mode",
+  "dispatches": {
+    "website_article": "AWAITING_APPROVAL",
+    "linkedin": "AWAITING_APPROVAL",
+    "webhook": "AWAITING_APPROVAL",
+    "telegram": "AWAITING_APPROVAL",
+    "newsletter": "AWAITING_APPROVAL"
+  },
+  "status_summary": "GOTOWE W KOLEJCE — czeka na akceptację człowieka (python approve.py list)"
+}
