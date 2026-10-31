@@ -23,7 +23,9 @@
     "https://phorion.io/blog/offical-claude-code-vsx-compromise/",
     "https://newsletter.signoz.io/p/ai-isnt-replacing-sres-its-deskilling",
     "https://github.com/dbreunig/nesformer",
-    "https://fortune.com/2026/10/30/cisco-president-jeetu-patel-gen-z-27-year-old-unlimited-ai-tokens-rewrite-legacy-code-entry-level-jobs/"
+    "https://fortune.com/2026/10/30/cisco-president-jeetu-patel-gen-z-27-year-old-unlimited-ai-tokens-rewrite-legacy-code-entry-level-jobs/",
+    "https://github.com/qybaihe/bla",
+    "https://github.com/andyhuo520/digital-human-koubo"
   ],
   "runs": [
     {
@@ -217,6 +219,22 @@
       "url": "https://fortune.com/2026/10/30/cisco-president-jeetu-patel-gen-z-27-year-old-unlimited-ai-tokens-rewrite-legacy-code-entry-level-jobs/",
       "score": 47.2,
       "folder": "2026-10-31_0437_proj_demo_client_cisco-gives-engineer-unlimited-ai-tokens"
+    },
+    {
+      "timestamp": "2026-10-31 11:52:04",
+      "title": "qybaihe/bla",
+      "source": "GitHub",
+      "url": "https://github.com/qybaihe/bla",
+      "score": 41.0,
+      "folder": "2026-10-31_1152_proj_autonoma_os_qybaihe-bla"
+    },
+    {
+      "timestamp": "2026-10-31 11:52:04",
+      "title": "andyhuo520/digital-human-koubo",
+      "source": "GitHub",
+      "url": "https://github.com/andyhuo520/digital-human-koubo",
+      "score": 40.7,
+      "folder": "2026-10-31_1152_proj_demo_client_andyhuo520-digital-human-koubo"
     }
   ]
 }
