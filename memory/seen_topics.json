@@ -21,7 +21,9 @@
     "https://github.com/yeyuxin777/baoyan-agent-benchmark",
     "https://www.reddit.com/r/antiai/comments/1xdv3e5/hacker_reverse_engineers_his_samsung_tv_and_finds/",
     "https://phorion.io/blog/offical-claude-code-vsx-compromise/",
-    "https://newsletter.signoz.io/p/ai-isnt-replacing-sres-its-deskilling"
+    "https://newsletter.signoz.io/p/ai-isnt-replacing-sres-its-deskilling",
+    "https://github.com/dbreunig/nesformer",
+    "https://fortune.com/2026/10/30/cisco-president-jeetu-patel-gen-z-27-year-old-unlimited-ai-tokens-rewrite-legacy-code-entry-level-jobs/"
   ],
   "runs": [
     {
@@ -199,6 +201,22 @@
       "url": "https://newsletter.signoz.io/p/ai-isnt-replacing-sres-its-deskilling",
       "score": 60,
       "folder": "2026-10-30_2201_proj_demo_client_ai-isn-t-replacing-sres-it-s-deskilling-"
+    },
+    {
+      "timestamp": "2026-10-31 04:37:52",
+      "title": "Show HN: A working Nintendo in ~1GB of Qwen weights",
+      "source": "Hacker News",
+      "url": "https://github.com/dbreunig/nesformer",
+      "score": 60,
+      "folder": "2026-10-31_0437_proj_autonoma_os_show-hn-a-working-nintendo-in-1gb-of-qwe"
+    },
+    {
+      "timestamp": "2026-10-31 04:37:52",
+      "title": "Cisco gives engineer unlimited AI tokens to rewrite legacy code",
+      "source": "Hacker News",
+      "url": "https://fortune.com/2026/10/30/cisco-president-jeetu-patel-gen-z-27-year-old-unlimited-ai-tokens-rewrite-legacy-code-entry-level-jobs/",
+      "score": 47.2,
+      "folder": "2026-10-31_0437_proj_demo_client_cisco-gives-engineer-unlimited-ai-tokens"
     }
   ]
 }
