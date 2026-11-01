@@ -33,7 +33,9 @@
     "http://arxiv.org/abs/2610.40655v1",
     "http://arxiv.org/abs/2610.40649v1",
     "https://nolanlawson.com/2026/10/28/the-ai-cost-of-javascript-frameworks/",
-    "https://www.youtube.com/watch?v=gQRmSlcTq9c"
+    "https://www.youtube.com/watch?v=gQRmSlcTq9c",
+    "http://arxiv.org/abs/2610.40647v1",
+    "http://arxiv.org/abs/2610.40643v1"
   ],
   "runs": [
     {
@@ -307,6 +309,22 @@
       "url": "https://www.youtube.com/watch?v=gQRmSlcTq9c",
       "score": 31.7,
       "folder": "2026-11-01_1250_proj_demo_client_no-ai-52-min-build-all-linux-files-utils"
+    },
+    {
+      "timestamp": "2026-11-01 21:48:07",
+      "title": "Read, Allocate, Route: Role-Coupled Tokenization for Pixel-Space Generative Transformers",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2610.40647v1",
+      "score": 30,
+      "folder": "2026-11-01_2148_proj_autonoma_os_read-allocate-route-role-coupled-tokeniz"
+    },
+    {
+      "timestamp": "2026-11-01 21:48:07",
+      "title": "Luggage re-identification: A study of strategies towards a real-world application",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2610.40643v1",
+      "score": 30,
+      "folder": "2026-11-01_2148_proj_demo_client_luggage-re-identification-a-study-of-str"
     }
   ]
 }
