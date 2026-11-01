@@ -29,7 +29,9 @@
     "https://github.com/wangzan101/Mika",
     "https://thedataexchange.media/leo-de-moura-lean-aws/",
     "https://ryanmadden.net/gpt-56-beats-factorio/",
-    "https://github.com/CopilotKit/OpenDuet"
+    "https://github.com/CopilotKit/OpenDuet",
+    "http://arxiv.org/abs/2610.40655v1",
+    "http://arxiv.org/abs/2610.40649v1"
   ],
   "runs": [
     {
@@ -271,6 +273,22 @@
       "url": "https://github.com/CopilotKit/OpenDuet",
       "score": 32.2,
       "folder": "2026-10-31_2110_proj_demo_client_copilotkit-openduet"
+    },
+    {
+      "timestamp": "2026-11-01 04:57:13",
+      "title": "Elucidating the Design Space of LM Data Attribution",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2610.40655v1",
+      "score": 30,
+      "folder": "2026-11-01_0457_proj_autonoma_os_elucidating-the-design-space-of-lm-data-"
+    },
+    {
+      "timestamp": "2026-11-01 04:57:13",
+      "title": "Rethinking Neural Thickets Without Weight Perturbations",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2610.40649v1",
+      "score": 30,
+      "folder": "2026-11-01_0457_proj_demo_client_rethinking-neural-thickets-without-weigh"
     }
   ]
 }
