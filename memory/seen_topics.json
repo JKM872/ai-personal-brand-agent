@@ -31,7 +31,9 @@
     "https://ryanmadden.net/gpt-56-beats-factorio/",
     "https://github.com/CopilotKit/OpenDuet",
     "http://arxiv.org/abs/2610.40655v1",
-    "http://arxiv.org/abs/2610.40649v1"
+    "http://arxiv.org/abs/2610.40649v1",
+    "https://nolanlawson.com/2026/10/28/the-ai-cost-of-javascript-frameworks/",
+    "https://www.youtube.com/watch?v=gQRmSlcTq9c"
   ],
   "runs": [
     {
@@ -289,6 +291,22 @@
       "url": "http://arxiv.org/abs/2610.40649v1",
       "score": 30,
       "folder": "2026-11-01_0457_proj_demo_client_rethinking-neural-thickets-without-weigh"
+    },
+    {
+      "timestamp": "2026-11-01 12:51:03",
+      "title": "The AI cost of JavaScript frameworks",
+      "source": "Hacker News",
+      "url": "https://nolanlawson.com/2026/10/28/the-ai-cost-of-javascript-frameworks/",
+      "score": 45.0,
+      "folder": "2026-11-01_1250_proj_autonoma_os_the-ai-cost-of-javascript-frameworks"
+    },
+    {
+      "timestamp": "2026-11-01 12:51:03",
+      "title": "No AI, 52 min. Build all Linux Files utils in C by Hand [video]",
+      "source": "Hacker News",
+      "url": "https://www.youtube.com/watch?v=gQRmSlcTq9c",
+      "score": 31.7,
+      "folder": "2026-11-01_1250_proj_demo_client_no-ai-52-min-build-all-linux-files-utils"
     }
   ]
 }
