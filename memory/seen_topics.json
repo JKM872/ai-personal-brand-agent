@@ -35,7 +35,9 @@
     "https://nolanlawson.com/2026/10/28/the-ai-cost-of-javascript-frameworks/",
     "https://www.youtube.com/watch?v=gQRmSlcTq9c",
     "http://arxiv.org/abs/2610.40647v1",
-    "http://arxiv.org/abs/2610.40643v1"
+    "http://arxiv.org/abs/2610.40643v1",
+    "http://arxiv.org/abs/2610.42149v1",
+    "http://arxiv.org/abs/2610.42148v1"
   ],
   "runs": [
     {
@@ -325,6 +327,22 @@
       "url": "http://arxiv.org/abs/2610.40643v1",
       "score": 30,
       "folder": "2026-11-01_2148_proj_demo_client_luggage-re-identification-a-study-of-str"
+    },
+    {
+      "timestamp": "2026-11-02 04:57:51",
+      "title": "Latent Reasoning in Continuous Space for Unified Multimodal Models",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2610.42149v1",
+      "score": 45,
+      "folder": "2026-11-02_0457_proj_autonoma_os_latent-reasoning-in-continuous-space-for"
+    },
+    {
+      "timestamp": "2026-11-02 04:57:51",
+      "title": "Flide: Accelerating Decision Inference with Exact State Forking",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2610.42148v1",
+      "score": 45,
+      "folder": "2026-11-02_0457_proj_demo_client_flide-accelerating-decision-inference-wi"
     }
   ]
 }

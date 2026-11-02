@@ -1,4 +1,4 @@
-# 📊 Nocny Raport Działu Statystycznego (2026-11-01 21:48:07)
+# 📊 Nocny Raport Działu Statystycznego (2026-11-02 04:57:51)
 
 | Styl (Persona) | Opublikowane Posty | Kliknięcia (CTR) | Konwersje / Leady | Wynik Efektywności | Status Alokacji |
 |---|---|---|---|---|---|
