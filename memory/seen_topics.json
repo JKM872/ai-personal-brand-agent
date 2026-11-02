@@ -37,7 +37,9 @@
     "http://arxiv.org/abs/2610.40647v1",
     "http://arxiv.org/abs/2610.40643v1",
     "http://arxiv.org/abs/2610.42149v1",
-    "http://arxiv.org/abs/2610.42148v1"
+    "http://arxiv.org/abs/2610.42148v1",
+    "https://labs.cloudsecurityalliance.org/research/csa-research-note-china-ai-export-controls-announcement-48-2/",
+    "http://arxiv.org/abs/2610.42147v1"
   ],
   "runs": [
     {
@@ -343,6 +345,22 @@
       "url": "http://arxiv.org/abs/2610.42148v1",
       "score": 45,
       "folder": "2026-11-02_0457_proj_demo_client_flide-accelerating-decision-inference-wi"
+    },
+    {
+      "timestamp": "2026-11-02 15:01:57",
+      "title": "China's First Frontier AI Export Controls: Mofcom Announcement No. 48",
+      "source": "Hacker News",
+      "url": "https://labs.cloudsecurityalliance.org/research/csa-research-note-china-ai-export-controls-announcement-48-2/",
+      "score": 43.6,
+      "folder": "2026-11-02_1501_proj_autonoma_os_china-s-first-frontier-ai-export-control"
+    },
+    {
+      "timestamp": "2026-11-02 15:01:57",
+      "title": "Latent Sparse Attention: Towards Subquadratic Ultra-Long Context Attention",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2610.42147v1",
+      "score": 30,
+      "folder": "2026-11-02_1501_proj_demo_client_latent-sparse-attention-towards-subquadr"
     }
   ]
 }
