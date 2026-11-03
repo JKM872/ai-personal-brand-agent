@@ -41,7 +41,9 @@
     "https://labs.cloudsecurityalliance.org/research/csa-research-note-china-ai-export-controls-announcement-48-2/",
     "http://arxiv.org/abs/2610.42147v1",
     "https://rikiyat.github.io/blog/weight-space-programming/",
-    "https://www.cnbc.com/2026/11/02/oracle-files-to-sell-20-billion-in-new-stock-bonds-to-finance-ai-buildout.html"
+    "https://www.cnbc.com/2026/11/02/oracle-files-to-sell-20-billion-in-new-stock-bonds-to-finance-ai-buildout.html",
+    "https://honnibal.dev/blog/astra-read-write-misleading",
+    "http://arxiv.org/abs/2611.03641v1"
   ],
   "runs": [
     {
@@ -379,6 +381,22 @@
       "url": "https://www.cnbc.com/2026/11/02/oracle-files-to-sell-20-billion-in-new-stock-bonds-to-finance-ai-buildout.html",
       "score": 49.2,
       "folder": "2026-11-03_0042_proj_demo_client_oracle-files-to-sell-20b-in-new-stock-bo"
+    },
+    {
+      "timestamp": "2026-11-03 13:48:34",
+      "title": "The 'Astra can read and write weights to improve Qwen' post is misleading",
+      "source": "Hacker News",
+      "url": "https://honnibal.dev/blog/astra-read-write-misleading",
+      "score": 48.0,
+      "folder": "2026-11-03_1348_proj_autonoma_os_the-astra-can-read-and-write-weights-to-"
+    },
+    {
+      "timestamp": "2026-11-03 13:48:34",
+      "title": "From Natural Language to Exact Cover: A Neuro-Symbolic Approach to Zebra Puzzles",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.03641v1",
+      "score": 45,
+      "folder": "2026-11-03_1348_proj_demo_client_from-natural-language-to-exact-cover-a-n"
     }
   ]
 }
