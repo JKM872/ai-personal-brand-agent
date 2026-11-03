@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-11-03 22:59:17",
+  "mode": "dry_run",
+  "topic": "Qwen 3.8 27B on my laptop can interpret model weights, too",
+  "dispatches": {
+    "website_article": "AWAITING_APPROVAL",
+    "linkedin": "AWAITING_APPROVAL",
+    "webhook": "AWAITING_APPROVAL",
+    "telegram": "AWAITING_APPROVAL",
+    "newsletter": "AWAITING_APPROVAL"
+  },
+  "status_summary": "GOTOWE W KOLEJCE — czeka na akceptację człowieka (python approve.py list)"
+}

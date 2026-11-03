@@ -43,7 +43,9 @@
     "https://rikiyat.github.io/blog/weight-space-programming/",
     "https://www.cnbc.com/2026/11/02/oracle-files-to-sell-20-billion-in-new-stock-bonds-to-finance-ai-buildout.html",
     "https://honnibal.dev/blog/astra-read-write-misleading",
-    "http://arxiv.org/abs/2611.03641v1"
+    "http://arxiv.org/abs/2611.03641v1",
+    "https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/",
+    "https://github.com/postmanlabs/postman-app-support/issues/14370"
   ],
   "runs": [
     {
@@ -397,6 +399,22 @@
       "url": "http://arxiv.org/abs/2611.03641v1",
       "score": 45,
       "folder": "2026-11-03_1348_proj_demo_client_from-natural-language-to-exact-cover-a-n"
+    },
+    {
+      "timestamp": "2026-11-03 22:59:17",
+      "title": "Qwen 3.8 27B on my laptop can interpret model weights, too",
+      "source": "Hacker News",
+      "url": "https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/",
+      "score": 60,
+      "folder": "2026-11-03_2259_proj_autonoma_os_qwen-3-8-27b-on-my-laptop-can-interpret-"
+    },
+    {
+      "timestamp": "2026-11-03 22:59:17",
+      "title": "Postman silently auto-installs AI plugins and attempts to share all API data",
+      "source": "Hacker News",
+      "url": "https://github.com/postmanlabs/postman-app-support/issues/14370",
+      "score": 60,
+      "folder": "2026-11-03_2259_proj_demo_client_postman-silently-auto-installs-ai-plugin"
     }
   ]
 }

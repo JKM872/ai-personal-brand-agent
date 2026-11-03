@@ -1,9 +1,9 @@
-# 📊 Nocny Raport Działu Statystycznego (2026-11-03 13:48:34)
+# 📊 Nocny Raport Działu Statystycznego (2026-11-03 22:59:17)
 
 | Styl (Persona) | Opublikowane Posty | Kliknięcia (CTR) | Konwersje / Leady | Wynik Efektywności | Status Alokacji |
 |---|---|---|---|---|---|
 | **analityk_danych** | 1 | 0 | 0 | **1.0 pkt** | 🟢 Priorytet (Większość ruchu) |
-| **case_study** | 1 | 0 | 0 | **1.0 pkt** | 🟡 Testowanie (20% eksploracji) |
+| **case_study** | 2 | 0 | 0 | **1.0 pkt** | 🟡 Testowanie (20% eksploracji) |
 | **kontrowersyjny_ekspert** | 1 | 0 | 0 | **1.0 pkt** | 🟡 Testowanie (20% eksploracji) |
 
 ---
