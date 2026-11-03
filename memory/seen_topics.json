@@ -39,7 +39,9 @@
     "http://arxiv.org/abs/2610.42149v1",
     "http://arxiv.org/abs/2610.42148v1",
     "https://labs.cloudsecurityalliance.org/research/csa-research-note-china-ai-export-controls-announcement-48-2/",
-    "http://arxiv.org/abs/2610.42147v1"
+    "http://arxiv.org/abs/2610.42147v1",
+    "https://rikiyat.github.io/blog/weight-space-programming/",
+    "https://www.cnbc.com/2026/11/02/oracle-files-to-sell-20-billion-in-new-stock-bonds-to-finance-ai-buildout.html"
   ],
   "runs": [
     {
@@ -361,6 +363,22 @@
       "url": "http://arxiv.org/abs/2610.42147v1",
       "score": 30,
       "folder": "2026-11-02_1501_proj_demo_client_latent-sparse-attention-towards-subquadr"
+    },
+    {
+      "timestamp": "2026-11-03 00:43:01",
+      "title": "Astra can read and write weights to improve Qwen",
+      "source": "Hacker News",
+      "url": "https://rikiyat.github.io/blog/weight-space-programming/",
+      "score": 60,
+      "folder": "2026-11-03_0042_proj_autonoma_os_astra-can-read-and-write-weights-to-impr"
+    },
+    {
+      "timestamp": "2026-11-03 00:43:01",
+      "title": "Oracle files to sell $20B in new stock, bonds to finance AI buildout",
+      "source": "Hacker News",
+      "url": "https://www.cnbc.com/2026/11/02/oracle-files-to-sell-20-billion-in-new-stock-bonds-to-finance-ai-buildout.html",
+      "score": 49.2,
+      "folder": "2026-11-03_0042_proj_demo_client_oracle-files-to-sell-20b-in-new-stock-bo"
     }
   ]
 }
