@@ -45,7 +45,9 @@
     "https://honnibal.dev/blog/astra-read-write-misleading",
     "http://arxiv.org/abs/2611.03641v1",
     "https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/",
-    "https://github.com/postmanlabs/postman-app-support/issues/14370"
+    "https://github.com/postmanlabs/postman-app-support/issues/14370",
+    "https://arstechnica.com/gadgets/2026/10/fujifilm-to-boost-tape-production-5x-as-ai-fuels-archiving-demand/",
+    "https://arxiv.org/abs/2605.29713"
   ],
   "runs": [
     {
@@ -415,6 +417,22 @@
       "url": "https://github.com/postmanlabs/postman-app-support/issues/14370",
       "score": 60,
       "folder": "2026-11-03_2259_proj_demo_client_postman-silently-auto-installs-ai-plugin"
+    },
+    {
+      "timestamp": "2026-11-04 05:21:29",
+      "title": "Fujifilm to boost tape production 5x as AI fuels archiving demand",
+      "source": "Hacker News",
+      "url": "https://arstechnica.com/gadgets/2026/10/fujifilm-to-boost-tape-production-5x-as-ai-fuels-archiving-demand/",
+      "score": 60,
+      "folder": "2026-11-04_0521_proj_autonoma_os_fujifilm-to-boost-tape-production-5x-as-"
+    },
+    {
+      "timestamp": "2026-11-04 05:21:29",
+      "title": "The Little Book of Generative AI Foundations: An Intuitive Mathematical Primer",
+      "source": "Hacker News",
+      "url": "https://arxiv.org/abs/2605.29713",
+      "score": 56.0,
+      "folder": "2026-11-04_0521_proj_demo_client_the-little-book-of-generative-ai-foundat"
     }
   ]
 }
