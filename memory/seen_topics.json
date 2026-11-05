@@ -53,7 +53,9 @@
     "https://huggingface.co/moonshotai/Kimi-K3.1-Pro",
     "https://www.anthropic.com/research/provable-inference",
     "https://arstechnica.com/ai/2026/10/doordash-says-outside-ai-agents-have-only-led-to-hundreds-of-orders-so-far/",
-    "https://www.qualcomm.com/data-center/products/cloud-ai-100-ultra"
+    "https://www.qualcomm.com/data-center/products/cloud-ai-100-ultra",
+    "https://github.com/benjitaylor/skills",
+    "https://github.com/DenisSergeevitch/ex-ussr-kinship-research"
   ],
   "runs": [
     {
@@ -487,6 +489,22 @@
       "url": "https://www.qualcomm.com/data-center/products/cloud-ai-100-ultra",
       "score": 43.1,
       "folder": "2026-11-05_0540_proj_demo_client_qualcomm-cloud-ai-100-ultra-150w-ai-acce"
+    },
+    {
+      "timestamp": "2026-11-05 14:13:45",
+      "title": "benjitaylor/skills",
+      "source": "GitHub",
+      "url": "https://github.com/benjitaylor/skills",
+      "score": 35.5,
+      "folder": "2026-11-05_1413_proj_autonoma_os_benjitaylor-skills"
+    },
+    {
+      "timestamp": "2026-11-05 14:13:45",
+      "title": "DenisSergeevitch/ex-ussr-kinship-research",
+      "source": "GitHub",
+      "url": "https://github.com/DenisSergeevitch/ex-ussr-kinship-research",
+      "score": 34.5,
+      "folder": "2026-11-05_1413_proj_demo_client_denissergeevitch-ex-ussr-kinship-researc"
     }
   ]
 }
