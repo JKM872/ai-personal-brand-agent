@@ -55,7 +55,9 @@
     "https://arstechnica.com/ai/2026/10/doordash-says-outside-ai-agents-have-only-led-to-hundreds-of-orders-so-far/",
     "https://www.qualcomm.com/data-center/products/cloud-ai-100-ultra",
     "https://github.com/benjitaylor/skills",
-    "https://github.com/DenisSergeevitch/ex-ussr-kinship-research"
+    "https://github.com/DenisSergeevitch/ex-ussr-kinship-research",
+    "https://github.com/anthropics/claude-code/issues/107757",
+    "https://finance.yahoo.com/technology/ai/articles/mark-cuban-says-facebook-knowingly-213000020.html"
   ],
   "runs": [
     {
@@ -505,6 +507,22 @@
       "url": "https://github.com/DenisSergeevitch/ex-ussr-kinship-research",
       "score": 34.5,
       "folder": "2026-11-05_1413_proj_demo_client_denissergeevitch-ex-ussr-kinship-researc"
+    },
+    {
+      "timestamp": "2026-11-06 05:38:14",
+      "title": "Claude Code sends your email address to websites",
+      "source": "Hacker News",
+      "url": "https://github.com/anthropics/claude-code/issues/107757",
+      "score": 60,
+      "folder": "2026-11-06_0538_proj_autonoma_os_claude-code-sends-your-email-address-to-"
+    },
+    {
+      "timestamp": "2026-11-06 05:38:14",
+      "title": "Cuban: Facebook knowingly runs AI deepfake scam ads; docs say $16B fraud revenue",
+      "source": "Hacker News",
+      "url": "https://finance.yahoo.com/technology/ai/articles/mark-cuban-says-facebook-knowingly-213000020.html",
+      "score": 60,
+      "folder": "2026-11-06_0538_proj_demo_client_cuban-facebook-knowingly-runs-ai-deepfak"
     }
   ]
 }
