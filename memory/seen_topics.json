@@ -59,7 +59,9 @@
     "https://github.com/anthropics/claude-code/issues/107757",
     "https://finance.yahoo.com/technology/ai/articles/mark-cuban-says-facebook-knowingly-213000020.html",
     "https://www.linum.ai/field-notes/pjit-21k",
-    "https://github.com/andrew-babo/muse4ai"
+    "https://github.com/andrew-babo/muse4ai",
+    "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash/",
+    "https://github.com/anomalyco/rune"
   ],
   "runs": [
     {
@@ -541,6 +543,22 @@
       "url": "https://github.com/andrew-babo/muse4ai",
       "score": 34.2,
       "folder": "2026-11-06_1353_proj_demo_client_andrew-babo-muse4ai"
+    },
+    {
+      "timestamp": "2026-11-06 22:50:08",
+      "title": "Gemini Omni 1.2 Flash",
+      "source": "Hacker News",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash/",
+      "score": 60,
+      "folder": "2026-11-06_2250_proj_autonoma_os_gemini-omni-1-2-flash"
+    },
+    {
+      "timestamp": "2026-11-06 22:50:08",
+      "title": "Rune: A native GPU-rendered Rust UI framework for macOS, Windows, Linux and web",
+      "source": "Hacker News",
+      "url": "https://github.com/anomalyco/rune",
+      "score": 46.4,
+      "folder": "2026-11-06_2250_proj_demo_client_rune-a-native-gpu-rendered-rust-ui-frame"
     }
   ]
 }
