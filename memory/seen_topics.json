@@ -57,7 +57,9 @@
     "https://github.com/benjitaylor/skills",
     "https://github.com/DenisSergeevitch/ex-ussr-kinship-research",
     "https://github.com/anthropics/claude-code/issues/107757",
-    "https://finance.yahoo.com/technology/ai/articles/mark-cuban-says-facebook-knowingly-213000020.html"
+    "https://finance.yahoo.com/technology/ai/articles/mark-cuban-says-facebook-knowingly-213000020.html",
+    "https://www.linum.ai/field-notes/pjit-21k",
+    "https://github.com/andrew-babo/muse4ai"
   ],
   "runs": [
     {
@@ -523,6 +525,22 @@
       "url": "https://finance.yahoo.com/technology/ai/articles/mark-cuban-says-facebook-knowingly-213000020.html",
       "score": 60,
       "folder": "2026-11-06_0538_proj_demo_client_cuban-facebook-knowingly-runs-ai-deepfak"
+    },
+    {
+      "timestamp": "2026-11-06 13:53:54",
+      "title": "Show HN: A decent text-to-image model trained for ~$20K (Apache 2.0 Weights)",
+      "source": "Hacker News",
+      "url": "https://www.linum.ai/field-notes/pjit-21k",
+      "score": 47.7,
+      "folder": "2026-11-06_1353_proj_autonoma_os_show-hn-a-decent-text-to-image-model-tra"
+    },
+    {
+      "timestamp": "2026-11-06 13:53:54",
+      "title": "andrew-babo/muse4ai",
+      "source": "GitHub",
+      "url": "https://github.com/andrew-babo/muse4ai",
+      "score": 34.2,
+      "folder": "2026-11-06_1353_proj_demo_client_andrew-babo-muse4ai"
     }
   ]
 }
