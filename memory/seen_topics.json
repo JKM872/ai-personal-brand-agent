@@ -61,7 +61,9 @@
     "https://www.linum.ai/field-notes/pjit-21k",
     "https://github.com/andrew-babo/muse4ai",
     "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash/",
-    "https://github.com/anomalyco/rune"
+    "https://github.com/anomalyco/rune",
+    "https://www.planned-obsolescence.org/p/ai-is-dramatically-accelerating-ai",
+    "http://arxiv.org/abs/2611.08483v1"
   ],
   "runs": [
     {
@@ -559,6 +561,22 @@
       "url": "https://github.com/anomalyco/rune",
       "score": 46.4,
       "folder": "2026-11-06_2250_proj_demo_client_rune-a-native-gpu-rendered-rust-ui-frame"
+    },
+    {
+      "timestamp": "2026-11-07 05:07:21",
+      "title": "AI is dramatically accelerating AI research",
+      "source": "Hacker News",
+      "url": "https://www.planned-obsolescence.org/p/ai-is-dramatically-accelerating-ai",
+      "score": 60,
+      "folder": "2026-11-07_0507_proj_autonoma_os_ai-is-dramatically-accelerating-ai-resea"
+    },
+    {
+      "timestamp": "2026-11-07 05:07:21",
+      "title": "SwarmEvolve: Latent Agent Swarms for Evolutionary Discovery and Optimization",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.08483v1",
+      "score": 30,
+      "folder": "2026-11-07_0507_proj_demo_client_swarmevolve-latent-agent-swarms-for-evol"
     }
   ]
 }
