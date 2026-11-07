@@ -63,7 +63,9 @@
     "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash/",
     "https://github.com/anomalyco/rune",
     "https://www.planned-obsolescence.org/p/ai-is-dramatically-accelerating-ai",
-    "http://arxiv.org/abs/2611.08483v1"
+    "http://arxiv.org/abs/2611.08483v1",
+    "https://www.anthropic.com/research/components-of-agent-memory",
+    "http://arxiv.org/abs/2611.08478v1"
   ],
   "runs": [
     {
@@ -577,6 +579,22 @@
       "url": "http://arxiv.org/abs/2611.08483v1",
       "score": 30,
       "folder": "2026-11-07_0507_proj_demo_client_swarmevolve-latent-agent-swarms-for-evol"
+    },
+    {
+      "timestamp": "2026-11-07 12:38:27",
+      "title": "The Components of Agent Memory",
+      "source": "Hacker News",
+      "url": "https://www.anthropic.com/research/components-of-agent-memory",
+      "score": 39.6,
+      "folder": "2026-11-07_1238_proj_autonoma_os_the-components-of-agent-memory"
+    },
+    {
+      "timestamp": "2026-11-07 12:38:27",
+      "title": "Scientist World: Grow a Research World for AI-Scientists",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.08478v1",
+      "score": 30,
+      "folder": "2026-11-07_1238_proj_demo_client_scientist-world-grow-a-research-world-fo"
     }
   ]
 }
