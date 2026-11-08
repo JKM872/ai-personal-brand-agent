@@ -69,7 +69,9 @@
     "https://hunch.net/?p=13764006",
     "http://arxiv.org/abs/2611.08472v1",
     "https://apiiro.com/blog/coding-agents-leaking-secrets-github-dont-ask-again",
-    "http://arxiv.org/abs/2611.08469v1"
+    "http://arxiv.org/abs/2611.08469v1",
+    "https://caleb.software/posts/claude-to-pi.html",
+    "https://www.lorekit.io/blog/open-agent-memory-format"
   ],
   "runs": [
     {
@@ -631,6 +633,22 @@
       "url": "http://arxiv.org/abs/2611.08469v1",
       "score": 30,
       "folder": "2026-11-08_0500_proj_demo_client_same-behavior-different-mechanism-what-f"
+    },
+    {
+      "timestamp": "2026-11-08 12:55:33",
+      "title": "Goodbye Claude, Hello Pi",
+      "source": "Hacker News",
+      "url": "https://caleb.software/posts/claude-to-pi.html",
+      "score": 60,
+      "folder": "2026-11-08_1255_proj_autonoma_os_goodbye-claude-hello-pi"
+    },
+    {
+      "timestamp": "2026-11-08 12:55:33",
+      "title": "Agent memory needs its OpenTelemetry moment",
+      "source": "Hacker News",
+      "url": "https://www.lorekit.io/blog/open-agent-memory-format",
+      "score": 48.8,
+      "folder": "2026-11-08_1255_proj_demo_client_agent-memory-needs-its-opentelemetry-mom"
     }
   ]
 }
