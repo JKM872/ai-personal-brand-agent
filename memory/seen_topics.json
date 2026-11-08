@@ -71,7 +71,9 @@
     "https://apiiro.com/blog/coding-agents-leaking-secrets-github-dont-ask-again",
     "http://arxiv.org/abs/2611.08469v1",
     "https://caleb.software/posts/claude-to-pi.html",
-    "https://www.lorekit.io/blog/open-agent-memory-format"
+    "https://www.lorekit.io/blog/open-agent-memory-format",
+    "https://www.thestateofai.com/news/goldman-sachs-claude-code-traders-bankers",
+    "https://github.com/synchopate/llama-modchip"
   ],
   "runs": [
     {
@@ -649,6 +651,22 @@
       "url": "https://www.lorekit.io/blog/open-agent-memory-format",
       "score": 48.8,
       "folder": "2026-11-08_1255_proj_demo_client_agent-memory-needs-its-opentelemetry-mom"
+    },
+    {
+      "timestamp": "2026-11-08 21:49:00",
+      "title": "Goldman Sachs Is Pulling Claude Code from Its Bankers and Traders",
+      "source": "Hacker News",
+      "url": "https://www.thestateofai.com/news/goldman-sachs-claude-code-traders-bankers",
+      "score": 60,
+      "folder": "2026-11-08_2148_proj_autonoma_os_goldman-sachs-is-pulling-claude-code-fro"
+    },
+    {
+      "timestamp": "2026-11-08 21:49:00",
+      "title": "Llama-modchip: 284B DeepSeek on 64GB RAM, no GPU",
+      "source": "Hacker News",
+      "url": "https://github.com/synchopate/llama-modchip",
+      "score": 60,
+      "folder": "2026-11-08_2148_proj_demo_client_llama-modchip-284b-deepseek-on-64gb-ram-"
     }
   ]
 }
