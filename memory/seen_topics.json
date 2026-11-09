@@ -73,7 +73,9 @@
     "https://caleb.software/posts/claude-to-pi.html",
     "https://www.lorekit.io/blog/open-agent-memory-format",
     "https://www.thestateofai.com/news/goldman-sachs-claude-code-traders-bankers",
-    "https://github.com/synchopate/llama-modchip"
+    "https://github.com/synchopate/llama-modchip",
+    "https://sergeykuhne.com/blog/fighting-ai-brain-fry",
+    "http://arxiv.org/abs/2611.09868v1"
   ],
   "runs": [
     {
@@ -667,6 +669,22 @@
       "url": "https://github.com/synchopate/llama-modchip",
       "score": 60,
       "folder": "2026-11-08_2148_proj_demo_client_llama-modchip-284b-deepseek-on-64gb-ram-"
+    },
+    {
+      "timestamp": "2026-11-09 05:11:38",
+      "title": "How I Fight AI Brain Fry",
+      "source": "Hacker News",
+      "url": "https://sergeykuhne.com/blog/fighting-ai-brain-fry",
+      "score": 58.4,
+      "folder": "2026-11-09_0511_proj_autonoma_os_how-i-fight-ai-brain-fry"
+    },
+    {
+      "timestamp": "2026-11-09 05:11:38",
+      "title": "CodeQuant2: Enhanced Outlier Mitigation and Adaptive Clustering for Low-Precision LRMs",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.09868v1",
+      "score": 45,
+      "folder": "2026-11-09_0511_proj_demo_client_codequant2-enhanced-outlier-mitigation-a"
     }
   ]
 }

@@ -1,6 +1,6 @@
 # ⚡ Autonoma AI — Centrum Dowodzenia (12-Agent Workforce OS)
 
-> **Ostatni cykl:** `2026-11-08 21:48:57`  
+> **Ostatni cykl:** `2026-11-09 05:11:34`  
 > **Silnik AI:** `🟡 Wbudowany Silnik Syntezy (Wklej klucz w config/accounts.json lub w Panelu WWW)`  
 > **Obsłużone projekty klientów (Multi-Tenant):** `2`  
 > **Koszt infrastruktury:** `0,00 PLN`  
@@ -11,39 +11,39 @@
 
 ### 🚀 Projekt: **Autonoma AI (Główna Platforma)** (`proj_autonoma_os`)
 * **Domena:** https://twoja-domena.pl | **Kategoria:** SaaS & AI Workforce Platform
-* **Wybrany styl (Multi-Armed Bandit):** `kontrowersyjny_ekspert` | **Status Bramki CMS:** `AWAITING_APPROVAL`
-* **Folder paczki 10 kanałów:** [`queue/2026-11-08_2148_proj_autonoma_os_goldman-sachs-is-pulling-claude-code-fro/`](queue/2026-11-08_2148_proj_autonoma_os_goldman-sachs-is-pulling-claude-code-fro)
+* **Wybrany styl (Multi-Armed Bandit):** `analityk_danych` | **Status Bramki CMS:** `AWAITING_APPROVAL`
+* **Folder paczki 10 kanałów:** [`queue/2026-11-09_0511_proj_autonoma_os_how-i-fight-ai-brain-fry/`](queue/2026-11-09_0511_proj_autonoma_os_how-i-fight-ai-brain-fry)
 
 | # | Kanał / Format | Plik w Kolejce | Odpowiedzialny Pracownik AI |
 |---|---|---|---|
-| 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/2026-11-08_2148_proj_autonoma_os_goldman-sachs-is-pulling-claude-code-fro/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |
-| 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/2026-11-08_2148_proj_autonoma_os_goldman-sachs-is-pulling-claude-code-fro/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |
-| 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/2026-11-08_2148_proj_autonoma_os_goldman-sachs-is-pulling-claude-code-fro/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |
-| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-11-08_2148_proj_autonoma_os_goldman-sachs-is-pulling-claude-code-fro/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X) |
-| 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/2026-11-08_2148_proj_autonoma_os_goldman-sachs-is-pulling-claude-code-fro/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |
-| 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/2026-11-08_2148_proj_autonoma_os_goldman-sachs-is-pulling-claude-code-fro/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |
-| 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/2026-11-08_2148_proj_autonoma_os_goldman-sachs-is-pulling-claude-code-fro/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |
-| 8 | **Wydanie Newslettera (Brevo / Resend)** | [`4_NEWSLETTER_EDITION.md`](queue/2026-11-08_2148_proj_autonoma_os_goldman-sachs-is-pulling-claude-code-fro/4_NEWSLETTER_EDITION.md) | Pracownik #8 (Redaktor Newslettera) |
-| 9 | **Scenariusz Wideo 60s (Shorts / Reels)** | [`5_VIDEO_SHORTS_SCRIPT.md`](queue/2026-11-08_2148_proj_autonoma_os_goldman-sachs-is-pulling-claude-code-fro/5_VIDEO_SHORTS_SCRIPT.md) | Pracownik #9 (Reżyser Wideo Shorts) |
-| 10 | **Kod Schema.org JSON-LD & Webhook** | [`6_GITHUB_SNIPPET.py`](queue/2026-11-08_2148_proj_autonoma_os_goldman-sachs-is-pulling-claude-code-fro/6_GITHUB_SNIPPET.py) | Pracownik #12 (Inżynier Integracji CMS) |
+| 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/2026-11-09_0511_proj_autonoma_os_how-i-fight-ai-brain-fry/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |
+| 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/2026-11-09_0511_proj_autonoma_os_how-i-fight-ai-brain-fry/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |
+| 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/2026-11-09_0511_proj_autonoma_os_how-i-fight-ai-brain-fry/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |
+| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-11-09_0511_proj_autonoma_os_how-i-fight-ai-brain-fry/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X) |
+| 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/2026-11-09_0511_proj_autonoma_os_how-i-fight-ai-brain-fry/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |
+| 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/2026-11-09_0511_proj_autonoma_os_how-i-fight-ai-brain-fry/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |
+| 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/2026-11-09_0511_proj_autonoma_os_how-i-fight-ai-brain-fry/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |
+| 8 | **Wydanie Newslettera (Brevo / Resend)** | [`4_NEWSLETTER_EDITION.md`](queue/2026-11-09_0511_proj_autonoma_os_how-i-fight-ai-brain-fry/4_NEWSLETTER_EDITION.md) | Pracownik #8 (Redaktor Newslettera) |
+| 9 | **Scenariusz Wideo 60s (Shorts / Reels)** | [`5_VIDEO_SHORTS_SCRIPT.md`](queue/2026-11-09_0511_proj_autonoma_os_how-i-fight-ai-brain-fry/5_VIDEO_SHORTS_SCRIPT.md) | Pracownik #9 (Reżyser Wideo Shorts) |
+| 10 | **Kod Schema.org JSON-LD & Webhook** | [`6_GITHUB_SNIPPET.py`](queue/2026-11-09_0511_proj_autonoma_os_how-i-fight-ai-brain-fry/6_GITHUB_SNIPPET.py) | Pracownik #12 (Inżynier Integracji CMS) |
 
 ### 🚀 Projekt: **InvoicePulse AI (Klient Subskrypcyjny #1)** (`proj_demo_client`)
 * **Domena:** https://invoicepulse-demo.com | **Kategoria:** Fintech & Automatyzacja B2B
 * **Wybrany styl (Multi-Armed Bandit):** `kontrowersyjny_ekspert` | **Status Bramki CMS:** `AWAITING_APPROVAL`
-* **Folder paczki 10 kanałów:** [`queue/2026-11-08_2148_proj_demo_client_llama-modchip-284b-deepseek-on-64gb-ram-/`](queue/2026-11-08_2148_proj_demo_client_llama-modchip-284b-deepseek-on-64gb-ram-)
+* **Folder paczki 10 kanałów:** [`queue/2026-11-09_0511_proj_demo_client_codequant2-enhanced-outlier-mitigation-a/`](queue/2026-11-09_0511_proj_demo_client_codequant2-enhanced-outlier-mitigation-a)
 
 | # | Kanał / Format | Plik w Kolejce | Odpowiedzialny Pracownik AI |
 |---|---|---|---|
-| 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/2026-11-08_2148_proj_demo_client_llama-modchip-284b-deepseek-on-64gb-ram-/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |
-| 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/2026-11-08_2148_proj_demo_client_llama-modchip-284b-deepseek-on-64gb-ram-/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |
-| 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/2026-11-08_2148_proj_demo_client_llama-modchip-284b-deepseek-on-64gb-ram-/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |
-| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-11-08_2148_proj_demo_client_llama-modchip-284b-deepseek-on-64gb-ram-/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X) |
-| 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/2026-11-08_2148_proj_demo_client_llama-modchip-284b-deepseek-on-64gb-ram-/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |
-| 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/2026-11-08_2148_proj_demo_client_llama-modchip-284b-deepseek-on-64gb-ram-/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |
-| 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/2026-11-08_2148_proj_demo_client_llama-modchip-284b-deepseek-on-64gb-ram-/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |
-| 8 | **Wydanie Newslettera (Brevo / Resend)** | [`4_NEWSLETTER_EDITION.md`](queue/2026-11-08_2148_proj_demo_client_llama-modchip-284b-deepseek-on-64gb-ram-/4_NEWSLETTER_EDITION.md) | Pracownik #8 (Redaktor Newslettera) |
-| 9 | **Scenariusz Wideo 60s (Shorts / Reels)** | [`5_VIDEO_SHORTS_SCRIPT.md`](queue/2026-11-08_2148_proj_demo_client_llama-modchip-284b-deepseek-on-64gb-ram-/5_VIDEO_SHORTS_SCRIPT.md) | Pracownik #9 (Reżyser Wideo Shorts) |
-| 10 | **Kod Schema.org JSON-LD & Webhook** | [`6_GITHUB_SNIPPET.py`](queue/2026-11-08_2148_proj_demo_client_llama-modchip-284b-deepseek-on-64gb-ram-/6_GITHUB_SNIPPET.py) | Pracownik #12 (Inżynier Integracji CMS) |
+| 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/2026-11-09_0511_proj_demo_client_codequant2-enhanced-outlier-mitigation-a/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |
+| 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/2026-11-09_0511_proj_demo_client_codequant2-enhanced-outlier-mitigation-a/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |
+| 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/2026-11-09_0511_proj_demo_client_codequant2-enhanced-outlier-mitigation-a/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |
+| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-11-09_0511_proj_demo_client_codequant2-enhanced-outlier-mitigation-a/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X) |
+| 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/2026-11-09_0511_proj_demo_client_codequant2-enhanced-outlier-mitigation-a/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |
+| 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/2026-11-09_0511_proj_demo_client_codequant2-enhanced-outlier-mitigation-a/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |
+| 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/2026-11-09_0511_proj_demo_client_codequant2-enhanced-outlier-mitigation-a/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |
+| 8 | **Wydanie Newslettera (Brevo / Resend)** | [`4_NEWSLETTER_EDITION.md`](queue/2026-11-09_0511_proj_demo_client_codequant2-enhanced-outlier-mitigation-a/4_NEWSLETTER_EDITION.md) | Pracownik #8 (Redaktor Newslettera) |
+| 9 | **Scenariusz Wideo 60s (Shorts / Reels)** | [`5_VIDEO_SHORTS_SCRIPT.md`](queue/2026-11-09_0511_proj_demo_client_codequant2-enhanced-outlier-mitigation-a/5_VIDEO_SHORTS_SCRIPT.md) | Pracownik #9 (Reżyser Wideo Shorts) |
+| 10 | **Kod Schema.org JSON-LD & Webhook** | [`6_GITHUB_SNIPPET.py`](queue/2026-11-09_0511_proj_demo_client_codequant2-enhanced-outlier-mitigation-a/6_GITHUB_SNIPPET.py) | Pracownik #12 (Inżynier Integracji CMS) |
 
 ## 💼 Lejek leadów
 
