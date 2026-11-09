@@ -75,7 +75,9 @@
     "https://www.thestateofai.com/news/goldman-sachs-claude-code-traders-bankers",
     "https://github.com/synchopate/llama-modchip",
     "https://sergeykuhne.com/blog/fighting-ai-brain-fry",
-    "http://arxiv.org/abs/2611.09868v1"
+    "http://arxiv.org/abs/2611.09868v1",
+    "https://matteoraso.github.io/im-not-convinced-the-ai-bubble-exists.html#im-not-convinced-the-ai-bubble-exists",
+    "https://github.com/sarpstar/cinecode"
   ],
   "runs": [
     {
@@ -685,6 +687,22 @@
       "url": "http://arxiv.org/abs/2611.09868v1",
       "score": 45,
       "folder": "2026-11-09_0511_proj_demo_client_codequant2-enhanced-outlier-mitigation-a"
+    },
+    {
+      "timestamp": "2026-11-09 15:31:25",
+      "title": "I'm not convinced the AI bubble exists",
+      "source": "Hacker News",
+      "url": "https://matteoraso.github.io/im-not-convinced-the-ai-bubble-exists.html#im-not-convinced-the-ai-bubble-exists",
+      "score": 60,
+      "folder": "2026-11-09_1531_proj_autonoma_os_i-m-not-convinced-the-ai-bubble-exists"
+    },
+    {
+      "timestamp": "2026-11-09 15:31:25",
+      "title": "sarpstar/cinecode",
+      "source": "GitHub",
+      "url": "https://github.com/sarpstar/cinecode",
+      "score": 33.3,
+      "folder": "2026-11-09_1531_proj_demo_client_sarpstar-cinecode"
     }
   ]
 }
