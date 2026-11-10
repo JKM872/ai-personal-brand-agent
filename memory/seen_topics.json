@@ -79,7 +79,9 @@
     "https://matteoraso.github.io/im-not-convinced-the-ai-bubble-exists.html#im-not-convinced-the-ai-bubble-exists",
     "https://github.com/sarpstar/cinecode",
     "https://www.anthropic.com/claude-fable-and-mythos-5-2",
-    "https://github.com/thisisme6598/gemini_files/"
+    "https://github.com/thisisme6598/gemini_files/",
+    "http://arxiv.org/abs/2611.12834v1",
+    "https://github.com/JosssphZhou/poki"
   ],
   "runs": [
     {
@@ -721,6 +723,22 @@
       "url": "https://github.com/thisisme6598/gemini_files/",
       "score": 60,
       "folder": "2026-11-10_0116_proj_demo_client_google-gemini-routes-personal-drive-file"
+    },
+    {
+      "timestamp": "2026-11-10 14:30:11",
+      "title": "Programming Prescience: Issues in Human Construction of Forecasting Bots",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.12834v1",
+      "score": 45,
+      "folder": "2026-11-10_1430_proj_autonoma_os_programming-prescience-issues-in-human-c"
+    },
+    {
+      "timestamp": "2026-11-10 14:30:11",
+      "title": "JosssphZhou/poki",
+      "source": "GitHub",
+      "url": "https://github.com/JosssphZhou/poki",
+      "score": 33.8,
+      "folder": "2026-11-10_1430_proj_demo_client_josssphzhou-poki"
     }
   ]
 }
