@@ -77,7 +77,9 @@
     "https://sergeykuhne.com/blog/fighting-ai-brain-fry",
     "http://arxiv.org/abs/2611.09868v1",
     "https://matteoraso.github.io/im-not-convinced-the-ai-bubble-exists.html#im-not-convinced-the-ai-bubble-exists",
-    "https://github.com/sarpstar/cinecode"
+    "https://github.com/sarpstar/cinecode",
+    "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+    "https://github.com/thisisme6598/gemini_files/"
   ],
   "runs": [
     {
@@ -703,6 +705,22 @@
       "url": "https://github.com/sarpstar/cinecode",
       "score": 33.3,
       "folder": "2026-11-09_1531_proj_demo_client_sarpstar-cinecode"
+    },
+    {
+      "timestamp": "2026-11-10 01:16:52",
+      "title": "Claude Fable 5.2 and Mythos 5.2",
+      "source": "Hacker News",
+      "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+      "score": 60,
+      "folder": "2026-11-10_0116_proj_autonoma_os_claude-fable-5-2-and-mythos-5-2"
+    },
+    {
+      "timestamp": "2026-11-10 01:16:52",
+      "title": "Google Gemini routes personal Drive files and emails to human annotators",
+      "source": "Hacker News",
+      "url": "https://github.com/thisisme6598/gemini_files/",
+      "score": 60,
+      "folder": "2026-11-10_0116_proj_demo_client_google-gemini-routes-personal-drive-file"
     }
   ]
 }

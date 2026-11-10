@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-11-10 01:16:52",
+  "mode": "dry_run",
+  "topic": "Google Gemini routes personal Drive files and emails to human annotators",
+  "dispatches": {
+    "website_article": "AWAITING_APPROVAL",
+    "linkedin": "AWAITING_APPROVAL",
+    "webhook": "AWAITING_APPROVAL",
+    "telegram": "AWAITING_APPROVAL",
+    "newsletter": "AWAITING_APPROVAL"
+  },
+  "status_summary": "GOTOWE W KOLEJCE — czeka na akceptację człowieka (python approve.py list)"
+}
