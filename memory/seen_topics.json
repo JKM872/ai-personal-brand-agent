@@ -81,7 +81,9 @@
     "https://www.anthropic.com/claude-fable-and-mythos-5-2",
     "https://github.com/thisisme6598/gemini_files/",
     "http://arxiv.org/abs/2611.12834v1",
-    "https://github.com/JosssphZhou/poki"
+    "https://github.com/JosssphZhou/poki",
+    "https://github.com/GoogleChrome/modern-web-guidance",
+    "https://evanxmerz.com/post/ai-usage-generates-a-fragile-codebase/"
   ],
   "runs": [
     {
@@ -739,6 +741,22 @@
       "url": "https://github.com/JosssphZhou/poki",
       "score": 33.8,
       "folder": "2026-11-10_1430_proj_demo_client_josssphzhou-poki"
+    },
+    {
+      "timestamp": "2026-11-10 22:57:10",
+      "title": "Show HN: Get your coding agent off ~2019 JavaScript, onto modern web primitives",
+      "source": "Hacker News",
+      "url": "https://github.com/GoogleChrome/modern-web-guidance",
+      "score": 74.3,
+      "folder": "2026-11-10_2257_proj_autonoma_os_show-hn-get-your-coding-agent-off-2019-j"
+    },
+    {
+      "timestamp": "2026-11-10 22:57:10",
+      "title": "AI usage generates a fragile codebase",
+      "source": "Hacker News",
+      "url": "https://evanxmerz.com/post/ai-usage-generates-a-fragile-codebase/",
+      "score": 60,
+      "folder": "2026-11-10_2257_proj_demo_client_ai-usage-generates-a-fragile-codebase"
     }
   ]
 }
