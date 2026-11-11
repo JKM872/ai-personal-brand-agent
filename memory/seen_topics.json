@@ -83,7 +83,9 @@
     "http://arxiv.org/abs/2611.12834v1",
     "https://github.com/JosssphZhou/poki",
     "https://github.com/GoogleChrome/modern-web-guidance",
-    "https://evanxmerz.com/post/ai-usage-generates-a-fragile-codebase/"
+    "https://evanxmerz.com/post/ai-usage-generates-a-fragile-codebase/",
+    "https://github.com/expo/exact",
+    "https://github.com/DIYgod/pinky"
   ],
   "runs": [
     {
@@ -757,6 +759,22 @@
       "url": "https://evanxmerz.com/post/ai-usage-generates-a-fragile-codebase/",
       "score": 60,
       "folder": "2026-11-10_2257_proj_demo_client_ai-usage-generates-a-fragile-codebase"
+    },
+    {
+      "timestamp": "2026-11-11 05:12:26",
+      "title": "expo/exact",
+      "source": "GitHub",
+      "url": "https://github.com/expo/exact",
+      "score": 38.3,
+      "folder": "2026-11-11_0512_proj_autonoma_os_expo-exact"
+    },
+    {
+      "timestamp": "2026-11-11 05:12:26",
+      "title": "DIYgod/pinky",
+      "source": "GitHub",
+      "url": "https://github.com/DIYgod/pinky",
+      "score": 32.4,
+      "folder": "2026-11-11_0512_proj_demo_client_diygod-pinky"
     }
   ]
 }
