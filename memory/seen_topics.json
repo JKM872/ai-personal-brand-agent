@@ -85,7 +85,9 @@
     "https://github.com/GoogleChrome/modern-web-guidance",
     "https://evanxmerz.com/post/ai-usage-generates-a-fragile-codebase/",
     "https://github.com/expo/exact",
-    "https://github.com/DIYgod/pinky"
+    "https://github.com/DIYgod/pinky",
+    "https://pietromiotti.com/latest/maya-site/?maya",
+    "https://9to5mac.com/2026/11/10/apple-has-new-mac-app-coming-to-make-running-local-ai-models-easy/"
   ],
   "runs": [
     {
@@ -775,6 +777,22 @@
       "url": "https://github.com/DIYgod/pinky",
       "score": 32.4,
       "folder": "2026-11-11_0512_proj_demo_client_diygod-pinky"
+    },
+    {
+      "timestamp": "2026-11-11 13:45:19",
+      "title": "Google SWE points 48 AI agents at NASA Lidar, finds unmapped Maya pyramid in 72h",
+      "source": "Hacker News",
+      "url": "https://pietromiotti.com/latest/maya-site/?maya",
+      "score": 72.0,
+      "folder": "2026-11-11_1345_proj_autonoma_os_google-swe-points-48-ai-agents-at-nasa-l"
+    },
+    {
+      "timestamp": "2026-11-11 13:45:19",
+      "title": "Apple has new Mac app coming to make running local AI models easy",
+      "source": "Hacker News",
+      "url": "https://9to5mac.com/2026/11/10/apple-has-new-mac-app-coming-to-make-running-local-ai-models-easy/",
+      "score": 60,
+      "folder": "2026-11-11_1345_proj_demo_client_apple-has-new-mac-app-coming-to-make-run"
     }
   ]
 }

@@ -1,6 +1,6 @@
 # ⚡ Autonoma AI — Centrum Dowodzenia (12-Agent Workforce OS)
 
-> **Ostatni cykl:** `2026-11-11 05:12:22`  
+> **Ostatni cykl:** `2026-11-11 13:45:16`  
 > **Silnik AI:** `🟡 Wbudowany Silnik Syntezy (Wklej klucz w config/accounts.json lub w Panelu WWW)`  
 > **Obsłużone projekty klientów (Multi-Tenant):** `2`  
 > **Koszt infrastruktury:** `0,00 PLN`  
@@ -12,38 +12,38 @@
 ### 🚀 Projekt: **Autonoma AI (Główna Platforma)** (`proj_autonoma_os`)
 * **Domena:** https://twoja-domena.pl | **Kategoria:** SaaS & AI Workforce Platform
 * **Wybrany styl (Multi-Armed Bandit):** `case_study` | **Status Bramki CMS:** `AWAITING_APPROVAL`
-* **Folder paczki 10 kanałów:** [`queue/2026-11-11_0512_proj_autonoma_os_expo-exact/`](queue/2026-11-11_0512_proj_autonoma_os_expo-exact)
+* **Folder paczki 10 kanałów:** [`queue/2026-11-11_1345_proj_autonoma_os_google-swe-points-48-ai-agents-at-nasa-l/`](queue/2026-11-11_1345_proj_autonoma_os_google-swe-points-48-ai-agents-at-nasa-l)
 
 | # | Kanał / Format | Plik w Kolejce | Odpowiedzialny Pracownik AI |
 |---|---|---|---|
-| 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/2026-11-11_0512_proj_autonoma_os_expo-exact/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |
-| 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/2026-11-11_0512_proj_autonoma_os_expo-exact/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |
-| 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/2026-11-11_0512_proj_autonoma_os_expo-exact/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |
-| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-11-11_0512_proj_autonoma_os_expo-exact/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X) |
-| 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/2026-11-11_0512_proj_autonoma_os_expo-exact/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |
-| 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/2026-11-11_0512_proj_autonoma_os_expo-exact/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |
-| 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/2026-11-11_0512_proj_autonoma_os_expo-exact/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |
-| 8 | **Wydanie Newslettera (Brevo / Resend)** | [`4_NEWSLETTER_EDITION.md`](queue/2026-11-11_0512_proj_autonoma_os_expo-exact/4_NEWSLETTER_EDITION.md) | Pracownik #8 (Redaktor Newslettera) |
-| 9 | **Scenariusz Wideo 60s (Shorts / Reels)** | [`5_VIDEO_SHORTS_SCRIPT.md`](queue/2026-11-11_0512_proj_autonoma_os_expo-exact/5_VIDEO_SHORTS_SCRIPT.md) | Pracownik #9 (Reżyser Wideo Shorts) |
-| 10 | **Kod Schema.org JSON-LD & Webhook** | [`6_GITHUB_SNIPPET.py`](queue/2026-11-11_0512_proj_autonoma_os_expo-exact/6_GITHUB_SNIPPET.py) | Pracownik #12 (Inżynier Integracji CMS) |
+| 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/2026-11-11_1345_proj_autonoma_os_google-swe-points-48-ai-agents-at-nasa-l/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |
+| 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/2026-11-11_1345_proj_autonoma_os_google-swe-points-48-ai-agents-at-nasa-l/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |
+| 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/2026-11-11_1345_proj_autonoma_os_google-swe-points-48-ai-agents-at-nasa-l/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |
+| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-11-11_1345_proj_autonoma_os_google-swe-points-48-ai-agents-at-nasa-l/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X) |
+| 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/2026-11-11_1345_proj_autonoma_os_google-swe-points-48-ai-agents-at-nasa-l/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |
+| 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/2026-11-11_1345_proj_autonoma_os_google-swe-points-48-ai-agents-at-nasa-l/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |
+| 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/2026-11-11_1345_proj_autonoma_os_google-swe-points-48-ai-agents-at-nasa-l/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |
+| 8 | **Wydanie Newslettera (Brevo / Resend)** | [`4_NEWSLETTER_EDITION.md`](queue/2026-11-11_1345_proj_autonoma_os_google-swe-points-48-ai-agents-at-nasa-l/4_NEWSLETTER_EDITION.md) | Pracownik #8 (Redaktor Newslettera) |
+| 9 | **Scenariusz Wideo 60s (Shorts / Reels)** | [`5_VIDEO_SHORTS_SCRIPT.md`](queue/2026-11-11_1345_proj_autonoma_os_google-swe-points-48-ai-agents-at-nasa-l/5_VIDEO_SHORTS_SCRIPT.md) | Pracownik #9 (Reżyser Wideo Shorts) |
+| 10 | **Kod Schema.org JSON-LD & Webhook** | [`6_GITHUB_SNIPPET.py`](queue/2026-11-11_1345_proj_autonoma_os_google-swe-points-48-ai-agents-at-nasa-l/6_GITHUB_SNIPPET.py) | Pracownik #12 (Inżynier Integracji CMS) |
 
 ### 🚀 Projekt: **InvoicePulse AI (Klient Subskrypcyjny #1)** (`proj_demo_client`)
 * **Domena:** https://invoicepulse-demo.com | **Kategoria:** Fintech & Automatyzacja B2B
-* **Wybrany styl (Multi-Armed Bandit):** `case_study` | **Status Bramki CMS:** `AWAITING_APPROVAL`
-* **Folder paczki 10 kanałów:** [`queue/2026-11-11_0512_proj_demo_client_diygod-pinky/`](queue/2026-11-11_0512_proj_demo_client_diygod-pinky)
+* **Wybrany styl (Multi-Armed Bandit):** `analityk_danych` | **Status Bramki CMS:** `AWAITING_APPROVAL`
+* **Folder paczki 10 kanałów:** [`queue/2026-11-11_1345_proj_demo_client_apple-has-new-mac-app-coming-to-make-run/`](queue/2026-11-11_1345_proj_demo_client_apple-has-new-mac-app-coming-to-make-run)
 
 | # | Kanał / Format | Plik w Kolejce | Odpowiedzialny Pracownik AI |
 |---|---|---|---|
-| 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/2026-11-11_0512_proj_demo_client_diygod-pinky/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |
-| 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/2026-11-11_0512_proj_demo_client_diygod-pinky/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |
-| 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/2026-11-11_0512_proj_demo_client_diygod-pinky/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |
-| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-11-11_0512_proj_demo_client_diygod-pinky/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X) |
-| 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/2026-11-11_0512_proj_demo_client_diygod-pinky/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |
-| 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/2026-11-11_0512_proj_demo_client_diygod-pinky/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |
-| 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/2026-11-11_0512_proj_demo_client_diygod-pinky/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |
-| 8 | **Wydanie Newslettera (Brevo / Resend)** | [`4_NEWSLETTER_EDITION.md`](queue/2026-11-11_0512_proj_demo_client_diygod-pinky/4_NEWSLETTER_EDITION.md) | Pracownik #8 (Redaktor Newslettera) |
-| 9 | **Scenariusz Wideo 60s (Shorts / Reels)** | [`5_VIDEO_SHORTS_SCRIPT.md`](queue/2026-11-11_0512_proj_demo_client_diygod-pinky/5_VIDEO_SHORTS_SCRIPT.md) | Pracownik #9 (Reżyser Wideo Shorts) |
-| 10 | **Kod Schema.org JSON-LD & Webhook** | [`6_GITHUB_SNIPPET.py`](queue/2026-11-11_0512_proj_demo_client_diygod-pinky/6_GITHUB_SNIPPET.py) | Pracownik #12 (Inżynier Integracji CMS) |
+| 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/2026-11-11_1345_proj_demo_client_apple-has-new-mac-app-coming-to-make-run/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |
+| 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/2026-11-11_1345_proj_demo_client_apple-has-new-mac-app-coming-to-make-run/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |
+| 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/2026-11-11_1345_proj_demo_client_apple-has-new-mac-app-coming-to-make-run/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |
+| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-11-11_1345_proj_demo_client_apple-has-new-mac-app-coming-to-make-run/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X) |
+| 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/2026-11-11_1345_proj_demo_client_apple-has-new-mac-app-coming-to-make-run/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |
+| 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/2026-11-11_1345_proj_demo_client_apple-has-new-mac-app-coming-to-make-run/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |
+| 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/2026-11-11_1345_proj_demo_client_apple-has-new-mac-app-coming-to-make-run/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |
+| 8 | **Wydanie Newslettera (Brevo / Resend)** | [`4_NEWSLETTER_EDITION.md`](queue/2026-11-11_1345_proj_demo_client_apple-has-new-mac-app-coming-to-make-run/4_NEWSLETTER_EDITION.md) | Pracownik #8 (Redaktor Newslettera) |
+| 9 | **Scenariusz Wideo 60s (Shorts / Reels)** | [`5_VIDEO_SHORTS_SCRIPT.md`](queue/2026-11-11_1345_proj_demo_client_apple-has-new-mac-app-coming-to-make-run/5_VIDEO_SHORTS_SCRIPT.md) | Pracownik #9 (Reżyser Wideo Shorts) |
+| 10 | **Kod Schema.org JSON-LD & Webhook** | [`6_GITHUB_SNIPPET.py`](queue/2026-11-11_1345_proj_demo_client_apple-has-new-mac-app-coming-to-make-run/6_GITHUB_SNIPPET.py) | Pracownik #12 (Inżynier Integracji CMS) |
 
 ## 💼 Lejek leadów
 
