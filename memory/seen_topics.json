@@ -91,7 +91,9 @@
     "https://www.cbsnews.com/news/united-airlines-bans-ai-agents-booking-flights/",
     "https://pietromiotti.com/latest/maya-site",
     "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
-    "https://github.com/agentes-chat/agentes-chat"
+    "https://github.com/agentes-chat/agentes-chat",
+    "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
+    "https://antigravity.google/blog/gemini-4-hydrogen-in-google-antigravity/"
   ],
   "runs": [
     {
@@ -829,6 +831,22 @@
       "url": "https://github.com/agentes-chat/agentes-chat",
       "score": 33.9,
       "folder": "2026-11-12_1448_proj_demo_client_agentes-chat-agentes-chat"
+    },
+    {
+      "timestamp": "2026-11-12 23:18:55",
+      "title": "Gemini 4 Hydrogen",
+      "source": "Hacker News",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
+      "score": 60,
+      "folder": "2026-11-12_2318_proj_autonoma_os_gemini-4-hydrogen"
+    },
+    {
+      "timestamp": "2026-11-12 23:18:55",
+      "title": "Gemini 4 Hydrogen and Orchestrator",
+      "source": "Hacker News",
+      "url": "https://antigravity.google/blog/gemini-4-hydrogen-in-google-antigravity/",
+      "score": 59.0,
+      "folder": "2026-11-12_2318_proj_demo_client_gemini-4-hydrogen-and-orchestrator"
     }
   ]
 }
