@@ -89,7 +89,9 @@
     "https://pietromiotti.com/latest/maya-site/?maya",
     "https://9to5mac.com/2026/11/10/apple-has-new-mac-app-coming-to-make-running-local-ai-models-easy/",
     "https://www.cbsnews.com/news/united-airlines-bans-ai-agents-booking-flights/",
-    "https://pietromiotti.com/latest/maya-site"
+    "https://pietromiotti.com/latest/maya-site",
+    "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+    "https://github.com/agentes-chat/agentes-chat"
   ],
   "runs": [
     {
@@ -811,6 +813,22 @@
       "url": "https://pietromiotti.com/latest/maya-site",
       "score": 75,
       "folder": "2026-11-12_0013_proj_demo_client_my-ai-agents-found-an-unmapped-maya-site"
+    },
+    {
+      "timestamp": "2026-11-12 14:48:59",
+      "title": "Gemini Decisions API",
+      "source": "Hacker News",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+      "score": 60,
+      "folder": "2026-11-12_1448_proj_autonoma_os_gemini-decisions-api"
+    },
+    {
+      "timestamp": "2026-11-12 14:48:59",
+      "title": "agentes-chat/agentes-chat",
+      "source": "GitHub",
+      "url": "https://github.com/agentes-chat/agentes-chat",
+      "score": 33.9,
+      "folder": "2026-11-12_1448_proj_demo_client_agentes-chat-agentes-chat"
     }
   ]
 }
