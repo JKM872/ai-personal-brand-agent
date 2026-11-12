@@ -87,7 +87,9 @@
     "https://github.com/expo/exact",
     "https://github.com/DIYgod/pinky",
     "https://pietromiotti.com/latest/maya-site/?maya",
-    "https://9to5mac.com/2026/11/10/apple-has-new-mac-app-coming-to-make-running-local-ai-models-easy/"
+    "https://9to5mac.com/2026/11/10/apple-has-new-mac-app-coming-to-make-running-local-ai-models-easy/",
+    "https://www.cbsnews.com/news/united-airlines-bans-ai-agents-booking-flights/",
+    "https://pietromiotti.com/latest/maya-site"
   ],
   "runs": [
     {
@@ -793,6 +795,22 @@
       "url": "https://9to5mac.com/2026/11/10/apple-has-new-mac-app-coming-to-make-running-local-ai-models-easy/",
       "score": 60,
       "folder": "2026-11-11_1345_proj_demo_client_apple-has-new-mac-app-coming-to-make-run"
+    },
+    {
+      "timestamp": "2026-11-12 00:13:07",
+      "title": "United Airlines bans AI agents from booking flights on behalf of travelers",
+      "source": "Hacker News",
+      "url": "https://www.cbsnews.com/news/united-airlines-bans-ai-agents-booking-flights/",
+      "score": 75,
+      "folder": "2026-11-12_0013_proj_autonoma_os_united-airlines-bans-ai-agents-from-book"
+    },
+    {
+      "timestamp": "2026-11-12 00:13:07",
+      "title": "My AI agents found an unmapped Maya site",
+      "source": "Hacker News",
+      "url": "https://pietromiotti.com/latest/maya-site",
+      "score": 75,
+      "folder": "2026-11-12_0013_proj_demo_client_my-ai-agents-found-an-unmapped-maya-site"
     }
   ]
 }
