@@ -93,7 +93,9 @@
     "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
     "https://github.com/agentes-chat/agentes-chat",
     "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
-    "https://antigravity.google/blog/gemini-4-hydrogen-in-google-antigravity/"
+    "https://antigravity.google/blog/gemini-4-hydrogen-in-google-antigravity/",
+    "https://unemploymentlabs.com/checkpoint-forensics",
+    "https://synthanatomy.com/2026/11/ai-is-turning-apples-app-review-process-into-a-nightmare-for-developers.html"
   ],
   "runs": [
     {
@@ -847,6 +849,22 @@
       "url": "https://antigravity.google/blog/gemini-4-hydrogen-in-google-antigravity/",
       "score": 59.0,
       "folder": "2026-11-12_2318_proj_demo_client_gemini-4-hydrogen-and-orchestrator"
+    },
+    {
+      "timestamp": "2026-11-13 05:37:53",
+      "title": "Chinese frontier AI models carry the fingerprint of export-controlled GPUs",
+      "source": "Hacker News",
+      "url": "https://unemploymentlabs.com/checkpoint-forensics",
+      "score": 60,
+      "folder": "2026-11-13_0537_proj_autonoma_os_chinese-frontier-ai-models-carry-the-fin"
+    },
+    {
+      "timestamp": "2026-11-13 05:37:53",
+      "title": "AI is turning Apple's app review process into a nightmare for synth developers",
+      "source": "Hacker News",
+      "url": "https://synthanatomy.com/2026/11/ai-is-turning-apples-app-review-process-into-a-nightmare-for-developers.html",
+      "score": 47.8,
+      "folder": "2026-11-13_0537_proj_demo_client_ai-is-turning-apple-s-app-review-process"
     }
   ]
 }
