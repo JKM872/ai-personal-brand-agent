@@ -1,6 +1,6 @@
 # ⚡ Autonoma AI — Centrum Dowodzenia (12-Agent Workforce OS)
 
-> **Ostatni cykl:** `2026-11-13 14:07:59`  
+> **Ostatni cykl:** `2026-11-13 23:21:29`  
 > **Silnik AI:** `🟡 Wbudowany Silnik Syntezy (Wklej klucz w config/accounts.json lub w Panelu WWW)`  
 > **Obsłużone projekty klientów (Multi-Tenant):** `2`  
 > **Koszt infrastruktury:** `0,00 PLN`  
@@ -11,39 +11,39 @@
 
 ### 🚀 Projekt: **Autonoma AI (Główna Platforma)** (`proj_autonoma_os`)
 * **Domena:** https://twoja-domena.pl | **Kategoria:** SaaS & AI Workforce Platform
-* **Wybrany styl (Multi-Armed Bandit):** `analityk_danych` | **Status Bramki CMS:** `AWAITING_APPROVAL`
-* **Folder paczki 10 kanałów:** [`queue/2026-11-13_1407_proj_autonoma_os_elevated-errors-on-claude-ai-claude-code/`](queue/2026-11-13_1407_proj_autonoma_os_elevated-errors-on-claude-ai-claude-code)
+* **Wybrany styl (Multi-Armed Bandit):** `case_study` | **Status Bramki CMS:** `AWAITING_APPROVAL`
+* **Folder paczki 10 kanałów:** [`queue/2026-11-13_2321_proj_autonoma_os_ai-unlocks-g-del-s-notebooks-said-to-con/`](queue/2026-11-13_2321_proj_autonoma_os_ai-unlocks-g-del-s-notebooks-said-to-con)
 
 | # | Kanał / Format | Plik w Kolejce | Odpowiedzialny Pracownik AI |
 |---|---|---|---|
-| 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/2026-11-13_1407_proj_autonoma_os_elevated-errors-on-claude-ai-claude-code/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |
-| 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/2026-11-13_1407_proj_autonoma_os_elevated-errors-on-claude-ai-claude-code/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |
-| 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/2026-11-13_1407_proj_autonoma_os_elevated-errors-on-claude-ai-claude-code/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |
-| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-11-13_1407_proj_autonoma_os_elevated-errors-on-claude-ai-claude-code/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X) |
-| 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/2026-11-13_1407_proj_autonoma_os_elevated-errors-on-claude-ai-claude-code/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |
-| 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/2026-11-13_1407_proj_autonoma_os_elevated-errors-on-claude-ai-claude-code/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |
-| 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/2026-11-13_1407_proj_autonoma_os_elevated-errors-on-claude-ai-claude-code/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |
-| 8 | **Wydanie Newslettera (Brevo / Resend)** | [`4_NEWSLETTER_EDITION.md`](queue/2026-11-13_1407_proj_autonoma_os_elevated-errors-on-claude-ai-claude-code/4_NEWSLETTER_EDITION.md) | Pracownik #8 (Redaktor Newslettera) |
-| 9 | **Scenariusz Wideo 60s (Shorts / Reels)** | [`5_VIDEO_SHORTS_SCRIPT.md`](queue/2026-11-13_1407_proj_autonoma_os_elevated-errors-on-claude-ai-claude-code/5_VIDEO_SHORTS_SCRIPT.md) | Pracownik #9 (Reżyser Wideo Shorts) |
-| 10 | **Kod Schema.org JSON-LD & Webhook** | [`6_GITHUB_SNIPPET.py`](queue/2026-11-13_1407_proj_autonoma_os_elevated-errors-on-claude-ai-claude-code/6_GITHUB_SNIPPET.py) | Pracownik #12 (Inżynier Integracji CMS) |
+| 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/2026-11-13_2321_proj_autonoma_os_ai-unlocks-g-del-s-notebooks-said-to-con/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |
+| 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/2026-11-13_2321_proj_autonoma_os_ai-unlocks-g-del-s-notebooks-said-to-con/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |
+| 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/2026-11-13_2321_proj_autonoma_os_ai-unlocks-g-del-s-notebooks-said-to-con/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |
+| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-11-13_2321_proj_autonoma_os_ai-unlocks-g-del-s-notebooks-said-to-con/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X) |
+| 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/2026-11-13_2321_proj_autonoma_os_ai-unlocks-g-del-s-notebooks-said-to-con/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |
+| 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/2026-11-13_2321_proj_autonoma_os_ai-unlocks-g-del-s-notebooks-said-to-con/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |
+| 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/2026-11-13_2321_proj_autonoma_os_ai-unlocks-g-del-s-notebooks-said-to-con/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |
+| 8 | **Wydanie Newslettera (Brevo / Resend)** | [`4_NEWSLETTER_EDITION.md`](queue/2026-11-13_2321_proj_autonoma_os_ai-unlocks-g-del-s-notebooks-said-to-con/4_NEWSLETTER_EDITION.md) | Pracownik #8 (Redaktor Newslettera) |
+| 9 | **Scenariusz Wideo 60s (Shorts / Reels)** | [`5_VIDEO_SHORTS_SCRIPT.md`](queue/2026-11-13_2321_proj_autonoma_os_ai-unlocks-g-del-s-notebooks-said-to-con/5_VIDEO_SHORTS_SCRIPT.md) | Pracownik #9 (Reżyser Wideo Shorts) |
+| 10 | **Kod Schema.org JSON-LD & Webhook** | [`6_GITHUB_SNIPPET.py`](queue/2026-11-13_2321_proj_autonoma_os_ai-unlocks-g-del-s-notebooks-said-to-con/6_GITHUB_SNIPPET.py) | Pracownik #12 (Inżynier Integracji CMS) |
 
 ### 🚀 Projekt: **InvoicePulse AI (Klient Subskrypcyjny #1)** (`proj_demo_client`)
 * **Domena:** https://invoicepulse-demo.com | **Kategoria:** Fintech & Automatyzacja B2B
-* **Wybrany styl (Multi-Armed Bandit):** `case_study` | **Status Bramki CMS:** `AWAITING_APPROVAL`
-* **Folder paczki 10 kanałów:** [`queue/2026-11-13_1407_proj_demo_client_edge0-145b-frontier-ai-capabilities-on-y/`](queue/2026-11-13_1407_proj_demo_client_edge0-145b-frontier-ai-capabilities-on-y)
+* **Wybrany styl (Multi-Armed Bandit):** `analityk_danych` | **Status Bramki CMS:** `AWAITING_APPROVAL`
+* **Folder paczki 10 kanałów:** [`queue/2026-11-13_2321_proj_demo_client_a-technical-vision-for-the-haskell-ecosy/`](queue/2026-11-13_2321_proj_demo_client_a-technical-vision-for-the-haskell-ecosy)
 
 | # | Kanał / Format | Plik w Kolejce | Odpowiedzialny Pracownik AI |
 |---|---|---|---|
-| 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/2026-11-13_1407_proj_demo_client_edge0-145b-frontier-ai-capabilities-on-y/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |
-| 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/2026-11-13_1407_proj_demo_client_edge0-145b-frontier-ai-capabilities-on-y/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |
-| 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/2026-11-13_1407_proj_demo_client_edge0-145b-frontier-ai-capabilities-on-y/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |
-| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-11-13_1407_proj_demo_client_edge0-145b-frontier-ai-capabilities-on-y/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X) |
-| 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/2026-11-13_1407_proj_demo_client_edge0-145b-frontier-ai-capabilities-on-y/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |
-| 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/2026-11-13_1407_proj_demo_client_edge0-145b-frontier-ai-capabilities-on-y/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |
-| 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/2026-11-13_1407_proj_demo_client_edge0-145b-frontier-ai-capabilities-on-y/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |
-| 8 | **Wydanie Newslettera (Brevo / Resend)** | [`4_NEWSLETTER_EDITION.md`](queue/2026-11-13_1407_proj_demo_client_edge0-145b-frontier-ai-capabilities-on-y/4_NEWSLETTER_EDITION.md) | Pracownik #8 (Redaktor Newslettera) |
-| 9 | **Scenariusz Wideo 60s (Shorts / Reels)** | [`5_VIDEO_SHORTS_SCRIPT.md`](queue/2026-11-13_1407_proj_demo_client_edge0-145b-frontier-ai-capabilities-on-y/5_VIDEO_SHORTS_SCRIPT.md) | Pracownik #9 (Reżyser Wideo Shorts) |
-| 10 | **Kod Schema.org JSON-LD & Webhook** | [`6_GITHUB_SNIPPET.py`](queue/2026-11-13_1407_proj_demo_client_edge0-145b-frontier-ai-capabilities-on-y/6_GITHUB_SNIPPET.py) | Pracownik #12 (Inżynier Integracji CMS) |
+| 1 | **Artykuł Blogowy SEO & GEO** | [`0_WEBSITE_SEO_ARTICLE.md`](queue/2026-11-13_2321_proj_demo_client_a-technical-vision-for-the-haskell-ecosy/0_WEBSITE_SEO_ARTICLE.md) | Pracownik #2 (Architekt SEO & GEO) |
+| 2 | **Post Ekspercki LinkedIn** | [`1_LINKEDIN_POST.md`](queue/2026-11-13_2321_proj_demo_client_a-technical-vision-for-the-haskell-ecosy/1_LINKEDIN_POST.md) | Pracownik #3 (Ghostwriter LinkedIn) |
+| 3 | **Karuzela LinkedIn PDF (5 Slajdów)** | [`2_LINKEDIN_CAROUSEL.md`](queue/2026-11-13_2321_proj_demo_client_a-technical-vision-for-the-haskell-ecosy/2_LINKEDIN_CAROUSEL.md) | Pracownik #3 (Projektant Karuzel) |
+| 4 | **Wątek X / Twitter + 1. Komentarz UTM** | [`3_TWITTER_THREAD.md`](queue/2026-11-13_2321_proj_demo_client_a-technical-vision-for-the-haskell-ecosy/3_TWITTER_THREAD.md) | Pracownik #4 & #10 (Strateg X) |
+| 5 | **Strategia Własnej Grupy (FB / Discord)** | [`8_COMMUNITY_GROUP_PLAN.md`](queue/2026-11-13_2321_proj_demo_client_a-technical-vision-for-the-haskell-ecosy/8_COMMUNITY_GROUP_PLAN.md) | Pracownik #5 (Manager Społeczności) |
+| 6 | **Kampania Micro-Budget Ads (0-20 zł)** | [`9_MICRO_ADS_CAMPAIGN.md`](queue/2026-11-13_2321_proj_demo_client_a-technical-vision-for-the-haskell-ecosy/9_MICRO_ADS_CAMPAIGN.md) | Pracownik #6 (Inżynier Performance Ads) |
+| 7 | **Pozyskiwanie Klientów B2B (SDR DM)** | [`10_B2B_OUTREACH_SDR.md`](queue/2026-11-13_2321_proj_demo_client_a-technical-vision-for-the-haskell-ecosy/10_B2B_OUTREACH_SDR.md) | Pracownik #7 (Specjalista B2B Outreach) |
+| 8 | **Wydanie Newslettera (Brevo / Resend)** | [`4_NEWSLETTER_EDITION.md`](queue/2026-11-13_2321_proj_demo_client_a-technical-vision-for-the-haskell-ecosy/4_NEWSLETTER_EDITION.md) | Pracownik #8 (Redaktor Newslettera) |
+| 9 | **Scenariusz Wideo 60s (Shorts / Reels)** | [`5_VIDEO_SHORTS_SCRIPT.md`](queue/2026-11-13_2321_proj_demo_client_a-technical-vision-for-the-haskell-ecosy/5_VIDEO_SHORTS_SCRIPT.md) | Pracownik #9 (Reżyser Wideo Shorts) |
+| 10 | **Kod Schema.org JSON-LD & Webhook** | [`6_GITHUB_SNIPPET.py`](queue/2026-11-13_2321_proj_demo_client_a-technical-vision-for-the-haskell-ecosy/6_GITHUB_SNIPPET.py) | Pracownik #12 (Inżynier Integracji CMS) |
 
 ## 💼 Lejek leadów
 

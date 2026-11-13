@@ -97,7 +97,9 @@
     "https://unemploymentlabs.com/checkpoint-forensics",
     "https://synthanatomy.com/2026/11/ai-is-turning-apples-app-review-process-into-a-nightmare-for-developers.html",
     "https://status.claude.com/incidents/nn11wk485zfn",
-    "https://edge0.ai/blog/introducing-edge0-145b-frontier-ai-capabilities-on-your-own-computer"
+    "https://edge0.ai/blog/introducing-edge0-145b-frontier-ai-capabilities-on-your-own-computer",
+    "https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths",
+    "https://discourse.haskell.org/t/a-technical-vision-for-the-haskell-ecosystem/15078"
   ],
   "runs": [
     {
@@ -883,6 +885,22 @@
       "url": "https://edge0.ai/blog/introducing-edge0-145b-frontier-ai-capabilities-on-your-own-computer",
       "score": 60,
       "folder": "2026-11-13_1407_proj_demo_client_edge0-145b-frontier-ai-capabilities-on-y"
+    },
+    {
+      "timestamp": "2026-11-13 23:21:33",
+      "title": "AI unlocks Gödel's notebooks, said to contain hundreds of proved theorems",
+      "source": "Hacker News",
+      "url": "https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths",
+      "score": 60,
+      "folder": "2026-11-13_2321_proj_autonoma_os_ai-unlocks-g-del-s-notebooks-said-to-con"
+    },
+    {
+      "timestamp": "2026-11-13 23:21:33",
+      "title": "A technical vision for the Haskell ecosystem",
+      "source": "Hacker News",
+      "url": "https://discourse.haskell.org/t/a-technical-vision-for-the-haskell-ecosystem/15078",
+      "score": 53.4,
+      "folder": "2026-11-13_2321_proj_demo_client_a-technical-vision-for-the-haskell-ecosy"
     }
   ]
 }
