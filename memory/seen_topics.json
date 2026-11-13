@@ -95,7 +95,9 @@
     "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
     "https://antigravity.google/blog/gemini-4-hydrogen-in-google-antigravity/",
     "https://unemploymentlabs.com/checkpoint-forensics",
-    "https://synthanatomy.com/2026/11/ai-is-turning-apples-app-review-process-into-a-nightmare-for-developers.html"
+    "https://synthanatomy.com/2026/11/ai-is-turning-apples-app-review-process-into-a-nightmare-for-developers.html",
+    "https://status.claude.com/incidents/nn11wk485zfn",
+    "https://edge0.ai/blog/introducing-edge0-145b-frontier-ai-capabilities-on-your-own-computer"
   ],
   "runs": [
     {
@@ -865,6 +867,22 @@
       "url": "https://synthanatomy.com/2026/11/ai-is-turning-apples-app-review-process-into-a-nightmare-for-developers.html",
       "score": 47.8,
       "folder": "2026-11-13_0537_proj_demo_client_ai-is-turning-apple-s-app-review-process"
+    },
+    {
+      "timestamp": "2026-11-13 14:08:02",
+      "title": "Elevated errors on claude.ai, Claude Code, and platform.claude.com",
+      "source": "Hacker News",
+      "url": "https://status.claude.com/incidents/nn11wk485zfn",
+      "score": 60,
+      "folder": "2026-11-13_1407_proj_autonoma_os_elevated-errors-on-claude-ai-claude-code"
+    },
+    {
+      "timestamp": "2026-11-13 14:08:02",
+      "title": "Edge0-145B: Frontier AI Capabilities on Your Own Computer",
+      "source": "Hacker News",
+      "url": "https://edge0.ai/blog/introducing-edge0-145b-frontier-ai-capabilities-on-your-own-computer",
+      "score": 60,
+      "folder": "2026-11-13_1407_proj_demo_client_edge0-145b-frontier-ai-capabilities-on-y"
     }
   ]
 }
