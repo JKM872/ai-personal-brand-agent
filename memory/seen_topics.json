@@ -99,25 +99,11 @@
     "https://status.claude.com/incidents/nn11wk485zfn",
     "https://edge0.ai/blog/introducing-edge0-145b-frontier-ai-capabilities-on-your-own-computer",
     "https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths",
-    "https://discourse.haskell.org/t/a-technical-vision-for-the-haskell-ecosystem/15078"
+    "https://discourse.haskell.org/t/a-technical-vision-for-the-haskell-ecosystem/15078",
+    "https://www.techpowerup.com/354814/nvidia-allegedly-engineered-scarcity-by-funding-ai-startups-to-buy-its-gpus",
+    "https://www.youtube.com/watch?v=IRK8h67ol7Q"
   ],
   "runs": [
-    {
-      "timestamp": "2026-10-23 05:26:59",
-      "title": "OpenShell – A safe, private runtime for fleets of autonomous AI agents",
-      "source": "Hacker News",
-      "url": "https://github.com/NVIDIA/OpenShell",
-      "score": 90,
-      "folder": "2026-10-23_0526_openshell-a-safe-private-runtime-for-fle"
-    },
-    {
-      "timestamp": "2026-10-23 05:27:12",
-      "title": "Every AI model has the same \"controversial\" take on humans",
-      "source": "Hacker News",
-      "url": "https://www.modelcompare.ai/blog/ai-models-controversial-take-on-humans",
-      "score": 60,
-      "folder": "2026-10-23_0527_every-ai-model-has-the-same-controversia"
-    },
     {
       "timestamp": "2026-10-23 05:28:23",
       "title": "Direct Pass@$k$ Optimization for Thought Pruning: Balancing Quality and Diversity in Test-Time Reasoning",
@@ -901,6 +887,22 @@
       "url": "https://discourse.haskell.org/t/a-technical-vision-for-the-haskell-ecosystem/15078",
       "score": 53.4,
       "folder": "2026-11-13_2321_proj_demo_client_a-technical-vision-for-the-haskell-ecosy"
+    },
+    {
+      "timestamp": "2026-11-14 05:27:48",
+      "title": "Nvidia Allegedly Engineered Scarcity by Funding AI Startups to Buy Its GPUs",
+      "source": "Hacker News",
+      "url": "https://www.techpowerup.com/354814/nvidia-allegedly-engineered-scarcity-by-funding-ai-startups-to-buy-its-gpus",
+      "score": 70.0,
+      "folder": "2026-11-14_0527_proj_autonoma_os_nvidia-allegedly-engineered-scarcity-by-"
+    },
+    {
+      "timestamp": "2026-11-14 05:27:48",
+      "title": "Jonathan Blow – If AI solved coding, why is my software still the same? [video]",
+      "source": "Hacker News",
+      "url": "https://www.youtube.com/watch?v=IRK8h67ol7Q",
+      "score": 57.0,
+      "folder": "2026-11-14_0527_proj_demo_client_jonathan-blow-if-ai-solved-coding-why-is"
     }
   ]
 }
