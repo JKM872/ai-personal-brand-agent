@@ -101,25 +101,11 @@
     "https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths",
     "https://discourse.haskell.org/t/a-technical-vision-for-the-haskell-ecosystem/15078",
     "https://www.techpowerup.com/354814/nvidia-allegedly-engineered-scarcity-by-funding-ai-startups-to-buy-its-gpus",
-    "https://www.youtube.com/watch?v=IRK8h67ol7Q"
+    "https://www.youtube.com/watch?v=IRK8h67ol7Q",
+    "http://arxiv.org/abs/2611.17332v1",
+    "http://arxiv.org/abs/2611.17323v1"
   ],
   "runs": [
-    {
-      "timestamp": "2026-10-23 05:28:23",
-      "title": "Direct Pass@$k$ Optimization for Thought Pruning: Balancing Quality and Diversity in Test-Time Reasoning",
-      "source": "ArXiv",
-      "url": "http://arxiv.org/abs/2610.31667v1",
-      "score": 45,
-      "folder": "2026-10-23_0528_direct-pass-k-optimization-for-thought-p"
-    },
-    {
-      "timestamp": "2026-10-23 03:42:46",
-      "title": "AI and the Enclosure of the Scientific Commons",
-      "source": "Hacker News",
-      "url": "https://arxiv.org/abs/2610.27251",
-      "score": 44.0,
-      "folder": "2026-10-23_0342_ai-and-the-enclosure-of-the-scientific-c"
-    },
     {
       "timestamp": "2026-10-23 20:47:34",
       "title": "Leonxlnx/earshot",
@@ -903,6 +889,22 @@
       "url": "https://www.youtube.com/watch?v=IRK8h67ol7Q",
       "score": 57.0,
       "folder": "2026-11-14_0527_proj_demo_client_jonathan-blow-if-ai-solved-coding-why-is"
+    },
+    {
+      "timestamp": "2026-11-14 13:09:29",
+      "title": "ArchSpace: Recording, Reviewing, and Referencing LLM Architecture Research",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.17332v1",
+      "score": 30,
+      "folder": "2026-11-14_1309_proj_autonoma_os_archspace-recording-reviewing-and-refere"
+    },
+    {
+      "timestamp": "2026-11-14 13:09:29",
+      "title": "AgentSSL: Can MLE Agents Leverage Unlabeled Data?",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.17323v1",
+      "score": 30,
+      "folder": "2026-11-14_1309_proj_demo_client_agentssl-can-mle-agents-leverage-unlabel"
     }
   ]
 }
