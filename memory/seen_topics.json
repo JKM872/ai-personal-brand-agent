@@ -103,25 +103,11 @@
     "https://www.techpowerup.com/354814/nvidia-allegedly-engineered-scarcity-by-funding-ai-startups-to-buy-its-gpus",
     "https://www.youtube.com/watch?v=IRK8h67ol7Q",
     "http://arxiv.org/abs/2611.17332v1",
-    "http://arxiv.org/abs/2611.17323v1"
+    "http://arxiv.org/abs/2611.17323v1",
+    "https://news.umich.edu/generative-ai-uses-more-energy-on-non-english-text/",
+    "https://github.com/IRS-Public/direct-file"
   ],
   "runs": [
-    {
-      "timestamp": "2026-10-23 20:47:34",
-      "title": "Leonxlnx/earshot",
-      "source": "GitHub",
-      "url": "https://github.com/Leonxlnx/earshot",
-      "score": 39.1,
-      "folder": "2026-10-23_2047_leonxlnx-earshot"
-    },
-    {
-      "timestamp": "2026-10-23 20:49:30",
-      "title": "onehumanbeing/esp32-iphone-agent",
-      "source": "GitHub",
-      "url": "https://github.com/onehumanbeing/esp32-iphone-agent",
-      "score": 36.2,
-      "folder": "2026-10-23_2049_onehumanbeing-esp32-iphone-agent"
-    },
     {
       "timestamp": "2026-10-23 21:03:21",
       "title": "cranebeaker/coop-anything",
@@ -905,6 +891,22 @@
       "url": "http://arxiv.org/abs/2611.17323v1",
       "score": 30,
       "folder": "2026-11-14_1309_proj_demo_client_agentssl-can-mle-agents-leverage-unlabel"
+    },
+    {
+      "timestamp": "2026-11-14 22:05:32",
+      "title": "Generative AI uses more energy on non-English text",
+      "source": "Hacker News",
+      "url": "https://news.umich.edu/generative-ai-uses-more-energy-on-non-english-text/",
+      "score": 51.4,
+      "folder": "2026-11-14_2205_proj_autonoma_os_generative-ai-uses-more-energy-on-non-en"
+    },
+    {
+      "timestamp": "2026-11-14 22:05:32",
+      "title": "US IRS free online tax filing open source repo (2025)",
+      "source": "Hacker News",
+      "url": "https://github.com/IRS-Public/direct-file",
+      "score": 44.4,
+      "folder": "2026-11-14_2205_proj_demo_client_us-irs-free-online-tax-filing-open-sourc"
     }
   ]
 }
