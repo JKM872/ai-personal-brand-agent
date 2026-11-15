@@ -107,25 +107,11 @@
     "https://news.umich.edu/generative-ai-uses-more-energy-on-non-english-text/",
     "https://github.com/IRS-Public/direct-file",
     "https://www.techspot.com/news/114558-nvidia-deliberately-kept-gpu-prices-high-through-circular.html",
-    "https://github.com/Vaibhaav-Tiwari/deepseek-v3-jax"
+    "https://github.com/Vaibhaav-Tiwari/deepseek-v3-jax",
+    "http://arxiv.org/abs/2611.17320v1",
+    "http://arxiv.org/abs/2611.17316v1"
   ],
   "runs": [
-    {
-      "timestamp": "2026-10-23 21:26:24",
-      "title": "METTA: Memory-Enhanced Test-Time Adaptation for Meta-Reinforcement Learning",
-      "source": "ArXiv",
-      "url": "http://arxiv.org/abs/2610.31656v1",
-      "score": 30,
-      "folder": "2026-10-23_2126_proj_polsia_zero_metta-memory-enhanced-test-time-adaptati"
-    },
-    {
-      "timestamp": "2026-10-23 21:26:25",
-      "title": "EpiSEM-Bench: Evaluating Safety and Evidence Recovery in LLM Agents under Missing Evidence",
-      "source": "ArXiv",
-      "url": "http://arxiv.org/abs/2610.31650v1",
-      "score": 30,
-      "folder": "2026-10-23_2126_proj_demo_client_episem-bench-evaluating-safety-and-evide"
-    },
     {
       "timestamp": "2026-10-23 21:42:20",
       "title": "Low-Bit N-Gram Embeddings for Language Models",
@@ -909,6 +895,22 @@
       "url": "https://github.com/Vaibhaav-Tiwari/deepseek-v3-jax",
       "score": 43.7,
       "folder": "2026-11-15_0525_proj_demo_client_show-hn-deepseek-v3-in-200-lines-of-pure"
+    },
+    {
+      "timestamp": "2026-11-15 13:38:02",
+      "title": "Learning When Diffusion Language Models Should Regenerate",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.17320v1",
+      "score": 30,
+      "folder": "2026-11-15_1337_proj_autonoma_os_learning-when-diffusion-language-models-"
+    },
+    {
+      "timestamp": "2026-11-15 13:38:02",
+      "title": "CoReMem: Cost-Internalizing Memory for Successive Coding Tasks with Prospective Valuation",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.17316v1",
+      "score": 30,
+      "folder": "2026-11-15_1337_proj_demo_client_coremem-cost-internalizing-memory-for-su"
     }
   ]
 }
