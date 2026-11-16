@@ -111,25 +111,11 @@
     "http://arxiv.org/abs/2611.17320v1",
     "http://arxiv.org/abs/2611.17316v1",
     "https://www.youtube.com/watch?v=WPj3aQ-xxpI",
-    "https://jakub.jankiewicz.org/blog/ai-code-open-source/"
+    "https://jakub.jankiewicz.org/blog/ai-code-open-source/",
+    "https://github.com/hitkeeen/blender-ai-mcp-addon",
+    "https://github.com/eclipse-mosquitto/mosquitto"
   ],
   "runs": [
-    {
-      "timestamp": "2026-10-23 22:19:39",
-      "title": "jwuthri-cloud/Tracely-ai",
-      "source": "GitHub",
-      "url": "https://github.com/jwuthri-cloud/Tracely-ai",
-      "score": 26.6,
-      "folder": "2026-10-23_2219_proj_polsia_zero_jwuthri-cloud-tracely-ai"
-    },
-    {
-      "timestamp": "2026-10-23 22:19:39",
-      "title": "feder-cr/git-ai",
-      "source": "GitHub",
-      "url": "https://github.com/feder-cr/git-ai",
-      "score": 24.8,
-      "folder": "2026-10-23_2219_proj_demo_client_feder-cr-git-ai"
-    },
     {
       "timestamp": "2026-10-24 09:03:13",
       "title": "Dessa: Conversation Model trained only on speech",
@@ -913,6 +899,22 @@
       "url": "https://jakub.jankiewicz.org/blog/ai-code-open-source/",
       "score": 60,
       "folder": "2026-11-15_2235_proj_demo_client_all-ai-generated-code-should-be-open-sou"
+    },
+    {
+      "timestamp": "2026-11-16 05:24:13",
+      "title": "hitkeeen/blender-ai-mcp-addon",
+      "source": "GitHub",
+      "url": "https://github.com/hitkeeen/blender-ai-mcp-addon",
+      "score": 41.6,
+      "folder": "2026-11-16_0523_proj_autonoma_os_hitkeeen-blender-ai-mcp-addon"
+    },
+    {
+      "timestamp": "2026-11-16 05:24:13",
+      "title": "Eclipse Mosquitto – An open source MQTT broker",
+      "source": "Hacker News",
+      "url": "https://github.com/eclipse-mosquitto/mosquitto",
+      "score": 25.9,
+      "folder": "2026-11-16_0523_proj_demo_client_eclipse-mosquitto-an-open-source-mqtt-br"
     }
   ]
 }
