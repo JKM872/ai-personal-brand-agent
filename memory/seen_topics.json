@@ -113,25 +113,11 @@
     "https://www.youtube.com/watch?v=WPj3aQ-xxpI",
     "https://jakub.jankiewicz.org/blog/ai-code-open-source/",
     "https://github.com/hitkeeen/blender-ai-mcp-addon",
-    "https://github.com/eclipse-mosquitto/mosquitto"
+    "https://github.com/eclipse-mosquitto/mosquitto",
+    "http://arxiv.org/abs/2611.18553v1",
+    "http://arxiv.org/abs/2611.18543v1"
   ],
   "runs": [
-    {
-      "timestamp": "2026-10-24 09:03:13",
-      "title": "Dessa: Conversation Model trained only on speech",
-      "source": "Hacker News",
-      "url": "https://block.xyz/dessa",
-      "score": 60,
-      "folder": "2026-10-24_0903_proj_autonoma_os_dessa-conversation-model-trained-only-on"
-    },
-    {
-      "timestamp": "2026-10-24 09:03:14",
-      "title": "Evolving Threat: http2shell is an RCE in Node, Python, and more",
-      "source": "Hacker News",
-      "url": "https://nitter.click/AikidoSecurity/status/2113759110625906950?__galadriel=lPmlGl9id4oAd5UeBwMhlYKArHyr6lR2IDGujPwB5HV2kQ1aLoPWFd5A9sGuzNcmrp8fUso8qygmHcKTDZ8MNHWqQ3bDJcycV87xp_0VypzQLYj6O_RRHlZuQqj33oASGY2YLSoAiMjeOZN40h7Stf8AG7DPrGZbAPVKUXy36HoMudRbvwF3_r2uYNmfJMhpKzywQDM6Ab8",
-      "score": 49.4,
-      "folder": "2026-10-24_0903_proj_demo_client_evolving-threat-http2shell-is-an-rce-in-"
-    },
     {
       "timestamp": "2026-10-24 09:12:34",
       "title": "Show HN: Corgi, a helpful {agent, terminal} multiplexer",
@@ -915,6 +901,22 @@
       "url": "https://github.com/eclipse-mosquitto/mosquitto",
       "score": 25.9,
       "folder": "2026-11-16_0523_proj_demo_client_eclipse-mosquitto-an-open-source-mqtt-br"
+    },
+    {
+      "timestamp": "2026-11-16 15:09:04",
+      "title": "WeightBench: Evaluating Language Models as Weight-Space Programmers",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.18553v1",
+      "score": 30,
+      "folder": "2026-11-16_1508_proj_autonoma_os_weightbench-evaluating-language-models-a"
+    },
+    {
+      "timestamp": "2026-11-16 15:09:04",
+      "title": "Imitation Bootstrapped Multi-Agent Reinforcement Learning",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.18543v1",
+      "score": 30,
+      "folder": "2026-11-16_1508_proj_demo_client_imitation-bootstrapped-multi-agent-reinf"
     }
   ]
 }
