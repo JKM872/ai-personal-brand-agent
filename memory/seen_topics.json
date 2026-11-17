@@ -117,25 +117,11 @@
     "http://arxiv.org/abs/2611.18553v1",
     "http://arxiv.org/abs/2611.18543v1",
     "https://github.com/credoksopho1984/blender-ai-copilot-studio",
-    "https://github.com/racdeufindurch198812/Blender-AI-MCP-Studio"
+    "https://github.com/racdeufindurch198812/Blender-AI-MCP-Studio",
+    "http://arxiv.org/abs/2611.21608v1",
+    "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/"
   ],
   "runs": [
-    {
-      "timestamp": "2026-10-24 10:13:30",
-      "title": "yeyuxin777/baoyan-agent-benchmark",
-      "source": "GitHub",
-      "url": "https://github.com/yeyuxin777/baoyan-agent-benchmark",
-      "score": 22.0,
-      "folder": "2026-10-24_1013_proj_autonoma_os_yeyuxin777-baoyan-agent-benchmark"
-    },
-    {
-      "timestamp": "2026-10-24 10:13:30",
-      "title": "Hacker reverses Samsung TV, finds on-board AI listening OpenAI account suspended",
-      "source": "Hacker News",
-      "url": "https://www.reddit.com/r/antiai/comments/1xdv3e5/hacker_reverse_engineers_his_samsung_tv_and_finds/",
-      "score": 14.0,
-      "folder": "2026-10-24_1013_proj_demo_client_hacker-reverses-samsung-tv-finds-on-boar"
-    },
     {
       "timestamp": "2026-10-30 22:01:37",
       "title": "Backdoor in Claude Code for VS Code extension on the Cursor Marketplace",
@@ -919,6 +905,22 @@
       "url": "https://github.com/racdeufindurch198812/Blender-AI-MCP-Studio",
       "score": 30.1,
       "folder": "2026-11-17_0142_proj_demo_client_racdeufindurch198812-blender-ai-mcp-stud"
+    },
+    {
+      "timestamp": "2026-11-17 15:39:28",
+      "title": "Latent Lattice Language Models",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.21608v1",
+      "score": 45,
+      "folder": "2026-11-17_1539_proj_autonoma_os_latent-lattice-language-models"
+    },
+    {
+      "timestamp": "2026-11-17 15:39:28",
+      "title": "How the Claude Code team thinks about verification",
+      "source": "Hacker News",
+      "url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
+      "score": 42.4,
+      "folder": "2026-11-17_1539_proj_demo_client_how-the-claude-code-team-thinks-about-ve"
     }
   ]
 }
