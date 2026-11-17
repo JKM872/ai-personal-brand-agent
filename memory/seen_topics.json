@@ -115,25 +115,11 @@
     "https://github.com/hitkeeen/blender-ai-mcp-addon",
     "https://github.com/eclipse-mosquitto/mosquitto",
     "http://arxiv.org/abs/2611.18553v1",
-    "http://arxiv.org/abs/2611.18543v1"
+    "http://arxiv.org/abs/2611.18543v1",
+    "https://github.com/credoksopho1984/blender-ai-copilot-studio",
+    "https://github.com/racdeufindurch198812/Blender-AI-MCP-Studio"
   ],
   "runs": [
-    {
-      "timestamp": "2026-10-24 09:12:34",
-      "title": "Show HN: Corgi, a helpful {agent, terminal} multiplexer",
-      "source": "Hacker News",
-      "url": "https://corgi.computer/",
-      "score": 35.2,
-      "folder": "2026-10-24_0912_proj_autonoma_os_show-hn-corgi-a-helpful-agent-terminal-m"
-    },
-    {
-      "timestamp": "2026-10-24 09:12:35",
-      "title": "A practical guide to AI image generation, from diffusion to agents",
-      "source": "Hacker News",
-      "url": "https://danielball.com/notes/ai_image_generation.html",
-      "score": 26.8,
-      "folder": "2026-10-24_0912_proj_demo_client_a-practical-guide-to-ai-image-generation"
-    },
     {
       "timestamp": "2026-10-24 10:13:30",
       "title": "yeyuxin777/baoyan-agent-benchmark",
@@ -917,6 +903,22 @@
       "url": "http://arxiv.org/abs/2611.18543v1",
       "score": 30,
       "folder": "2026-11-16_1508_proj_demo_client_imitation-bootstrapped-multi-agent-reinf"
+    },
+    {
+      "timestamp": "2026-11-17 01:42:51",
+      "title": "credoksopho1984/blender-ai-copilot-studio",
+      "source": "GitHub",
+      "url": "https://github.com/credoksopho1984/blender-ai-copilot-studio",
+      "score": 30.2,
+      "folder": "2026-11-17_0142_proj_autonoma_os_credoksopho1984-blender-ai-copilot-studi"
+    },
+    {
+      "timestamp": "2026-11-17 01:42:51",
+      "title": "racdeufindurch198812/Blender-AI-MCP-Studio",
+      "source": "GitHub",
+      "url": "https://github.com/racdeufindurch198812/Blender-AI-MCP-Studio",
+      "score": 30.1,
+      "folder": "2026-11-17_0142_proj_demo_client_racdeufindurch198812-blender-ai-mcp-stud"
     }
   ]
 }
