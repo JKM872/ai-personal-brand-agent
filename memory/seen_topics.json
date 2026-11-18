@@ -121,25 +121,11 @@
     "http://arxiv.org/abs/2611.21608v1",
     "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
     "https://openai.com/index/introducing-gpt-6-2-astra-sol/",
-    "https://runta.com/blog/introducing-frontierharness-eval-v1-1/"
+    "https://runta.com/blog/introducing-frontierharness-eval-v1-1/",
+    "https://complexdiscovery.com/harvard-researchers-find-ai-coding-agents-shifted-the-bottleneck-to-code-review/",
+    "https://revscope.co/blog/search-seo-geo-2026/"
   ],
   "runs": [
-    {
-      "timestamp": "2026-10-31 04:37:52",
-      "title": "Show HN: A working Nintendo in ~1GB of Qwen weights",
-      "source": "Hacker News",
-      "url": "https://github.com/dbreunig/nesformer",
-      "score": 60,
-      "folder": "2026-10-31_0437_proj_autonoma_os_show-hn-a-working-nintendo-in-1gb-of-qwe"
-    },
-    {
-      "timestamp": "2026-10-31 04:37:52",
-      "title": "Cisco gives engineer unlimited AI tokens to rewrite legacy code",
-      "source": "Hacker News",
-      "url": "https://fortune.com/2026/10/30/cisco-president-jeetu-patel-gen-z-27-year-old-unlimited-ai-tokens-rewrite-legacy-code-entry-level-jobs/",
-      "score": 47.2,
-      "folder": "2026-10-31_0437_proj_demo_client_cisco-gives-engineer-unlimited-ai-tokens"
-    },
     {
       "timestamp": "2026-10-31 11:52:04",
       "title": "qybaihe/bla",
@@ -923,6 +909,22 @@
       "url": "https://runta.com/blog/introducing-frontierharness-eval-v1-1/",
       "score": 60,
       "folder": "2026-11-18_0042_proj_demo_client_what-is-the-best-harness-for-each-model"
+    },
+    {
+      "timestamp": "2026-11-18 15:17:40",
+      "title": "Harvard researchers find AI coding agents shifted the bottleneck to code review",
+      "source": "Hacker News",
+      "url": "https://complexdiscovery.com/harvard-researchers-find-ai-coding-agents-shifted-the-bottleneck-to-code-review/",
+      "score": 75,
+      "folder": "2026-11-18_1517_proj_autonoma_os_harvard-researchers-find-ai-coding-agent"
+    },
+    {
+      "timestamp": "2026-11-18 15:17:40",
+      "title": "Google's AI answers reducing search traffic by 40%",
+      "source": "Hacker News",
+      "url": "https://revscope.co/blog/search-seo-geo-2026/",
+      "score": 60,
+      "folder": "2026-11-18_1517_proj_demo_client_google-s-ai-answers-reducing-search-traf"
     }
   ]
 }
