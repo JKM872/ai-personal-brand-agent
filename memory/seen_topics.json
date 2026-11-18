@@ -123,25 +123,11 @@
     "https://openai.com/index/introducing-gpt-6-2-astra-sol/",
     "https://runta.com/blog/introducing-frontierharness-eval-v1-1/",
     "https://complexdiscovery.com/harvard-researchers-find-ai-coding-agents-shifted-the-bottleneck-to-code-review/",
-    "https://revscope.co/blog/search-seo-geo-2026/"
+    "https://revscope.co/blog/search-seo-geo-2026/",
+    "https://europeanbusinessmagazine.com/ai-agents-better-questions-kpmg/",
+    "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/"
   ],
   "runs": [
-    {
-      "timestamp": "2026-10-31 11:52:04",
-      "title": "qybaihe/bla",
-      "source": "GitHub",
-      "url": "https://github.com/qybaihe/bla",
-      "score": 41.0,
-      "folder": "2026-10-31_1152_proj_autonoma_os_qybaihe-bla"
-    },
-    {
-      "timestamp": "2026-10-31 11:52:04",
-      "title": "andyhuo520/digital-human-koubo",
-      "source": "GitHub",
-      "url": "https://github.com/andyhuo520/digital-human-koubo",
-      "score": 40.7,
-      "folder": "2026-10-31_1152_proj_demo_client_andyhuo520-digital-human-koubo"
-    },
     {
       "timestamp": "2026-10-31 16:58:09",
       "title": "wangzan101/Mika",
@@ -925,6 +911,22 @@
       "url": "https://revscope.co/blog/search-seo-geo-2026/",
       "score": 60,
       "folder": "2026-11-18_1517_proj_demo_client_google-s-ai-answers-reducing-search-traf"
+    },
+    {
+      "timestamp": "2026-11-18 23:59:48",
+      "title": "AI agents ask better questions than KPMG accountants in audit trial",
+      "source": "Hacker News",
+      "url": "https://europeanbusinessmagazine.com/ai-agents-better-questions-kpmg/",
+      "score": 75,
+      "folder": "2026-11-18_2359_proj_autonoma_os_ai-agents-ask-better-questions-than-kpmg"
+    },
+    {
+      "timestamp": "2026-11-18 23:59:48",
+      "title": "Gemini 4 Neon",
+      "source": "Hacker News",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/",
+      "score": 60,
+      "folder": "2026-11-18_2359_proj_demo_client_gemini-4-neon"
     }
   ]
 }
