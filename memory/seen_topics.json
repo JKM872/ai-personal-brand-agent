@@ -119,25 +119,11 @@
     "https://github.com/credoksopho1984/blender-ai-copilot-studio",
     "https://github.com/racdeufindurch198812/Blender-AI-MCP-Studio",
     "http://arxiv.org/abs/2611.21608v1",
-    "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/"
+    "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
+    "https://openai.com/index/introducing-gpt-6-2-astra-sol/",
+    "https://runta.com/blog/introducing-frontierharness-eval-v1-1/"
   ],
   "runs": [
-    {
-      "timestamp": "2026-10-30 22:01:37",
-      "title": "Backdoor in Claude Code for VS Code extension on the Cursor Marketplace",
-      "source": "Hacker News",
-      "url": "https://phorion.io/blog/offical-claude-code-vsx-compromise/",
-      "score": 60,
-      "folder": "2026-10-30_2201_proj_autonoma_os_backdoor-in-claude-code-for-vs-code-exte"
-    },
-    {
-      "timestamp": "2026-10-30 22:01:37",
-      "title": "AI isn't replacing SREs, it's deskilling them",
-      "source": "Hacker News",
-      "url": "https://newsletter.signoz.io/p/ai-isnt-replacing-sres-its-deskilling",
-      "score": 60,
-      "folder": "2026-10-30_2201_proj_demo_client_ai-isn-t-replacing-sres-it-s-deskilling-"
-    },
     {
       "timestamp": "2026-10-31 04:37:52",
       "title": "Show HN: A working Nintendo in ~1GB of Qwen weights",
@@ -921,6 +907,22 @@
       "url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
       "score": 42.4,
       "folder": "2026-11-17_1539_proj_demo_client_how-the-claude-code-team-thinks-about-ve"
+    },
+    {
+      "timestamp": "2026-11-18 00:42:40",
+      "title": "GPT‑6.2 Astra and Sol",
+      "source": "Hacker News",
+      "url": "https://openai.com/index/introducing-gpt-6-2-astra-sol/",
+      "score": 60,
+      "folder": "2026-11-18_0042_proj_autonoma_os_gpt-6-2-astra-and-sol"
+    },
+    {
+      "timestamp": "2026-11-18 00:42:40",
+      "title": "What is the best harness for each model?",
+      "source": "Hacker News",
+      "url": "https://runta.com/blog/introducing-frontierharness-eval-v1-1/",
+      "score": 60,
+      "folder": "2026-11-18_0042_proj_demo_client_what-is-the-best-harness-for-each-model"
     }
   ]
 }
