@@ -127,25 +127,11 @@
     "https://europeanbusinessmagazine.com/ai-agents-better-questions-kpmg/",
     "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/",
     "https://micjm.com/blog/gemini-4-neon-looks-like-a-top-model/",
-    "https://www.slowchronicle.com/posts/llm-assisted-reverse-engineering"
+    "https://www.slowchronicle.com/posts/llm-assisted-reverse-engineering",
+    "https://www.anthropic.com/research/claude-black-hole-physics",
+    "https://ounapuu.ee/posts/2026/11/19/unsafeguards/"
   ],
   "runs": [
-    {
-      "timestamp": "2026-10-31 21:10:14",
-      "title": "GPT-5.6 Sol can beat Factorio on peaceful mode",
-      "source": "Hacker News",
-      "url": "https://ryanmadden.net/gpt-56-beats-factorio/",
-      "score": 41.8,
-      "folder": "2026-10-31_2110_proj_autonoma_os_gpt-5-6-sol-can-beat-factorio-on-peacefu"
-    },
-    {
-      "timestamp": "2026-10-31 21:10:14",
-      "title": "CopilotKit/OpenDuet",
-      "source": "GitHub",
-      "url": "https://github.com/CopilotKit/OpenDuet",
-      "score": 32.2,
-      "folder": "2026-10-31_2110_proj_demo_client_copilotkit-openduet"
-    },
     {
       "timestamp": "2026-11-01 04:57:13",
       "title": "Elucidating the Design Space of LM Data Attribution",
@@ -929,6 +915,22 @@
       "url": "https://www.slowchronicle.com/posts/llm-assisted-reverse-engineering",
       "score": 45.0,
       "folder": "2026-11-19_0712_proj_demo_client_llm-assisted-reverse-engineering"
+    },
+    {
+      "timestamp": "2026-11-19 20:08:28",
+      "title": "Claude solves two open problems in the physics of black holes",
+      "source": "Hacker News",
+      "url": "https://www.anthropic.com/research/claude-black-hole-physics",
+      "score": 60,
+      "folder": "2026-11-19_2008_proj_autonoma_os_claude-solves-two-open-problems-in-the-p"
+    },
+    {
+      "timestamp": "2026-11-19 20:08:28",
+      "title": "Fuck Your AI Safeguards",
+      "source": "Hacker News",
+      "url": "https://ounapuu.ee/posts/2026/11/19/unsafeguards/",
+      "score": 60,
+      "folder": "2026-11-19_2008_proj_demo_client_fuck-your-ai-safeguards"
     }
   ]
 }
