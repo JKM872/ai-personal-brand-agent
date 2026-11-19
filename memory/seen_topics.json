@@ -125,25 +125,11 @@
     "https://complexdiscovery.com/harvard-researchers-find-ai-coding-agents-shifted-the-bottleneck-to-code-review/",
     "https://revscope.co/blog/search-seo-geo-2026/",
     "https://europeanbusinessmagazine.com/ai-agents-better-questions-kpmg/",
-    "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/"
+    "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/",
+    "https://micjm.com/blog/gemini-4-neon-looks-like-a-top-model/",
+    "https://www.slowchronicle.com/posts/llm-assisted-reverse-engineering"
   ],
   "runs": [
-    {
-      "timestamp": "2026-10-31 16:58:09",
-      "title": "wangzan101/Mika",
-      "source": "GitHub",
-      "url": "https://github.com/wangzan101/Mika",
-      "score": 40.0,
-      "folder": "2026-10-31_1658_proj_autonoma_os_wangzan101-mika"
-    },
-    {
-      "timestamp": "2026-10-31 16:58:09",
-      "title": "AI, Lean, and the Future of Formal Verification, with Lean Creator Leo de Moura",
-      "source": "Hacker News",
-      "url": "https://thedataexchange.media/leo-de-moura-lean-aws/",
-      "score": 36.9,
-      "folder": "2026-10-31_1658_proj_demo_client_ai-lean-and-the-future-of-formal-verific"
-    },
     {
       "timestamp": "2026-10-31 21:10:14",
       "title": "GPT-5.6 Sol can beat Factorio on peaceful mode",
@@ -927,6 +913,22 @@
       "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/",
       "score": 60,
       "folder": "2026-11-18_2359_proj_demo_client_gemini-4-neon"
+    },
+    {
+      "timestamp": "2026-11-19 07:12:19",
+      "title": "Gemini 4 Neon looks like an Opus 5.5 competitor",
+      "source": "Hacker News",
+      "url": "https://micjm.com/blog/gemini-4-neon-looks-like-a-top-model/",
+      "score": 60,
+      "folder": "2026-11-19_0712_proj_autonoma_os_gemini-4-neon-looks-like-an-opus-5-5-com"
+    },
+    {
+      "timestamp": "2026-11-19 07:12:19",
+      "title": "LLM assisted reverse engineering",
+      "source": "Hacker News",
+      "url": "https://www.slowchronicle.com/posts/llm-assisted-reverse-engineering",
+      "score": 45.0,
+      "folder": "2026-11-19_0712_proj_demo_client_llm-assisted-reverse-engineering"
     }
   ]
 }
