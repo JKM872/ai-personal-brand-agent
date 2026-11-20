@@ -131,25 +131,11 @@
     "https://www.anthropic.com/research/claude-black-hole-physics",
     "https://ounapuu.ee/posts/2026/11/19/unsafeguards/",
     "https://www.youtube.com/watch?v=lwfewYL7X0o",
-    "https://github.com/simplexai-labs/linger"
+    "https://github.com/simplexai-labs/linger",
+    "https://arxiv.org/abs/2611.21885",
+    "https://architectlabs.com/blog/frostbite"
   ],
   "runs": [
-    {
-      "timestamp": "2026-11-01 12:51:03",
-      "title": "The AI cost of JavaScript frameworks",
-      "source": "Hacker News",
-      "url": "https://nolanlawson.com/2026/10/28/the-ai-cost-of-javascript-frameworks/",
-      "score": 45.0,
-      "folder": "2026-11-01_1250_proj_autonoma_os_the-ai-cost-of-javascript-frameworks"
-    },
-    {
-      "timestamp": "2026-11-01 12:51:03",
-      "title": "No AI, 52 min. Build all Linux Files utils in C by Hand [video]",
-      "source": "Hacker News",
-      "url": "https://www.youtube.com/watch?v=gQRmSlcTq9c",
-      "score": 31.7,
-      "folder": "2026-11-01_1250_proj_demo_client_no-ai-52-min-build-all-linux-files-utils"
-    },
     {
       "timestamp": "2026-11-01 21:48:07",
       "title": "Read, Allocate, Route: Role-Coupled Tokenization for Pixel-Space Generative Transformers",
@@ -933,6 +919,22 @@
       "url": "https://github.com/simplexai-labs/linger",
       "score": 35.5,
       "folder": "2026-11-20_0614_proj_demo_client_simplexai-labs-linger"
+    },
+    {
+      "timestamp": "2026-11-20 19:43:43",
+      "title": "Language Models Can Rewrite Their Own Weights",
+      "source": "Hacker News",
+      "url": "https://arxiv.org/abs/2611.21885",
+      "score": 60,
+      "folder": "2026-11-20_1943_proj_autonoma_os_language-models-can-rewrite-their-own-we"
+    },
+    {
+      "timestamp": "2026-11-20 19:43:43",
+      "title": "Frostbite: A new CPU architecture discovered, designed and verified by AI",
+      "source": "Hacker News",
+      "url": "https://architectlabs.com/blog/frostbite",
+      "score": 60,
+      "folder": "2026-11-20_1943_proj_demo_client_frostbite-a-new-cpu-architecture-discove"
     }
   ]
 }
