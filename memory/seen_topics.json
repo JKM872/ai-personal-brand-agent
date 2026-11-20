@@ -129,25 +129,11 @@
     "https://micjm.com/blog/gemini-4-neon-looks-like-a-top-model/",
     "https://www.slowchronicle.com/posts/llm-assisted-reverse-engineering",
     "https://www.anthropic.com/research/claude-black-hole-physics",
-    "https://ounapuu.ee/posts/2026/11/19/unsafeguards/"
+    "https://ounapuu.ee/posts/2026/11/19/unsafeguards/",
+    "https://www.youtube.com/watch?v=lwfewYL7X0o",
+    "https://github.com/simplexai-labs/linger"
   ],
   "runs": [
-    {
-      "timestamp": "2026-11-01 04:57:13",
-      "title": "Elucidating the Design Space of LM Data Attribution",
-      "source": "ArXiv",
-      "url": "http://arxiv.org/abs/2610.40655v1",
-      "score": 30,
-      "folder": "2026-11-01_0457_proj_autonoma_os_elucidating-the-design-space-of-lm-data-"
-    },
-    {
-      "timestamp": "2026-11-01 04:57:13",
-      "title": "Rethinking Neural Thickets Without Weight Perturbations",
-      "source": "ArXiv",
-      "url": "http://arxiv.org/abs/2610.40649v1",
-      "score": 30,
-      "folder": "2026-11-01_0457_proj_demo_client_rethinking-neural-thickets-without-weigh"
-    },
     {
       "timestamp": "2026-11-01 12:51:03",
       "title": "The AI cost of JavaScript frameworks",
@@ -931,6 +917,22 @@
       "url": "https://ounapuu.ee/posts/2026/11/19/unsafeguards/",
       "score": 60,
       "folder": "2026-11-19_2008_proj_demo_client_fuck-your-ai-safeguards"
+    },
+    {
+      "timestamp": "2026-11-20 06:14:41",
+      "title": "Should governments slow frontier AI? Jacob Coxon and Robin Hanson debate [video]",
+      "source": "Hacker News",
+      "url": "https://www.youtube.com/watch?v=lwfewYL7X0o",
+      "score": 38.6,
+      "folder": "2026-11-20_0614_proj_autonoma_os_should-governments-slow-frontier-ai-jaco"
+    },
+    {
+      "timestamp": "2026-11-20 06:14:41",
+      "title": "simplexai-labs/linger",
+      "source": "GitHub",
+      "url": "https://github.com/simplexai-labs/linger",
+      "score": 35.5,
+      "folder": "2026-11-20_0614_proj_demo_client_simplexai-labs-linger"
     }
   ]
 }
