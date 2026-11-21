@@ -135,25 +135,11 @@
     "https://arxiv.org/abs/2611.21885",
     "https://architectlabs.com/blog/frostbite",
     "https://www.theguardian.com/business/2026/nov/20/global-stock-markets-slump-anthropic-ipo-ai-sell-off",
-    "https://kobi.music/research/dettato"
+    "https://kobi.music/research/dettato",
+    "https://github.com/bookwjitchieni1986/blender-ai-mcp-addon",
+    "http://arxiv.org/abs/2611.26624v1"
   ],
   "runs": [
-    {
-      "timestamp": "2026-11-02 04:57:51",
-      "title": "Latent Reasoning in Continuous Space for Unified Multimodal Models",
-      "source": "ArXiv",
-      "url": "http://arxiv.org/abs/2610.42149v1",
-      "score": 45,
-      "folder": "2026-11-02_0457_proj_autonoma_os_latent-reasoning-in-continuous-space-for"
-    },
-    {
-      "timestamp": "2026-11-02 04:57:51",
-      "title": "Flide: Accelerating Decision Inference with Exact State Forking",
-      "source": "ArXiv",
-      "url": "http://arxiv.org/abs/2610.42148v1",
-      "score": 45,
-      "folder": "2026-11-02_0457_proj_demo_client_flide-accelerating-decision-inference-wi"
-    },
     {
       "timestamp": "2026-11-02 15:01:57",
       "title": "China's First Frontier AI Export Controls: Mofcom Announcement No. 48",
@@ -937,6 +923,22 @@
       "url": "https://kobi.music/research/dettato",
       "score": 58.7,
       "folder": "2026-11-21_0604_proj_demo_client_show-hn-i-made-an-audio-to-midi-model-60"
+    },
+    {
+      "timestamp": "2026-11-21 18:49:10",
+      "title": "bookwjitchieni1986/blender-ai-mcp-addon",
+      "source": "GitHub",
+      "url": "https://github.com/bookwjitchieni1986/blender-ai-mcp-addon",
+      "score": 46.2,
+      "folder": "2026-11-21_1849_proj_autonoma_os_bookwjitchieni1986-blender-ai-mcp-addon"
+    },
+    {
+      "timestamp": "2026-11-21 18:49:10",
+      "title": "PlayCraft: Designing Engaging Games from Agent Play Experience",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.26624v1",
+      "score": 30,
+      "folder": "2026-11-21_1849_proj_demo_client_playcraft-designing-engaging-games-from-"
     }
   ]
 }
