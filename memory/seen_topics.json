@@ -133,25 +133,11 @@
     "https://www.youtube.com/watch?v=lwfewYL7X0o",
     "https://github.com/simplexai-labs/linger",
     "https://arxiv.org/abs/2611.21885",
-    "https://architectlabs.com/blog/frostbite"
+    "https://architectlabs.com/blog/frostbite",
+    "https://www.theguardian.com/business/2026/nov/20/global-stock-markets-slump-anthropic-ipo-ai-sell-off",
+    "https://kobi.music/research/dettato"
   ],
   "runs": [
-    {
-      "timestamp": "2026-11-01 21:48:07",
-      "title": "Read, Allocate, Route: Role-Coupled Tokenization for Pixel-Space Generative Transformers",
-      "source": "ArXiv",
-      "url": "http://arxiv.org/abs/2610.40647v1",
-      "score": 30,
-      "folder": "2026-11-01_2148_proj_autonoma_os_read-allocate-route-role-coupled-tokeniz"
-    },
-    {
-      "timestamp": "2026-11-01 21:48:07",
-      "title": "Luggage re-identification: A study of strategies towards a real-world application",
-      "source": "ArXiv",
-      "url": "http://arxiv.org/abs/2610.40643v1",
-      "score": 30,
-      "folder": "2026-11-01_2148_proj_demo_client_luggage-re-identification-a-study-of-str"
-    },
     {
       "timestamp": "2026-11-02 04:57:51",
       "title": "Latent Reasoning in Continuous Space for Unified Multimodal Models",
@@ -935,6 +921,22 @@
       "url": "https://architectlabs.com/blog/frostbite",
       "score": 60,
       "folder": "2026-11-20_1943_proj_demo_client_frostbite-a-new-cpu-architecture-discove"
+    },
+    {
+      "timestamp": "2026-11-21 06:04:22",
+      "title": "Nasdaq erases all 2026 gains as AI sell-off dampens Anthropic’s second day",
+      "source": "Hacker News",
+      "url": "https://www.theguardian.com/business/2026/nov/20/global-stock-markets-slump-anthropic-ipo-ai-sell-off",
+      "score": 60,
+      "folder": "2026-11-21_0604_proj_autonoma_os_nasdaq-erases-all-2026-gains-as-ai-sell-"
+    },
+    {
+      "timestamp": "2026-11-21 06:04:22",
+      "title": "Show HN: I made an audio-to-MIDI model 60x more efficient",
+      "source": "Hacker News",
+      "url": "https://kobi.music/research/dettato",
+      "score": 58.7,
+      "folder": "2026-11-21_0604_proj_demo_client_show-hn-i-made-an-audio-to-midi-model-60"
     }
   ]
 }
