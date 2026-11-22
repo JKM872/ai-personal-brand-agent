@@ -139,25 +139,11 @@
     "https://github.com/bookwjitchieni1986/blender-ai-mcp-addon",
     "http://arxiv.org/abs/2611.26624v1",
     "https://www.pandex.io",
-    "https://github.com/Dodaios/ste80-humanizer"
+    "https://github.com/Dodaios/ste80-humanizer",
+    "https://openrouter.ai/blog/announcements/data-processing-incidents-on-inference-providers/",
+    "https://www.noemamag.com/the-mythology-of-conscious-ai/"
   ],
   "runs": [
-    {
-      "timestamp": "2026-11-03 00:43:01",
-      "title": "Astra can read and write weights to improve Qwen",
-      "source": "Hacker News",
-      "url": "https://rikiyat.github.io/blog/weight-space-programming/",
-      "score": 60,
-      "folder": "2026-11-03_0042_proj_autonoma_os_astra-can-read-and-write-weights-to-impr"
-    },
-    {
-      "timestamp": "2026-11-03 00:43:01",
-      "title": "Oracle files to sell $20B in new stock, bonds to finance AI buildout",
-      "source": "Hacker News",
-      "url": "https://www.cnbc.com/2026/11/02/oracle-files-to-sell-20-billion-in-new-stock-bonds-to-finance-ai-buildout.html",
-      "score": 49.2,
-      "folder": "2026-11-03_0042_proj_demo_client_oracle-files-to-sell-20b-in-new-stock-bo"
-    },
     {
       "timestamp": "2026-11-03 13:48:34",
       "title": "The 'Astra can read and write weights to improve Qwen' post is misleading",
@@ -941,6 +927,22 @@
       "url": "https://github.com/Dodaios/ste80-humanizer",
       "score": 25.6,
       "folder": "2026-11-22_0539_proj_demo_client_dodaios-ste80-humanizer"
+    },
+    {
+      "timestamp": "2026-11-22 14:15:25",
+      "title": "Data Processing Incidents on Inference Providers",
+      "source": "Hacker News",
+      "url": "https://openrouter.ai/blog/announcements/data-processing-incidents-on-inference-providers/",
+      "score": 60,
+      "folder": "2026-11-22_1415_proj_autonoma_os_data-processing-incidents-on-inference-p"
+    },
+    {
+      "timestamp": "2026-11-22 14:15:25",
+      "title": "The Mythology of Conscious AI",
+      "source": "Hacker News",
+      "url": "https://www.noemamag.com/the-mythology-of-conscious-ai/",
+      "score": 39.6,
+      "folder": "2026-11-22_1415_proj_demo_client_the-mythology-of-conscious-ai"
     }
   ]
 }
