@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-11-22 05:40:11",
+  "mode": "dry_run",
+  "topic": "Pandex – Official European Law for AI Agents, over MCP",
+  "dispatches": {
+    "website_article": "AWAITING_APPROVAL",
+    "linkedin": "AWAITING_APPROVAL",
+    "webhook": "AWAITING_APPROVAL",
+    "telegram": "AWAITING_APPROVAL",
+    "newsletter": "AWAITING_APPROVAL"
+  },
+  "status_summary": "GOTOWE W KOLEJCE — czeka na akceptację człowieka (python approve.py list)"
+}

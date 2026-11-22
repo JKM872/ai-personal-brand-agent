@@ -137,25 +137,11 @@
     "https://www.theguardian.com/business/2026/nov/20/global-stock-markets-slump-anthropic-ipo-ai-sell-off",
     "https://kobi.music/research/dettato",
     "https://github.com/bookwjitchieni1986/blender-ai-mcp-addon",
-    "http://arxiv.org/abs/2611.26624v1"
+    "http://arxiv.org/abs/2611.26624v1",
+    "https://www.pandex.io",
+    "https://github.com/Dodaios/ste80-humanizer"
   ],
   "runs": [
-    {
-      "timestamp": "2026-11-02 15:01:57",
-      "title": "China's First Frontier AI Export Controls: Mofcom Announcement No. 48",
-      "source": "Hacker News",
-      "url": "https://labs.cloudsecurityalliance.org/research/csa-research-note-china-ai-export-controls-announcement-48-2/",
-      "score": 43.6,
-      "folder": "2026-11-02_1501_proj_autonoma_os_china-s-first-frontier-ai-export-control"
-    },
-    {
-      "timestamp": "2026-11-02 15:01:57",
-      "title": "Latent Sparse Attention: Towards Subquadratic Ultra-Long Context Attention",
-      "source": "ArXiv",
-      "url": "http://arxiv.org/abs/2610.42147v1",
-      "score": 30,
-      "folder": "2026-11-02_1501_proj_demo_client_latent-sparse-attention-towards-subquadr"
-    },
     {
       "timestamp": "2026-11-03 00:43:01",
       "title": "Astra can read and write weights to improve Qwen",
@@ -939,6 +925,22 @@
       "url": "http://arxiv.org/abs/2611.26624v1",
       "score": 30,
       "folder": "2026-11-21_1849_proj_demo_client_playcraft-designing-engaging-games-from-"
+    },
+    {
+      "timestamp": "2026-11-22 05:40:11",
+      "title": "Pandex – Official European Law for AI Agents, over MCP",
+      "source": "Hacker News",
+      "url": "https://www.pandex.io",
+      "score": 29.5,
+      "folder": "2026-11-22_0539_proj_autonoma_os_pandex-official-european-law-for-ai-agen"
+    },
+    {
+      "timestamp": "2026-11-22 05:40:11",
+      "title": "Dodaios/ste80-humanizer",
+      "source": "GitHub",
+      "url": "https://github.com/Dodaios/ste80-humanizer",
+      "score": 25.6,
+      "folder": "2026-11-22_0539_proj_demo_client_dodaios-ste80-humanizer"
     }
   ]
 }
