@@ -143,25 +143,11 @@
     "https://openrouter.ai/blog/announcements/data-processing-incidents-on-inference-providers/",
     "https://www.noemamag.com/the-mythology-of-conscious-ai/",
     "https://github.com/gulivan/worker755",
-    "https://pequalnp.com/"
+    "https://pequalnp.com/",
+    "https://www.gpupartner.com/blog/beginners-guide-local-ai-inkling-qwen-unsloth",
+    "http://arxiv.org/abs/2611.27983v1"
   ],
   "runs": [
-    {
-      "timestamp": "2026-11-03 22:59:17",
-      "title": "Qwen 3.8 27B on my laptop can interpret model weights, too",
-      "source": "Hacker News",
-      "url": "https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/",
-      "score": 60,
-      "folder": "2026-11-03_2259_proj_autonoma_os_qwen-3-8-27b-on-my-laptop-can-interpret-"
-    },
-    {
-      "timestamp": "2026-11-03 22:59:17",
-      "title": "Postman silently auto-installs AI plugins and attempts to share all API data",
-      "source": "Hacker News",
-      "url": "https://github.com/postmanlabs/postman-app-support/issues/14370",
-      "score": 60,
-      "folder": "2026-11-03_2259_proj_demo_client_postman-silently-auto-installs-ai-plugin"
-    },
     {
       "timestamp": "2026-11-04 05:21:29",
       "title": "Fujifilm to boost tape production 5x as AI fuels archiving demand",
@@ -945,6 +931,22 @@
       "url": "https://pequalnp.com/",
       "score": 34.6,
       "folder": "2026-11-22_2322_proj_demo_client_agent-swarm-trying-to-solve-p-vs-np"
+    },
+    {
+      "timestamp": "2026-11-23 06:23:45",
+      "title": "A Beginner's Guide to Local AI with Inkling, Qwen, and Unsloth",
+      "source": "Hacker News",
+      "url": "https://www.gpupartner.com/blog/beginners-guide-local-ai-inkling-qwen-unsloth",
+      "score": 60,
+      "folder": "2026-11-23_0623_proj_autonoma_os_a-beginner-s-guide-to-local-ai-with-inkl"
+    },
+    {
+      "timestamp": "2026-11-23 06:23:45",
+      "title": "Optimal Linear Regression Without a Variance",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.27983v1",
+      "score": 30,
+      "folder": "2026-11-23_0623_proj_demo_client_optimal-linear-regression-without-a-vari"
     }
   ]
 }
