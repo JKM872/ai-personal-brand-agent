@@ -145,25 +145,11 @@
     "https://github.com/gulivan/worker755",
     "https://pequalnp.com/",
     "https://www.gpupartner.com/blog/beginners-guide-local-ai-inkling-qwen-unsloth",
-    "http://arxiv.org/abs/2611.27983v1"
+    "http://arxiv.org/abs/2611.27983v1",
+    "https://z.ai/blog/glm-5.4",
+    "http://arxiv.org/abs/2611.27973v1"
   ],
   "runs": [
-    {
-      "timestamp": "2026-11-04 05:21:29",
-      "title": "Fujifilm to boost tape production 5x as AI fuels archiving demand",
-      "source": "Hacker News",
-      "url": "https://arstechnica.com/gadgets/2026/10/fujifilm-to-boost-tape-production-5x-as-ai-fuels-archiving-demand/",
-      "score": 60,
-      "folder": "2026-11-04_0521_proj_autonoma_os_fujifilm-to-boost-tape-production-5x-as-"
-    },
-    {
-      "timestamp": "2026-11-04 05:21:29",
-      "title": "The Little Book of Generative AI Foundations: An Intuitive Mathematical Primer",
-      "source": "Hacker News",
-      "url": "https://arxiv.org/abs/2605.29713",
-      "score": 56.0,
-      "folder": "2026-11-04_0521_proj_demo_client_the-little-book-of-generative-ai-foundat"
-    },
     {
       "timestamp": "2026-11-04 13:57:11",
       "title": "Nvidia RTX Spark encrypted firmware slows inference speed to 35% on Linux",
@@ -947,6 +933,22 @@
       "url": "http://arxiv.org/abs/2611.27983v1",
       "score": 30,
       "folder": "2026-11-23_0623_proj_demo_client_optimal-linear-regression-without-a-vari"
+    },
+    {
+      "timestamp": "2026-11-23 23:32:48",
+      "title": "GLM-5.4: Toward generalized coding with our first loop transformer",
+      "source": "Hacker News",
+      "url": "https://z.ai/blog/glm-5.4",
+      "score": 60,
+      "folder": "2026-11-23_2332_proj_autonoma_os_glm-5-4-toward-generalized-coding-with-o"
+    },
+    {
+      "timestamp": "2026-11-23 23:32:48",
+      "title": "MemOnce: A Scalable Memory Architecture for Large Language Models",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.27973v1",
+      "score": 30,
+      "folder": "2026-11-23_2332_proj_demo_client_memonce-a-scalable-memory-architecture-f"
     }
   ]
 }
