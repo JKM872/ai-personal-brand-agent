@@ -147,25 +147,11 @@
     "https://www.gpupartner.com/blog/beginners-guide-local-ai-inkling-qwen-unsloth",
     "http://arxiv.org/abs/2611.27983v1",
     "https://z.ai/blog/glm-5.4",
-    "http://arxiv.org/abs/2611.27973v1"
+    "http://arxiv.org/abs/2611.27973v1",
+    "http://arxiv.org/abs/2611.31228v1",
+    "http://arxiv.org/abs/2611.31198v1"
   ],
   "runs": [
-    {
-      "timestamp": "2026-11-04 13:57:11",
-      "title": "Nvidia RTX Spark encrypted firmware slows inference speed to 35% on Linux",
-      "source": "Hacker News",
-      "url": "https://www.mindstudio.ai/blog/linux-nvidia-rtx-spark-laptop",
-      "score": 75,
-      "folder": "2026-11-04_1357_proj_autonoma_os_nvidia-rtx-spark-encrypted-firmware-slow"
-    },
-    {
-      "timestamp": "2026-11-04 13:57:11",
-      "title": "AI is forcing us to pay off 40 years of technical debt",
-      "source": "Hacker News",
-      "url": "https://spectrum.ieee.org/ai-in-cybersecurity-php2shell-vulnerability",
-      "score": 60,
-      "folder": "2026-11-04_1357_proj_demo_client_ai-is-forcing-us-to-pay-off-40-years-of-"
-    },
     {
       "timestamp": "2026-11-04 23:21:24",
       "title": "Kimi K3.1 Pro model weights are out",
@@ -949,6 +935,22 @@
       "url": "http://arxiv.org/abs/2611.27973v1",
       "score": 30,
       "folder": "2026-11-23_2332_proj_demo_client_memonce-a-scalable-memory-architecture-f"
+    },
+    {
+      "timestamp": "2026-11-24 08:56:18",
+      "title": "Language Models Steer on Injected Uncertainty Tokens, but Fail to Self-Monitor In Situ",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.31228v1",
+      "score": 45,
+      "folder": "2026-11-24_0856_proj_autonoma_os_language-models-steer-on-injected-uncert"
+    },
+    {
+      "timestamp": "2026-11-24 08:56:18",
+      "title": "ToolSmith: An Automatic Tool-Generation Framework for Multimodal Search Agents",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.31198v1",
+      "score": 45,
+      "folder": "2026-11-24_0856_proj_demo_client_toolsmith-an-automatic-tool-generation-f"
     }
   ]
 }
