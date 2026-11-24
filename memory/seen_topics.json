@@ -149,25 +149,11 @@
     "https://z.ai/blog/glm-5.4",
     "http://arxiv.org/abs/2611.27973v1",
     "http://arxiv.org/abs/2611.31228v1",
-    "http://arxiv.org/abs/2611.31198v1"
+    "http://arxiv.org/abs/2611.31198v1",
+    "https://michaelharley.net/posts/2026/11/01/llm-agents-work-for-their-parent-companies-not-for-you/",
+    "https://github.com/sous-labs/songe"
   ],
   "runs": [
-    {
-      "timestamp": "2026-11-04 23:21:24",
-      "title": "Kimi K3.1 Pro model weights are out",
-      "source": "Hacker News",
-      "url": "https://huggingface.co/moonshotai/Kimi-K3.1-Pro",
-      "score": 60,
-      "folder": "2026-11-04_2321_proj_autonoma_os_kimi-k3-1-pro-model-weights-are-out"
-    },
-    {
-      "timestamp": "2026-11-04 23:21:24",
-      "title": "Progress on provable inference for large language models",
-      "source": "Hacker News",
-      "url": "https://www.anthropic.com/research/provable-inference",
-      "score": 52.0,
-      "folder": "2026-11-04_2321_proj_demo_client_progress-on-provable-inference-for-large"
-    },
     {
       "timestamp": "2026-11-05 05:40:38",
       "title": "Basically no one is using AI agents for their DoorDash orders",
@@ -951,6 +937,22 @@
       "url": "http://arxiv.org/abs/2611.31198v1",
       "score": 45,
       "folder": "2026-11-24_0856_proj_demo_client_toolsmith-an-automatic-tool-generation-f"
+    },
+    {
+      "timestamp": "2026-11-24 22:01:59",
+      "title": "LLM agents work for their parent companies, not for you",
+      "source": "Hacker News",
+      "url": "https://michaelharley.net/posts/2026/11/01/llm-agents-work-for-their-parent-companies-not-for-you/",
+      "score": 75,
+      "folder": "2026-11-24_2201_proj_autonoma_os_llm-agents-work-for-their-parent-compani"
+    },
+    {
+      "timestamp": "2026-11-24 22:01:59",
+      "title": "A training engine for your local model, using your idle compute",
+      "source": "Hacker News",
+      "url": "https://github.com/sous-labs/songe",
+      "score": 39.9,
+      "folder": "2026-11-24_2201_proj_demo_client_a-training-engine-for-your-local-model-u"
     }
   ]
 }
