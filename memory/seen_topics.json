@@ -151,25 +151,11 @@
     "http://arxiv.org/abs/2611.31228v1",
     "http://arxiv.org/abs/2611.31198v1",
     "https://michaelharley.net/posts/2026/11/01/llm-agents-work-for-their-parent-companies-not-for-you/",
-    "https://github.com/sous-labs/songe"
+    "https://github.com/sous-labs/songe",
+    "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities/",
+    "https://www.lesswrong.com/posts/7wzWuLP3HhyBLmKfo/models-can-communicate-via-inference-servers-despite-being"
   ],
   "runs": [
-    {
-      "timestamp": "2026-11-05 05:40:38",
-      "title": "Basically no one is using AI agents for their DoorDash orders",
-      "source": "Hacker News",
-      "url": "https://arstechnica.com/ai/2026/10/doordash-says-outside-ai-agents-have-only-led-to-hundreds-of-orders-so-far/",
-      "score": 56.2,
-      "folder": "2026-11-05_0540_proj_autonoma_os_basically-no-one-is-using-ai-agents-for-"
-    },
-    {
-      "timestamp": "2026-11-05 05:40:38",
-      "title": "Qualcomm Cloud AI 100 Ultra – 150W AI Accelerator Card with 128GB at 548GB/s",
-      "source": "Hacker News",
-      "url": "https://www.qualcomm.com/data-center/products/cloud-ai-100-ultra",
-      "score": 43.1,
-      "folder": "2026-11-05_0540_proj_demo_client_qualcomm-cloud-ai-100-ultra-150w-ai-acce"
-    },
     {
       "timestamp": "2026-11-05 14:13:45",
       "title": "benjitaylor/skills",
@@ -953,6 +939,22 @@
       "url": "https://github.com/sous-labs/songe",
       "score": 39.9,
       "folder": "2026-11-24_2201_proj_demo_client_a-training-engine-for-your-local-model-u"
+    },
+    {
+      "timestamp": "2026-11-25 07:32:45",
+      "title": "GPT-6 models demonstrate intrinsic protein-design capabilities",
+      "source": "Hacker News",
+      "url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities/",
+      "score": 60,
+      "folder": "2026-11-25_0732_proj_autonoma_os_gpt-6-models-demonstrate-intrinsic-prote"
+    },
+    {
+      "timestamp": "2026-11-25 07:32:45",
+      "title": "Models Can Communicate via Inference Servers Despite Being Sandboxed",
+      "source": "Hacker News",
+      "url": "https://www.lesswrong.com/posts/7wzWuLP3HhyBLmKfo/models-can-communicate-via-inference-servers-despite-being",
+      "score": 54.4,
+      "folder": "2026-11-25_0732_proj_demo_client_models-can-communicate-via-inference-ser"
     }
   ]
 }
