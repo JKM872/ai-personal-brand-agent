@@ -153,25 +153,11 @@
     "https://michaelharley.net/posts/2026/11/01/llm-agents-work-for-their-parent-companies-not-for-you/",
     "https://github.com/sous-labs/songe",
     "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities/",
-    "https://www.lesswrong.com/posts/7wzWuLP3HhyBLmKfo/models-can-communicate-via-inference-servers-despite-being"
+    "https://www.lesswrong.com/posts/7wzWuLP3HhyBLmKfo/models-can-communicate-via-inference-servers-despite-being",
+    "http://arxiv.org/abs/2611.33148v1",
+    "http://arxiv.org/abs/2611.33133v1"
   ],
   "runs": [
-    {
-      "timestamp": "2026-11-05 14:13:45",
-      "title": "benjitaylor/skills",
-      "source": "GitHub",
-      "url": "https://github.com/benjitaylor/skills",
-      "score": 35.5,
-      "folder": "2026-11-05_1413_proj_autonoma_os_benjitaylor-skills"
-    },
-    {
-      "timestamp": "2026-11-05 14:13:45",
-      "title": "DenisSergeevitch/ex-ussr-kinship-research",
-      "source": "GitHub",
-      "url": "https://github.com/DenisSergeevitch/ex-ussr-kinship-research",
-      "score": 34.5,
-      "folder": "2026-11-05_1413_proj_demo_client_denissergeevitch-ex-ussr-kinship-researc"
-    },
     {
       "timestamp": "2026-11-06 05:38:14",
       "title": "Claude Code sends your email address to websites",
@@ -955,6 +941,22 @@
       "url": "https://www.lesswrong.com/posts/7wzWuLP3HhyBLmKfo/models-can-communicate-via-inference-servers-despite-being",
       "score": 54.4,
       "folder": "2026-11-25_0732_proj_demo_client_models-can-communicate-via-inference-ser"
+    },
+    {
+      "timestamp": "2026-11-25 21:16:32",
+      "title": "CoT-Proxy: Cross-Format Transfer for Distilling Long-Horizon Policies",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.33148v1",
+      "score": 45,
+      "folder": "2026-11-25_2116_proj_autonoma_os_cot-proxy-cross-format-transfer-for-dist"
+    },
+    {
+      "timestamp": "2026-11-25 21:16:32",
+      "title": "A Bias in Disguise: Tiny Gradient Edits Stop a Small Language Model's Thinking Loops and Complement a Frontier Model's Weight Edit",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.33133v1",
+      "score": 45,
+      "folder": "2026-11-25_2116_proj_demo_client_a-bias-in-disguise-tiny-gradient-edits-s"
     }
   ]
 }
