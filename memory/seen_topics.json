@@ -157,25 +157,11 @@
     "http://arxiv.org/abs/2611.33148v1",
     "http://arxiv.org/abs/2611.33133v1",
     "https://bjin.github.io/go-codegolf-benchmark/#leaderboard",
-    "https://www.theverge.com/ai-artificial-intelligence/1041227/the-new-york-times-warns-photographers-not-to-update-photoshop-over-ai-features"
+    "https://www.theverge.com/ai-artificial-intelligence/1041227/the-new-york-times-warns-photographers-not-to-update-photoshop-over-ai-features",
+    "https://techstackups.com/articles/google-workspace-ai-agents-mcp/",
+    "http://arxiv.org/abs/2611.34928v1"
   ],
   "runs": [
-    {
-      "timestamp": "2026-11-06 13:53:54",
-      "title": "Show HN: A decent text-to-image model trained for ~$20K (Apache 2.0 Weights)",
-      "source": "Hacker News",
-      "url": "https://www.linum.ai/field-notes/pjit-21k",
-      "score": 47.7,
-      "folder": "2026-11-06_1353_proj_autonoma_os_show-hn-a-decent-text-to-image-model-tra"
-    },
-    {
-      "timestamp": "2026-11-06 13:53:54",
-      "title": "andrew-babo/muse4ai",
-      "source": "GitHub",
-      "url": "https://github.com/andrew-babo/muse4ai",
-      "score": 34.2,
-      "folder": "2026-11-06_1353_proj_demo_client_andrew-babo-muse4ai"
-    },
     {
       "timestamp": "2026-11-06 22:50:08",
       "title": "Gemini Omni 1.2 Flash",
@@ -959,6 +945,22 @@
       "url": "https://www.theverge.com/ai-artificial-intelligence/1041227/the-new-york-times-warns-photographers-not-to-update-photoshop-over-ai-features",
       "score": 60,
       "folder": "2026-11-26_0721_proj_demo_client_the-new-york-times-warns-photographers-n"
+    },
+    {
+      "timestamp": "2026-11-26 21:04:56",
+      "title": "Google Will Make AI Agents Use Its MCP Servers. The Gmail One Can't Send Email",
+      "source": "Hacker News",
+      "url": "https://techstackups.com/articles/google-workspace-ai-agents-mcp/",
+      "score": 63.4,
+      "folder": "2026-11-26_2104_proj_autonoma_os_google-will-make-ai-agents-use-its-mcp-s"
+    },
+    {
+      "timestamp": "2026-11-26 21:04:56",
+      "title": "Diverse Alternative Reasoning Traces for Hard Math Problems",
+      "source": "ArXiv",
+      "url": "http://arxiv.org/abs/2611.34928v1",
+      "score": 45,
+      "folder": "2026-11-26_2104_proj_demo_client_diverse-alternative-reasoning-traces-for"
     }
   ]
 }
