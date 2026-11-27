@@ -161,25 +161,11 @@
     "https://techstackups.com/articles/google-workspace-ai-agents-mcp/",
     "http://arxiv.org/abs/2611.34928v1",
     "https://janlukas.blog/posts/ai-self-hosting",
-    "https://github.com/pierridotite/mobile-agent-testers"
+    "https://github.com/pierridotite/mobile-agent-testers",
+    "https://construct22.com/",
+    "https://twitter.com/RealAstropulse/status/2126119408997466389"
   ],
   "runs": [
-    {
-      "timestamp": "2026-11-07 05:07:21",
-      "title": "AI is dramatically accelerating AI research",
-      "source": "Hacker News",
-      "url": "https://www.planned-obsolescence.org/p/ai-is-dramatically-accelerating-ai",
-      "score": 60,
-      "folder": "2026-11-07_0507_proj_autonoma_os_ai-is-dramatically-accelerating-ai-resea"
-    },
-    {
-      "timestamp": "2026-11-07 05:07:21",
-      "title": "SwarmEvolve: Latent Agent Swarms for Evolutionary Discovery and Optimization",
-      "source": "ArXiv",
-      "url": "http://arxiv.org/abs/2611.08483v1",
-      "score": 30,
-      "folder": "2026-11-07_0507_proj_demo_client_swarmevolve-latent-agent-swarms-for-evol"
-    },
     {
       "timestamp": "2026-11-07 12:38:27",
       "title": "The Components of Agent Memory",
@@ -963,6 +949,22 @@
       "url": "https://github.com/pierridotite/mobile-agent-testers",
       "score": 40.4,
       "folder": "2026-11-27_0718_proj_demo_client_pierridotite-mobile-agent-testers"
+    },
+    {
+      "timestamp": "2026-11-27 20:49:38",
+      "title": "Group chat where your AI talks behind your back",
+      "source": "Hacker News",
+      "url": "https://construct22.com/",
+      "score": 60,
+      "folder": "2026-11-27_2049_proj_autonoma_os_group-chat-where-your-ai-talks-behind-yo"
+    },
+    {
+      "timestamp": "2026-11-27 20:49:38",
+      "title": "Claude sabotaging ML research tasks?",
+      "source": "Hacker News",
+      "url": "https://twitter.com/RealAstropulse/status/2126119408997466389",
+      "score": 60,
+      "folder": "2026-11-27_2049_proj_demo_client_claude-sabotaging-ml-research-tasks"
     }
   ]
 }
