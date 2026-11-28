@@ -165,25 +165,11 @@
     "https://construct22.com/",
     "https://twitter.com/RealAstropulse/status/2126119408997466389",
     "https://research.google/blog/supercharging-transformer-residual-connections/",
-    "https://generativehistory.substack.com/p/gpt-62-astra-solves-a-historical"
+    "https://generativehistory.substack.com/p/gpt-62-astra-solves-a-historical",
+    "https://xinyadu.github.io/blog/claude-code-sabotage.html",
+    "https://twitter.com/TimSweeneyEpic/status/2126682647862862063"
   ],
   "runs": [
-    {
-      "timestamp": "2026-11-07 21:34:43",
-      "title": "The end of Microsoft Research's AI Frontiers group",
-      "source": "Hacker News",
-      "url": "https://hunch.net/?p=13764006",
-      "score": 60,
-      "folder": "2026-11-07_2134_proj_autonoma_os_the-end-of-microsoft-research-s-ai-front"
-    },
-    {
-      "timestamp": "2026-11-07 21:34:43",
-      "title": "XStack: A Benchmark for ML Repo Migration",
-      "source": "ArXiv",
-      "url": "http://arxiv.org/abs/2611.08472v1",
-      "score": 30,
-      "folder": "2026-11-07_2134_proj_demo_client_xstack-a-benchmark-for-ml-repo-migration"
-    },
     {
       "timestamp": "2026-11-08 05:00:27",
       "title": "Claude Code's \"Don't Ask Again\" exposes passwords in 1,122 public GitHub files",
@@ -967,6 +953,22 @@
       "url": "https://generativehistory.substack.com/p/gpt-62-astra-solves-a-historical",
       "score": 60,
       "folder": "2026-11-28_0650_proj_demo_client_gpt-6-2-astra-solves-a-historical-myster"
+    },
+    {
+      "timestamp": "2026-11-28 19:40:31",
+      "title": "Claude Code sabotage: preliminary benchmarking",
+      "source": "Hacker News",
+      "url": "https://xinyadu.github.io/blog/claude-code-sabotage.html",
+      "score": 60,
+      "folder": "2026-11-28_1940_proj_autonoma_os_claude-code-sabotage-preliminary-benchma"
+    },
+    {
+      "timestamp": "2026-11-28 19:40:31",
+      "title": "Silently degrading the model's capabilities IS sabotage",
+      "source": "Hacker News",
+      "url": "https://twitter.com/TimSweeneyEpic/status/2126682647862862063",
+      "score": 60,
+      "folder": "2026-11-28_1940_proj_demo_client_silently-degrading-the-model-s-capabilit"
     }
   ]
 }
